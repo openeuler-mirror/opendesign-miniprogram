@@ -1,0 +1,9 @@
+/* pages/my/privecy.wxss */
+page {
+    background-color: #fff;
+}
+
+.container image {
+    width: 690rpx;
+    height: 7872rpx;
+}

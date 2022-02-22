@@ -1,0 +1,21 @@
+<!-- package-events/sign-up/sign-up.wxml -->
+<view class="container">
+    <view class="form">
+        <view class="form-wrapper">
+            
+        </view>
+    </view>
+    <view class="info">
+        <view>
+            <image src="./../../static/reserve/info.svg" />
+            <text>
+                <text class="require">*</text>
+                <text>号为必填项</text>
+            </text>
+        </view>
+    </view>
+    <view class="commit">
+        <button class="meeting-reset" bindtap="back">我再想想</button>
+        <button class="meeting-btn" bindtap="signUp">立即报名</button>
+    </view>
+</view>

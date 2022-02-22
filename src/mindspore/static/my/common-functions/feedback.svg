@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>功能区-留言反馈</title>
+    <defs>
+        <path d="M35.1,0 C40.5945,0 43.3044,0 46.2,0.9 C49.40865,2.08215 51.91785,4.59135 53.1,7.8 C54,10.69515 54,13.40595 54,18.9 L54,35.1 C54,40.5945 54,43.3044 53.1,46.2 C51.91785,49.40865 49.40865,51.91785 46.2,53.1 C43.3044,54 40.5945,54 35.1,54 L18.9,54 C13.4055,54 10.69515,54 7.8,53.1 C4.59135,51.91785 2.08215,49.40865 0.9,46.2 C0,43.3044 0,40.5945 0,35.1 L0,18.9 C0,13.40595 0,10.69515 0.9,7.8 C2.08215,4.59135 4.59135,2.08215 7.8,0.9 C10.69515,0 13.4055,0 18.9,0 L35.1,0 Z" id="path-1"></path>
+    </defs>
+    <g id="mindspore小程序1.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="切图规范" transform="translate(-5379.000000, -914.000000)">
+            <g id="编组" transform="translate(5379.000000, 914.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Icon-Shape-"></g>
+                <g mask="url(#mask-2)">
+                    <g transform="translate(8.000000, 8.000000)">
+                        <polygon id="Stroke-1" stroke="#333333" stroke-width="1.5" fill="none" points="37.582 37.7465692 0.730769231 37.7465692 0.730769231 13.9536974 19.1568718 0.895338462 37.582 13.9536974"></polygon>
+                        <polygon id="Stroke-3" stroke="#333333" stroke-width="1.5" fill="none" points="7.49282051 30.2615436 30.8209231 30.2615436 30.8209231 13.0884667 7.49282051 13.0884667"></polygon>
+                        <polygon id="Fill-4" stroke="none" fill="#FFFFFF" fill-rule="evenodd" points="21.5792256 10.5529897 21.5792256 26.2791436 16.7356872 26.2791436 16.7356872 10.5529897 16.8243538 10.4068359 19.1530718 6.35350256 21.490559 10.4068359"></polygon>
+                        <polygon id="Stroke-5" stroke="#40ADFF" stroke-width="1.5" fill="none" points="21.5792256 10.5529897 21.5792256 26.2791436 16.7356872 26.2791436 16.7356872 10.5529897 16.8243538 10.4068359 19.1530718 6.35350256 21.490559 10.4068359"></polygon>
+                        <line x1="16.8235744" y1="10.4064462" x2="16.7358821" y2="10.5526" id="Stroke-6" stroke="#333333" stroke-width="1.5" fill="none"></line>
+                        <line x1="21.5792256" y1="10.5529897" x2="21.490559" y2="10.4068359" id="Stroke-7" stroke="#333333" stroke-width="1.5" fill="none"></line>
+                        <polygon id="Fill-8" stroke="none" fill="#FFFFFF" fill-rule="evenodd" points="0.730476923 37.7468615 37.5826821 37.7468615 0.730476923 13.9530154"></polygon>
+                        <polygon id="Stroke-9" stroke="#333333" stroke-width="1.5" fill="none" stroke-linejoin="round" points="37.582 37.7465692 0.730769231 37.7465692 0.730769231 13.9536974"></polygon>
+                        <polygon id="Fill-11" stroke="none" fill="#FFFFFF" fill-rule="evenodd" points="0.730476923 37.7468615 37.5826821 37.7468615 37.5826821 13.9530154"></polygon>
+                        <polygon id="Stroke-12" stroke="#333333" stroke-width="1.5" fill="none" stroke-linejoin="round" points="0.730476923 37.7465692 37.5817077 37.7465692 37.5817077 13.9536974"></polygon>
+                        <line x1="16.7359795" y1="10.9502359" x2="21.5795179" y2="10.9502359" id="Stroke-14" stroke="#40ADFF" stroke-width="1.5" fill="none"></line>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

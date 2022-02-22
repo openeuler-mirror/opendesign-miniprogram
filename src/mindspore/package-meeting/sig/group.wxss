@@ -1,0 +1,27 @@
+/* package-meeting/sig/group.wxss */
+.container {
+  padding-top: 30rpx;
+}
+.container .sig-list .item {
+  height: 108rpx;
+  background-color: #fff;
+  font-size: 34rpx;
+  color: #333;
+  border-radius: 8rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 5px 15px 0px rgba(225, 230, 238, 1);
+  padding: 0 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.container .sig-list .item text {
+  line-height: 48rpx;
+}
+
+.container .sig-list .item image {
+  flex-shrink: 1;
+  width: 31rpx;
+  height: 31rpx;
+}

@@ -1,0 +1,4 @@
+<!--package-meeting/meeting/meeting-list.wxml-->
+<view class="container">
+    <meeting-list id="meeting" page-type="{{2}}" api-url="GET_MEETING_WEEKLY"></meeting-list>
+</view>

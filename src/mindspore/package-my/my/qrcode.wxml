@@ -1,0 +1,8 @@
+<!--package-my/my/qrcode.wxml-->
+<view class="container">
+    <image class="avatar" src="{{data[type].avatar}}" />
+    <view class="btn-box">
+        <button bindtap="backTo">取消</button>
+        <button bindtap="saveQrcode" class="save">保存到相册</button>
+    </view>
+</view>

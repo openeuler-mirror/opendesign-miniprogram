@@ -1,0 +1,67 @@
+<!-- pages/meeting/detail.wxml -->
+<view class="container">
+    <view class="detail-item">
+        <view class="name">{{info.topic}}</view>
+        <view class="date">
+            <image src="./../../static/index/date.png"></image>
+            <text>{{info.date}} {{info.start}}-{{info.end}}</text>
+        </view>
+        <view class="sponsor">
+            <image src="./../../static/index/sponsor.svg"></image>
+            <text>{{info.sponsor}}</text>
+        </view>
+        <view class="sig-name">
+            <image src="./../../static/index/group.svg"></image>
+            <text>{{info.group_name}}</text>
+        </view>
+        <view class="desc">
+            <image src="./../../static/index/desc.svg"></image>
+            <text>{{info.agenda}}</text>
+        </view>
+    </view>
+    <view class="detail-item">
+        <view class="name">Etherpad链接</view>
+        <view class="link">
+            <image src="./../../static/index/link.svg"></image>
+            <text>{{info.etherpad}}</text>
+        </view>
+        <view class="btn-wraper">
+            <button bindtap="copy" data-copy="{{info.etherpad}}">复制</button>
+        </view>
+    </view>
+    <view class="detail-item">
+        <view class="name">腾讯会议</view>
+        <view class="id">
+            <image src="./../../static/index/link.svg"></image>
+            <text>ID: {{info.mid}}</text>
+        </view>
+        <view class="link">
+            <image src="./../../static/index/link.svg"></image>
+            <text>{{info.join_url}}</text>
+        </view>
+        <view class="btn-wraper">
+            <button bindtap="copy" data-copy="{{info.mid}}">复制ID</button>
+            <button bindtap="copy" data-copy="{{info.join_url}}">复制链接</button>
+        </view>
+    </view>
+    <view class="detail-item" wx:if="{{info.video_url}}">
+        <view class="name">录屏上传链接</view>
+        <view class="link">
+            <image src="./../../static/index/link.svg"></image>
+            <text>{{info.video_url}}</text>
+        </view>
+        <view class="btn-wraper">
+            <button bindtap="copy" data-copy="{{info.video_url}}">复制</button>
+        </view>
+    </view>
+    <view class="detail-item" wx:if="{{info.replay_url}}">
+        <view class="name">回放链接</view>
+        <view class="link">
+            <image src="./../../static/index/link.svg"></image>
+            <text>{{info.replay_url}}</text>
+        </view>
+        <view class="btn-wraper">
+            <button bindtap="copy" data-copy="{{info.replay_url}}">复制</button>
+        </view>
+    </view>
+</view>

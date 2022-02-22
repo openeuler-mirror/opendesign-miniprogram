@@ -1,0 +1,10 @@
+{
+    "usingComponents": {
+        "user-info": "/components/user-info/user-info",
+        "meeting-list": "/components/meeting-list/meeting-list"
+    },
+    "navigationBarTitleText": "MindSpore会议管理",
+    "enablePullDownRefresh": true,
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#fff"
+}

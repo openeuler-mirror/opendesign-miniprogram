@@ -1,0 +1,280 @@
+/* package-events/events/event-detail.wxss */
+page {
+    background-color: #f5f7fa !important;
+}
+.container {
+    padding: 0 0 129rpx 0 !important;
+}
+
+.container .banner-title {
+    background-size: 100% 100% !important;
+    height: 378rpx;
+    text-align: center;
+    padding-top: 165rpx;
+}
+
+.container .banner-title text {
+    font-size: 40rpx;
+    color: #fff;
+}
+
+.container .banner-type1 {
+    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/detail-banner/1.png) no-repeat;
+}
+
+.container .banner-type2 {
+    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/detail-banner/2.png) no-repeat;
+}
+
+.container .banner-type3 {
+    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/detail-banner/3.png) no-repeat;
+}
+
+.container .banner-type4 {
+    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/detail-banner/4.png) no-repeat;
+}
+
+.container .detail-wrapper {
+    background-color: #fff;
+    border-radius: 24rpx 24rpx 0 0;
+    margin-top: -48rpx;
+    margin-bottom: 20rpx;
+    padding: 60rpx 0;
+}
+
+.container .detail-wrapper .title-wrapper {
+    padding: 0 30rpx 27rpx;
+    border-bottom: 2rpx solid #f0f3f7;
+}
+
+.container .detail-wrapper .title-wrapper .title {
+    font-size: 36rpx;
+    margin-bottom: 20rpx;
+}
+
+.container .detail-wrapper .title-wrapper .status {
+    width: 116rpx;
+    height: 40rpx;
+    color: #fff;
+    background-color: #b7b7b7;
+    border-radius: 8rpx;
+    font-size: 24rpx;
+    text-align: center;
+    line-height: 40rpx;
+}
+
+.container .detail-wrapper .title-wrapper .registering {
+    background-color: #f9762d;
+}
+
+.container .detail-wrapper .title-wrapper .ongoing {
+    background-color: #3265e8;
+}
+
+.container .detail-wrapper .title-wrapper .over {
+    background-color: #40ADFF;
+}
+
+.container .detail-wrapper .date {
+    padding: 30rpx;
+    border-bottom: 2rpx solid #f0f3f7;
+}
+
+.container .detail-wrapper .date image {
+    width: 28rpx;
+    height: 28rpx;
+    margin-right: 22rpx;
+    vertical-align: inherit;
+}
+
+.container .detail-wrapper .date text {
+    font-size: 32rpx;
+    color: #6d7278;
+}
+
+.container .detail-wrapper .address {
+    padding: 30rpx 30rpx 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container .detail-wrapper .address .left image {
+    width: 28rpx;
+    height: 28rpx;
+    margin-right: 22rpx;
+    vertical-align: inherit;
+}
+
+.container .detail-wrapper .address .left text {
+    width: 600rpx;
+    font-size: 32rpx;
+    color: #6d7278;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.container .detail-wrapper .address .arrow-right {
+    width: 16rpx;
+    height: 28rpx;
+}
+
+.container .detail-tab-wrapper {
+    background-color: #fff;
+}
+
+.container .detail-tab-wrapper .tabs {
+    padding: 0 30rpx;
+    font-size: 36rpx;
+    height: 110rpx;
+    color: #c7cad0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2rpx solid #f0f3f7;
+}
+
+.container .detail-tab-wrapper .tabs .active {
+    color: #333;
+}
+
+.container .detail-tab-wrapper .tab-content {
+    padding: 60rpx 30rpx;
+}
+
+.container .detail-tab-wrapper .tab-content .header {
+    text-align: center;
+    font-size: 32rpx;
+    color: #333;
+    margin-bottom: 20rpx;
+}
+
+.container .detail-tab-wrapper .tab-content .content {
+    font-size: 28rpx;
+    color: #6d7278;
+}
+
+.container .detail-tab-wrapper .tab-content .content .steps-wrapper {
+    padding-left: 26rpx;
+}
+
+.container .detail-tab-wrapper .tab-content .content .steps-wrapper .steps .step-item {
+    position: relative;
+    padding-bottom: 40rpx;
+}
+
+.container .detail-tab-wrapper .tab-content .content .steps-wrapper .steps .step-item .detail .duration {
+    color: #40ADFF;
+    font-size: 32rpx;
+}
+
+.container .detail-tab-wrapper .tab-content .content .steps-wrapper .steps .step-item .detail .title {
+    color: #333;
+    font-size: 28rpx;
+    margin-top: 20rpx;
+}
+
+.container .detail-tab-wrapper .tab-content .content .steps-wrapper .steps .step-item .detail .speaker {
+    color: #6d7278;
+    font-size: 24rpx;
+    margin-top: 20rpx;
+}
+
+.container .detail-tab-wrapper .tab-content .content .steps-wrapper .steps .step-item .circle {
+    position: absolute;
+    top: 16rpx;
+    left: -33rpx;
+    z-index: 2;
+    width: 14rpx;
+    height: 14rpx;
+    border-radius: 100%;
+    background-color: #40ADFF;
+}
+
+.container .detail-tab-wrapper .tab-content .content .steps-wrapper .steps .step-item .line {
+    position: absolute;
+    top: 16rpx;
+    left: -26rpx;
+    width: 2rpx;
+    height: 100%;
+    border-left: 2rpx dashed #40ADFF;
+}
+
+.container .detail-tab-wrapper .tab-content .content .steps-wrapper .steps .step-item:last-child .line {
+    border: none;
+    width: 0;
+}
+
+.container .footer-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 130rpx;
+    border-top: 2rpx solid #f0f3f7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 0 30rpx;
+    z-index: 99;
+}
+
+.container .type1 {
+    justify-content: space-around;
+}
+
+.container .footer-wrapper .collect,.container .footer-wrapper .share {
+    display: flex;
+    flex-direction: column;
+}
+
+.container .footer-wrapper .collect image,.container .footer-wrapper .share image {
+    width: 50rpx;
+    height: 50rpx;
+    margin-bottom: 9rpx;
+}
+
+.container .footer-wrapper .collect text,.container .footer-wrapper .share text {
+    color: #6d7278;
+    font-size: 24rpx;
+}
+
+.container .footer-wrapper button {
+    margin: unset;
+    padding: unset;
+    line-height: unset;
+}
+
+.container .footer-wrapper .btn-ghost {
+    width: 210rpx;
+    height: 90rpx;
+    text-align: center;
+    line-height: 90rpx;
+    border-radius: 8rpx;
+    border: 2rpx solid #40ADFF;
+    color: #40ADFF;
+    font-size: 36rpx;
+}
+
+.container .footer-wrapper .btn-primary {
+    width: 210rpx;
+    height: 90rpx;
+    text-align: center;
+    line-height: 90rpx;
+    border-radius: 8rpx;
+    background-color: #40ADFF;
+    color: #fff;
+    font-size: 36rpx;
+}
+
+.container .footer-wrapper .register {
+    background-color: #6682ca;
+}
+
+.container .footer-iphonex {
+    padding-bottom: 50rpx;
+    height: 180rpx;
+}
