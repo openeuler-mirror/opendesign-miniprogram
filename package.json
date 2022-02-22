@@ -1,6 +1,6 @@
 {
-  "name": "miniprogram",
-  "version": "1.0.0",
+  "name": "opendesign-miniprogram",
+  "version": "0.0.1",
   "scripts": {
     "lint": "eslint src",
     "lint:mindspore": "eslint src/mindspore"
