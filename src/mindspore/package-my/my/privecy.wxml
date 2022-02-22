@@ -1,0 +1,4 @@
+<!-- pages/my/privecy.wxml -->
+<view class="container">
+    <image src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/mindsporeMini/mindspore%20Privacy%20Policy.png"></image>
+</view>

@@ -1,0 +1,30 @@
+/* pages/null/null.wxss */
+.null {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.null .box image{
+  width: 315rpx;
+  height: 266rpx;
+  display: block;
+  margin: 0 auto;
+}
+
+.null .box .title {
+  font-size: 34rpx;
+  color: #333333;
+  line-height: 48rpx;
+  margin: 42px 0 20px 0;
+}
+
+.null .box text {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #6D7278;
+  line-height: 38rpx;
+  text-align: center;
+  display: block;
+}

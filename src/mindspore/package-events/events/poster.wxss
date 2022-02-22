@@ -1,0 +1,125 @@
+/* package-events/events/poster.wxss */
+page {
+    background-color: #f5f7fa !important;
+}
+
+.container {
+    padding: 30rpx 50rpx 129rpx 50rpx !important;
+}
+
+.container .post-wrapper {
+    width: 650rpx;
+    height: 1312rpx;
+    background-size: 100% 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.bg1 {
+    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/poster/bg1.png) no-repeat;
+}
+
+.bg2 {
+    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/poster/bg2.png) no-repeat;
+}
+
+.bg3 {
+    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/poster/bg3.png) no-repeat;
+}
+
+.bg4 {
+    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/poster/bg4.png) no-repeat;
+}
+
+.container .post-wrapper .title {
+    color: #fff;
+    font-size: 34rpx;
+    line-height: 41rpx;
+    margin-top: 176rpx;
+    text-align: center;
+}
+
+.container .post-wrapper .logo {
+    width: 171rpx;
+    height: 140rpx;
+    margin-top: 176rpx;
+}
+
+.container .post-wrapper .line {
+    height: 1;
+    width: 500rpx;
+    margin-top: 30rpx;
+}
+
+.container .post-wrapper .date {
+    color: #40ADFF;
+    font-size: 24rpx;
+    line-height: 38rpx;
+    margin-top: 30rpx;
+    text-align: center;
+}
+
+.container .post-wrapper .address {
+    color: #40ADFF;
+    font-size: 24rpx;
+    line-height: 38rpx;
+    margin-top: 20rpx;
+    text-align: center;
+}
+
+.container .post-wrapper .qrcode {
+    width: 370rpx;
+    height: 370rpx;
+    margin-top: 60rpx;
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+.container .post-wrapper .qrcode-text {
+    font-size: 24rpx;
+    line-height: 33rpx;
+    color: #fff;
+    text-align: center;
+    margin-top: 30rpx;
+}
+
+.container .btn-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30rpx;
+    align-items: center;
+    height: 130rpx;
+    background-color: #fff;
+    border-top: 2rpx solid #f0f3f7;
+}
+
+.container .btn-wrapper button {
+    width: 330rpx;
+    height: 90rpx;
+    text-align: center;
+    line-height: 90rpx;
+    margin: unset;
+    padding: unset;
+}
+
+.container .btn-wrapper .cancel {
+    border: 2rpx solid #40ADFF;
+    color: #40ADFF;
+    background-color: #fff;
+}
+
+.container .btn-wrapper .save {
+    background-color: #40ADFF;
+    color: #fff;
+}
+
+.canvas {
+    height: 0;
+    overflow: hidden;
+}

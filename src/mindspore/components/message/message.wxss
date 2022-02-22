@@ -1,0 +1,43 @@
+/* components/message/message.wxss */
+.message-box {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #F5F7FA;
+}
+
+.message-box .content image{
+  width: 315rpx;
+  height: 266rpx;
+  display: block;
+  margin: 0 auto;
+}
+
+.message-box .content .title {
+  font-size: 34rpx;
+  color: #333333;
+  line-height: 48rpx;
+  margin: 42px 0 20px 0;
+}
+
+.message-box .content text {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #6D7278;
+  line-height: 38rpx;
+  text-align: center;
+  display: block;
+}
+
+.message-box .content .confirm {
+  width: 500rpx;
+  height: 90rpx;
+  background: #40ADFF;
+  border-radius: 20rpx;
+  color: #FFFFFF;
+  font-size: 36rpx;
+  line-height: 90rpx;
+  font-weight: 400;
+  margin-top: 128rpx;
+}

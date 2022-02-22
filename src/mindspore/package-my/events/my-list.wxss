@@ -1,0 +1,206 @@
+/* package-my/events/under-release.wxss */
+page {
+    background-color: #f5f7fa !important;
+}
+
+.container .event-list-wrapper {
+    padding: 30rpx 0 0;
+}
+
+.container .event-list-wrapper .event-item {
+    margin-bottom: 30rpx;
+    box-shadow: 0rpx 5rpx 15rpx 0rpx rgba(0, 47, 167, 0.1);
+    border-radius: 8rpx;
+    overflow: hidden;
+    position: relative;
+    background-color: #fff;
+}
+
+.container .event-list-wrapper .event-item .collection {
+    width: 40rpx;
+    height: 26rpx;
+    position: absolute;
+    top: 33rpx;
+    left: 0;
+}
+
+.container .event-list-wrapper .event-item .header {
+    height: 90rpx;
+    padding: 0 30rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 28rpx;
+    color: #333;
+    border-bottom: 2rpx solid #f0f3f7;
+}
+
+.container .event-list-wrapper .event-item .isCollection {
+    padding-left: 60rpx;
+}
+
+.container .event-list-wrapper .event-item .header image {
+    height: 36rpx;
+    width: 8rpx;
+}
+
+.container .event-list-wrapper .event-item .body {
+    padding: 30rpx;
+    display: flex;
+}
+
+.container .event-list-wrapper .event-item .body .left {
+    margin-right: 20rpx;
+}
+
+.container .event-list-wrapper .event-item .body .left image {
+    width: 241rpx;
+    height: 241rpx;
+    border-radius: 8rpx;
+}
+
+.container .event-list-wrapper .event-item .body .right .title {
+    font-size: 30rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 20rpx;
+    width: 380rpx;
+}
+
+.container .event-list-wrapper .event-item .body .right .date {
+    margin-bottom: 20rpx;
+    font-size: 24rpx;
+    color: #6d7278;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 380rpx;
+}
+
+.container .event-list-wrapper .event-item .body .right .date image {
+    height: 28rpx;
+    width: 28rpx;
+    margin-right: 16rpx;
+    vertical-align: middle;
+}
+.container .event-list-wrapper .event-item .body .right .date text {
+    vertical-align: middle;
+}
+
+.container .event-list-wrapper .event-item .body .right .address {
+    font-size: 24rpx;
+    color: #6d7278;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 380rpx;
+    margin-bottom: 30rpx;
+}
+
+.container .event-list-wrapper .event-item .body .right .address image {
+    height: 28rpx;
+    width: 28rpx;
+    margin-right: 16rpx;
+    vertical-align: middle;
+}
+
+.container .event-list-wrapper .event-item .body .right .address image text {
+    vertical-align: middle;
+}
+
+.container .event-list-wrapper .event-item .body .right .button {
+    text-align: right;
+    height: 68rpx;
+}
+
+.container .event-list-wrapper .event-item .body .right .button button {
+    height: 68rpx;
+    width: 172rpx;
+    text-align: center;
+    line-height: 68rpx;
+    color: #fff;
+    background-color: #40ADFF;
+    border-radius: 8rpx;
+    font-size: 28rpx;
+    display: inline-block;
+}
+
+.container .event-list-wrapper .event-item .body .right .button .register {
+    background-color: #6682ca;
+}
+
+.container .event-list-wrapper .event-item .mask {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #40ADFF;
+    opacity: 0.65;
+    top: 0;
+    left: 0;
+}
+
+.container .event-list-wrapper .event-item .mask .mask-img {
+    position: absolute;
+    height: 137rpx;
+    width: 180rpx;
+    left: 50%;
+    top: 50%;
+    margin-left: -90rpx;
+    margin-top: -68rpx;
+}
+
+.empty-status .suc-wrapper {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-status .suc-wrapper image {
+    width: 234rpx;
+    height: 218rpx;
+}
+
+.empty-status .suc-wrapper text {
+    text-align: center;
+    margin-top: 20rpx;
+    font-size: 34rpx;
+    color: #333;
+}
+
+.container .event-list-wrapper .event-item .sendSignUpInfo {
+    height: 118rpx;
+    display: flex;
+    padding: 0 30rpx;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 2rpx solid #f0f3f7;
+}
+
+.container .event-list-wrapper .event-item .sendSignUpInfo .signUpNum {
+    font-size: 24rpx;
+    color: #40ADFF;
+}
+
+.container .event-list-wrapper .event-item .sendSignUpInfo .sendBtn {
+    height: 68rpx;
+    width: 236rpx;
+    text-align: center;
+    line-height: 68rpx;
+    background-color: #40ADFF;
+    color: #fff;
+    border-radius: 8rpx ;
+    margin: unset;
+    font-size: 28rpx;
+    padding: unset;
+}
+
+.container .event-list-wrapper .event-item .body .small image {
+    width: 180rpx;
+    height: 180rpx;
+}

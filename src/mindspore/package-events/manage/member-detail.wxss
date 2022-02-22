@@ -1,0 +1,87 @@
+/* pages/sig/member-detail.wxss */
+.container {
+    padding: 20rpx 0;
+    background-color: #f5f7fa;
+}
+
+.container .user-info {
+    padding-left: 20rpx;
+    height: 182rpx;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.container .user-info image {
+    height: 135rpx;
+    width: 135rpx;
+    border-radius: 100%;
+    border: 1px solid #c7cad0;
+}
+
+.container .user-info view {
+    display: inline-block;
+    padding-left: 20rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.container .user-info view .user-id {
+    font-size: 36rpx;
+    color: #222;
+    line-height: 50rpx;
+    font-weight: 400;
+    margin-bottom: 20rpx;
+}
+
+.container .user-info view .name {
+    color: #6d7278;
+    font-size: 26rpx;
+    line-height: 37rpx;
+    font-weight: 400;
+}
+
+.container .input-title {
+    padding-left: 30rpx;
+    margin: 30rpx 0;
+    color: #333;
+    font-size: 34rpx;
+    line-height: 48rpx;
+    font-weight: 400;
+}
+
+.container input {
+    height: 108rpx;
+    color: #333;
+    line-height: 45rpx;
+    font-size: 32rpx;
+    font-weight: 400rpx;
+    padding-left: 30rpx;
+    background-color: #fff;
+}
+
+.container .btn-wraper {
+    margin-top: 128rpx;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30rpx;
+}
+
+.container .btn-wraper button {
+    width: 320rpx;
+    height: 90rpx;
+    font-size: 36rpx;
+    line-height: 90rpx;
+    text-align: center;
+}
+
+.container .btn-wraper .confirm {
+    color: #fff;
+    background-color: #40ADFF;
+}
+
+.container .btn-wraper .reset {
+    color: #40ADFF;
+    background-color: #fff;
+    border: 1px solid #40ADFF;
+}

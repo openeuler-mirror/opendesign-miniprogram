@@ -1,0 +1,203 @@
+<!-- package-events/publish/publish.wxml -->
+<view class="container">
+    <view class="form">
+        <view class="form-wrapper relative">
+            <view class="form-item">
+                <text class="label">
+                    <text>活动标题</text>
+                    <text class="require">*</text>
+                </text>
+                <input value="{{title}}" maxlength="{{50}}" bindinput="titleInput" placeholder-class="placeholder" placeholder="请输入您的活动标题"></input>
+            </view>
+            <view class="form-item" bindtap="selDate">
+                <text class="label">
+                    <text>日期</text>
+                    <text class="require">*</text>
+                </text>
+                <view class="arrow">
+                    <text class="sel-data">{{date}}<text wx:if="{{!date}}" class="gray">请选择日期</text></text>
+                    <image src="./../../static/common/arrow-right.svg" />
+                </view>
+            </view>
+            <view class="form-item">
+                <text class="label">活动类型</text>
+                <view class="arrow record">
+                    <van-radio-group value="{{type}}" bind:change="radioOnChange" direction="horizontal">
+                        <van-radio label-class="radio-class" name="{{1}}" icon-size="40rpx" checked-color="#40ADFF">
+                            线下meetup
+                        </van-radio>
+                        <van-radio label-class="radio-class" name="{{2}}" icon-size="40rpx" checked-color="#40ADFF">
+                            线上meetup
+                        </van-radio>
+                    </van-radio-group>
+                </view>
+            </view>
+            <view wx:if="{{type===2}}" class="form-item">
+                <text class="label">直播地址</text>
+                <text class="require">*</text>
+                <input value="{{liveAddress}}" bindinput="liveAddressInput" placeholder-class="placeholder" placeholder="请输入您的直播地址"></input>
+            </view>
+            <view wx:if="{{type===1}}" class="form-item" bindtap="selAddress">
+                <text class="label">
+                    <text>活动城市</text>
+                    <text class="require">*</text>
+                </text>
+                <view class="arrow">
+                    <text class="sel-data">{{address}}<text wx:if="{{!address}}" class="gray">请选择活动地区</text></text>
+                    <image src="./../../static/common/arrow-right.svg" />
+                </view>
+            </view>
+            <view wx:if="{{type===1}}" class="form-item">
+                <text class="label">具体地址</text>
+                <text class="require">*</text>
+                <input value="{{addressName}}" bindinput="addressNameInput" placeholder-class="placeholder" placeholder="请输入详细活动地址"></input>
+            </view>
+            <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType==5)}}"></cover-view>
+        </view>
+        <view class="form-item meeting-desc relative">
+            <text class="label">活动简介</text>
+            <textarea value="{{desc}}" hidden="{{datePopShow||timePopShow||endTimePopShow}}" maxlength="{{500}}" placeholder-class="placeholder" bindinput="descInput" placeholder="请输入活动简介">
+                <text class="hint">{{desc.length}}/500</text>
+            </textarea>
+            <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType==5)}}"></cover-view>
+        </view>
+        <view class="form-wrapper schedule" wx:for="{{schedule}}" wx:key="index">
+            <view class="header">
+                <view class="left">
+                    <text class="icon">议题 {{index+1}}</text>
+                    <text class="title">日程</text>
+                </view>
+                <view class="del-btn"wx:if="{{index}}" bindtap="delSchedule" data-index="{{index}}">
+                    <image src="./../../static/events/schedule-del.svg" />
+                </view>
+            </view>
+            <view class="form-item">
+                <text class="label">
+                    <text>时间</text>
+                    <text class="require">*</text>
+                </text>
+                <view class="sel-time">
+                    <text class="time start-time" data-index="{{index}}" bindtap="selTime">{{item.start||'请选择'}}</text>
+                    <text>至</text>
+                    <text class="time end-time" data-index="{{index}}" bindtap="selEndTime">{{item.end||'请选择'}}</text>
+                </view>
+            </view>
+            <view class="form-item">
+                <text class="label">
+                    <text>议题</text>
+                    <text class="require">*</text>
+                </text>
+                <input value="{{item.topic}}" maxlength="{{50}}" data-index="{{index}}" bindinput="scheduleTitleInput" placeholder-class="placeholder" placeholder="请输入您的活动议题"></input>
+            </view>
+            <view class="form-item">
+                <text class="label">Speaker</text>
+                <input value="{{item.speaker}}" data-index="{{index}}" bindinput="speakerInput" placeholder-class="placeholder" placeholder="请填写演讲嘉宾"></input>
+            </view>
+            <view class="form-item">
+                <text class="label">Title</text>
+                <input value="{{item.desc}}" data-index="{{index}}" bindinput="scheduleDescInput" placeholder-class="placeholder" placeholder="请填写嘉宾简介"></input>
+            </view>
+        </view>
+        <view class="add-shedule" bindtap="addSchedule">
+            <text>+ 继续添加</text>
+        </view>
+        <view class="topic relative">
+            <view class="header">海报主题</view>
+            <view class="img-wrapper">
+                <view data-index="{{1}}" bindtap="selTop">
+                    <image wx:if="{{topicSelIndex===1}}" class="sel" src="./../../static/events/selected.svg" />
+                    <image class="img" src="./../../static/events/1.png" />
+                </view>
+                <view data-index="{{2}}" bindtap="selTop">
+                    <image wx:if="{{topicSelIndex===2}}" class="sel" src="./../../static/events/selected.svg" />
+                    <image class="img" src="./../../static/events/2.png" />
+                </view>
+            </view>
+            <view class="img-wrapper mb0">
+                <view data-index="{{3}}" bindtap="selTop">
+                    <image wx:if="{{topicSelIndex===3}}" class="sel" src="./../../static/events/selected.svg" />
+                    <image class="img" src="./../../static/events/3.png" />
+                </view>
+                <view data-index="{{4}}" bindtap="selTop">
+                    <image wx:if="{{topicSelIndex===4}}" class="sel" src="./../../static/events/selected.svg" />
+                    <image class="img" src="./../../static/events/4.png" />
+                </view>
+            </view>
+            <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType==5)}}"></cover-view>
+        </view>
+    </view>
+    <view class="info">
+        <view>
+            <image src="./../../static/reserve/info.svg" />
+            <text>
+                <text class="require">*</text>
+                <text>号为必填项</text>
+            </text>
+        </view>
+        <view>
+            <image src="./../../static/reserve/info.svg" />
+            <text>点击 <text class="blue">【保存草稿】</text> 后，您可以在“我的 > 我的活动 > 草稿箱”中查看此活动，并继续编辑</text>
+        </view>
+        <view>
+            <image src="./../../static/reserve/info.svg" />
+            <text>点击 <text class="blue">【申请发布】</text> 后，你的活动将进入发布阶段，正式发布后，您仅能修改活动日程</text>
+        </view>
+    </view>
+    <view class="commit type5" wx:if="{{detailType==5}}">
+        <button class="meeting-reset" bindtap="cancelEditSchedule">取消</button>
+        <button class="meeting-btn" bindtap="editScheduleConfirm">确定</button>
+    </view>
+    <view class="commit" wx:else>
+        <button class="meeting-reset" bindtap="toPoster">预览海报</button>
+        <button class="meeting-reset" bindtap="saveDraft">保存草稿</button>
+        <button class="meeting-btn" bindtap="publish">申请发布</button>
+    </view>
+    <van-popup show="{{ sigPopShow }}" round position="bottom" bind:click-overlay="sigCancel">
+        <view class="sig-pop-wrapper">
+            <view class="title">选择所属SIG</view>
+            <van-radio-group value="{{ sigResult }}" bind:change="sigRadioOnChange">
+                <block wx:for="{{sigList}}" wx:key="index">
+                    <view class="item">
+                        <van-radio icon-size="46rpx" custom-class="radio" checked-color="#40ADFF" name="{{item.group}}">
+                            <view class="name">{{item.group_name}}</view>
+                        </van-radio>
+                    </view>
+                </block>
+            </van-radio-group>
+            <view class="btn-wrapper">
+                <button class="confirm" bindtap="sigConfirm">确定</button>
+                <button class="cancel" bindtap="sigCancel">取消</button>
+            </view>
+        </view>
+    </van-popup>
+    <van-popup show="{{ datePopShow }}" round position="bottom" bind:click-overlay="dateCancel">
+        <view class="sig-pop-wrapper">
+            <view class="title">选择活动日期</view>
+            <van-datetime-picker show-toolbar="{{false}}" type="date" value="{{ curDate }}" bind:input="dateOnInput" min-date="{{ minDate }}" />
+            <view class="btn-wrapper">
+                <button class="confirm" bindtap="dateConfirm">确定</button>
+                <button class="cancel" bindtap="dateCancel">取消</button>
+            </view>
+        </view>
+    </van-popup>
+    <van-popup show="{{ timePopShow }}" round position="bottom" bind:click-overlay="timeCancel">
+        <view class="sig-pop-wrapper">
+            <view class="title">选择日程开始时间</view>
+            <van-datetime-picker show-toolbar="{{false}}" type="time" value="{{ start }}" bind:input="timeOnInput" min-hour="{{ minTime }}" max-hour="{{maxTime}}" filter="{{ filter }}" />
+            <view class="btn-wrapper">
+                <button class="confirm" bindtap="timeConfirm">确定</button>
+                <button class="cancel" bindtap="timeCancel">取消</button>
+            </view>
+        </view>
+    </van-popup>
+    <van-popup show="{{ endTimePopShow }}" round position="bottom" bind:click-overlay="endTimeCancel">
+        <view class="sig-pop-wrapper">
+            <view class="title">选择日程结束时间</view>
+            <van-datetime-picker show-toolbar="{{false}}" type="time" value="{{ end }}" bind:input="endTimeOnInput" min-hour="{{ minEndTime }}" max-hour="{{maxEndTime}}" filter="{{ filter }}" />
+            <view class="btn-wrapper">
+                <button class="confirm" bindtap="endTimeConfirm">确定</button>
+                <button class="cancel" bindtap="endTimeCancel">取消</button>
+            </view>
+        </view>
+    </van-popup>
+</view>

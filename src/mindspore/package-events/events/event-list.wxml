@@ -1,0 +1,139 @@
+<!-- package-events/events/test.wxml -->
+<view class="container">
+    <view class="input-wraper">
+        <input placeholder="搜索活动" class="keyword" bindinput="search">
+            <image src="./../../static/common/search-icon.svg" class="search-icon" />
+        </input>
+        <view class="filter-wraper" bindtap="filterType">
+            <text>{{curfilterTypeName}}</text>
+            <image src="./../../static/common/arrow-down.svg" />
+        </view>
+    </view>
+    <view class="event-type-wrapper">
+        <view class="tab-filter {{!activity?'active':''}}" bindtap="switchTab" data-type="">
+            <text class="num">{{allNum}}</text>
+            <text class="text">全部</text>
+        </view>
+        <view class="tab-filter {{activity=='registering'?'active':''}}" bindtap="switchTab" data-type="registering">
+            <text class="num">{{signUpNum}}</text>
+            <text class="text">报名中</text>
+        </view>
+        <view class="tab-filter {{activity=='going'?'active':''}}" bindtap="switchTab" data-type="going">
+            <text class="num">{{goingNum}}</text>
+            <text class="text">进行中</text>
+        </view>
+        <view class="tab-filter {{activity=='completed'?'active':''}}" bindtap="switchTab" data-type="completed">
+            <text class="num">{{complatedNum}}</text>
+            <text class="text">已结束</text>
+        </view>
+    </view>
+    <view class="event-list-wrapper">
+        <block wx:for="{{list}}" wx:key="index">
+            <view class="event-item">
+                <view bindtap="onMore" data-item="{{item}}" class="header {{item.collection_id?'isCollection':''}}">
+                    <text class="enterprise">{{item.enterprise}}</text>
+                    <image src="./../../static/common/more.svg" />
+                </view>
+                <view class="body" bindtap="toUpdateSchedule" data-id="{{item.id}}">
+                    <view class="left">
+                        <image src="./../../static/events/list-pic/{{item.poster}}.png" />
+                    </view>
+                    <view class="right">
+                        <view class="title">{{item.title}}</view>
+                        <view class="date">
+                            <image src="./../../static/index/date.png"></image>
+                            <text>{{item.date}}</text>
+                        </view>
+                        <view class="address">
+                            <image src="./../../static/common/location.svg"></image>
+                            <text>{{item.address||item.live_address}}</text>
+                        </view>
+                        <view class="button">
+                            <block wx:if="{{item.status==5}}">
+                                <button bindtap="toUpdateSchedule" data-id="{{item.id}}">
+                                    精彩回顾
+                                </button>
+                            </block>
+                            <block wx:else>
+                                <block wx:if="{{level==1}}">
+                                    <button class="{{item.register_id?'register':''}}" wx:if="{{item.register_id}}" data-id="{{item.id}}" bindtap="toUpdateSchedule">
+                                        已报名
+                                    </button>
+                                    <button wx:else data-id="{{item.id}}" bindtap="toUpdateSchedule">
+                                        立即报名
+                                    </button>
+                                </block>
+                                <block wx:elif="{{level==2}}">
+                                    <button bindtap="toUpdateSchedule" wx:if="{{item.user==user}}" data-id="{{item.id}}">
+                                        修改日程
+                                    </button>
+                                    <button class="register" wx:elif="{{item.register_id}}" data-id="{{item.id}}" bindtap="toUpdateSchedule">
+                                        已报名
+                                    </button>
+                                    <button wx:else data-id="{{item.id}}" bindtap="toUpdateSchedule">
+                                        立即报名
+                                    </button>
+                                </block>
+                                <block wx:else>
+                                    <button bindtap="toUpdateSchedule" data-id="{{item.id}}" wx:if="{{(item.status==3) || (item.status==4)}}">
+                                        修改日程
+                                    </button>
+                                </block>
+                            </block>
+                        </view>
+                    </view>
+                </view>
+                <image wx:if="{{item.collection_id}}" class="collection" src="./../../static/common/collection-icon.svg"></image>
+            </view>
+        </block>
+    </view>
+    <van-action-sheet show="{{ actionShow }}" actions="{{ actions }}" bind:close="onActionClose" bind:cancel="onActionClose" bind:select="onActionSelect" cancel-text="取消" close-on-click-action close-on-click-overlay />
+    <view class="empty-status" wx:if="{{!list.length}}">
+        <view class="suc-wrapper">
+            <image src="./../../static/events/empty-events.png" />
+            <text>暂无活动!</text>
+        </view>
+    </view>
+    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialogDel }}" class-name="sig-dialog">
+        <view class="dialog-slot-content">
+            <text>请确认下架当前活动</text>
+            <view>
+                <button bindtap="del">下架</button>
+                <button bindtap="delCancel">取消</button>
+            </view>
+        </view>
+    </van-dialog>
+    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ underDialogShow }}" class-name="sig-dialog">
+        <view class="dialog-slot-content">
+            <text>
+                活动一经发布，暂不支持自行下架删除。如有需要，请联系
+                <text class="blue">小助手 (微信号openeuler123)</text>
+                下架活动
+            </text>
+            <view>
+                <button bindtap="copyWechat">复制微信号</button>
+            </view>
+        </view>
+    </van-dialog>
+    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ noAuthDialogShow }}" class-name="sig-dialog">
+        <view class="dialog-slot-content">
+            <text>
+                您暂时没有预定会议的权限，请联系
+                <text class="blue">小助手 (微信号openeuler123)</text>
+                提交预定会议权限申请
+            </text>
+            <view>
+                <button bindtap="copyWechat">复制微信号</button>
+            </view>
+        </view>
+    </van-dialog>
+    <van-popup show="{{ popShow }}" round position="bottom" bind:click-overlay="popCancel">
+        <view class="sig-pop-wrapper">
+            <van-picker columns="{{ columns }}" value-key="name" bind:change="pickerChange" />
+            <view class="btn-wrapper">
+                <button class="confirm" bindtap="popConfirm">确定</button>
+                <button class="cancel" bindtap="popCancel">取消</button>
+            </view>
+        </view>
+    </van-popup>
+</view>

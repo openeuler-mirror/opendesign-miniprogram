@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "MindSpore活动管理",
+  "backgroundTextStyle": "dark",
+  "backgroundColor": "#fff",
+  "enablePullDownRefresh": true
+}

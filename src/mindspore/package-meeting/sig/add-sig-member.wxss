@@ -1,0 +1,128 @@
+/* pages/sig/add-sig-member.wxss */
+page {
+    padding: 20rpx 0 0 0;
+}
+
+.container {
+    height: 100%;
+    padding: 30rpx;
+}
+
+.container .sig-members {
+    width: 100%;
+}
+
+.container .sig-members .box {
+    width: 100%;
+    margin-bottom: 20rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container .sig-members .opera-item {
+    width: 330rpx;
+    height: 90rpx;
+    box-shadow: 0px 5px 15px 0px rgba(0, 47, 167, 0.1);
+    border-radius: 8px;
+    border: 1px solid #979797;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .sig-members .opera-item image {
+    width: 28rpx;
+    height: 28rpx;
+    margin-right: 20rpx;
+}
+
+.container .sig-members .opera-item text {
+    font-weight: 400;
+    color: #6D7278;
+    line-height: 40rpx;
+    font-size: 28rpx;
+}
+
+.container .sig-members .member-item {
+    padding: 30rpx;
+    height: 195rpx;
+    background: #FFFFFF;
+    box-shadow: 0px 5px 15px 0px #E1E6EE;
+    border-radius: 8px;
+}
+
+.container .sig-members .member-item image {
+    display: block;
+    width: 30rpx;
+    height: 30rpx;
+    border-radius: 50%;
+}
+
+.container .sig-members .member-item .left {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container .sig-members .member-item .left image {
+    display: block;
+    width: 135rpx;
+    height: 135rpx;
+    border-radius: 50%;
+    margin-right: 20rpx;
+}
+
+.container .sig-members .member-item .member-info text {
+    display: block;
+    max-width: 400rpx;
+    font-size: 36rpx;
+    font-weight: 400;
+    color: #222222;
+    line-height: 50rpx;
+}
+
+.container .sig-members .member-item .member-info text:last-of-type {
+    font-size: 26rpx;
+    color: #6D7278;
+    line-height: 37rpx;
+    margin-top: 20rpx;
+}
+
+.container .empty-wraper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container .empty-wraper .img-wraper image {
+    height: 266rpx;
+    width: 315rpx;
+    display: block;
+    margin: 0 auto 42rpx auto;
+}
+
+.container .empty-wraper .img-wraper {
+    color: #333;
+    font-size: 34rpx;
+    line-height: 38rpx;
+    text-align: center;
+}
+
+.container .empty-wraper button {
+    width: 500rpx;
+    height: 90rpx;
+    line-height: 90rpx;
+    text-align: center;
+    background-color: #40ADFF;
+    color: #fff;
+    font-size: 36rpx;
+    border-radius: 20rpx;
+    margin-top: 128rpx;
+}
+
+.container .empty-wraper button image {
+    width: 36rpx;
+    height: 34rpx;
+}

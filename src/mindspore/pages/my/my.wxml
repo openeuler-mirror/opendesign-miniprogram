@@ -1,0 +1,54 @@
+<!-- pages/my/my.wxml -->
+<view class="container {{iphoneX?'container-x':''}}" style="height: 100%">
+    <view class="top-box">
+        <view class="user-info-wrapper">
+            <view class="my-user-info">
+                <image src="{{avatarUrl}}"></image>
+                <text>{{nickName}}</text>
+            </view>
+            <view class="my-meetings common-list">
+                <view class="header">我的会议</view>
+                <view class="list">
+                    <view class="item" wx:if="{{level!==1}}" bindtap="go" data-url="/package-my/my/my-meetings">
+                        <text class="count">{{meetingCount||0}}</text>
+                        <text class="text">已预定</text>
+                    </view>
+                    <view class="item" bindtap="go" data-url="/package-my/my/my-collection">
+                        <text class="count">{{collectCount||0}}</text>
+                        <text class="text">已收藏</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="center-bg"></view>
+    <view class="common-functions">
+        <view class="header">常用功能</view>
+        <view class="list">
+            <view class="item" bindtap="go" data-url="/package-my/my/help">
+                <image src="./../../static/my/common-functions/help.svg" />
+                <text>使用帮助</text>
+            </view>
+            <view class="item" bindtap="go" data-url="/package-my/my/feedback">
+                <image src="./../../static/my/common-functions/feedback.svg" />
+                <text>留言反馈</text>
+            </view>
+            <view class="item" bindtap="go" data-url="/package-my/my/privecy">
+                <image src="./../../static/my/common-functions/privacy.svg" />
+                <text>隐私声明</text>
+            </view>
+            <view class="item" bindtap="go" data-url="/package-my/my/qrcode?type=1">
+                <image src="./../../static/my/common-functions/official-account.svg" />
+                <text>关注公众号</text>
+            </view>
+            <view class="item" bindtap="go" data-url="/package-my/my/qrcode?type=2">
+                <image src="./../../static/my/common-functions/living.svg" />
+                <text>B站直播</text>
+            </view>
+            <view class="item" bindtap="go" data-url="/package-my/my/qrcode?type=3">
+                <image src="./../../static/my/common-functions/headlines.svg" />
+                <text>关注头条号</text>
+            </view>
+        </view>
+    </view>
+</view>

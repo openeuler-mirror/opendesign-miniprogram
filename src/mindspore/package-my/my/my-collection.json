@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "meeting-list": "/components/meeting-list/meeting-list"
+    },
+  "navigationBarTitleText": "我收藏的会议"
+}

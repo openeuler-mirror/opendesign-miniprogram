@@ -1,0 +1,184 @@
+/* pages/sig/member-detail.wxss */
+.container {
+    padding: 20rpx 0;
+}
+
+.container .user-info {
+    padding-left: 20rpx;
+    height: 182rpx;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.container .user-info image {
+    height: 135rpx;
+    width: 135rpx;
+    border-radius: 100%;
+    border: 1px solid #c7cad0;
+}
+
+.container .user-info view {
+    display: inline-block;
+    padding-left: 20rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.container .user-info view .user-id {
+    font-size: 36rpx;
+    color: #222;
+    line-height: 50rpx;
+    font-weight: 400;
+    margin-bottom: 20rpx;
+}
+
+.container .user-info view .name {
+    color: #6d7278;
+    font-size: 26rpx;
+    line-height: 37rpx;
+    font-weight: 400;
+}
+
+.container .input-title {
+    padding-left: 30rpx;
+    margin: 30rpx 0;
+    color: #333;
+    font-size: 34rpx;
+    line-height: 48rpx;
+    font-weight: 400;
+}
+
+.container input {
+    height: 108rpx;
+    color: #333;
+    line-height: 45rpx;
+    font-size: 32rpx;
+    font-weight: 400rpx;
+    padding-left: 30rpx;
+    background-color: #fff;
+}
+
+/* .container .limit-box .limit-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 108rpx;
+    padding: 0 30rpx;
+    background-color: #fff;
+}
+
+.container .limit-box .limit-item:nth-of-type(2) {
+    padding-left: 51rpx;
+    justify-content: left;
+}
+
+.container .limit-box .limit-item input {
+    width: 270rpx;
+    height: 40rpx;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 0;
+    line-height: 42rpx;
+    font-size: 30rpx;
+}
+
+.container .limit-box .limit-item text {
+    font-size: 30rpx;
+    font-weight: 400;
+    color: #333333;
+    line-height: 42rpx;
+}
+
+.container .limit-box .limit-item:nth-of-type(2) text {
+    color: #6D7278;
+    flex-shrink: 0;
+}
+
+.container .limit-box .limit-item .sig-choose {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 40rpx;
+}
+
+.container .limit-item .right {
+    width: 30rpx;
+    height: 30rpx;
+} */
+
+.container  .sig-choose {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 30rpx;
+    background-color: #fff;
+}
+
+.container  .sig-choose .right {
+    width: 30rpx;
+    height: 30rpx;
+}
+
+.container .select-wrapper .value-class {
+    flex: none !important;
+}
+
+.container .select-wrapper {
+    padding: 30rpx;
+}
+
+.container .select-wrapper .title {
+    padding-bottom: 40rpx;
+    font-size: 36rpx;
+    font-weight: 400;
+    color: #222222;
+    line-height: 50rpx;
+}
+
+.container .select-wrapper .van-cell {
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 34rpx;
+    font-weight: 400;
+    color: #6D7278;
+    line-height: 48rpx
+}
+
+.container .select-wrapper .btn-wraper {
+    padding: 0;
+    margin-top: 60rpx;
+}
+
+.container .btn-wraper {
+    position: fixed;
+    bottom: 60px;
+    width: 100%;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30rpx;
+}
+
+.container .btn-wraper button {
+    width: 320rpx;
+    height: 90rpx;
+    font-size: 36rpx;
+    line-height: 90rpx;
+    text-align: center;
+    border-radius: 20rpx;
+}
+
+.container .btn-wraper .confirm {
+    color: #fff;
+    background-color: #40ADFF;
+}
+
+.container .btn-wraper .reset {
+    color: #40ADFF;
+    background-color: #fff;
+    border: 1px solid #40ADFF;
+}
