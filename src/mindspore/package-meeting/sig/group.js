@@ -23,7 +23,7 @@ Page({
         group_name: 'SIG Leader',
       },
       {
-        id: '',
+        id: 'MSG',
         group_name: 'MSG组织者',
       },
       {
@@ -37,7 +37,11 @@ Page({
       wx.navigateTo({
         url: '/package-meeting/sig/sig-list',
       });
-    } else {
+    } else if(e.target.dataset.id === 'MSG'){
+      wx.navigateTo({
+        url: '/package-meeting/sig/msg-list',
+      });
+    }else {
       wx.navigateTo({
         url:
           '/package-meeting/sig/add-sig-member?id=' +
@@ -52,9 +56,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+   
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {},
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
     let that = this;
     remoteMethods.getALLGroupList('', function (list) {
-      let msgID = '';
+      let msgID = 'MSG';
       let techID = '';
       list.forEach((item) => {
         if (item.name === 'MSG') {
@@ -70,7 +86,7 @@ Page({
             group_name: 'SIG Leader',
           },
           {
-            id: msgID,
+            id: 'MSG',
             group_name: 'MSG组织者',
           },
           {
@@ -81,16 +97,6 @@ Page({
       });
     });
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {},
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏

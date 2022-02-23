@@ -2,6 +2,8 @@
 var appAjax = require('./../../utils/app-ajax');
 var appSession = require('./../../utils/app-session.js');
 var utils = require('./../../utils/utils.js');
+const sessionUtil = require('../../utils/app-session.js');
+const appUser = require('../../utils/app-user.js');
 utils.formateDate();
 let remoteMethods = {
   getUserGroup: function (id, _callback) {
@@ -39,7 +41,7 @@ let localMethods = {
       this.toast('请联系管理员编辑您的gitee name');
       return;
     }
-    if (!that.data.typeResult) {
+    if (!that.data.typeMeeting) {
       this.toast('请选择会议类型');
       return;
     }
@@ -93,6 +95,8 @@ Page({
     emaillist: '',
     sigPopShow: false,
     typeResult: '',
+    typeMeeting:'',
+    permission:[], 
     group_name: '',
     meeting_type: 1,
     sigResult: '',
@@ -113,7 +117,7 @@ Page({
     isSig: false,
     showMeetType: false,
     allData: [],
-    typeList: [],
+    typeList:  ["专家委员会", "MSG会议", "SIG会议"],
     filter(type, options) {
       if (type === 'minute') {
         return options.filter((option) => option % 15 === 0);
@@ -121,12 +125,20 @@ Page({
 
       return options;
     },
+    level:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function () {},
+  onLoad: function () {
+    let that=this
+    appUser.updateUserInfo(function () {
+      that.setData({
+        level: sessionUtil.getUserInfoByKey('level'),
+      });
+    });
+  },
   recordoOnChange: function (event) {
     this.setData({
       record: event.detail,
@@ -222,7 +234,14 @@ Page({
       }
     });
   },
-  typeConfirm: function () {
+  typeConfirm: function (e) {
+    this.setData({
+      typeMeeting:this.data.typeResult
+    })
+    debugger
+    if(this.data.permission.includes){
+
+    }
     if (this.data.typeResult.includes('SIG')) {
       this.setData({
         isSig: true,
@@ -329,18 +348,20 @@ Page({
           });
         }
       }
+      if(that.data.level===3){
+        that.setData({
+          permission:['专家委员会','MSG会议','SIG会议'], 
+        })
+      }
     });
   },
   typeRadioOnChange: function (e) {
     this.setData({
       typeResult: e.detail,
     });
+    debugger
   },
-  sigRadioOnChange: function (e) {
-    this.setData({
-      sigResult: e.detail,
-    });
-  },
+  sigRadioOnChange: function (e) {},
   selType: function () {
     this.setData({
       showMeetType: true,

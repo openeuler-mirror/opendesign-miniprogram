@@ -20,7 +20,7 @@
                     <text class="require">*</text>
                 </text>
                 <view class="arrow">
-                    <text class="sel-data">{{typeResult}}</text>
+                    <text class="sel-data">{{typeMeeting}}</text>
                     <image src="./../../static/common/arrow-right.svg" />
                 </view>
             </view>

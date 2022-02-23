@@ -8,6 +8,9 @@ var commonServiceConfig = {
   // sig列表
   SIG_LIST: '/sigs/',
 
+  // msg城市列表
+  MSG_LIST:'/msgs/',
+
   // 获取当前组已添加成员列表
   GROUP_MEMBER_LIST: '/users_include/',
 

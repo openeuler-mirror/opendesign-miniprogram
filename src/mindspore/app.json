@@ -21,7 +21,8 @@
         "meeting/detail",
         "meeting/meeting-success",
         "meeting/meeting-list",
-        "sig/group"
+        "sig/group",
+        "sig/msg-list"
       ]
     },
     {
