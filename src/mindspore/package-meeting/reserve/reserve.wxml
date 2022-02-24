@@ -122,11 +122,11 @@
     <van-popup show="{{ showMeetType }}" round position="bottom" bind:click-overlay="typeCancel">
         <view class="sig-pop-wrapper">
             <view class="title">选择会议类型</view>
-            <van-radio-group value="{{ typeResult }}" bind:change="typeRadioOnChange">
-                <block wx:for="{{typeLists}}" wx:key="index">
+            <van-radio-group value="{{ typeKey }}" bind:change="typeRadioOnChange">
+                <block wx:for="{{type}}" wx:key="index" wx:for-index="key" wx:for-item="value">
                     <view class="item">
-                        <van-radio icon-size="46rpx" custom-class="radio" checked-color="#40ADFF" name="{{item.id}}">
-                            <view class="name">{{item.name}}</view>
+                        <van-radio icon-size="46rpx" custom-class="radio" checked-color="#40ADFF" name="{{key}}">
+                            <view class="name">{{value}}</view>
                         </van-radio>
                     </view>
                 </block>

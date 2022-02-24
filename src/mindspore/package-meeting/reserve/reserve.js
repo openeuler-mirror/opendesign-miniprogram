@@ -96,7 +96,6 @@ Page({
     sigPopShow: false,
     typeResult: '',
     typeMeeting:'',
-    permission:[], 
     group_name: '',
     meeting_type: 1,
     sigResult: '',
@@ -117,25 +116,14 @@ Page({
     isSig: false,
     showMeetType: false,
     allData: [],
-    typeList:  ["专家委员会", "MSG会议", "SIG会议"],
-    typeId:'',
-    typeLists:[
-      {
-        id:1,
-        type:'Tech',
-        name:'专家委员会'
-      },
-      {
-        id:2,
-        type:'MSG',
-        name:'MSG会议'
-      },
-      {
-        id:3,
-        type:'SIG',
-        name:'SIG会议'
-      }
-    ],
+    // typeList:  ["专家委员会", "MSG会议", "SIG会议"],
+    typeKey:'',
+    type:{
+      Tech:'专家委员会',
+      MSG:'MSG会议',
+      SIG:'SIG会议'
+    },
+    permission:[], 
     filter(type, options) {
       if (type === 'minute') {
         return options.filter((option) => option % 15 === 0);
@@ -254,11 +242,28 @@ Page({
   },
   typeConfirm: function (e) {
     this.setData({
-      typeMeeting:this.data.typeResult
+      typeMeeting:this.data.type[this.data.typeKey]
     })
-    if(this.data.permission.includes){
+    if(this.data.typeKey=='Tech'){
+      if(this.data.permission.includes(this.data.typeKey)){
 
+      }else{
+
+      }
+    }else if(this.data.typeKey=='SIG'){
+      if(this.data.permission.includes(this.data.typeKey)){
+
+      }else{
+        
+      }
+    }else if(this.data.typeKey=='MSG'){
+      if(this.data.permission.includes(this.data.typeKey)){
+
+      }else{
+        
+      }
     }
+  
     if (this.data.typeResult.includes('SIG')) {
       this.setData({
         isSig: true,
@@ -367,14 +372,14 @@ Page({
       }
       if(that.data.level===3){
         that.setData({
-          permission:['专家委员会','MSG会议','SIG会议'], 
+          permission:['Tech','MSG','SIG'], 
         })
       }
     });
   },
   typeRadioOnChange: function (e) {
     this.setData({
-      typeResult: e.detail,
+      typeKey: e.detail,
     });
   },
   sigRadioOnChange: function (e) {},
