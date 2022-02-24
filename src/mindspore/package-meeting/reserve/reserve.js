@@ -99,7 +99,7 @@ Page({
     group_name: '',
     meeting_type: 1,
     sigResult: '',
-    sigList: [],
+    sigList: ['abc','bbc'],
     datePopShow: false,
     curDate: new Date().getTime(),
     currentDate: new Date().getTime(),
@@ -247,7 +247,7 @@ Page({
     if(this.data.typeKey=='Tech'){
       if(this.data.permission.includes(this.data.typeKey)){
         this.setData({
-          showDialogWarn: false,
+          showMeetType: false,
         });
       }else{
         this.setData({
@@ -257,7 +257,8 @@ Page({
     }else if(this.data.typeKey=='SIG'){
       if(this.data.permission.includes(this.data.typeKey)){
         this.setData({
-          showDialogWarn: false,
+          showMeetType: false,
+          isSig: true
         });
       }else{
         this.setData({
@@ -267,7 +268,7 @@ Page({
     }else if(this.data.typeKey=='MSG'){
       if(this.data.permission.includes(this.data.typeKey)){
         this.setData({
-          showDialogWarn: false,
+          showMeetType: false,
         });
       }else{
         this.setData({
@@ -276,35 +277,35 @@ Page({
       }
     }
   
-    if (this.data.typeResult.includes('SIG')) {
-      this.setData({
-        isSig: true,
-        showMeetType: false,
-        meeting_type: 1,
-      });
-    } else {
-      this.setData({
-        showMeetType: false,
-        isSig: false,
-      });
-      this.data.allData.forEach((item) => {
-        if (item.group_type != 1) {
-          if (this.data.typeResult.includes('MSG') && item.group_name == 'MSG') {
-            this.setData({
-              etherpad: item.etherpad,
-              group_name: 'MSG',
-              meeting_type: 2,
-            });
-          } else {
-            this.setData({
-              etherpad: item.etherpad,
-              group_name: 'Tech',
-              meeting_type: 3,
-            });
-          }
-        }
-      });
-    }
+    // if (this.data.typeResult.includes('SIG')) {
+    //   this.setData({
+    //     isSig: true,
+    //     showMeetType: false,
+    //     meeting_type: 1,
+    //   });
+    // } else {
+    //   this.setData({
+    //     showMeetType: false,
+    //     isSig: false,
+    //   });
+    //   this.data.allData.forEach((item) => {
+    //     if (item.group_type != 1) {
+    //       if (this.data.typeResult.includes('MSG') && item.group_name == 'MSG') {
+    //         this.setData({
+    //           etherpad: item.etherpad,
+    //           group_name: 'MSG',
+    //           meeting_type: 2,
+    //         });
+    //       } else {
+    //         this.setData({
+    //           etherpad: item.etherpad,
+    //           group_name: 'Tech',
+    //           meeting_type: 3,
+    //         });
+    //       }
+    //     }
+    //   });
+    // }
   },
   dateConfirm: function () {
     this.setData({
@@ -332,6 +333,7 @@ Page({
       sponsor: appSession.getUserInfoByKey('gitee') || '',
     });
     let that = this;
+    // appSession.getUserInfoByKey('userId')
     remoteMethods.getUserGroup(appSession.getUserInfoByKey('userId'), function (data) {
       if (data && data.length) {
         that.setData({
@@ -394,7 +396,11 @@ Page({
       typeKey: e.detail,
     });
   },
-  sigRadioOnChange: function (e) {},
+  sigRadioOnChange: function (e) {
+    this.setData({
+      sigResult:e.detail
+    })
+  },
   selType: function () {
     this.setData({
       showMeetType: true,
