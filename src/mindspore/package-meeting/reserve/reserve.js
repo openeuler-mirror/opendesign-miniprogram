@@ -246,21 +246,33 @@ Page({
     })
     if(this.data.typeKey=='Tech'){
       if(this.data.permission.includes(this.data.typeKey)){
-
+        this.setData({
+          showDialogWarn: false,
+        });
       }else{
-
+        this.setData({
+          showDialogWarn: true,
+        });
       }
     }else if(this.data.typeKey=='SIG'){
       if(this.data.permission.includes(this.data.typeKey)){
-
+        this.setData({
+          showDialogWarn: false,
+        });
       }else{
-        
+        this.setData({
+          showDialogWarn: true,
+        });
       }
     }else if(this.data.typeKey=='MSG'){
       if(this.data.permission.includes(this.data.typeKey)){
-
+        this.setData({
+          showDialogWarn: false,
+        });
       }else{
-        
+        this.setData({
+          showDialogWarn: true,
+        });
       }
     }
   
