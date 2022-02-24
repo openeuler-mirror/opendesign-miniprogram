@@ -35,10 +35,15 @@ input {
     color: #c7cad0;
 }
 
-.radio-class {
+.checkbox-class {
     font-size: 28rpx;
 }
-
+.offline {
+    margin-right: 40rpx;
+}
+.checkbox {
+    display: flex;
+}
 .van-radio {
     margin-right: 10rpx !important;
 }
@@ -370,4 +375,16 @@ input {
     background-color: #000;
     opacity: 0.2;
     z-index: 1000;
+}
+.playback {
+    display: flex;
+    align-items: center;
+    padding: 20rpx 0;
+    color: #6d7278;
+}
+.playback  image{
+    width: 28rpx;
+    height: 28rpx;
+    margin-right: 15rpx;
+    vertical-align: middle;
 }
