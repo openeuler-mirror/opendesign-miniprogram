@@ -118,6 +118,24 @@ Page({
     showMeetType: false,
     allData: [],
     typeList:  ["专家委员会", "MSG会议", "SIG会议"],
+    typeId:'',
+    typeLists:[
+      {
+        id:1,
+        type:'Tech',
+        name:'专家委员会'
+      },
+      {
+        id:2,
+        type:'MSG',
+        name:'MSG会议'
+      },
+      {
+        id:3,
+        type:'SIG',
+        name:'SIG会议'
+      }
+    ],
     filter(type, options) {
       if (type === 'minute') {
         return options.filter((option) => option % 15 === 0);
@@ -238,7 +256,6 @@ Page({
     this.setData({
       typeMeeting:this.data.typeResult
     })
-    debugger
     if(this.data.permission.includes){
 
     }
@@ -359,7 +376,6 @@ Page({
     this.setData({
       typeResult: e.detail,
     });
-    debugger
   },
   sigRadioOnChange: function (e) {},
   selType: function () {

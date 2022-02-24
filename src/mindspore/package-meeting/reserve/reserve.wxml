@@ -123,10 +123,10 @@
         <view class="sig-pop-wrapper">
             <view class="title">选择会议类型</view>
             <van-radio-group value="{{ typeResult }}" bind:change="typeRadioOnChange">
-                <block wx:for="{{typeList}}" wx:key="index">
+                <block wx:for="{{typeLists}}" wx:key="index">
                     <view class="item">
-                        <van-radio icon-size="46rpx" custom-class="radio" checked-color="#40ADFF" name="{{item}}">
-                            <view class="name">{{item}}</view>
+                        <van-radio icon-size="46rpx" custom-class="radio" checked-color="#40ADFF" name="{{item.id}}">
+                            <view class="name">{{item.name}}</view>
                         </van-radio>
                     </view>
                 </block>
