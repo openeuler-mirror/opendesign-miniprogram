@@ -66,7 +66,8 @@ Page({
         '/package-meeting/sig/add-sig-member?id=' +
         e.currentTarget.dataset.id +
         '&name=' +
-        e.currentTarget.dataset.name,
+        e.currentTarget.dataset.name+
+        '&type=MSG',
     });
   },
   searchInput: function (e) {

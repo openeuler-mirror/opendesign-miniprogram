@@ -9,13 +9,19 @@ var commonServiceConfig = {
   SIG_LIST: '/sigs/',
 
   // msg城市列表
-  MSG_LIST:'/msgs/',
+  MSG_LIST:'/cities/',
 
   // 获取当前组已添加成员列表
   GROUP_MEMBER_LIST: '/users_include/',
 
+  // 查询某个城市的成员
+  GROUP_CITY_MEMBER_LIST:'/users_include_city/',
+
   // 获取当前组未添加成员列表
   GROUP_EXCLUDE_MEMBER_LIST: '/users_exclude/',
+
+  // 查询某个城市的非成员
+  GROUP_CITY_EXCLUDE_MEMBER_LIST: '/users_exclude_city/',
 
   //获取所有组的信息
   ALL_GROUP_LIST: '/groups/',
@@ -23,8 +29,14 @@ var commonServiceConfig = {
   // 添加组员
   ADD_MEMBER_LIST: '/groupuser/action/new/',
 
+  // MSG城市添加组员
+  ADD_CITY_MEMBER_LIST: '/cityuser/action/new/',
+
   // 删除组员
   DEL_MEMBER_LIST: '/groupuser/action/del/',
+
+  // 删除MSG城市组员
+  DEL_CITY_MEMBER_LIST: '/cityuser/action/del/',
 
   // 获取sig组未添加成员列表
   GET_USER_GROUP: '/usergroup/{id}/',

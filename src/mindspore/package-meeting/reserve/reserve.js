@@ -94,12 +94,15 @@ Page({
     agenda: '',
     emaillist: '',
     sigPopShow: false,
+    msgPopShow:false,
     typeResult: '',
     typeMeeting:'',
     group_name: '',
     meeting_type: 1,
     sigResult: '',
+    msgResult:'',
     sigList: ['abc','bbc'],
+    msgList: ['上海','北京'],
     datePopShow: false,
     curDate: new Date().getTime(),
     currentDate: new Date().getTime(),
@@ -114,9 +117,9 @@ Page({
     maxEndTime: 22,
     showDialogWarn: false,
     isSig: false,
+    isMSG:false,
     showMeetType: false,
     allData: [],
-    // typeList:  ["专家委员会", "MSG会议", "SIG会议"],
     typeKey:'',
     type:{
       Tech:'专家委员会',
@@ -155,6 +158,7 @@ Page({
       topic: '',
       typeResult: '',
       sigResult: '',
+      msgResult:'',
       date: '',
       start: '',
       end: '',
@@ -240,6 +244,13 @@ Page({
       }
     });
   },
+  msgConfirm:function(){
+    this.setData({
+      etherpad: '',
+      msgPopShow: false,
+      group_name:this.data.msgResult
+    });
+  },
   typeConfirm: function (e) {
     this.setData({
       typeMeeting:this.data.type[this.data.typeKey]
@@ -248,6 +259,9 @@ Page({
       if(this.data.permission.includes(this.data.typeKey)){
         this.setData({
           showMeetType: false,
+          meeting_type: 3,
+          isSig: false,
+          isMSG:false
         });
       }else{
         this.setData({
@@ -258,7 +272,9 @@ Page({
       if(this.data.permission.includes(this.data.typeKey)){
         this.setData({
           showMeetType: false,
-          isSig: true
+          isMSG:false,
+          isSig: true,
+          meeting_type: 1,
         });
       }else{
         this.setData({
@@ -269,6 +285,9 @@ Page({
       if(this.data.permission.includes(this.data.typeKey)){
         this.setData({
           showMeetType: false,
+          isSig: false,
+          meeting_type: 2,
+          isMSG:true
         });
       }else{
         this.setData({
@@ -335,6 +354,7 @@ Page({
     let that = this;
     // appSession.getUserInfoByKey('userId')
     remoteMethods.getUserGroup(appSession.getUserInfoByKey('userId'), function (data) {
+      let permissionTemp=[]
       if (data && data.length) {
         that.setData({
           allData: data,
@@ -346,8 +366,17 @@ Page({
           if (item.group_type == '1') {
             temp.push(item.group_name);
             sigValue = item.description;
+            if(!permissionTemp.includes("SIG")){
+              permissionTemp.push('SIG')
+            }
           } else {
             typeTemp.push(item.description);
+            if(item.group_type == '2'&&!permissionTemp.includes("MSG")){
+              permissionTemp.push('MSG')
+            }
+            if(item.group_type == '3'&&!permissionTemp.includes("Tech")){
+              permissionTemp.push('Tech')
+            }
           }
         });
         if (sigValue) {
@@ -379,11 +408,15 @@ Page({
                   group_name: item.group_name,
                   meeting_type: item.group_type,
                 });
+
               }
             }
           });
         }
       }
+      that.setData({
+        permission:permissionTemp
+      })
       if(that.data.level===3){
         that.setData({
           permission:['Tech','MSG','SIG'], 
@@ -401,13 +434,18 @@ Page({
       sigResult:e.detail
     })
   },
+  msgRadioOnChange: function (e) {
+    this.setData({
+      msgResult:e.detail
+    })
+  },
   selType: function () {
     this.setData({
       showMeetType: true,
     });
   },
   selSig: function () {
-    if (!this.data.sigList.length) {
+    if (!this.data.msgList.length) {
       this.setData({
         showDialogWarn: true,
       });
@@ -417,6 +455,17 @@ Page({
       sigPopShow: true,
     });
   },
+  selMSG:function(){
+    if (!this.data.sigList.length) {
+      this.setData({
+        showDialogWarn: true,
+      });
+      return;
+    }
+    this.setData({
+      msgPopShow:true
+    })
+  },
   warnCancel: function () {
     this.setData({
       showDialogWarn: false,
@@ -425,6 +474,11 @@ Page({
   sigCancel: function () {
     this.setData({
       sigPopShow: false,
+    });
+  },
+  msgCancel:function(){
+    this.setData({
+      msgPopShow: false,
     });
   },
   typeCancel: function () {

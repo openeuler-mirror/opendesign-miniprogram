@@ -233,8 +233,8 @@ var appUser = {
         success: function (ret) {
           if (ret) {
             userInfo.gitee = ret.gitee_name;
-            // userInfo.level = ret.level;
-            userInfo.level = 3;
+            userInfo.level = ret.level;
+            // userInfo.level = 2;
             userInfo.eventLevel = ret.activity_level;
             wx.setStorageSync(constants.APP_USERINFO_SESSION, userInfo);
           }

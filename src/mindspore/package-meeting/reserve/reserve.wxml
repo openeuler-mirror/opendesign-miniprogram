@@ -34,6 +34,16 @@
                     <image src="./../../static/common/arrow-right.svg" />
                 </view>
             </view>
+            <view class="form-item" bindtap="selMSG" wx:if="{{isMSG}}">
+                <text class="label">
+                    <text>选取所属城市</text>
+                    <text class="require">*</text>
+                </text>
+                <view class="arrow">
+                    <text class="sel-data">{{msgResult}}</text>
+                    <image src="./../../static/common/arrow-right.svg" />
+                </view>
+            </view>
             <view class="form-item" bindtap="selDate">
                 <text class="label">
                     <text>日期</text>
@@ -116,6 +126,24 @@
             <view class="btn-wrapper">
                 <button class="confirm" bindtap="sigConfirm">确定</button>
                 <button class="cancel" bindtap="sigCancel">取消</button>
+            </view>
+        </view>
+    </van-popup>
+    <van-popup show="{{ msgPopShow }}" round position="bottom" bind:click-overlay="msgCancel">
+        <view class="sig-pop-wrapper">
+            <view class="title">选择所属城市</view>
+            <van-radio-group value="{{ msgResult }}" bind:change="msgRadioOnChange">
+                <block wx:for="{{msgList}}" wx:key="index">
+                    <view class="item">
+                        <van-radio icon-size="46rpx" custom-class="radio" checked-color="#40ADFF" name="{{item}}">
+                            <view class="name">{{item}}</view>
+                        </van-radio>
+                    </view>
+                </block>
+            </van-radio-group>
+            <view class="btn-wrapper">
+                <button class="confirm" bindtap="msgConfirm">确定</button>
+                <button class="cancel" bindtap="msgCancel">取消</button>
             </view>
         </view>
     </van-popup>
