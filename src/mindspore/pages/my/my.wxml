@@ -23,6 +23,41 @@
     </view>
     <view class="center-bg"></view>
     <view class="common-functions">
+        <view class="header">我的活动</view>
+        <view class="list">
+            <view  wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/my/help">
+                <text class="counts">{{meetingCount||0}}</text>
+                <text class="text">已发布</text>
+            </view>
+            <view  wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/my/help">
+                <text class="counts">{{meetingCount||0}}</text>
+                <text class="text">报名表单</text>
+            </view>
+            <view  wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/my/help">
+                <text class="counts">{{meetingCount||0}}</text>
+                <text class="text">草稿箱</text>
+            </view>
+            <view  wx:if="{{avtivityLevel==3}}" class="item" bindtap="go" data-url="/package-my/my/help">
+                <text class="counts">{{meetingCount||0}}</text>
+                <text class="text">待发布</text>
+            </view>
+            <view  wx:if="{{avtivityLevel==2}}" class="item" bindtap="go" data-url="/package-my/my/help">
+                <text class="counts">{{meetingCount||0}}</text>
+                <text class="text">发布中</text>
+            </view>
+            <view class="item" bindtap="go" data-url="/package-my/my/help">
+                <text class="counts">{{meetingCount||0}}</text>
+                <text class="text">已收藏</text>
+            </view>
+            <view class="item" bindtap="go" data-url="/package-my/my/help">
+                <text class="counts">{{meetingCount||0}}</text>
+                <text class="text">已报名</text>
+            </view>
+            
+        </view>
+    </view>
+    <view class="center-bg"></view>
+    <view class="common-functions">
         <view class="header">常用功能</view>
         <view class="list">
             <view class="item" bindtap="go" data-url="/package-my/my/help">

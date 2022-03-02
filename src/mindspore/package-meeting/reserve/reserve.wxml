@@ -197,10 +197,17 @@
     </van-popup>
     <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialogWarn }}" class-name="sig-dialog">
         <view class="dialog-slot-content">
-            <text>当前您不属于任何SIG组，请先在SIG管理中关联SIG组</text>
+            <text wx:if="{{tipsType=='SIG'}}">当前您不属于任何SIG组，请联系
+                <text class="blue">小助手(微信号mindspore0328) </text>为您关联SIG组
+            </text>
+            <text wx:if="{{tipsType=='Tech'}}">当前您不属于专家委员会，请联系
+                <text class="blue">小助手(微信号mindspore0328) </text>为您关联专家委员会
+            </text>
+            <text wx:if="{{tipsType=='MSG'}}">当前您不属于任何MSG，请联系
+                <text class="blue">小助手(微信号mindspore0328) </text>为您关联MSG城市
+            </text>
             <view>
-                <button bindtap="warnCancel">确定</button>
-                <button bindtap="warnCancel">取消</button>
+                <button bindtap="copyWechat">复制微信号</button>
             </view>
         </view>
     </van-dialog>

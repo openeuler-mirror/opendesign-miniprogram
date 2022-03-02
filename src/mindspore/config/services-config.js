@@ -17,6 +17,9 @@ var commonServiceConfig = {
   // 查询某个城市的成员
   GROUP_CITY_MEMBER_LIST:'/users_include_city/',
 
+  // 查询一个用户的城市关系
+  GROUP_USER_CITY:'/usercity/{id}/',
+
   // 获取当前组未添加成员列表
   GROUP_EXCLUDE_MEMBER_LIST: '/users_exclude/',
 

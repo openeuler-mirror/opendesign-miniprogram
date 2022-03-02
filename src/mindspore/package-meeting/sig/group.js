@@ -33,11 +33,11 @@ Page({
     ],
   },
   toAddMember: function (e) {
-    if (e.target.dataset.id === 'SIG') {
+    if (e.currentTarget.dataset.id === 'SIG') {
       wx.navigateTo({
         url: '/package-meeting/sig/sig-list',
       });
-    } else if(e.target.dataset.id === 'MSG'){
+    } else if(e.currentTarget.dataset.id === 'MSG'){
       wx.navigateTo({
         url: '/package-meeting/sig/msg-list',
       });

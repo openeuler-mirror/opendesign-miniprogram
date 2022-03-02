@@ -22,6 +22,20 @@
           "name": "",
           "pathName": "pages/meeting/meeting",
           "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "package-meeting/meeting/detail",
+          "query": "id=6",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/my/my",
+          "query": "",
           "scene": null,
           "launchMode": "default"
         }

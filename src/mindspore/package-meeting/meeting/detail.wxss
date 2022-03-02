@@ -19,6 +19,28 @@ page {
     font-size: 32rpx;
     font-weight: 400;
 }
+.container .collect-item {
+    margin-bottom: 20rpx;
+    border-radius: 8rpx;
+    padding: 30rpx;
+    color: #6d7278;
+    font-size: 32rpx;
+    font-weight: 400;
+}
+.container .collect-item button{
+    color: #fff;
+    background-color: #40ADFF;
+    width: 330rpx;
+    margin-top: 78rpx;
+    font-size: 36rpx;
+}
+.container .collect-item .tips{
+    font-size: 28rpx;
+    line-height: 40rpx;
+    margin-top: 30rpx;
+    text-align: center;
+}
+
 
 .container .detail-item .name {
     font-size: 36rpx;
