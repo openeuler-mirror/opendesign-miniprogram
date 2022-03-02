@@ -4,40 +4,63 @@
         <view class="form-wrapper relative">
             <view class="form-item">
                 <text class="label">
-                    <text>活动标题</text>
+                    <text>活动名称</text>
                     <text class="require">*</text>
                 </text>
-                <input value="{{title}}" maxlength="{{50}}" bindinput="titleInput" placeholder-class="placeholder" placeholder="请输入您的活动标题"></input>
+                <input value="{{title}}" maxlength="{{50}}" bindinput="titleInput" placeholder-class="placeholder" placeholder="请输入您的活动名称"></input>
             </view>
-            <view class="form-item" bindtap="selDate">
+            <view class="form-item" bindtap="setStar">
                 <text class="label">
-                    <text>日期</text>
+                    <text>起始日期</text>
                     <text class="require">*</text>
                 </text>
                 <view class="arrow">
-                    <text class="sel-data">{{date}}<text wx:if="{{!date}}" class="gray">请选择日期</text></text>
+                    <text class="sel-data">{{starTime}}<text wx:if="{{!starTime}}" class="gray">请选择日期</text></text>
+                    <image src="./../../static/common/arrow-right.svg" />
+                </view>
+            </view>
+            <view class="form-item" bindtap="setEnd">
+                <text class="label">
+                    <text>结束日期</text>
+                    <text class="require">*</text>
+                </text>
+                <view class="arrow">
+                    <text class="sel-data">{{endTime}}<text wx:if="{{!endTime}}" class="gray">请选择日期</text></text>
+                    <image src="./../../static/common/arrow-right.svg" />
+                </view>
+            </view>
+            <view class="form-item" bindtap="onTypeShow">
+                <text class="label">
+                    <text>活动类型</text>
+                    <text class="require">*</text>
+                </text>
+                <view class="arrow">
+                    <text class="sel-data">{{type}}</text>
                     <image src="./../../static/common/arrow-right.svg" />
                 </view>
             </view>
             <view class="form-item">
-                <text class="label">活动类型</text>
+                <text class="label">
+                    <text>活动形式</text>
+                    <text class="require">*</text>
+                </text>
                 <view class="arrow record">
-                    <van-radio-group value="{{type}}" bind:change="radioOnChange" direction="horizontal">
-                        <van-radio label-class="radio-class" name="{{1}}" icon-size="40rpx" checked-color="#40ADFF">
-                            线下meetup
-                        </van-radio>
-                        <van-radio label-class="radio-class" name="{{2}}" icon-size="40rpx" checked-color="#40ADFF">
-                            线上meetup
-                        </van-radio>
-                    </van-radio-group>
+                    <van-checkbox-group value="{{form}}" class="checkbox" bind:change="radioOnChange" direction="horizontal">
+                        <van-checkbox shape="square" label-class="checkbox-class offline" name="{{1}}" icon-size="40rpx" checked-color="#40ADFF">
+                            线下
+                        </van-checkbox >
+                        <van-checkbox shape="square" label-class="checkbox-class" name="{{2}}" icon-size="40rpx" checked-color="#40ADFF">
+                            线上
+                        </van-checkbox >
+                    </van-checkbox-group>
                 </view>
             </view>
-            <view wx:if="{{type===2}}" class="form-item">
-                <text class="label">直播地址</text>
+            <view wx:if="{{form[0]==2||form.length===2}}" class="form-item">
+                <text class="label">线上链接</text>
                 <text class="require">*</text>
-                <input value="{{liveAddress}}" bindinput="liveAddressInput" placeholder-class="placeholder" placeholder="请输入您的直播地址"></input>
+                <input value="{{liveAddress}}" bindinput="liveAddressInput" placeholder-class="placeholder" placeholder="请输入您的线上链接"></input>
             </view>
-            <view wx:if="{{type===1}}" class="form-item" bindtap="selAddress">
+            <view wx:if="{{form[0]==1||form.length===2}}" class="form-item" bindtap="selAddress">
                 <text class="label">
                     <text>活动城市</text>
                     <text class="require">*</text>
@@ -47,17 +70,33 @@
                     <image src="./../../static/common/arrow-right.svg" />
                 </view>
             </view>
-            <view wx:if="{{type===1}}" class="form-item">
+            <view wx:if="{{form[0]==1||form.length===2}}" class="form-item">
                 <text class="label">具体地址</text>
                 <text class="require">*</text>
                 <input value="{{addressName}}" bindinput="addressNameInput" placeholder-class="placeholder" placeholder="请输入详细活动地址"></input>
             </view>
+            <view class="form-item">
+                <text class="label">
+                    <text>报名方式</text>
+                    <text class="require">*</text>
+                </text>
+                <view class="arrow">
+                    <text class="sel-data">{{method}}</text>
+                    <image src="./../../static/common/arrow-right.svg" />
+                </view>
+            </view>
+            <view class="form-item">
+                <text class="label">
+                    <text>活动回放链接</text>
+                </text>
+                <input value="{{playback}}" maxlength="{{100}}" bindinput="playbackInput" placeholder-class="placeholder" placeholder="请输入您的活动回放链接"></input>
+            </view>
             <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType==5)}}"></cover-view>
         </view>
+        <view class="playback"><image src="./../../static/reserve/info.svg" role= "img"></image> <text>活动回放链接请在活动结束后补充</text></view>
         <view class="form-item meeting-desc relative">
             <text class="label">活动简介</text>
-            <textarea value="{{desc}}" hidden="{{datePopShow||timePopShow||endTimePopShow}}" maxlength="{{500}}" placeholder-class="placeholder" bindinput="descInput" placeholder="请输入活动简介">
-                <text class="hint">{{desc.length}}/500</text>
+            <textarea value="{{desc}}" hidden="{{datePopShow||timePopShow||endTimePopShow}}"  placeholder-class="placeholder" bindinput="descInput" placeholder="请输入活动简介">
             </textarea>
             <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType==5)}}"></cover-view>
         </view>
@@ -172,11 +211,48 @@
     </van-popup>
     <van-popup show="{{ datePopShow }}" round position="bottom" bind:click-overlay="dateCancel">
         <view class="sig-pop-wrapper">
-            <view class="title">选择活动日期</view>
-            <van-datetime-picker show-toolbar="{{false}}" type="date" value="{{ curDate }}" bind:input="dateOnInput" min-date="{{ minDate }}" />
+            <view class="title" wx:if="{{isStar}}">选择起始日期</view>
+            <view class="title" wx:else >选择结束日期</view>
+            <van-datetime-picker show-toolbar="{{ false }}" type="date" value="{{ curDate }}" bind:input="dateOnInput" min-date="{{ minDate }}" />
             <view class="btn-wrapper">
                 <button class="confirm" bindtap="dateConfirm">确定</button>
                 <button class="cancel" bindtap="dateCancel">取消</button>
+            </view>
+        </view>
+    </van-popup>
+    <van-popup show="{{ typeShow }}" round position="bottom" bind:click-overlay="typeCancel">
+        <view class="sig-pop-wrapper">
+            <view class="title">选择活动类型</view>
+            <van-radio-group value="{{ type }}" bind:change="typeRadioOnChange">
+                <block wx:for="{{typeList}}" wx:key="index">
+                    <view class="item">
+                        <van-radio icon-size="46rpx" custom-class="radio" checked-color="#40ADFF" name="{{item}}">
+                            <view class="name">{{item}}</view>
+                        </van-radio>
+                    </view>
+                </block>
+            </van-radio-group>
+            <view class="btn-wrapper">
+                <button class="confirm" bindtap="typeConfirm">确定</button>
+                <button class="cancel" bindtap="typeCancel">取消</button>
+            </view>
+        </view>
+    </van-popup>
+    <van-popup show="{{ typeShow }}" round position="bottom" bind:click-overlay="dateCancel">
+        <view class="sig-pop-wrapper">
+            <view class="title">选择活动类型</view>
+            <van-radio-group value="{{ type }}" bind:change="typeRadioOnChange">
+                <block wx:for="{{typeList}}" wx:key="index">
+                    <view class="item">
+                        <van-radio icon-size="46rpx" custom-class="radio" checked-color="#40ADFF" name="{{item}}">
+                            <view class="name">{{item}}</view>
+                        </van-radio>
+                    </view>
+                </block>
+            </van-radio-group>
+            <view class="btn-wrapper">
+                <button class="confirm" bindtap="typeConfirm">确定</button>
+                <button class="cancel" bindtap="typeCancel">取消</button>
             </view>
         </view>
     </van-popup>

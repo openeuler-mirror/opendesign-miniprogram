@@ -75,13 +75,17 @@ let remoteMethods = {
 };
 let localMethods = {
   validation: function (data) {
-    if (data.activity_type === 1) {
+    if (data.activity_form === 1) {
       if (!data.title) {
         this.toast('请输入活动标题');
         return;
       }
-      if (!data.date) {
-        this.toast('请选择活动日期');
+      if (!data.starTime) {
+        this.toast('请选择活动起始日期');
+        return;
+      }
+      if (!data.endTime) {
+        this.toast('请选择活动结束开始日期');
         return;
       }
       if (!data.address) {
@@ -154,11 +158,17 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isStar:false,
+    isEnd:false,
+    starTime:'',
+    endTime:'',
     id: '',
     detailType: 0,
     title: '',
     date: '',
-    type: 1,
+    type: '课程',
+    form:[],
+    method:'小程序报名',
     address: '',
     addressName: '',
     desc: '',
@@ -170,6 +180,16 @@ Page({
         speaker: '',
         desc: '',
       },
+    ],
+    typeList:[
+      '课程',
+      'MSG',
+      '赛事',
+      '其他'
+    ],
+    signUpList:[
+      '小程序报名',
+      '跳转其他链接报名'
     ],
     datePopShow: false,
     timePopShow: false,
@@ -214,7 +234,7 @@ Page({
         this.setData({
           title: res.title,
           date: res.date,
-          type: res.activity_type,
+          type: res.activity_form,
           liveAddress: res.live_address || '',
           longitude: res.longitude || '',
           latitude: res.latitude || '',
@@ -236,14 +256,28 @@ Page({
       title: e.detail.value,
     });
   },
-  selDate: function () {
+  setStar: function () {
     this.setData({
       datePopShow: true,
+      isStar:true
     });
+  },
+  setEnd: function () {
+    this.setData({
+      datePopShow: true,
+      isEnd:true
+    });
+  },
+  onTypeShow:function () {
+    this.setData({
+      typeShow:true,
+    })
   },
   dateCancel: function () {
     this.setData({
       datePopShow: false,
+      isStar:false,
+      isEnd:false
     });
   },
   dateOnInput: function (e) {
@@ -252,12 +286,27 @@ Page({
     });
   },
   dateConfirm: function () {
+    if (this.data.isStar) {
+      this.setData({
+        starTime: new Date(this.data.currentDate).Format('yyyy-MM-dd')
+      })
+    } else {
+      this.setData({
+        endTime: new Date(this.data.currentDate).Format('yyyy-MM-dd')
+      })
+    }
     this.setData({
-      date: new Date(this.data.currentDate).Format('yyyy-MM-dd'),
       datePopShow: false,
+      isStar:false,
+      isEnd:false
     });
   },
   radioOnChange(e) {
+    this.setData({
+      form: e.detail,
+    });
+  },
+  typeRadioOnChange: function (e) {
     this.setData({
       type: e.detail,
     });
@@ -345,6 +394,16 @@ Page({
       timePopShow: false,
     });
   },
+  typeCancel: function () {
+    this.setData({
+      typeShow: false,
+    });
+  },
+  typeConfirm: function () {
+    this.setData({
+      typeShow: false,
+    });
+  },
   selEndTime: function (e) {
     this.setData({
       endTimePopShow: true,
@@ -380,11 +439,11 @@ Page({
   },
   publish() {
     let postData = null;
-    if (this.data.type === 1) {
+    if (this.data.form[0] === 1) {
       postData = {
         title: this.data.title,
         date: this.data.date,
-        activity_type: 1,
+        activity_form: 1,
         synopsis: this.data.desc,
         address: this.data.address,
         detail_address: this.data.addressName,
@@ -397,7 +456,7 @@ Page({
       postData = {
         title: this.data.title,
         date: this.data.date,
-        activity_type: 2,
+        activity_form: 2,
         synopsis: this.data.desc,
         live_address: this.data.liveAddress,
         longitude: this.data.longitude,
@@ -411,17 +470,17 @@ Page({
     }
     remoteMethods.addEvents(postData, () => {
       wx.redirectTo({
-        url: '/package-events/publish/success?type=2',
+        url: '/package-events/publish/success?form=2',
       });
     });
   },
   saveDraft() {
     let postData = null;
-    if (this.data.type === 1) {
+    if (this.data.form[0] === 1) {
       postData = {
         title: this.data.title,
         date: this.data.date,
-        activity_type: 1,
+        activity_form: 1,
         synopsis: this.data.desc,
         address: this.data.address,
         detail_address: this.data.addressName,
@@ -434,7 +493,7 @@ Page({
       postData = {
         title: this.data.title,
         date: this.data.date,
-        activity_type: 2,
+        activity_form: 2,
         synopsis: this.data.desc,
         live_address: this.data.liveAddress,
         longitude: this.data.longitude,
@@ -448,7 +507,7 @@ Page({
     }
     remoteMethods.saveDraft(postData, () => {
       wx.redirectTo({
-        url: '/package-events/publish/success?type=1',
+        url: '/package-events/publish/success?form=1',
       });
     });
   },
@@ -457,11 +516,11 @@ Page({
   },
   editScheduleConfirm() {
     let postData = null;
-    if (this.data.type === 1) {
+    if (this.data.form[0] === 1) {
       postData = {
         title: this.data.title,
         date: this.data.date,
-        activity_type: 1,
+        activity_form: 1,
         synopsis: this.data.desc,
         address: this.data.address,
         detail_address: this.data.addressName,
@@ -474,7 +533,7 @@ Page({
       postData = {
         title: this.data.title,
         date: this.data.date,
-        activity_type: 2,
+        activity_form: 2,
         synopsis: this.data.desc,
         live_address: this.data.liveAddress,
         longitude: this.data.longitude,
@@ -489,13 +548,13 @@ Page({
     postData.schedules = JSON.stringify(this.data.schedule);
     remoteMethods.saveDraft(postData, () => {
       wx.redirectTo({
-        url: '/package-events/publish/success?type=3',
+        url: '/package-events/publish/success?form=3',
       });
     });
   },
   toPoster() {
-    const address = this.data.type == 1 ? this.data.addressName : '';
-    const liveAddress = this.data.type == 2 ? this.data.liveAddress : '';
+    const address = this.data.form[0] == 1 ? this.data.addressName : '';
+    const liveAddress = this.data.form[0] == 2 ? this.data.liveAddress : '';
     wx.navigateTo({
       url: `/package-events/events/poster?title=${this.data.title}&date=${this.data.date}&address=${address}&poster=${this.data.topicSelIndex}&liveAddress=${liveAddress}`,
     });
