@@ -10,6 +10,22 @@ page {
     padding: 30rpx 0 129rpx 0;
 }
 
+.container .form .form-item image {
+    width: 30rpx;
+    height: 30rpx;
+}
+
+.container .form .form-item .arrow {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container .form .form-item .arrow .sel-data {
+    color: #6d7278;
+}
+
 input {
     flex: 1;
 }
@@ -93,8 +109,28 @@ input {
     background-color: #40ADFF;
 }
 
+.container .form .form-item .career {
+    position: relative;
+    justify-content: start;
+}
+
+.career image {
+    position: absolute;
+    right: 0;
+}
+
 .container .commit .meeting-reset {
     color: #40ADFF;
     background-color: #fff;
     border: 1px solid #40ADFF;
+}
+
+.checked-item {
+    margin-right: 15rpx;
+    padding: 6rpx 14rpx;
+    color: #6189FF;
+    font-size: 24rpx;
+    border: 1px solid #6189FF;
+    border-radius: 19px;
+    background: rgba(97, 137, 255, 0.3);
 }
