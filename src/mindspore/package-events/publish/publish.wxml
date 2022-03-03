@@ -7,7 +7,8 @@
                     <text>活动名称</text>
                     <text class="require">*</text>
                 </text>
-                <input value="{{title}}" maxlength="{{50}}" bindinput="titleInput" placeholder-class="placeholder" placeholder="请输入您的活动名称"></input>
+                <input value="{{title}}" maxlength="{{50}}" bindinput="titleInput" placeholder-class="placeholder"
+                    placeholder="请输入您的活动名称"></input>
             </view>
             <view class="form-item" bindtap="setStar">
                 <text class="label">
@@ -45,20 +46,26 @@
                     <text class="require">*</text>
                 </text>
                 <view class="arrow record">
-                    <van-checkbox-group value="{{form}}" class="checkbox" bind:change="radioOnChange" direction="horizontal">
-                        <van-checkbox shape="square" label-class="checkbox-class offline" name="{{1}}" icon-size="40rpx" checked-color="#40ADFF">
+                    <van-checkbox-group value="{{form}}"  class="checkbox" bind:change="radioOnChange"
+                        direction="horizontal">
+                        <van-checkbox shape="square" value="true" label-class="checkbox-class offline" name="{{1}}" icon-size="40rpx"
+                            checked-color="#40ADFF">
                             线下
-                        </van-checkbox >
-                        <van-checkbox shape="square" label-class="checkbox-class" name="{{2}}" icon-size="40rpx" checked-color="#40ADFF">
+                        </van-checkbox>
+                        <van-checkbox shape="square" label-class="checkbox-class" name="{{2}}" icon-size="40rpx"
+                            checked-color="#40ADFF">
                             线上
-                        </van-checkbox >
+                        </van-checkbox>
                     </van-checkbox-group>
                 </view>
             </view>
             <view wx:if="{{form[0]==2||form.length===2}}" class="form-item">
-                <text class="label">线上链接</text>
-                <text class="require">*</text>
-                <input value="{{liveAddress}}" bindinput="liveAddressInput" placeholder-class="placeholder" placeholder="请输入您的线上链接"></input>
+                <text class="label">
+                    <text>线上链接</text>
+                    <text class="require">*</text>
+                </text>
+                <input value="{{liveAddress}}" bindinput="liveAddressInput" placeholder-class="placeholder"
+                    placeholder="请输入您的线上链接"></input>
             </view>
             <view wx:if="{{form[0]==1||form.length===2}}" class="form-item" bindtap="selAddress">
                 <text class="label">
@@ -71,75 +78,135 @@
                 </view>
             </view>
             <view wx:if="{{form[0]==1||form.length===2}}" class="form-item">
-                <text class="label">具体地址</text>
-                <text class="require">*</text>
-                <input value="{{addressName}}" bindinput="addressNameInput" placeholder-class="placeholder" placeholder="请输入详细活动地址"></input>
-            </view>
-            <view class="form-item">
                 <text class="label">
-                    <text>报名方式</text>
+                    <text>具体地址</text>
                     <text class="require">*</text>
                 </text>
+                <input value="{{addressName}}" bindinput="addressNameInput" placeholder-class="placeholder"
+                    placeholder="请输入详细活动地址"></input>
+            </view>
+            <view class="form-item" bindtap="onModeShow">
+                <text class="label">
+                    <text>
+                        <text>报名方式</text>
+                        <text class="require">*</text>
+                    </text>
+                </text>
                 <view class="arrow">
-                    <text class="sel-data">{{method}}</text>
+                    <text class="sel-data">{{mode}}</text>
                     <image src="./../../static/common/arrow-right.svg" />
                 </view>
+            </view>
+            <view wx:if="{{form[0]==2 && method == 2 || form.length == 2 && method == 2 }}" class="form-item">
+                <text class="label">
+                    <text>报名链接</text>
+                    <text class="require">*</text>
+                </text>
+                <input value="{{registerUrl}}" bindinput="registerUrlInput" placeholder-class="placeholder"
+                    placeholder="请输入您的线上链接"></input>
             </view>
             <view class="form-item">
                 <text class="label">
                     <text>活动回放链接</text>
                 </text>
-                <input value="{{playback}}" maxlength="{{100}}" bindinput="playbackInput" placeholder-class="placeholder" placeholder="请输入您的活动回放链接"></input>
+                <input value="{{playback}}" maxlength="{{100}}" bindinput="playbackInput"
+                    placeholder-class="placeholder" placeholder="请输入您的活动回放链接"></input>
             </view>
             <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType==5)}}"></cover-view>
         </view>
-        <view class="playback"><image src="./../../static/reserve/info.svg" role= "img"></image> <text>活动回放链接请在活动结束后补充</text></view>
+        <view class="playback">
+            <image src="./../../static/reserve/info.svg" role="img"></image> <text>活动回放链接请在活动结束后补充</text>
+        </view>
         <view class="form-item meeting-desc relative">
             <text class="label">活动简介</text>
-            <textarea value="{{desc}}" hidden="{{datePopShow||timePopShow||endTimePopShow}}"  placeholder-class="placeholder" bindinput="descInput" placeholder="请输入活动简介">
+            <textarea value="{{desc}}" 	maxlength="{{-1}}" hidden="{{datePopShow||timePopShow||endTimePopShow}}"
+                placeholder-class="placeholder" bindinput="descInput" placeholder="请输入活动简介">
             </textarea>
             <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType==5)}}"></cover-view>
         </view>
-        <view class="form-wrapper schedule" wx:for="{{schedule}}" wx:key="index">
-            <view class="header">
-                <view class="left">
-                    <text class="icon">议题 {{index+1}}</text>
-                    <text class="title">日程</text>
+        <van-collapse value="{{ activeNames }}" bind:change="dateChange" >
+            <van-collapse-item wx:for="{{allSchedule}}" data-index="{{myindex}}" wx:for-item="date"
+                wx:for-index="dayIndex" wx:key='myindex' name="{{myindex}}">
+                <view slot="title">活动日程<text class="date-title">{{betweenDay[dayIndex]}}</text></view>
+                <view class="form-wrapper schedule" wx:for="{{allSchedule[dayIndex]}}" wx:for-item="item"
+                    wx:for-index="index" wx:key="index">
+                    <view class="header">
+                        <view class="left">
+                            <text class="icon">议题 {{index+1}}</text>
+                            <text class="title">日程</text>
+                        </view>
+                        <view class="del-btn" wx:if="{{index}}" bindtap="delSchedule" data-index="{{index}}"
+                            data-dayindex="{{dayIndex}}">
+                            <image src="./../../static/events/schedule-del.svg" />
+                        </view>
+                    </view>
+                    <view class="form-item">
+                        <text class="label">
+                            <text>时间</text>
+                            <text class="require">*</text>
+                        </text>
+                        <view class="sel-time">
+                            <text class="time start-time" data-index="{{index}}" data-dayindex="{{dayIndex}}"
+                                bindtap="selTime">{{item.start||'请选择'}}</text>
+                            <text>至</text>
+                            <text class="time end-time" data-index="{{index}}" data-dayindex="{{dayIndex}}"
+                                bindtap="selEndTime">{{item.end||'请选择'}}</text>
+                        </view>
+                    </view>
+                    <view class="form-item">
+                        <text class="label">
+                            <text>议题</text>
+                            <text class="require">*</text>
+                        </text>
+                        <input value="{{item.topic}}" maxlength="{{50}}" data-index="{{index}}"
+                            data-dayindex="{{dayIndex}}" bindinput="scheduleTitleInput" placeholder-class="placeholder"
+                            placeholder="请输入您的活动议题"></input>
+                    </view>
+                    <view class="speaker-wrapper" wx:for="{{item.speakerList}}" wx:for-item="item1"
+                        wx:for-index="index1" wx:key="index1">
+                        <view class="form-item speaker-del-wrapper">
+                            <text class="label speaker-header">Speaker {{index1+1}}</text>
+                            <view class="del-btn" bindtap="delSpeaker" data-index="{{dayIndex}}"
+                                data-outindex="{{index}}" data-innerindex="{{index1}}">
+                                <image src="./../../static/events/speaker-del.svg" />
+                            </view>
+                        </view>
+                        <view class="form-item">
+                            <text class="label">
+                                <text>Name</text>
+                                <text class="require">*</text>
+                            </text>
+                            <input value="{{item1.name}}" data-outindex="{{index}}" data-innerindex="{{index1}}"
+                                data-dayindex="{{dayIndex}}" bindinput="nameInput" placeholder-class="placeholder"
+                                placeholder="请填写嘉宾名称"></input>
+                        </view>
+                        <view class="form-item">
+                            <text class="label">Title</text>
+                            <input value="{{item1.title}}" data-outindex="{{index}}" data-innerindex="{{index1}}"
+                                data-dayindex="{{dayIndex}}" bindinput="speakerTitleInput"
+                                placeholder-class="placeholder" placeholder="请填写嘉宾的职位"></input>
+                        </view>
+                        <view class="form-item">
+                            <text class="label" wx:if="{{type==2}}">
+                                <text>Mail</text>
+                                <text class="require">*</text>
+                            </text>
+                            <text class="label" wx:else>Mail</text>
+                            <input value="{{item1.mail}}" data-outindex="{{index}}" data-innerindex="{{index1}}"
+                                data-dayindex="{{dayIndex}}" bindinput="mailInput" placeholder-class="placeholder"
+                                placeholder="请填写嘉宾邮箱"></input>
+                        </view>
+                    </view>
+                    <view class="add-speaker" data-index="{{index}}" data-dayindex="{{dayIndex}}" bindtap="addSpeaker">
+                        <text>+ 继续添加Speaker</text>
+                    </view>
                 </view>
-                <view class="del-btn"wx:if="{{index}}" bindtap="delSchedule" data-index="{{index}}">
-                    <image src="./../../static/events/schedule-del.svg" />
+                <view class="add-shedule" data-index="{{dayIndex}}" bindtap="addSchedule">
+                    <text>+ 继续添加议题</text>
                 </view>
-            </view>
-            <view class="form-item">
-                <text class="label">
-                    <text>时间</text>
-                    <text class="require">*</text>
-                </text>
-                <view class="sel-time">
-                    <text class="time start-time" data-index="{{index}}" bindtap="selTime">{{item.start||'请选择'}}</text>
-                    <text>至</text>
-                    <text class="time end-time" data-index="{{index}}" bindtap="selEndTime">{{item.end||'请选择'}}</text>
-                </view>
-            </view>
-            <view class="form-item">
-                <text class="label">
-                    <text>议题</text>
-                    <text class="require">*</text>
-                </text>
-                <input value="{{item.topic}}" maxlength="{{50}}" data-index="{{index}}" bindinput="scheduleTitleInput" placeholder-class="placeholder" placeholder="请输入您的活动议题"></input>
-            </view>
-            <view class="form-item">
-                <text class="label">Speaker</text>
-                <input value="{{item.speaker}}" data-index="{{index}}" bindinput="speakerInput" placeholder-class="placeholder" placeholder="请填写演讲嘉宾"></input>
-            </view>
-            <view class="form-item">
-                <text class="label">Title</text>
-                <input value="{{item.desc}}" data-index="{{index}}" bindinput="scheduleDescInput" placeholder-class="placeholder" placeholder="请填写嘉宾简介"></input>
-            </view>
-        </view>
-        <view class="add-shedule" bindtap="addSchedule">
-            <text>+ 继续添加</text>
-        </view>
+            </van-collapse-item>
+        </van-collapse>
+
         <view class="topic relative">
             <view class="header">海报主题</view>
             <view class="img-wrapper">
@@ -212,8 +279,9 @@
     <van-popup show="{{ datePopShow }}" round position="bottom" bind:click-overlay="dateCancel">
         <view class="sig-pop-wrapper">
             <view class="title" wx:if="{{isStar}}">选择起始日期</view>
-            <view class="title" wx:else >选择结束日期</view>
-            <van-datetime-picker show-toolbar="{{ false }}" type="date" value="{{ curDate }}" bind:input="dateOnInput" min-date="{{ minDate }}" />
+            <view class="title" wx:else>选择结束日期</view>
+            <van-datetime-picker show-toolbar="{{ false }}" type="date" value="{{ curDate }}" bind:input="dateOnInput"
+                min-date="{{ minDate }}" />
             <view class="btn-wrapper">
                 <button class="confirm" bindtap="dateConfirm">确定</button>
                 <button class="cancel" bindtap="dateCancel">取消</button>
@@ -225,8 +293,8 @@
             <view class="title">选择活动类型</view>
             <van-radio-group value="{{ type }}" bind:change="typeRadioOnChange">
                 <block wx:for="{{typeList}}" wx:key="index">
-                    <view class="item">
-                        <van-radio icon-size="46rpx" custom-class="radio" checked-color="#40ADFF" name="{{item}}">
+                    <view class="item" >
+                        <van-radio icon-size="46rpx" bindtap="typeClick" data-index="{{ index + 1 }}" custom-class="radio" checked-color="#40ADFF" name="{{item}}">
                             <view class="name">{{item}}</view>
                         </van-radio>
                     </view>
@@ -238,28 +306,29 @@
             </view>
         </view>
     </van-popup>
-    <van-popup show="{{ typeShow }}" round position="bottom" bind:click-overlay="dateCancel">
+    <van-popup show="{{ modeShow }}" round position="bottom" bind:click-overlay="modeCancel">
         <view class="sig-pop-wrapper">
-            <view class="title">选择活动类型</view>
-            <van-radio-group value="{{ type }}" bind:change="typeRadioOnChange">
-                <block wx:for="{{typeList}}" wx:key="index">
-                    <view class="item">
-                        <van-radio icon-size="46rpx" custom-class="radio" checked-color="#40ADFF" name="{{item}}">
-                            <view class="name">{{item}}</view>
+            <view class="title">选择报名方式</view>
+            <van-radio-group value="{{ mode }}" bind:change="modeRadioOnChange">
+                <block wx:for="{{modeList}}" wx:key="index">
+                    <view class="item" >
+                        <van-radio icon-size="46rpx" bindtap="radioClick" data-index="{{index + 1}}" custom-class="radio"  checked-color="#40ADFF" name="{{item}}">
+                            <view class="name" >{{item}}</view>
                         </van-radio>
                     </view>
                 </block>
             </van-radio-group>
             <view class="btn-wrapper">
-                <button class="confirm" bindtap="typeConfirm">确定</button>
-                <button class="cancel" bindtap="typeCancel">取消</button>
+                <button class="confirm" bindtap="modeConfirm">确定</button>
+                <button class="cancel" bindtap="modeCancel">取消</button>
             </view>
         </view>
     </van-popup>
     <van-popup show="{{ timePopShow }}" round position="bottom" bind:click-overlay="timeCancel">
         <view class="sig-pop-wrapper">
             <view class="title">选择日程开始时间</view>
-            <van-datetime-picker show-toolbar="{{false}}" type="time" value="{{ start }}" bind:input="timeOnInput" min-hour="{{ minTime }}" max-hour="{{maxTime}}" filter="{{ filter }}" />
+            <van-datetime-picker show-toolbar="{{false}}" type="time" value="{{ start }}" bind:input="timeOnInput"
+                min-hour="{{ minTime }}" max-hour="{{maxTime}}" filter="{{ filter }}" />
             <view class="btn-wrapper">
                 <button class="confirm" bindtap="timeConfirm">确定</button>
                 <button class="cancel" bindtap="timeCancel">取消</button>
@@ -269,7 +338,8 @@
     <van-popup show="{{ endTimePopShow }}" round position="bottom" bind:click-overlay="endTimeCancel">
         <view class="sig-pop-wrapper">
             <view class="title">选择日程结束时间</view>
-            <van-datetime-picker show-toolbar="{{false}}" type="time" value="{{ end }}" bind:input="endTimeOnInput" min-hour="{{ minEndTime }}" max-hour="{{maxEndTime}}" filter="{{ filter }}" />
+            <van-datetime-picker show-toolbar="{{false}}" type="time" value="{{ end }}" bind:input="endTimeOnInput"
+                min-hour="{{ minEndTime }}" max-hour="{{maxEndTime}}" filter="{{ filter }}" />
             <view class="btn-wrapper">
                 <button class="confirm" bindtap="endTimeConfirm">确定</button>
                 <button class="cancel" bindtap="endTimeCancel">取消</button>

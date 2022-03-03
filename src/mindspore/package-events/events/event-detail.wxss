@@ -7,12 +7,16 @@ page {
 }
 
 .container .banner-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-size: 100% 100% !important;
     height: 378rpx;
     text-align: center;
-    padding-top: 165rpx;
 }
-
+.date-title {
+    font-size: 30rpx;
+}
 .container .banner-title text {
     font-size: 40rpx;
     color: #fff;
@@ -93,12 +97,18 @@ page {
 }
 
 .container .detail-wrapper .address {
-    padding: 30rpx 30rpx 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
+.left {
+    display: flex;
+    align-items: center;
+}
+.container .detail-wrapper .bottom-date {
+    padding-bottom: 0;
+    border: none;
+}
 .container .detail-wrapper .address .left image {
     width: 28rpx;
     height: 28rpx;

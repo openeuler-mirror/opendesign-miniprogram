@@ -52,11 +52,12 @@ Page({
       this.setData({
         info: {
           title: options.title,
-          date: options.date,
+          starTime:options.starTime,
+          endTime:options.endTime,
           detail_address: options.address || '',
           poster: options.poster,
           live_address: options.liveAddress || '',
-          activity_type: options.address ? 1 : 2,
+          activity_type: options.activity_type,
         },
         isDraft: 1,
       });
