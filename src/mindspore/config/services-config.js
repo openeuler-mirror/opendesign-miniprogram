@@ -65,6 +65,9 @@ var commonServiceConfig = {
   // 获取用户状态
   GET_USER_STATUS: '/userinfo/{id}/',
 
+  // "我的"页面各项计数
+  GET_COUNTS:'/counts/',
+
   // 保存用户giteename
   SAVE_MEMBER_DETAIL: '/user/{id}/',
 
@@ -104,7 +107,16 @@ var commonServiceConfig = {
   // 获取草稿箱活动列表
   GET_DRAFT_LIST: '/activitiesdraft/',
 
-  // 获取全量待发布
+  // 我的待发布活动列表（发布中）
+  MY_WAITING_ACTIVITIES:'/mywaitingactivities/',
+
+  // 活动收藏列表（已收藏）
+  ACTIVITY_COLLECTIONS:'/activitycollections/',
+
+  //  我报名的活动（已报名）
+  MY_REGISTERD_ACTIVITES:'/myregisterdactivities/',
+
+  // 活动草稿箱列表
   DRAFTS: '/drafts/',
 
   //草稿详情
@@ -126,6 +138,8 @@ var commonServiceConfig = {
   // 活动审核通过
   PUBLISHER_EVENTS_LIST: '/sponsoractivitiespublishing/',
 
+  // 我发布的活动新增
+  MY_EVENTS_LISTS:'/mypublishedactivities/',
   // 我发布的活动
   MY_EVENTS_LIST: '/sponsoractivities/',
 
@@ -166,7 +180,7 @@ var commonServiceConfig = {
   MY_SIGNUP_EVENTS: '/registeractivities/',
 
   // 报名表单
-  SEND_SIGNUP_INFO: '/applicantsinfo/',
+  SEND_SIGNUP_INFO: '/applicants/',
 
   // 保存意见反馈
   SAVE_FEEDBACK: '/feedback/',

@@ -10,11 +10,11 @@
                 <view class="header">我的会议</view>
                 <view class="list">
                     <view class="item" wx:if="{{level!==1}}" bindtap="go" data-url="/package-my/my/my-meetings">
-                        <text class="count">{{meetingCount||0}}</text>
+                        <text class="count">{{createdMeetingsCount||0}}</text>
                         <text class="text">已预定</text>
                     </view>
                     <view class="item" bindtap="go" data-url="/package-my/my/my-collection">
-                        <text class="count">{{collectCount||0}}</text>
+                        <text class="count">{{collectedMeetingsCount||0}}</text>
                         <text class="text">已收藏</text>
                     </view>
                 </view>
@@ -25,32 +25,32 @@
     <view class="common-functions">
         <view class="header">我的活动</view>
         <view class="list">
-            <view  wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/my/help">
-                <text class="counts">{{meetingCount||0}}</text>
+            <view  wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=2">
+                <text class="counts">{{publishedActivitiesCount||0}}</text>
                 <text class="text">已发布</text>
             </view>
-            <view  wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/my/help">
-                <text class="counts">{{meetingCount||0}}</text>
+            <view  wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=3">
+                <text class="counts">{{registerTableCount||0}}</text>
                 <text class="text">报名表单</text>
             </view>
-            <view  wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/my/help">
-                <text class="counts">{{meetingCount||0}}</text>
+            <view  wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=4">
+                <text class="counts">{{draftsCount||0}}</text>
                 <text class="text">草稿箱</text>
             </view>
-            <view  wx:if="{{avtivityLevel==3}}" class="item" bindtap="go" data-url="/package-my/my/help">
-                <text class="counts">{{meetingCount||0}}</text>
+            <view  wx:if="{{avtivityLevel==3}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=1">
+                <text class="counts">{{publishingActivitiesCount||0}}</text>
                 <text class="text">待发布</text>
             </view>
-            <view  wx:if="{{avtivityLevel==2}}" class="item" bindtap="go" data-url="/package-my/my/help">
-                <text class="counts">{{meetingCount||0}}</text>
+            <view  wx:if="{{avtivityLevel==2}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=5">
+                <text class="counts">{{publishingActivitiesCount||0}}</text>
                 <text class="text">发布中</text>
             </view>
-            <view class="item" bindtap="go" data-url="/package-my/my/help">
-                <text class="counts">{{meetingCount||0}}</text>
+            <view class="item" bindtap="go" data-url="/package-my/events/my-list?type=6">
+                <text class="counts">{{collectedActivitiesCount||0}}</text>
                 <text class="text">已收藏</text>
             </view>
-            <view class="item" bindtap="go" data-url="/package-my/my/help">
-                <text class="counts">{{meetingCount||0}}</text>
+            <view class="item" bindtap="go" data-url="/package-my/events/my-list?type=7">
+                <text class="counts">{{registerdActivitiesCount||0}}</text>
                 <text class="text">已报名</text>
             </view>
             
