@@ -36,10 +36,40 @@ input {
 }
 
 .checkbox-class {
+    margin-left: 0 !important;
+    padding-left: 20rpx;
     font-size: 28rpx;
 }
 .offline {
     margin-right: 40rpx;
+}
+.van-collapse-item {
+    background-color: #40ADFF;
+    margin: 20rpx 0;
+    border-radius: 10rpx;
+    overflow: hidden;
+}
+.van-collapse-item .van-cell{
+    background-color: #40ADFF;
+    color: #ffffff;
+    font-size: 32rpx;
+}
+.container .add-speaker {
+    border: 2rpx dashed #f9762d;
+    border-radius: 8rpx;
+    margin: 0 auto 30rpx;
+    width: 92%;
+    height: 65rpx;
+    text-align: center;
+    line-height: 65rpx;
+    color: #6d7278;
+    font-size: 28rpx;
+}
+.van-collapse-item .van-icon {
+    color: #fff;
+}
+.date-title {
+    margin-left: 30rpx;
 }
 .checkbox {
     display: flex;
@@ -134,7 +164,6 @@ input {
 }
 
 .container .form .meeting-desc {
-    margin-top: 20rpx;
     padding-top: 30rpx;
     align-items: flex-start;
     height: 244rpx;
@@ -361,7 +390,6 @@ input {
     width: 300rpx;
     height: 150rpx;
 }
-
 .container .relative {
     position: relative;
 }
@@ -387,4 +415,41 @@ input {
     height: 28rpx;
     margin-right: 15rpx;
     vertical-align: middle;
+}
+.container .form .schedule .header .del-btn image {
+    height: 40rpx;
+    width: 40rpx;
+}
+.container .add-speaker {
+    border: 2rpx dashed #f9762d;
+    border-radius: 8rpx;
+    margin: 0 auto 30rpx;
+    width: 92%;
+    height: 65rpx;
+    text-align: center;
+    line-height: 65rpx;
+    color: #6d7278;
+    font-size: 28rpx;
+}
+.container .speaker-wrapper {
+    border: 2rpx dashed #f9762d;
+    border-radius: 8rpx;
+    margin: 0 auto 20rpx;
+    width: 92%;
+}
+
+.container .speaker-wrapper .speaker-header {
+    font-size: 34rpx;
+}
+
+.container .form .speaker-wrapper .form-item {
+    padding: 0 30rpx !important;
+}
+.container .form .schedule .speaker-del-wrapper {
+    justify-content: space-between;
+}
+
+.container .form .schedule .speaker-del-wrapper .del-btn image {
+    width: 30rpx;
+    height: 30rpx;
 }

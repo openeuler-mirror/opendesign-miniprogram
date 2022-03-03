@@ -96,11 +96,17 @@ Page({
   /**
    * 页面的初始数据
    */
+
   data: {
     info: {},
     id: '',
+    startTime:'',
+    endTime:'',
     steps: [],
     tabIndex: 0,
+    activeNames:0,
+    betweenDay:[],
+    showDialog:false,
     type: 0,
     level: 1,
     user: '',
@@ -139,20 +145,101 @@ Page({
       user: sessionUtil.getUserInfoByKey('userId'),
     });
     remoteMethods.getDraftDetail((res) => {
+      let betweenDay = this.getBetweenDateStr(res.start_date,res.end_date)
       this.setData({
         info: res,
+        startTime:res.start_date.replaceAll('-','.'),
+        endTime:res.end_date.replaceAll('-','.'),
+        betweenDay:betweenDay
       });
       let arr = [];
-      JSON.parse(res.schedules).forEach((item) => {
-        arr.push({
-          duration: item.start + '-' + item.end,
-          title: item.topic,
-          speaker: item.speaker ? item.speaker + '-' + item.desc : '',
-        });
-      });
+      JSON.parse(res.schedules).forEach((dayTime,index) => {
+        arr.push([])
+        dayTime.forEach(item => {
+          if(item.speakerList){
+            arr[index].push({
+                duration: item.start + '-' + item.end,
+                title: item.topic,
+                speakerList: item.speakerList
+            })
+          } else {
+            arr.push({
+                duration: item.start + '-' + item.end,
+                title: item.topic,
+                speakerList: [{
+                    name: item.speaker || '',
+                    title: item.desc || ''
+                }]
+            })
+         }
+        })
+    });
       this.setData({
         steps: arr,
       });
+    });
+  },
+  linkClick() {
+    this.setData({
+      showDialog:true
+    })
+  },
+  copyLink() {
+    let that = this
+    wx.setClipboardData({
+      data: this.data.info.online_url,
+      success: function () {
+          that.setData({
+              showDialog: false
+          })
+      },
+      fail:function () {
+        that.setData({
+          showDialog: false
+      })
+      }
+  })
+  },
+  getBetweenDateStr(start, end) {
+    let startDate = Date.parse(start);
+    let endDate = Date.parse(end);
+    if (startDate > endDate) {
+      return false;
+    } else if (startDate == endDate) {
+      return [start]
+    }
+    let result = [];
+    let beginDay = start.split("-");
+    let endDay = end.split("-");
+    let diffDay = new Date();
+    let dateList = new Array;
+    let i = 0;
+    diffDay.setDate(beginDay[2]);
+    diffDay.setMonth(beginDay[1] - 1);
+    diffDay.setFullYear(beginDay[0]);
+    result.push(start);
+    while (i == 0) {
+      let countDay = diffDay.getTime() + 24 * 60 * 60 * 1000;
+      diffDay.setTime(countDay);
+      dateList[2] = diffDay.getDate();
+      dateList[1] = diffDay.getMonth() + 1;
+      dateList[0] = diffDay.getFullYear();
+      if (String(dateList[1]).length == 1) {
+        dateList[1] = "0" + dateList[1]
+      }
+      if (String(dateList[2]).length == 1) {
+        dateList[2] = "0" + dateList[2]
+      }
+      result.push(dateList[0] + "-" + dateList[1] + "-" + dateList[2]);
+      if (dateList[0] == endDay[0] && dateList[1] == endDay[1] && dateList[2] == endDay[2]) {
+        i = 1;
+      }
+    }
+    return result;
+  },
+  dateChange(event) {
+    this.setData({
+      activeNames: event.detail,
     });
   },
   switchTab(e) {
@@ -219,10 +306,16 @@ Page({
     });
   },
   toSignUp() {
+    if (!sessionUtil.getUserInfoByKey('access')) {
+        wx.navigateTo({
+            url: '/pages/auth/auth'
+        })
+        return;
+    }
     wx.navigateTo({
-      url: `/package-events/sign-up/sign-up?id=${this.data.info.id}&title=${this.data.info.title}&poster=${this.data.info.poster}`,
-    });
-  },
+        url: `/package-events/sign-up/sign-up?id=${this.data.info.id}&title=${this.data.info.title}&poster=${this.data.info.poster}`
+    })
+},
   onShareAppMessage() {
     return {
       title: '活动详情',

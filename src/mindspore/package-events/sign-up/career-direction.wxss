@@ -1,0 +1,105 @@
+.container {
+    padding: 0 0 129rpx;
+    background-color: #F5F7FA;
+}
+
+.career-top {
+    margin-top: 30rpx;
+    background-color: #ffffff;
+}
+.career-body {
+    padding: 40rpx 30rpx 0;
+}
+.title {
+    font-size: 40rpx;
+}
+.career-item {
+    margin-right: 15rpx;
+    margin-bottom: 20rpx;
+    padding: 8rpx 14rpx;
+    color: #6189FF;
+    font-size: 27rpx;
+    border: 1px solid #6189FF;
+    border-radius: 30rpx;
+    background: rgba(97, 137, 255, 0.3);
+}
+.all-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 40rpx;
+    margin-bottom: 100rpx;
+}
+.checked-list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 30rpx;
+}
+.all-item {
+    margin-right: 15rpx;
+    margin-bottom: 30rpx;
+    padding: 8rpx 14rpx;
+    border-radius: 30rpx;
+    font-size: 27rpx;
+    color: #9FA8B1;
+    border: 1px solid transparent;
+    background-color: #ffffff;
+}
+
+.career-item {
+    margin-right: 15rpx;
+    padding: 8rpx 14rpx;
+    color: #6189FF;
+    font-size: 27rpx;
+    border: 1px solid #6189FF;
+    border-radius: 30rpx;
+    background: rgba(97, 137, 255, 0.3);
+}
+
+.create-new {
+    color: #40ADFF;
+    margin-right: 15rpx;
+    margin-bottom: 30rpx;
+    padding: 8rpx 18rpx;
+    border-radius: 30rpx;
+    font-size: 27rpx;
+    border: 1px dashed #40ADFF;
+}
+.create-new image {
+    margin-right: 10rpx;
+    width: 20rpx;
+    height: 20rpx;
+}
+.tag {
+    color: #81888f;
+    padding: 40rpx;
+    box-sizing: content-box;
+    background-color: rgba(159, 168, 177, 0.13);
+}
+
+.btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 90rpx;
+    font-size: 36rpx;
+    margin: 60rpx 0;
+}
+
+ .btn-wrapper .confirm {
+    height: 100%;
+    width: 320rpx;
+    text-align: center;
+    line-height: 90rpx;
+    color: #fff;
+    background-color: #40ADFF;
+}
+
+ .btn-wrapper .cancel {
+    height: 100%;
+    width: 320rpx;
+    text-align: center;
+    line-height: 90rpx;
+    color: #40ADFF;
+    background-color: #fff;
+    border: 1px solid #40ADFF;
+}

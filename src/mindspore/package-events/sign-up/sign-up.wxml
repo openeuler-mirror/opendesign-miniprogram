@@ -2,7 +2,117 @@
 <view class="container">
     <view class="form">
         <view class="form-wrapper">
-            
+            <view class="form-item">
+                <text class="label">
+                    <text>您的姓名</text>
+                    <text class="require">*</text>
+                </text>
+                <input value="{{name}}" maxlength="{{50}}" bindinput="nameInput" placeholder-class="placeholder"
+                    placeholder="请输入您的姓名"></input>
+            </view>
+            <view class="form-item">
+                <text class="label">
+                    <text>微信号</text>
+                    <text class="require">*</text>
+                </text>
+                <input value="{{wechat}}" maxlength="{{50}}" bindinput="wechatInput" placeholder-class="placeholder"
+                    placeholder="请输入您的微信号"></input>
+            </view>
+            <view class="form-item">
+                <text class="label">
+                    <text>性别</text>
+                    <text class="require">*</text>
+                </text>
+                <view class="arrow record">
+                    <van-radio-group value="{{gender}}" bind:change="radioOnChange" direction="horizontal">
+                        <van-radio label-class="radio-class" name="{{1}}" icon-size="40rpx" checked-color="#40ADFF">
+                            男
+                        </van-radio>
+                        <van-radio label-class="radio-class" name="{{2}}" icon-size="40rpx" checked-color="#40ADFF">
+                            女
+                        </van-radio>
+                    </van-radio-group>
+                </view>
+            </view>
+            <view class="form-item" bindtap="onAgeShow">
+                <text class="label">
+                    <text>年龄段</text>
+                    <text class="require">*</text>
+                </text>
+                <view class="arrow">
+                    <text class="sel-data">{{ age }}</text>
+                    <image src="./../../static/common/arrow-right.svg" />
+                </view>
+            </view>
+            <view class="form-item">
+                <text class="label">
+                    <text>您的手机</text>
+                    <text class="require">*</text>
+                </text>
+                <input value="{{tel}}" maxlength="{{50}}" bindinput="telInput" placeholder-class="placeholder"
+                    placeholder="请输入您的手机号码"></input>
+            </view>
+            <view class="form-item">
+                <text class="label">
+                    <text>您的邮箱</text>
+                    <text class="require">*</text>
+                </text>
+                <input value="{{mail}}" maxlength="{{50}}" bindinput="mailInput" placeholder-class="placeholder"
+                    placeholder="请输入您的邮箱地址"></input>
+            </view>
+            <view class="form-item">
+                <text class="label">
+                    <text>就职公司/所读学校</text>
+                    <text class="require">*</text>
+                </text>
+                <input value="{{enterprise}}" maxlength="{{50}}" bindinput="enterpriseInput"
+                    placeholder-class="placeholder" placeholder="输入公司/学校"></input>
+            </view>
+            <view class="form-item" bindtap="careerClick">
+                <text class="label">
+                    <text>职业方向</text>
+                    <text class="require">*</text>
+                </text>
+                <view class="arrow career">
+                    <input  
+                    wx:if="{{directionList.length===0}}"
+                    readonly="readonly"
+                    placeholder-class="placeholder" placeholder="选择职业方向"></input>
+                    <view class="checked-item" wx:for="{{directionList}}" wx:key="item" >{{ item.value }}</view>
+                    <image src="./../../static/common/arrow-right.svg" />
+                </view>
+            </view>
+            <view class="form-item" bindtap="careerNameClick">
+                <text class="label">
+                    <text>职业名称</text>
+                    <text class="require">*</text>
+                </text>
+                <view class="arrow career">
+                    <input  
+                    wx:if="{{directionList.length===0}}"
+                    readonly="readonly"
+                    placeholder-class="placeholder" placeholder="选择职业名称"></input>
+                    <view class="checked-item" wx:for="{{nameList}}" wx:key="item" >{{ item.value }}</view>
+                    <image src="./../../static/common/arrow-right.svg" />
+                </view>
+            </view>
+            <view class="form-item" bindtap="onWorkShow">
+                <text class="label">
+                    <text>工作年限</text>
+                    <text class="require">*</text>
+                </text>
+                <view class="arrow">
+                    <text class="sel-data">{{ work }}</text>
+                    <image src="./../../static/common/arrow-right.svg" />
+                </view>
+            </view>
+            <view class="form-item">
+                <text class="label">
+                    <text>您的Gitee ID</text>
+                </text>
+                <input value="{{gitee}}" maxlength="{{50}}" bindinput="giteeInput" placeholder-class="placeholder"
+                    placeholder="请输入您的Gitee ID"></input>
+            </view>
         </view>
     </view>
     <view class="info">
@@ -18,4 +128,40 @@
         <button class="meeting-reset" bindtap="back">我再想想</button>
         <button class="meeting-btn" bindtap="signUp">立即报名</button>
     </view>
+    <van-popup show="{{ ageShow }}" round position="bottom" bind:click-overlay="ageConfirm">
+        <view class="sig-pop-wrapper">
+            <view class="title">选择年龄段</view>
+            <van-radio-group value="{{ age }}" bind:change="ageRadioOnChange">
+                <block wx:for="{{ageList}}" wx:key="index">
+                    <view class="item" >
+                        <van-radio icon-size="46rpx"  data-index="{{ index + 1 }}" custom-class="radio" checked-color="#40ADFF" name="{{item}}">
+                            <view class="name">{{item}}</view>
+                        </van-radio>
+                    </view>
+                </block>
+            </van-radio-group>
+            <view class="btn-wrapper">
+                <button class="confirm" bindtap="ageConfirm">确定</button>
+                <button class="cancel" bindtap="ageConfirm">取消</button>
+            </view>
+        </view>
+    </van-popup>
+    <van-popup show="{{ workShow }}" round position="bottom" bind:click-overlay="workConfirm">
+        <view class="sig-pop-wrapper">
+            <view class="title">选择工作年限</view>
+            <van-radio-group value="{{ work }}" bind:change="workRadioOnChange">
+                <block wx:for="{{workList}}" wx:key="index">
+                    <view class="item" >
+                        <van-radio icon-size="46rpx"  data-index="{{ index + 1 }}" custom-class="radio" checked-color="#40ADFF" name="{{item}}">
+                            <view class="name">{{item}}</view>
+                        </van-radio>
+                    </view>
+                </block>
+            </van-radio-group>
+            <view class="btn-wrapper">
+                <button class="confirm" bindtap="workConfirm">确定</button>
+                <button class="cancel" bindtap="workConfirm">取消</button>
+            </view>
+        </view>
+    </van-popup>
 </view>

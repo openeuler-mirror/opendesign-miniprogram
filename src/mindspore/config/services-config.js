@@ -78,7 +78,7 @@ var commonServiceConfig = {
   ENTERPRISE_DEL_MEMBER_LIST: '/sponsor/action/del/',
 
   // 发布
-  PUBLISH_EVENT: '/activity/',
+  PUBLISH_EVENT: '/activity/?publish=true',
 
   // 保存草稿
   SAVE_DRAFT: '/activitydraft/',
@@ -139,10 +139,10 @@ var commonServiceConfig = {
   LATEST_EVENTS: '/recentactivities/',
 
   // 获取报名者信息
-  APPLICANT_INFO: '/applicantinfo/{id}/',
+  APPLICANT_INFO: '/applicant/{id}/',
 
   // 报名
-  SAVE_SIGNUP_INFO: '/activityregister/',
+  SAVE_SIGNUP_INFO: '/register/',
 
   // 我报名的活动
   MY_SIGNUP_EVENTS: '/registeractivities/',
