@@ -34,7 +34,6 @@
                             <button bindtap="toUpdateSchedule" data-id="{{item.id}}" wx:if="{{(item.status==3) || (item.status==4)||(item.status==5)}}">
                                 补充修改
                             </button>
-                            <button bindtap="toUpdateSchedule" data-id="{{item.id}}" wx:if="{{item.status==5}}">精彩回顾</button>
                         </view>
                         <view class="button" wx:if="{{(type == 6)||(type == 7)}}">
                             <block wx:if="{{item.status==5}}">
@@ -95,7 +94,7 @@
         <view class="dialog-slot-content">
             <text>
                 活动一经发布，暂不支持自行下架删除。如有需要，请联系
-                <text class="blue">小助手 (微信号openeuler123)</text>
+                <text class="blue">小助手 (微信号mindspore0328)</text>
                 下架活动
             </text>
             <view>

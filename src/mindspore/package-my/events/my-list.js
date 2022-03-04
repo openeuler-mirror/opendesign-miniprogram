@@ -9,7 +9,7 @@ let remoteMethods = {
     if (that.data.type == 4) {
       service = 'DRAFTS';
     } else if (that.data.type == 1) {
-      service = 'MY_WAITING_ACTIVITIES';
+      service = 'WAITING_ACTIVITIES';
     } else if (that.data.type == 5) {
       service = 'MY_WAITING_ACTIVITIES';
     } else if (that.data.type == 2) {
@@ -64,7 +64,7 @@ let remoteMethods = {
     appAjax.postJson({
       autoShowWait: true,
       type: 'POST',
-      service: 'EVENT_COLLECT',
+      service: 'EVENT_COLLECTS',
       data: {
         activity: that.data.curId,
       },
@@ -158,7 +158,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    let that=this
     remoteMethods.getList((res) => {
+      res.forEach(item=>{
+        if(item.start_date==item.end_date){
+          item.date=that.timefomart(item.start_date)
+        }else{
+          item.date=that.timefomart(item.start_date)+'—'+that.timefomart(item.end_date)
+        }
+      })
       this.setData({
         list: res,
       });
@@ -346,4 +354,11 @@ Page({
       url: `/package-my/events/send-email?id=${e.currentTarget.dataset.id}`,
     });
   },
+  timefomart:function(time){
+    if(time){
+      return time.slice(5).replace('-','月')+'日' 
+    }else{
+      return null
+    }
+  }
 });

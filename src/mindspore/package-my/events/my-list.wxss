@@ -119,7 +119,19 @@ page {
     display: flex;
 }
 
-.container .event-list-wrapper .event-item .body .right .button,.buttons button {
+.container .event-list-wrapper .event-item .body .right .button button {
+    height: 68rpx;
+    min-width: 144rpx;
+    width: fit-content;
+    text-align: center;
+    line-height: 68rpx;
+    color: #fff;
+    background-color: #40ADFF;
+    border-radius: 8rpx;
+    font-size: 28rpx;
+    display: inline-block;
+}
+.container .event-list-wrapper .event-item .body .right .buttons button {
     height: 68rpx;
     min-width: 144rpx;
     width: fit-content;
@@ -132,7 +144,10 @@ page {
     display: inline-block;
 }
 
-.container .event-list-wrapper .event-item .body .right .button,.buttons .register {
+.container .event-list-wrapper .event-item .body .right .button .register {
+    background-color: #6682ca;
+}
+.container .event-list-wrapper .event-item .body .right .buttons .register {
     background-color: #6682ca;
 }
 
