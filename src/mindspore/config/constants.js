@@ -7,6 +7,7 @@ var _ = require('../utils/underscore-extend.js');
 var serviceConfig = {
   // SERVICE_URL: 'https://api.mindspore.cn/meetings', // 正式环境
   SERVICE_URL: "http://119.8.32.82", // 测试环境
+
 };
 
 // 存储配置

@@ -11,7 +11,7 @@
 </view>
 <view class="list swiper-list">
     <block wx:for="{{list}}" wx:key="index">
-        <view class="item" bindtap="toDetail" data-id="{{item.id}}">
+        <view class="item" bindtap="toDetail" data-id="{{item.id}}" data-collection_id="{{item.collection_id}}">
             <view catchtap="getMore" data-item="{{item}}" class="header {{item.collection_id?'isCollection':''}}">
                 <text>{{item.group_name}}</text>
                 <image src="./../../static/common/more.svg" />

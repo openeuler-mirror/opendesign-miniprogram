@@ -8,11 +8,23 @@ var commonServiceConfig = {
   // sig列表
   SIG_LIST: '/sigs/',
 
+  // msg城市列表
+  MSG_LIST:'/cities/',
+
   // 获取当前组已添加成员列表
   GROUP_MEMBER_LIST: '/users_include/',
 
+  // 查询某个城市的成员
+  GROUP_CITY_MEMBER_LIST:'/users_include_city/',
+
+  // 查询一个用户的城市关系
+  GROUP_USER_CITY:'/usercity/{id}/',
+
   // 获取当前组未添加成员列表
   GROUP_EXCLUDE_MEMBER_LIST: '/users_exclude/',
+
+  // 查询某个城市的非成员
+  GROUP_CITY_EXCLUDE_MEMBER_LIST: '/users_exclude_city/',
 
   //获取所有组的信息
   ALL_GROUP_LIST: '/groups/',
@@ -20,8 +32,14 @@ var commonServiceConfig = {
   // 添加组员
   ADD_MEMBER_LIST: '/groupuser/action/new/',
 
+  // MSG城市添加组员
+  ADD_CITY_MEMBER_LIST: '/cityuser/action/new/',
+
   // 删除组员
   DEL_MEMBER_LIST: '/groupuser/action/del/',
+
+  // 删除MSG城市组员
+  DEL_CITY_MEMBER_LIST: '/cityuser/action/del/',
 
   // 获取sig组未添加成员列表
   GET_USER_GROUP: '/usergroup/{id}/',
@@ -46,6 +64,9 @@ var commonServiceConfig = {
 
   // 获取用户状态
   GET_USER_STATUS: '/userinfo/{id}/',
+
+  // "我的"页面各项计数
+  GET_COUNTS:'/counts/',
 
   // 保存用户giteename
   SAVE_MEMBER_DETAIL: '/user/{id}/',
@@ -86,7 +107,16 @@ var commonServiceConfig = {
   // 获取草稿箱活动列表
   GET_DRAFT_LIST: '/activitiesdraft/',
 
-  // 获取全量待发布
+  // 我的待发布活动列表（发布中）
+  MY_WAITING_ACTIVITIES:'/mywaitingactivities/',
+
+  // 活动收藏列表（已收藏）
+  ACTIVITY_COLLECTIONS:'/activitycollections/',
+
+  //  我报名的活动（已报名）
+  MY_REGISTERD_ACTIVITES:'/myregisterdactivities/',
+
+  // 活动草稿箱列表
   DRAFTS: '/drafts/',
 
   //草稿详情
@@ -108,6 +138,8 @@ var commonServiceConfig = {
   // 活动审核通过
   PUBLISHER_EVENTS_LIST: '/sponsoractivitiespublishing/',
 
+  // 我发布的活动新增
+  MY_EVENTS_LISTS:'/mypublishedactivities/',
   // 我发布的活动
   MY_EVENTS_LIST: '/sponsoractivities/',
 
@@ -148,7 +180,7 @@ var commonServiceConfig = {
   MY_SIGNUP_EVENTS: '/registeractivities/',
 
   // 报名表单
-  SEND_SIGNUP_INFO: '/applicantsinfo/',
+  SEND_SIGNUP_INFO: '/applicants/',
 
   // 保存意见反馈
   SAVE_FEEDBACK: '/feedback/',

@@ -20,7 +20,7 @@
                     <text class="require">*</text>
                 </text>
                 <view class="arrow">
-                    <text class="sel-data">{{typeResult}}</text>
+                    <text class="sel-data">{{typeMeeting}}</text>
                     <image src="./../../static/common/arrow-right.svg" />
                 </view>
             </view>
@@ -31,6 +31,16 @@
                 </text>
                 <view class="arrow">
                     <text class="sel-data">{{sigResult}}</text>
+                    <image src="./../../static/common/arrow-right.svg" />
+                </view>
+            </view>
+            <view class="form-item" bindtap="selMSG" wx:if="{{isMSG}}">
+                <text class="label">
+                    <text>选取所属城市</text>
+                    <text class="require">*</text>
+                </text>
+                <view class="arrow">
+                    <text class="sel-data">{{msgResult}}</text>
                     <image src="./../../static/common/arrow-right.svg" />
                 </view>
             </view>
@@ -119,14 +129,32 @@
             </view>
         </view>
     </van-popup>
-    <van-popup show="{{ showMeetType }}" round position="bottom" bind:click-overlay="typeCancel">
+    <van-popup show="{{ msgPopShow }}" round position="bottom" bind:click-overlay="msgCancel">
         <view class="sig-pop-wrapper">
-            <view class="title">选择会议类型</view>
-            <van-radio-group value="{{ typeResult }}" bind:change="typeRadioOnChange">
-                <block wx:for="{{typeList}}" wx:key="index">
+            <view class="title">选择所属城市</view>
+            <van-radio-group value="{{ msgResult }}" bind:change="msgRadioOnChange">
+                <block wx:for="{{msgList}}" wx:key="index">
                     <view class="item">
                         <van-radio icon-size="46rpx" custom-class="radio" checked-color="#40ADFF" name="{{item}}">
                             <view class="name">{{item}}</view>
+                        </van-radio>
+                    </view>
+                </block>
+            </van-radio-group>
+            <view class="btn-wrapper">
+                <button class="confirm" bindtap="msgConfirm">确定</button>
+                <button class="cancel" bindtap="msgCancel">取消</button>
+            </view>
+        </view>
+    </van-popup>
+    <van-popup show="{{ showMeetType }}" round position="bottom" bind:click-overlay="typeCancel">
+        <view class="sig-pop-wrapper">
+            <view class="title">选择会议类型</view>
+            <van-radio-group value="{{ typeKey }}" bind:change="typeRadioOnChange">
+                <block wx:for="{{type}}" wx:key="index" wx:for-index="key" wx:for-item="value">
+                    <view class="item">
+                        <van-radio icon-size="46rpx" custom-class="radio" checked-color="#40ADFF" name="{{key}}">
+                            <view class="name">{{value}}</view>
                         </van-radio>
                     </view>
                 </block>
@@ -169,10 +197,17 @@
     </van-popup>
     <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialogWarn }}" class-name="sig-dialog">
         <view class="dialog-slot-content">
-            <text>当前您不属于任何SIG组，请先在SIG管理中关联SIG组</text>
+            <text wx:if="{{tipsType=='SIG'}}">当前您不属于任何SIG组，请联系
+                <text class="blue">小助手(微信号mindspore0328) </text>为您关联SIG组
+            </text>
+            <text wx:if="{{tipsType=='Tech'}}">当前您不属于专家委员会，请联系
+                <text class="blue">小助手(微信号mindspore0328) </text>为您关联专家委员会
+            </text>
+            <text wx:if="{{tipsType=='MSG'}}">当前您不属于任何MSG，请联系
+                <text class="blue">小助手(微信号mindspore0328) </text>为您关联MSG城市
+            </text>
             <view>
-                <button bindtap="warnCancel">确定</button>
-                <button bindtap="warnCancel">取消</button>
+                <button bindtap="copyWechat">复制微信号</button>
             </view>
         </view>
     </van-dialog>

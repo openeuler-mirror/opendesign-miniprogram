@@ -113,10 +113,16 @@ page {
     text-align: right;
     height: 68rpx;
 }
-
-.container .event-list-wrapper .event-item .body .right .button button {
+.container .event-list-wrapper .event-item .body .right .buttons {
+    text-align: right;
     height: 68rpx;
-    width: 172rpx;
+    display: flex;
+}
+
+.container .event-list-wrapper .event-item .body .right .button,.buttons button {
+    height: 68rpx;
+    min-width: 144rpx;
+    width: fit-content;
     text-align: center;
     line-height: 68rpx;
     color: #fff;
@@ -126,7 +132,7 @@ page {
     display: inline-block;
 }
 
-.container .event-list-wrapper .event-item .body .right .button .register {
+.container .event-list-wrapper .event-item .body .right .button,.buttons .register {
     background-color: #6682ca;
 }
 

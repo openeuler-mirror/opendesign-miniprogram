@@ -7,27 +7,23 @@ let remoteMethods = {
   getList: function (_callback) {
     let service = '';
     if (that.data.type == 4) {
-      service = 'GET_DRAFT_LIST';
-    } else if (that.data.type == 1) {
       service = 'DRAFTS';
+    } else if (that.data.type == 1) {
+      service = 'MY_WAITING_ACTIVITIES';
     } else if (that.data.type == 5) {
-      service = 'PUBLISHER_EVENTS_LIST';
+      service = 'MY_WAITING_ACTIVITIES';
     } else if (that.data.type == 2) {
       if (that.data.level == 2) {
-        service = 'MY_EVENTS_LIST';
+        service = 'MY_EVENTS_LISTS';
       } else {
-        service = 'ALL_EVENTS_LIST';
+        service = 'MY_EVENTS_LISTS';
       }
     } else if (that.data.type == 6) {
-      service = 'EVENT_COLLECT_LIST';
+      service = 'ACTIVITY_COLLECTIONS';
     } else if (that.data.type == 7) {
-      service = 'MY_SIGNUP_EVENTS';
+      service = 'MY_REGISTERD_ACTIVITES';
     } else if (that.data.type == 3) {
-      if (that.data.level == 2) {
-        service = 'MY_EVENTS_LIST';
-      } else {
-        service = 'ALL_EVENTS_LIST';
-      }
+      service = 'MY_EVENTS_LISTS';
     }
     appAjax.postJson({
       autoShowWait: true,
@@ -137,7 +133,11 @@ Page({
     if (options.type == 1) {
       title = '待发布';
     } else if (options.type == 2) {
-      title = '已发布';
+      if(that.data.level==3){
+        title = '发布的活动';
+      }else{
+        title = '我发布的活动';
+      } 
     } else if (options.type == 3) {
       title = '报名表单';
     } else if (options.type == 4) {
@@ -327,6 +327,9 @@ Page({
     } else if (this.data.type == 3) {
       this.sendEmail(e);
     }
+  },
+  toUpdateSchedules(e){
+    console.log(e)
   },
   copyWechat() {
     wx.setClipboardData({

@@ -14,11 +14,35 @@ let remoteMethods = {
       },
     });
   },
+  getCityExcludeMemberList: function (postData, _callback) {
+    appAjax.postJson({
+      autoShowWait: true,
+      type: 'GET',
+      service: 'GROUP_CITY_EXCLUDE_MEMBER_LIST',
+      data: {
+        city: postData.id,
+      },
+      success: function (ret) {
+        _callback && _callback(ret);
+      },
+    });
+  },
   addMemberList: function (postData, _callback) {
     appAjax.postJson({
       autoShowWait: true,
       type: 'POST',
       service: 'ADD_MEMBER_LIST',
+      data: postData,
+      success: function (ret) {
+        _callback && _callback(ret);
+      },
+    });
+  },
+  addCityMemberList: function (postData, _callback) {
+    appAjax.postJson({
+      autoShowWait: true,
+      type: 'POST',
+      service: 'ADD_CITY_MEMBER_LIST',
       data: postData,
       success: function (ret) {
         _callback && _callback(ret);
@@ -38,6 +62,7 @@ Page({
     isShowMes: false,
     btnText: '',
     group_name: '',
+    options:''
   },
 
   /**
@@ -47,12 +72,9 @@ Page({
     this.setData({
       group_id: options.group_id,
       btnText: '返回' + options.grouptitle,
+      options:options
     });
-    if (options.grouptitle.includes('MSG')) {
-      this.setData({
-        group_name: 'MSG',
-      });
-    } else if (options.grouptitle.includes('专家')) {
+   if (options.grouptitle.includes('专家')) {
       this.setData({
         group_name: 'Tech',
       });
@@ -68,16 +90,30 @@ Page({
    */
   onShow: function () {
     let that = this;
-    remoteMethods.getExcludeMemberList(
-      {
-        id: that.data.group_name,
-      },
-      function (data) {
-        that.setData({
-          list: data,
-        });
-      }
-    );
+    const {type}=this.data.options
+    if(type!='MSG'){
+      remoteMethods.getExcludeMemberList(
+        {
+          id: that.data.group_name,
+        },
+        function (data) {
+          that.setData({
+            list: data,
+          });
+        }
+      );
+    }else{
+      remoteMethods.getCityExcludeMemberList(
+        {
+          id: that.data.group_name,
+        },
+        function (data) {
+          that.setData({
+            list: data,
+          });
+        }
+      );
+    }
   },
   onChange: function (e) {
     this.setData({
@@ -98,19 +134,40 @@ Page({
       ids: this.data.result.join('-'),
       group_id: this.data.group_id,
     };
-    remoteMethods.addMemberList(postData, function (data) {
-      if (data.code === 201) {
-        that.setData({
-          isShowMes: true,
-        });
-      } else {
-        wx.showToast({
-          title: '操作失败',
-          icon: 'none',
-          duration: 2000,
-        });
-      }
-    });
+    const {type}=this.data.options
+    if(type!='MSG'){
+      remoteMethods.addMemberList(postData, function (data) {
+        if (data.code === 201) {
+          that.setData({
+            isShowMes: true,
+          });
+        } else {
+          wx.showToast({
+            title: '操作失败',
+            icon: 'none',
+            duration: 2000,
+          });
+        }
+      });
+    }else{
+      postData = {
+        ids: this.data.result.join('-'),
+        city_id: this.data.group_id,
+      };
+      remoteMethods.addCityMemberList(postData, function (data) {
+        if (data.code === 201) {
+          that.setData({
+            isShowMes: true,
+          });
+        } else {
+          wx.showToast({
+            title: '操作失败',
+            icon: 'none',
+            duration: 2000,
+          });
+        }
+      });
+    }
   },
   searchInput: function (e) {
     let that = this;

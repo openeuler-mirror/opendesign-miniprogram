@@ -21,6 +21,15 @@ let remoteMethods = {
       },
     });
   },
+  getCounts:function(_callback){
+    appAjax.postJson({
+      type: 'GET',
+      service: 'GET_COUNTS',
+      success: function (ret) {
+        _callback && _callback(ret);
+      },
+    });
+  }
 };
 Page({
   /**
@@ -32,8 +41,15 @@ Page({
     nickName: '',
     level: 1,
     avtivityLevel: 1,
-    meetingCount: 0,
-    collectCount: 0,
+    collectedActivitiesCount: 0,
+    collectedMeetingsCount: 5,
+    createdMeetingsCount: 8,
+    draftsCount: 0,
+    publishedActivitiesCount: 0,
+    publishingActivitiesCount: 0,
+    registerTableCount: 0,
+    registerdActivitiesCount: 0,
+    
   },
 
   /**
@@ -45,7 +61,7 @@ Page({
       avatarUrl: sessionUtil.getUserInfoByKey('avatarUrl'),
       nickName: sessionUtil.getUserInfoByKey('nickName'),
       level: sessionUtil.getUserInfoByKey('level'),
-      avtivityLevel: sessionUtil.getUserInfoByKey('eventLevel'),
+      avtivityLevel:2, // sessionUtil.getUserInfoByKey('eventLevel')
     });
     remoteMethods.getMyMeeting((res) => {
       this.setData({
@@ -57,6 +73,18 @@ Page({
         collectCount: res.length,
       });
     });
+    remoteMethods.getCounts((res)=>{
+      this.setData({
+        collectedActivitiesCount: res.collected_activities_count||0,
+        collectedMeetingsCount: res.collected_meetings_count||0,
+        createdMeetingsCount: res.created_meetings_count||0,
+        draftsCount: res.drafts_count||0,
+        publishedActivitiesCount: res.published_activities_count||0,
+        publishingActivitiesCount: res.publishing_activities_count||0,
+        registerTableCount: res.register_table_count||0,
+        registerdActivitiesCount: res.registerd_activities_count||0,
+      });
+    })
   },
   /**
    * 生命周期函数--监听页面显示
@@ -65,6 +93,7 @@ Page({
     this.getTabBar().setData({
       _tabbat: 3,
     });
+    
   },
   go(e) {
     wx.navigateTo({
@@ -73,15 +102,18 @@ Page({
   },
   onPullDownRefresh() {
     wx.stopPullDownRefresh();
-    remoteMethods.getMyMeeting((res) => {
+    remoteMethods.getCounts((res)=>{
       this.setData({
-        meetingCount: res.length,
+        collectedActivitiesCount: res.collected_activities_count||0,
+        collectedMeetingsCount: res.collected_meetings_count||0,
+        createdMeetingsCount: res.created_meetings_count||0,
+        draftsCount: res.drafts_count||0,
+        publishedActivitiesCount: res.published_activities_count||0,
+        publishingActivitiesCount: res.publishing_activities_count||0,
+        registerTableCount: res.register_table_count||0,
+        registerdActivitiesCount: res.registerd_activities_count||0,
       });
-    });
-    remoteMethods.getMyCollect((res) => {
-      this.setData({
-        collectCount: res.length,
-      });
-    });
+    })
+    
   },
 });

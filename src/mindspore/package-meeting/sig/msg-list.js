@@ -1,10 +1,10 @@
-var appAjax = require('./../../utils/app-ajax');
+let appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
-  getSigList: function (keyword, _callback) {
+  getMsgList: function (keyword, _callback) {
     appAjax.postJson({
       autoShowWait: true,
       type: 'GET',
-      service: 'SIG_LIST',
+      service: 'MSG_LIST',
       data: {
         search: keyword,
       },
@@ -15,33 +15,51 @@ let remoteMethods = {
   },
 };
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
     keyword: '',
-    list: [],
+    list: [
+      {
+        id:24,
+        name:'上海',
+        group_type:2
+      },
+      {
+        id:25,
+        name:'北京',
+        group_type:2
+      },
+      {
+        id:26,
+        name:'深圳',
+        group_type:2
+      },{
+        id:27,
+        name:'成都',
+        group_type:2
+      },
+    ],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function () {},
+  onLoad: function (options) {},
+
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
     let that = this;
-    remoteMethods.getSigList('', function (list) {
+    remoteMethods.getMsgList('', function (list) {
       that.setData({
         list: list,
       });
     });
   },
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {},
   toAddMember: function (e) {
     wx.navigateTo({
       url:
@@ -49,15 +67,17 @@ Page({
         e.currentTarget.dataset.id +
         '&name=' +
         e.currentTarget.dataset.name+
-        '&type=SIG',
+        '&type=MSG',
     });
   },
   searchInput: function (e) {
     let that = this;
-    remoteMethods.getSigList(e.detail.value, function (list) {
+    remoteMethods.getMsgList(e.detail.value, function (list) {
       that.setData({
         list: list,
       });
     });
   },
-});
+
+  
+})

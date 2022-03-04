@@ -210,9 +210,11 @@ Component({
       if (this.data.collectionId) {
         remoteMethods.uncollect(this.data.collectionId, function () {
           remoteMethods.getMeettingData(function (data) {
-            that.setData({
-              list: data,
-            });
+            setTimeout(() => {
+              that.setData({
+                list: data,
+              });
+            }, 0);
           });
         });
       } else {
@@ -222,10 +224,13 @@ Component({
             remoteMethods.collect(that.data.id, function (res) {
               if (res.code == 201) {
                 remoteMethods.getMeettingData(function (data) {
-                  that.setData({
-                    list: data,
-                  });
+                  setTimeout(() => {
+                    that.setData({
+                      list: data,
+                    });
+                  }, 0);
                 });
+                
               }
             });
           },
@@ -295,7 +300,7 @@ Component({
         return;
       }
       wx.navigateTo({
-        url: '/package-meeting/meeting/detail?id=' + e.currentTarget.dataset.id,
+        url: '/package-meeting/meeting/detail?id=' + e.currentTarget.dataset.id+'&collection_id='+e.currentTarget.dataset.collection_id,
       });
     },
     initData() {

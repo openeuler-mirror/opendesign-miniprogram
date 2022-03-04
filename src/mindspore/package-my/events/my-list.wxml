@@ -7,7 +7,7 @@
                     <text class="enterprise">{{item.enterprise}}</text>
                     <image src="./../../static/common/more.svg" />
                 </view>
-                <view class="body" bindtap="toUpdateSchedule" data-id="{{item.id}}" data-status="{{item.status}}">
+                <view class="body" data-id="{{item.id}}" data-status="{{item.status}}">
                     <view class="left {{type==3?'small':''}}">
                         <image src="./../../static/events/list-pic/{{item.poster}}.png" />
                     </view>
@@ -27,9 +27,12 @@
                         <view class="button" wx:if="{{type == 1}}">
                             <button>立即报名</button>
                         </view>
-                        <view class="button" wx:if="{{type == 2}}">
-                            <button bindtap="toUpdateSchedule" data-id="{{item.id}}" wx:if="{{(item.status==3) || (item.status==4)}}">
-                                修改日程
+                        <view class="buttons" wx:if="{{type == 2}}">
+                            <button bindtap="toUpdateSchedules" data-id="{{item.id}}" wx:if="{{(item.status==3) || (item.status==4)}}">
+                                签到码
+                            </button>
+                            <button bindtap="toUpdateSchedule" data-id="{{item.id}}" wx:if="{{(item.status==3) || (item.status==4)||(item.status==5)}}">
+                                补充修改
                             </button>
                             <button bindtap="toUpdateSchedule" data-id="{{item.id}}" wx:if="{{item.status==5}}">精彩回顾</button>
                         </view>
@@ -44,14 +47,14 @@
                                 </block>
                                 <block wx:elif="{{level==2}}">
                                     <button bindtap="toUpdateSchedule" wx:if="{{item.user==user}}" data-id="{{item.id}}">
-                                        修改日程
+                                        补充修改
                                     </button>
                                     <button class="register" wx:elif="{{item.register_id}}" data-id="{{item.id}}" bindtap="toUpdateSchedule">已报名</button>
                                     <button wx:else data-id="{{item.id}}" bindtap="toUpdateSchedule">立即报名</button>
                                 </block>
                                 <block wx:else>
                                     <button bindtap="toUpdateSchedule" data-id="{{item.id}}" wx:if="{{(item.status==3) || (item.status==4)}}">
-                                        修改日程
+                                        补充修改
                                     </button>
                                 </block>
                             </block>

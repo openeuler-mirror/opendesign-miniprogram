@@ -113,3 +113,10 @@
     color: #6d7278;
     text-align: center;
 }
+
+.container .common-functions .list .item .counts {
+    font-size: 40rpx;
+    margin-bottom: 10rpx;
+    text-align: center;
+    color: #333;
+}

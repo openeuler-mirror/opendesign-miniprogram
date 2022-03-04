@@ -228,13 +228,14 @@ var appUser = {
         type: 'GET',
         service: 'GET_USER_STATUS',
         otherParams: {
-          id: userInfo.userId,
+          id: userInfo.userId
         },
         success: function (ret) {
           if (ret) {
             userInfo.gitee = ret.gitee_name;
             userInfo.level = ret.level;
-            userInfo.eventLevel = ret.activity_level;
+            // userInfo.level = 2;
+            // userInfo.eventLevel = ret.activity_level;
             wx.setStorageSync(constants.APP_USERINFO_SESSION, userInfo);
           }
           callback && callback();

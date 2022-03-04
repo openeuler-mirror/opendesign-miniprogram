@@ -55,7 +55,7 @@
         </view>
     </view>
     <view class="detail-item" wx:if="{{info.replay_url}}">
-        <view class="name">回放链接</view>
+        <view class="name">录屏上传链接</view>
         <view class="link">
             <image src="./../../static/index/link.svg"></image>
             <text>{{info.replay_url}}</text>
@@ -63,5 +63,11 @@
         <view class="btn-wraper">
             <button bindtap="copy" data-copy="{{info.replay_url}}">复制</button>
         </view>
+    </view>
+    <view  class="collect-item">
+        
+        <button wx:if="{{collection_id=='null'}}" class="meeting-btn" bindtap="collect">收藏会议</button>
+        <button wx:else class="meeting-btn" bindtap="collect">取消收藏会议</button>
+        <view class="tips">一键收藏此会议，即可收到会议提醒通知哦！</view>
     </view>
 </view>
