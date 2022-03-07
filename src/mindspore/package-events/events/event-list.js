@@ -227,32 +227,30 @@ Page({
           showDialogDel: true,
         });
       }
-    } else {
-      if (e.detail.operaType == 1) {
-        if (this.data.collectionId) {
-          remoteMethods.unCollect(() => {
-            this.onLoad();
-          });
-        } else {
-          remoteMethods.collect(() => {
-            this.onLoad();
-          });
-        }
-      } else if (e.detail.operaType == 3) {
-        remoteMethods.getSignUpInfo(this.data.curId, (res) => {
-          wx.navigateTo({
-            url: `/package-events/sign-up/sign-up-success?name=${encodeURIComponent(
-              res.name
-            )}&title=${encodeURIComponent(res.title)}&tel=${encodeURIComponent(
-              res.telephone
-            )}&poster=${encodeURIComponent(res.poster)}`,
-          });
+    }  if (e.detail.operaType == 1) {
+      if (this.data.collectionId) {
+        remoteMethods.unCollect(() => {
+          this.onLoad();
         });
       } else {
-        this.setData({
-          underDialogShow: true,
+        remoteMethods.collect(() => {
+          this.onLoad();
         });
       }
+    } else if (e.detail.operaType == 3) {
+      remoteMethods.getSignUpInfo(this.data.curId, (res) => {
+        wx.navigateTo({
+          url: `/package-events/sign-up/sign-up-success?name=${encodeURIComponent(
+            res.name
+          )}&title=${encodeURIComponent(res.title)}&tel=${encodeURIComponent(
+            res.telephone
+          )}&poster=${encodeURIComponent(res.poster)}`,
+        });
+      });
+    } else {
+      this.setData({
+        underDialogShow: true,
+      });
     }
   },
   onMore(e) {
