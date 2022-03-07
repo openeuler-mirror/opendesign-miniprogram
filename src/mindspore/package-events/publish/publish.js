@@ -97,6 +97,10 @@ let localMethods = {
         this.toast('请输入具体地址');
         return;
       }
+      if (data.register_method === 2 && data.register_url=='') {
+        this.toast('请输入报名链接')
+        return
+      }
       let flag = true;
       data.schedules.forEach((dayItem) => {
         dayItem.forEach(item => {
@@ -120,9 +124,17 @@ let localMethods = {
         this.toast('请输入活动标题');
         return;
       }
+      if (data.activity_category === 2) {
+        this.toast('MSG活动需添加线下地址');
+        return;
+      }
       if (!data.online_url) {
         this.toast('请输入线上链接地址');
         return;
+      }
+      if (data.register_method === 2 && data.register_url=='') {
+        this.toast('请输入报名链接')
+        return
       }
       let flag = true;
       data.schedules.forEach((dayItem) => {
@@ -167,7 +179,10 @@ let localMethods = {
         this.toast('请输入具体地址');
         return;
       }
-
+      if (data.register_method === 2 && data.register_url=='') {
+        this.toast('请输入报名链接')
+        return
+      }
       let flag = true;
       data.schedules.forEach((dayItem) => {
         dayItem.forEach(item => {
@@ -205,7 +220,8 @@ Page({
     starTime: '',
     endTime: '',
     id: '',
-    activeNames: 0,
+    playback:'',
+    activeNames: [0],
     detailType: 0,
     title: '',
     date: '',
@@ -281,20 +297,27 @@ Page({
     });
     if ((this.data.id && this.data.detailType == 5) || (this.data.id && this.data.detailType == 4)) {
       remoteMethods.getDraftDetail((res) => {
-        res.activity_type == 3 ? res.activity_type = [1, 2] : res.activity_type = [res.activity_type]
+        res.activity_type == 3 ? res.activity_type = ['1', '2'] : res.activity_type = [`${res.activity_type}`]
         this.setData({
           title: res.title,
-          starTime: res.starTime,
-          endTime: res.endTime,
+          starTime: res.start_date,
+          endTime: res.end_date,
+          actegory:res.activity_category,
           form: res.activity_type,
+          playback:res.replay_url ||'',
+          method:res.register_method,
+          type:this.data.typeList[res.activity_category-1],
+          mode:this.data.modeList[res.register_method-1],
+          registerUrl:res.register_url || '',
           liveAddress: res.online_url || '',
           longitude: res.longitude || '',
           latitude: res.latitude || '',
           address: res.address || '',
           addressName: res.detail_address || '',
           desc: res.synopsis || '',
+          betweenDay:this.getBetweenDateStr(res.start_date,res.end_date),
           topicSelIndex: res.poster,
-          schedule: JSON.parse(res.schedules),
+          allSchedule: JSON.parse(res.schedules),
         });
       });
     }
@@ -307,6 +330,11 @@ Page({
     this.setData({
       title: e.detail.value,
     });
+  },
+  playbackInput(e) {
+    this.setData({
+      playback:e.detail.value
+    })
   },
   setStar: function () {
     this.setData({
@@ -665,7 +693,7 @@ Page({
     });
   },
   publish() {
-    let postData = null;
+    let postData = {};
     if (this.data.form.length === 0) {
       localMethods.toast('请选择活动类型')
       return false
@@ -676,6 +704,7 @@ Page({
         activity_category: this.data.actegory,
         activity_type:1,
         register_method:this.data.method,
+        register_url:this.data.registerUrl,
         start_date: this.data.starTime,
         detail_address: this.data.addressName,
         end_date: this.data.endTime,
@@ -691,6 +720,7 @@ Page({
         title: this.data.title,
         activity_category: this.data.actegory,
         register_method:this.data.method,
+        register_url:this.data.registerUrl,
         activity_type:2,
         start_date: this.data.starTime,
         end_date: this.data.endTime,
@@ -701,12 +731,12 @@ Page({
         poster: this.data.topicSelIndex,
         schedules: this.data.allSchedule,
       };
-      this.data.method === 2 ? postData[register_url] = this.data.registerUrl:''
     } else {
       postData = {
         title: this.data.title,
         activity_category: this.data.actegory,
         register_method:this.data.method,
+        register_url:this.data.registerUrl,
         activity_type:3,
         online_url: this.data.liveAddress,
         start_date:this.data.starTime,
@@ -730,12 +760,14 @@ Page({
     });
   },
   saveDraft() {
-    let postData = null;
-    if (this.data.form[0] === 1 && this.data.form.length !== 2) {
+    let postData = {};
+    if (this.data.form[0] == 1 && this.data.form.length !== 2) {
       postData = {
         title: this.data.title,
-        activity_category: 1,
-        activity_type:3,
+        activity_category: this.data.actegory,
+        activity_type:1,
+        register_method:this.data.method,
+        register_url:this.data.registerUrl,
         start_date: this.data.starTime,
         end_date: this.data.endTime,
         synopsis: this.data.desc,
@@ -746,12 +778,13 @@ Page({
         poster: this.data.topicSelIndex,
         schedules: this.data.allSchedule,
       };
-    } else if (this.data.form[0] === 2 && this.data.form.length !== 2) {
+    } else if (this.data.form[0] == 2 && this.data.form.length !== 2) {
       postData = {
         title: this.data.title,
-        activity_category: 2,
-        activity_type:3,
-        register_method:1,
+        activity_category: this.data.actegory,
+        activity_type:2,
+        register_url:this.data.registerUrl,
+        register_method:this.data.method,
         start_date: this.data.starTime,
         end_date: this.data.endTime,
         synopsis: this.data.desc,
@@ -764,9 +797,10 @@ Page({
     } else {
       postData = {
         title: this.data.title,
-        activity_category: 3,
+        activity_category: this.data.actegory,
         activity_type:3,
-        register_method:1,
+        register_method:this.data.method,
+        register_url:this.data.registerUrl,
         online_url: this.data.liveAddress,
         start_date:this.data.starTime,
         end_date:this.data.endTime,
@@ -792,12 +826,15 @@ Page({
     wx.navigateBack();
   },
   editScheduleConfirm() {
-    let postData = null;
-    if (this.data.form[0] === 1 && this.data.form.length !== 2) {
+    let postData = {};
+    if (this.data.form[0] == 1 && this.data.form.length !== 2) {
       postData = {
         title: this.data.title,
-        activity_category: 1,
-        activity_type:3,
+        activity_category: this.actegory,
+        activity_type:1,
+        replay_url:this.data.playback,
+        register_method:this.data.method,
+        register_url:this.data.registerUrl,
         start_date: this.data.starTime,
         end_date: this.data.endTime,
         synopsis: this.data.desc,
@@ -808,12 +845,14 @@ Page({
         poster: this.data.topicSelIndex,
         schedules: this.data.allSchedule,
       };
-    } else if (this.data.form[0] === 2 && this.data.form.length !== 2) {
+    } else if (this.data.form[0] == 2 && this.data.form.length !== 2) {
       postData = {
         title: this.data.title,
-        activity_category: 2,
-        activity_type:3,
-        register_method:1,
+        activity_category: this.data.actegory,
+        activity_type:2,
+        replay_url:this.data.playback,
+        register_url:this.data.registerUrl,
+        register_method:this.data.method,
         start_date: this.data.starTime,
         end_date: this.data.endTime,
         synopsis: this.data.desc,
@@ -826,11 +865,12 @@ Page({
     } else {
       postData = {
         title: this.data.title,
-        activity_category: 3,
+        activity_category: this.data.actegory,
         activity_type:3,
-        register_method:1,
+        replay_url:this.data.playback,
+        register_method:this.data.method,
+        register_url:this.data.registerUrl,
         online_url: this.data.liveAddress,
-        // type: this.data.type,
         start_date:this.data.starTime,
         end_date:this.data.endTime,
         synopsis: this.data.desc,

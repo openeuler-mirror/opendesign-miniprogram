@@ -3,16 +3,16 @@
     <user-info></user-info>
     <view class="meeting-level-wrapper">
         <view wx:if="{{level===3}}" bindtap="navigateTo" data-url="/package-events/manage/enterprise-list" class="sig-manage-btn">
-            <image class="icon" src="./../../static/events/enterprise-manage.svg" />
+            <image class="icon" src="./../../static/events/enterprise-manage.png" />
             <text>发起人管理</text>
         </view>
         <view class="tab-btn-wrapper">
             <view bindtap="navigateTo" data-url="/package-events/events/event-list" class="btn">
-                <image class="icon" src="./../../static/events/look-event.svg" />
+                <image class="icon" src="./../../static/events/look-event.png" />
                 <text>查看活动</text>
             </view>
             <view bindtap="navigateTo" data-url="/package-events/publish/publish" class="btn">
-                <image class="icon" src="./../../static/events/publish-event.svg" />
+                <image class="icon" src="./../../static/events/post-event.png" />
                 <text>发布活动</text>
             </view>
         </view>
@@ -33,7 +33,7 @@
                         <view class="title">{{item.title}}</view>
                         <view class="date">
                             <image src="./../../static/index/date.png"></image>
-                            <text>{{item.date}}</text>
+                            <text>{{item.start_date}}-{{item.end_date}}</text>
                         </view>
                         <view class="address">
                             <image src="./../../static/common/location.svg"></image>

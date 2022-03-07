@@ -49,7 +49,7 @@ Page({
     publishingActivitiesCount: 0,
     registerTableCount: 0,
     registerdActivitiesCount: 0,
-    
+
   },
 
   /**
@@ -62,6 +62,17 @@ Page({
       nickName: sessionUtil.getUserInfoByKey('nickName'),
       level: sessionUtil.getUserInfoByKey('level'),
       avtivityLevel:sessionUtil.getUserInfoByKey('eventLevel'), // sessionUtil.getUserInfoByKey('eventLevel')
+      avtivityLevel:sessionUtil.getUserInfoByKey('eventLevel')
+    });
+    remoteMethods.getMyMeeting((res) => {
+      this.setData({
+        meetingCount: res.length,
+      });
+    });
+    remoteMethods.getMyCollect((res) => {
+      this.setData({
+        collectCount: res.length,
+      });
     });
     // remoteMethods.getMyMeeting((res) => {
     //   this.setData({

@@ -97,23 +97,23 @@
                     <image src="./../../static/common/arrow-right.svg" />
                 </view>
             </view>
-            <view wx:if="{{form[0]==2 && method == 2 || form.length == 2 && method == 2 }}" class="form-item">
+            <view wx:if="{{ method == 2 }}" class="form-item">
                 <text class="label">
                     <text>报名链接</text>
                     <text class="require">*</text>
                 </text>
                 <input value="{{registerUrl}}" bindinput="registerUrlInput" placeholder-class="placeholder"
-                    placeholder="请输入您的线上链接"></input>
+                    placeholder="请输入您的报名链接"></input>
             </view>
-            <view class="form-item">
+            <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType==5)}}"></cover-view>
+        </view>
+        <view class="form-item">
                 <text class="label">
                     <text>活动回放链接</text>
                 </text>
                 <input value="{{playback}}" maxlength="{{100}}" bindinput="playbackInput"
                     placeholder-class="placeholder" placeholder="请输入您的活动回放链接"></input>
             </view>
-            <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType==5)}}"></cover-view>
-        </view>
         <view class="playback">
             <image src="./../../static/reserve/info.svg" role="img"></image> <text>活动回放链接请在活动结束后补充</text>
         </view>

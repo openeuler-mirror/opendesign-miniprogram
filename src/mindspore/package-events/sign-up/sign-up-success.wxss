@@ -9,26 +9,25 @@
 }
 
 .bg1 {
-    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/sign-up/bg1.png) no-repeat;
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/sign-up/bg1.png) no-repeat;
 }
 
 .bg2 {
-    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/sign-up/bg2.png) no-repeat;
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/sign-up/bg2.png) no-repeat;
 }
 
 .bg3 {
-    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/sign-up/bg3.png) no-repeat;
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/sign-up/bg3.png) no-repeat;
 }
 
 .bg4 {
-    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/sign-up/bg4.png) no-repeat;
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/sign-up/bg4.png) no-repeat;
 }
 
 .container .avatar {
     margin-top: 188rpx;
-    width: 128rpx;
-    height: 128rpx;
-    border-radius: 100%;
+    width: 300rpx;
+    height: 100rpx;
 }
 
 .container .open-euler {
@@ -41,7 +40,7 @@
 .container .success-text {
     color: #333;
     font-size: 40rpx;
-    margin-top: 60rpx;
+    margin-top: 130rpx;
     font-weight: 500;
 }
 
@@ -58,15 +57,19 @@
 }
 
 .container .name {
-    margin-top: 128rpx;
+    margin-top: 60rpx;
     font-size: 34rpx;
+}
+.name text {
     color: #40ADFF;
 }
 
+.tel text {
+    color: #40ADFF;
+}
 .container .tel {
     margin-top: 30rpx;
     font-size: 34rpx;
-    color: #40ADFF;
 }
 
 .container button {
@@ -78,6 +81,11 @@
     background-color: #40ADFF;
     text-align: center;
     color: #fff;
+}
+.container .qrcode {
+    width: 309rpx;
+    height: 309rpx;
+    margin-top: 60rpx;
 }
 .canvas {
     height: 0;

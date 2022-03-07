@@ -25,7 +25,7 @@
         <view class="address date bottom-date" wx:if="{{info.activity_type==2 || info.activity_type==3}}" bindtap="linkClick" data-item="{{info}}">
             <view class="left" >
                 <image src="./../../static/index/link.svg"></image>
-                <text>{{info.join_url}} </text>
+                <text>{{info.online_url}} </text>
             </view>
             <image hidden="{{info.activity_type==2}}" class="arrow-right" src="./../../static/common/arrow-right.svg" />
         </view>
