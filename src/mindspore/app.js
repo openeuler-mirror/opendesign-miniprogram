@@ -1,6 +1,6 @@
 //app.js
 App({
-  onLaunch: function () {
+  onLaunch: function (options) {
     var self = this;
     wx.getSystemInfo({
       success(res) {
@@ -9,6 +9,13 @@ App({
         }
       },
     });
+    console.log("options:",options)
+    if(options.scene == 1011){
+      //这里写入相关业务代码
+      wx.navigateTo({
+        url:`/package-events/events/sign-success?id=5`
+      });
+    }
   },
   onShow() {},
   loginCallback: null,

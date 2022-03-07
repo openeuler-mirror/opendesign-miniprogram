@@ -202,6 +202,9 @@ var commonServiceConfig = {
 
   // 获取我的活动报名信息
   GET_SIGNUP_INFO: '/ticket/{id}/',
+
+  // 活动签到
+  SIGN:'/sign/'
 };
 
 let servicesConfig = _.deepExtend(true, commonServiceConfig);

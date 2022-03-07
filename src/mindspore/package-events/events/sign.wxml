@@ -1,0 +1,9 @@
+<!--package-events/events/sign.wxml-->
+<view class="container">
+    <view class="post-wrapper bg{{info.poster}}">
+        <view class="title">{{info.title}}</view>
+        <image class="qrcode" src="{{info.sign_url}}" />
+        <view class="qrcode-text">扫一扫二维码签到吧！</view>
+        <image class="logo" src="https://openeuler-mini-program.obs.ap-southeast-1.myhuaweicloud.com/openeuler/miniprogram/logo-white.png" />
+    </view>
+</view>
