@@ -142,14 +142,18 @@ Page({
       let pages = getCurrentPages();
       let currPage = pages[pages.length - 1];
       remoteMethods.getUserInfo((res) => {
+        console.log(JSON.stringify(res.profession));
       this.setData({
         name: res.name || '',
         tel: res.telephone || '',
         mail: res.email || '',
         enterprise: res.company || '',
-        nameList: res.profession || '',
-        directionList:res.career_direction || '',
+        nameList: JSON.parse(res.profession) || '',
+        directionList:JSON.parse(res.career_direction) || '',
         gender:res.gender||'',
+        work:res.working_years||'',
+        age:res.age||'',
+        wechat:res.wechat||'',
         gitee: res.gitee_name || '',
         work:res.working_years||'',
         directionList:currPage.__data__.directionList ||[],

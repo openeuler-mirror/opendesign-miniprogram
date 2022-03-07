@@ -36,7 +36,7 @@ const remoteMethods = {
     appAjax.postJson({
       autoShowWait: true,
       type: 'POST',
-      service: 'COLLECT',
+      service: 'EVENT_COLLECT',
       data: {
         meeting: id,
       },
@@ -49,7 +49,7 @@ const remoteMethods = {
     appAjax.postJson({
       autoShowWait: true,
       type: 'DELETE',
-      service: 'UNCOLLECT',
+      service: 'EVENT_UNCOLLECT',
       otherParams: {
         id: id,
       },

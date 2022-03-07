@@ -11,7 +11,7 @@ let remoteMethods = {
       service: 'ALL_EVENTS_LIST',
       data: {
         activity: that.data.activity,
-        activity_type: that.data.curFilterType,
+        activity_category: that.data.curFilterType,
         search: that.data.curKeyword,
       },
       success: function (ret) {
@@ -24,7 +24,7 @@ let remoteMethods = {
       type: 'GET',
       service: 'GET_EVENTS_COUNT',
       data: {
-        activity_type: that.data.curFilterType,
+        activity_category: that.data.curFilterType,
         search: that.data.curKeyword,
       },
       success: function (ret) {
