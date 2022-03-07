@@ -23,19 +23,19 @@ page {
 }
 
 .container .banner-type1 {
-    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/detail-banner/1.png) no-repeat;
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/event-detail/1.png) no-repeat;
 }
 
 .container .banner-type2 {
-    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/detail-banner/2.png) no-repeat;
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/event-detail/2.png) no-repeat;
 }
 
 .container .banner-type3 {
-    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/detail-banner/3.png) no-repeat;
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/event-detail/3.png) no-repeat;
 }
 
 .container .banner-type4 {
-    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/detail-banner/4.png) no-repeat;
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/event-detail/4.png) no-repeat;
 }
 
 .container .detail-wrapper {

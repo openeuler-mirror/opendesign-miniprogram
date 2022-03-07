@@ -1,10 +1,9 @@
 const wxml = (data) => {
   return `
     <view class="container">
-        <image class="bgImg" src="https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/sign-up/bg${data.poster}.png" />
+        <image class="bgImg" src="https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/sign-up/bg${data.poster}.png" />
         <view class="absolute">
-            <image class="avatar" src="https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/default-avatar.png" />
-            <text class="openEuler">openEuler</text>
+            <image class="avatar" src="https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/logo.png" />
             <text class="successText">报名成功!</text>
             <text class="title">${data.title}</text>
             <text class="voucher">您的参会凭证</text>
@@ -31,22 +30,13 @@ const style = () => {
     },
     avatar: {
       marginTop: 110,
-      width: 64,
-      height: 64,
-    },
-    openEuler: {
-      marginTop: 10,
-      color: '#333333',
-      fontSize: 17,
-      lineHeight: 24,
-      height: 24,
-      width: 100,
-      textAlign: 'center',
+      width: 176,
+      height: 58,
     },
     successText: {
       color: '#333333',
       fontSize: 20,
-      marginTop: 30,
+      marginTop: 80,
       fontWeight: 500,
       height: 28,
       width: 100,
@@ -69,7 +59,7 @@ const style = () => {
       textAlign: 'center',
     },
     name: {
-      marginTop: 64,
+      marginTop: 33,
       fontSize: 17,
       color: '#40ADFF',
       height: 25,

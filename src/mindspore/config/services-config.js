@@ -102,13 +102,13 @@ var commonServiceConfig = {
   PUBLISH_EVENT: '/activity/?publish=true',
 
   // 保存草稿
-  SAVE_DRAFT: '/activitydraft/',
+  SAVE_DRAFT: '/activity/',
 
   // 获取草稿箱活动列表
   GET_DRAFT_LIST: '/activitiesdraft/',
 
   // 我的待发布活动列表（发布中）
-  MY_WAITING_ACTIVITIES:'/mywaitingactivities/',
+  MY_WAITING_ACTIVITIES:'/waitingactivities/',
 
     // 待发布活动列表（超级管理员）
   WAITING_ACTIVITIES:'/waitingactivities/',
@@ -123,20 +123,20 @@ var commonServiceConfig = {
   DRAFTS: '/drafts/',
 
   //草稿详情
-  DRAFT_DETAIL: '/sponsoractivitydraft/{id}/',
+  DRAFT_DETAIL: '/draft/{id}/',
 
   // 修改草稿
   EDIT_DETAIL: '/draftupdate/{id}/',
 
   // 修改草稿并发布
 
-  EDIT_DETAIL_PUBLISH: '/draftpublish/{id}/',
+  EDIT_DETAIL_PUBLISH: '/draftupdate/{id}/?publish=true',
 
   // 驳回活动发布
-  REJECT_PUBLISH: '/activityreject/{id}/',
+  REJECT_PUBLISH: '/activity/action/deny/{id}/',
 
   // 活动审核通过
-  RESOLVE_PUBLISH: '/activitypublish/{id}/',
+  RESOLVE_PUBLISH: '/activity/action/approve/{id}/',
 
   // 活动审核通过
   PUBLISHER_EVENTS_LIST: '/sponsoractivitiespublishing/',
@@ -147,7 +147,7 @@ var commonServiceConfig = {
   MY_EVENTS_LIST: '/sponsoractivities/',
 
   // 我发布的活动
-  DEL_EVENT: '/activitydel/{id}/',
+  DEL_EVENT: '/activity/action/del/{id}/',
 
   // 所有活动
   ALL_EVENTS_LIST: '/activities/',
@@ -159,16 +159,18 @@ var commonServiceConfig = {
   EDIT_SCHEDULE: '/activityupdate/{id}/',
 
   // 修改日程
-  EXAMINE_DETAIL: '/draft/{id}/',
+  EXAMINE_DETAIL: '/waitingactivity/{id}/',
 
-  // 修改日程
-  EVENT_COLLECT: '/collectactivity/',
+  // 收藏活动
+  EVENT_COLLECT: '/activity/action/collect/',
 
   // 收藏活动：
   EVENT_COLLECTS:'/activity/action/collect/',
 
   // 修改日程
   EVENT_UNCOLLECT: '/collectactivitydel/{id}/',
+  // 取消收藏
+  EVENT_UNCOLLECT: '/activity/action/collectdel/{id}/',
 
   // 活动收藏列表
   EVENT_COLLECT_LIST: '/collectactivities/',

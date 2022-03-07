@@ -1,7 +1,7 @@
 <!--package-events/publish/success.wxml-->
 <view class="container">
     <view class="suc-wrapper">
-        <image src="./../../static/reserve/meeting-success.png" />
+        <image src="../../static/meeting/meeting-success.png" />
         <text>{{typeCn}}成功!</text>
         <text>{{typeDesc}}</text>
     </view>
