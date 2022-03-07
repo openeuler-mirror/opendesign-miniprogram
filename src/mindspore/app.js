@@ -10,10 +10,10 @@ App({
       },
     });
     console.log("options:",options)
-    if(options.scene == 1011){
+    if(options.scene == 1011&&options.query.id){
       //这里写入相关业务代码
       wx.navigateTo({
-        url:`/package-events/events/sign-success?id=5`
+        url:`/package-events/events/sign-success?id=${options.query.id}`
       });
     }
   },

@@ -1,5 +1,7 @@
 // package-events/events/sign-success.js
 const appAjax = require('./../../utils/app-ajax');
+const sessionUtil = require('../../utils/app-session.js');
+
 
 let that = null;
 let remoteMethods = {
@@ -33,6 +35,12 @@ Page({
 	 */
 	onLoad: function (options) {
         that = this;
+        if (!sessionUtil.getUserInfoByKey('access')) {
+            wx.navigateTo({
+              url: '/pages/auth/auth',
+            });
+            return;
+          }
         this.setData({
             id: options.id || decodeURIComponent(options.scene)
         })

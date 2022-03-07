@@ -28,7 +28,7 @@
                             <button>立即报名</button>
                         </view>
                         <view class="buttons" wx:if="{{type == 2}}">
-                            <button bindtap="toUpdateSchedules" data-id="{{item.id}}" wx:if="{{(item.status==3) || (item.status==4)}}">
+                            <button bindtap="toSign" data-id="{{item.id}}" wx:if="{{(item.status==3) || (item.status==4)}}">
                                 签到码
                             </button>
                             <button bindtap="toUpdateSchedule" data-id="{{item.id}}" wx:if="{{(item.status==3) || (item.status==4)||(item.status==5)}}">

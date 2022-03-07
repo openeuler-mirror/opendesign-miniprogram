@@ -336,8 +336,11 @@ Page({
       this.sendEmail(e);
     }
   },
-  toUpdateSchedules(e){
+  toSign(e){
     console.log(e)
+    wx.navigateTo({
+      url: `/package-events/events/sign`,
+    });
   },
   copyWechat() {
     wx.setClipboardData({
