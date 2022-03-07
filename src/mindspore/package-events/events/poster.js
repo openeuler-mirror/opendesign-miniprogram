@@ -74,7 +74,8 @@ Page({
     const p1 = this.widget.renderToCanvas({
       wxml: wxml({
         title: that.data.info.title,
-        date: that.data.info.date,
+        start_date: that.data.info.start_date,
+        end_date:that.data.info.end_date,
         address: that.data.info.address,
         poster: that.data.info.poster,
         qrcode: that.data.info.wx_code,

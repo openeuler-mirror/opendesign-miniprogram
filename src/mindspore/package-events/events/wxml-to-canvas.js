@@ -1,14 +1,14 @@
 const wxml = (data) => {
+  console.log(data);
   return `
     <view class="container">
-        <image class="bgImg" src="https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/poster/bg${
+        <image class="bgImg" src="https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/poster/bg${
           data.poster
         }.png" />
         <view class="absolute">
             <text class="title">${data.title}</text>
-            <image class="logo" src="https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/poster/logo.png" />
-            <text class="date">时间：${data.date}</text>
-            <text class="address">${data.address ? '地点：' + data.address : '直播地址：' + data.liveAddress}</text>
+            <image class="logo" src="https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/logo.png" />
+            <text class="date">时间：${data.start_date}-${data.end_date}</text>
             <image class="qrcode" src="${data.qrcode}" />
             <text class="qrcodeText">长按识别二维码，进入活动！</text>
         </view>
@@ -39,9 +39,9 @@ const style = () => {
       textAlign: 'center',
     },
     logo: {
-      marginTop: 71,
-      width: 85,
-      height: 70,
+      marginTop: 80,
+      width: 176,
+      height: 58,
       marginBottom: 15,
     },
     date: {

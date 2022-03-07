@@ -18,19 +18,19 @@ page {
 }
 
 .bg1 {
-    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/poster/bg1.png) no-repeat;
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/poster/bg1.png) no-repeat;
 }
 
 .bg2 {
-    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/poster/bg2.png) no-repeat;
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/poster/bg2.png) no-repeat;
 }
 
 .bg3 {
-    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/poster/bg3.png) no-repeat;
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/poster/bg3.png) no-repeat;
 }
 
 .bg4 {
-    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/poster/bg4.png) no-repeat;
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/poster/bg4.png) no-repeat;
 }
 
 .container .post-wrapper .title {
@@ -42,9 +42,9 @@ page {
 }
 
 .container .post-wrapper .logo {
-    width: 171rpx;
-    height: 140rpx;
-    margin-top: 176rpx;
+    width: 310rpx;
+    height: 100rpx;
+    margin-top: 190rpx;
 }
 
 .container .post-wrapper .line {

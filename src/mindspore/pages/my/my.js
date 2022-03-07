@@ -49,7 +49,7 @@ Page({
     publishingActivitiesCount: 0,
     registerTableCount: 0,
     registerdActivitiesCount: 0,
-    
+
   },
 
   /**
@@ -61,7 +61,7 @@ Page({
       avatarUrl: sessionUtil.getUserInfoByKey('avatarUrl'),
       nickName: sessionUtil.getUserInfoByKey('nickName'),
       level: sessionUtil.getUserInfoByKey('level'),
-      avtivityLevel:2, // sessionUtil.getUserInfoByKey('eventLevel')
+      avtivityLevel:sessionUtil.getUserInfoByKey('eventLevel')
     });
     remoteMethods.getMyMeeting((res) => {
       this.setData({
