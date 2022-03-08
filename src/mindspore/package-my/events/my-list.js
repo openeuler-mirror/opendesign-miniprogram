@@ -339,7 +339,7 @@ Page({
   toSign(e){
     console.log(e)
     wx.navigateTo({
-      url: `/package-events/events/sign`,
+      url: `/package-events/events/sign?id=${e.currentTarget.dataset.id}`,
     });
   },
   copyWechat() {

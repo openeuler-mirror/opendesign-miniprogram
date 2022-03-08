@@ -35,7 +35,7 @@ Page({
 	onLoad: function (options) {
         that = this;
         this.setData({
-            id: options.id || ''
+            id: options.id
         })
         remoteMethods.getDraftDetail(res => {
             this.setData({
