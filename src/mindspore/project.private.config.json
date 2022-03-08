@@ -36,7 +36,21 @@
           "name": "",
           "pathName": "pages/my/my",
           "query": "",
-          "scene": null,
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "扫描进入",
+          "pathName": "pages/my/my",
+          "query": "",
+          "launchMode": "default",
+          "scene": 1011
+        },
+        {
+          "name": "",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": 1011,
           "launchMode": "default"
         }
       ]

@@ -1,0 +1,68 @@
+/* package-events/events/sign.wxss */
+page {
+    background-color: #f5f7fa !important;
+}
+
+.container {
+    padding: 0 !important;
+}
+
+.container .post-wrapper {
+    width: 750rpx;
+    height: 1503rpx;
+    /* background-size: 100% 100% !important; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.bg1 {
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com/imgs/poster/bg1.png) no-repeat;
+    background-size: cover;
+}
+
+.bg2 {
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/poster/bg2.png) no-repeat;
+    background-size: cover;
+}
+
+.bg3 {
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/poster/bg3.png) no-repeat;
+    background-size: cover;
+}
+
+.bg4 {
+    background: url(https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/poster/bg4.png) no-repeat;
+    background-size: cover;
+}
+
+.container .post-wrapper .title {
+    color: #fff;
+    font-size: 40rpx;
+    line-height: 48rpx;
+    margin-top: 186rpx;
+    text-align: center;
+}
+
+.container .post-wrapper .qrcode {
+    width: 504rpx;
+    height: 504rpx;
+    margin-top: 166rpx;
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+.container .post-wrapper .qrcode-text {
+    font-size: 28rpx;
+    line-height: 40rpx;
+    color: #f5f7fa;
+    text-align: center;
+    margin-top: 22rpx;
+}
+
+.container .post-wrapper .logo {
+    width: 310rpx;
+    height: 100rpx;
+    margin-top: 278rpx;
+}

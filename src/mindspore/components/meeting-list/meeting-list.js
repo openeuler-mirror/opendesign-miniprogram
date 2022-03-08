@@ -9,7 +9,24 @@ const remoteMethods = {
       type: 'GET',
       service: that.properties.apiUrl,
       success: function (ret) {
+        ret.forEach(item=>{
+          if(item.group_name=='MSG'){
+            item.named="MindSpore MSG 会议"
+            item.group_names=item.city+'MSG组'
+          }else if(item.group_name=='Tech'){
+            item.named="MindSpore 专家委员会议"
+            item.group_names='专家委员会'
+          }else{
+            item.named="MindSpore SIG 会议"
+            item.group_names=item.group_name+' SIG组'
+          }
+          let tempdate=item.date.split('-')
+          if(tempdate.length>2){
+            item.dates=parseInt(tempdate[1])+'月'+parseInt(tempdate[2])+'日' 
+          }
+        })
         _callback && _callback(ret);
+       
         if (that.properties.pageType === 2) {
           that.setData({
             list: ret,
@@ -131,7 +148,7 @@ const localMethod = {
       return;
     }
     return true;
-  },
+  }
 };
 Component({
   /**
@@ -449,5 +466,5 @@ Component({
     if (this.properties.pageType === 1 || this.properties.pageType === 2) {
       this.initData();
     }
-  },
+  }
 });

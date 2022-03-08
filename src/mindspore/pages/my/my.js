@@ -61,6 +61,7 @@ Page({
       avatarUrl: sessionUtil.getUserInfoByKey('avatarUrl'),
       nickName: sessionUtil.getUserInfoByKey('nickName'),
       level: sessionUtil.getUserInfoByKey('level'),
+      avtivityLevel:sessionUtil.getUserInfoByKey('eventLevel'), // sessionUtil.getUserInfoByKey('eventLevel')
       avtivityLevel:sessionUtil.getUserInfoByKey('eventLevel')
     });
     remoteMethods.getMyMeeting((res) => {
@@ -73,6 +74,16 @@ Page({
         collectCount: res.length,
       });
     });
+    // remoteMethods.getMyMeeting((res) => {
+    //   this.setData({
+    //     meetingCount: res.length,
+    //   });
+    // });
+    // remoteMethods.getMyCollect((res) => {
+    //   this.setData({
+    //     collectCount: res.length,
+    //   });
+    // });
     remoteMethods.getCounts((res)=>{
       this.setData({
         collectedActivitiesCount: res.collected_activities_count||0,

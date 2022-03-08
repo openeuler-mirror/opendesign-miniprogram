@@ -1,0 +1,10 @@
+<!--package-events/events/sign.wxml-->
+<view class="container">
+    <view class="post-wrapper bg1 bg{{info.poster}}">
+        <view class="title">{{info.title}}</view>
+        <!-- <view class="title">MSG|海外MSG线上活动正式开启</view> -->
+        <image class="logo" src="https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/logo.png" />
+        <image class="qrcode" src="{{info.sign_url}}" />
+        <view class="qrcode-text">扫一扫二维码签到吧！</view>
+    </view>
+</view>

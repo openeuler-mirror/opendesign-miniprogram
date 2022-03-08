@@ -108,7 +108,10 @@ var commonServiceConfig = {
   GET_DRAFT_LIST: '/activitiesdraft/',
 
   // 我的待发布活动列表（发布中）
-  MY_WAITING_ACTIVITIES:'/waitingactivities/',
+  MY_WAITING_ACTIVITIES:'/mywaitingactivities/',
+
+    // 待发布活动列表（超级管理员）
+  WAITING_ACTIVITIES:'/waitingactivities/',
 
   // 活动收藏列表（已收藏）
   ACTIVITY_COLLECTIONS:'/activitycollections/',
@@ -161,6 +164,11 @@ var commonServiceConfig = {
   // 收藏活动
   EVENT_COLLECT: '/activity/action/collect/',
 
+  // 收藏活动：
+  EVENT_COLLECTS:'/activity/action/collect/',
+
+  // 修改日程
+  EVENT_UNCOLLECT: '/collectactivitydel/{id}/',
   // 取消收藏
   EVENT_UNCOLLECT: '/activity/action/collectdel/{id}/',
 
@@ -196,6 +204,9 @@ var commonServiceConfig = {
 
   // 获取我的活动报名信息
   GET_SIGNUP_INFO: '/ticket/{id}/',
+
+  // 活动签到
+  SIGN:'/sign/'
 };
 
 let servicesConfig = _.deepExtend(true, commonServiceConfig);
