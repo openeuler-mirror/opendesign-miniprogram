@@ -216,7 +216,8 @@ Page({
         that.setData({
           msgListAll: list,
           permission:['Tech','MSG','SIG'], 
-          msgList:tempList
+          msgList:tempList,
+          msgCityList:list
         });
       });
       remoteMethods.getSigList('',function (list) {
@@ -230,7 +231,7 @@ Page({
         });
       })
     }else{
-      remoteMethods.getUserGroup(2, function (data) {
+      remoteMethods.getUserGroup(appSession.getUserInfoByKey('userId'), function (data) {
         let permissionTemp=[]
        {
         // if (data && data.length) {
