@@ -2,7 +2,9 @@
 page {
     background-color: #f5f7fa !important;
 }
-
+.black {
+    color: #000000 !important;
+}
 .container {
     padding: 30rpx 50rpx 129rpx 50rpx !important;
 }
@@ -82,7 +84,7 @@ page {
     line-height: 33rpx;
     color: #fff;
     text-align: center;
-    margin-top: 30rpx;
+    margin-top: 40rpx;
 }
 
 .container .btn-wrapper {

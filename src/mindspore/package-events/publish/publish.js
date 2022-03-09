@@ -75,7 +75,6 @@ let remoteMethods = {
 };
 let localMethods = {
   validation: function (data) {
-    console.log(data);
     if (data.activity_type === 1) {
       if (!data.title) {
         this.toast('请输入活动标题');

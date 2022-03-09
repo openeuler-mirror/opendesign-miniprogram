@@ -93,7 +93,7 @@ var commonServiceConfig = {
   ENTERPRISE_ADD_MEMBER_LIST: '/sponsor/action/new/',
 
   // 编辑发起人信息
-  ENTERPRISE_SAVE_MEMBER_DETAIL: '/sponsorinfo/{id}/',
+  ENTERPRISE_SAVE_MEMBER_DETAIL: '/user/{id}/',
 
   // 删除发起人
   ENTERPRISE_DEL_MEMBER_LIST: '/sponsor/action/del/',

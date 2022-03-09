@@ -10,10 +10,16 @@ let remoteMethods = {
         id: postData.id,
       },
       data: {
-        gitee_name: postData.name,
-        enterprise: postData.enterprise,
+        gitee_name: postData.gitee_name,
+        email: postData.email,
+        telephone:postData.telephone
       },
       success: function (ret) {
+        wx.showToast({
+          title: '修改成功',
+          icon: 'none',
+          duration: 2000,
+        });
         _callback && _callback(ret);
       },
     });
@@ -25,10 +31,11 @@ Page({
    */
   data: {
     id: '',
+    email:'',
     avatar: '',
     nickname: '',
-    name: '',
-    enterprise: '',
+    gitee_name: '',
+    phoneNmuber: '',
   },
 
   /**
@@ -39,8 +46,9 @@ Page({
       id: options.id,
       avatar: options.avatar,
       nickname: options.nickname,
-      name: options.name,
-      enterprise: options.enterprise || '',
+      gitee_name: options.name,
+      phoneNmuber:options.telephone,
+      email:options.email
     });
   },
 
@@ -50,17 +58,23 @@ Page({
   onShow: function () {},
   confirm: function () {
     let that = this;
-    if (!that.data.name) {
+    if (!that.data.gitee_name) {
       wx.showToast({
         title: '请输入ID',
         icon: 'none',
         duration: 2000,
       });
       return;
-    }
-    if (!that.data.enterprise) {
+    } else if (!that.data.phoneNmuber) {
       wx.showToast({
-        title: '请输入企业名称',
+        title: '请输入手机号码',
+        icon: 'none',
+        duration: 2000,
+      });
+      return;
+    } else if (!that.data.email) {
+      wx.showToast({
+        title: '请输入电子邮箱地址',
         icon: 'none',
         duration: 2000,
       });
@@ -69,37 +83,39 @@ Page({
     remoteMethods.saveMemberGiteeName(
       {
         id: that.data.id,
-        name: that.data.name,
-        enterprise: that.data.enterprise,
+        gitee_name: that.data.gitee_name,
+        email: that.data.email,
+        telephone: that.data.phoneNmuber,
       },
       function (data) {
-        if (data.code == 400) {
-          wx.showToast({
-            title: data.msg,
-            icon: 'none',
-            duration: 2000,
-          });
-          return;
-        }
-        if (data.gitee_name) {
-          wx.showToast({
-            title: '操作成功',
-            icon: 'success',
-            duration: 2000,
-          });
-          wx.navigateBack();
-        }
+        that.setData({
+          isShowMes: true,
+        });
       }
     );
   },
   onInput: function (e) {
-    this.setData({
-      name: e.detail.value,
-    });
+    if (e.target.dataset.index === 'id') {
+      this.setData({
+        gitee_name: e.detail.value,
+      });
+    } else if (e.target.dataset.index === 'phone') {
+      this.setData({
+        phoneNmuber: e.detail.value,
+      });
+    } else if (e.target.dataset.index === 'email') {
+      this.setData({
+        email: e.detail.value,
+      });
+    } else {
+      return false;
+    }
   },
-  enterpriseOnInput(e) {
+  reset: function () {
     this.setData({
-      enterprise: e.detail.value,
+      name: '',
+      phoneNmuber: '',
+      email: '',
     });
   },
   reset: function () {

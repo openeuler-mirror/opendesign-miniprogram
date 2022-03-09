@@ -58,8 +58,8 @@ Page({
   data: {
     list: [],
     result: [],
-    group_id: '',
     isShowMes: false,
+    group_id: '',
     btnText: '',
     group_name: '',
     options:''

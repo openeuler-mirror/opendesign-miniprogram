@@ -1,15 +1,14 @@
 <!--package-events/events/poster.wxml-->
 <view class="container">
     <view class="post-wrapper bg{{info.poster}}">
-        <view class="title">{{info.title}}</view>
+        <view class="title {{info.poster == 3 ? 'black':'' }}">{{info.title}}</view>
         <image class="logo" src="https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/logo.png" />
         <view class="line"></view>
-        <view class="date">时间：{{info.start_date}}-{{info.end_date}}</view>
-        <!-- <view class="address" wx:if="{{info.activity_type==1 || info.activity_type==3}}">地点：{{info.detail_address}}</view>
-        <view class="address" wx:else>直播地址：{{info.live_address}}</view> -->
-        <image class="qrcode" wx:if="{{isDraft}}" src="https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/poster/qrcode{{info.poster}}.png" />
-        <image class="qrcode" wx:else src="{{info.wx_code}}" />
-        <view class="qrcode-text">长按识别二维码，进入活动！</view>
+        <view class="date" wx:if="{{info.start_date !== info.end_date}}">时间：{{info.start_date}}-{{info.end_date}}</view>
+        <view class="date" wx:else>时间：{{info.start_date}}</view>
+        <image class="qrcode" wx:if="{{isDraft}}" src="https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/poster/qrcode{{info.poster}}.png" />
+        <image show-menu-by-longpress ="{{true}}" class="qrcode" wx:else src="{{info.wx_code}}" />
+        <view  class="qrcode-text {{info.poster == 3 ? 'black':'' }}">长按识别二维码，进入活动！</view>
     </view>
     <view class="btn-wrapper" wx:if="{{info.status > 2}}">
         <button class="cancel" bindtap="back">取消</button>

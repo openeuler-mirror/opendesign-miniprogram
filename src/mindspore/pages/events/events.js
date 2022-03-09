@@ -90,8 +90,13 @@ Page({
     level: 1,
     noAuthDialogShow: false,
     user: '',
-    // 模拟数据上线删除
     list: [],
+    typeList: [
+      '课程',
+      'MSG',
+      '赛事',
+      '其他'
+    ],
     actionShow: false,
     actions: [],
     underDialogShow: false,
@@ -154,7 +159,7 @@ Page({
   },
   copyWechat() {
     wx.setClipboardData({
-      data: 'openeuler123',
+      data: 'mindspore0328',
       success: () => {
         this.setData({
           noAuthDialogShow: false,
@@ -183,6 +188,10 @@ Page({
             this.onLoad();
           });
         }
+      } else if(e.detail.operaType == 2){
+        this.setData({
+          showDialogDel:true
+        })
       } else {
         this.setData({
           showDialoogDel: true,
@@ -205,7 +214,7 @@ Page({
               res.name
             )}&title=${encodeURIComponent(res.title)}&tel=${encodeURIComponent(
               res.telephone
-            )}&poster=${encodeURIComponent(res.poster)}`,
+            )}&poster=${encodeURIComponent(res.poster)}&id=${encodeURIComponent(res.activity_id)}`,
           });
         });
     } else {

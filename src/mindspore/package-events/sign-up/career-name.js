@@ -5,7 +5,9 @@ const {
 Page({
     data: {
         checkedList: [],
+        seachList: [],
         addShow: false,
+        renderList: [],
         allCareer: [{
                 value: '管理',
                 isActive: false
@@ -110,20 +112,34 @@ Page({
         seachValue: '',
         newTag: ''
     },
-
+    onLoad(options) {
+        let active = JSON.parse(options.nameList);
+        let render = this.data.allCareer
+        try {
+            active.forEach(item =>{
+                render[item.index].isActive = true
+           })
+        } catch (error) {
+            render = this.data.allCareer
+        }
+        this.setData({
+            renderList:render,
+            checkedList:JSON.parse(options.nameList)
+        })
+    },
     itemClick(e) {
-        let allCareer = this.data.allCareer
+        let renderList = this.data.renderList
         let index = e.currentTarget.dataset.index
-        if (this.data.checkedList.length >= 3 && !allCareer[index].isActive) {
+        if (this.data.checkedList.length >= 3 && !renderList[index].isActive) {
             wx.showToast({
                 title: "最多可选3个标签",
                 icon: 'error',
             });
         } else {
-            allCareer[index].isActive = !allCareer[index].isActive
-            let pushItem = allCareer[index]
+            renderList[index].isActive = !renderList[index].isActive
+            let pushItem = renderList[index]
             pushItem['index'] = index
-            if (allCareer[index].isActive) {
+            if (renderList[index].isActive) {
                 this.data.checkedList.push(pushItem)
             } else {
                 let delIndex = this.data.checkedList.findIndex(item => {
@@ -133,20 +149,31 @@ Page({
             }
         }
         this.setData({
-            allCareer: allCareer,
+            renderList: renderList,
             checkedList: this.data.checkedList
         })
     },
-    onSearch() {
-        console.log(111);
+    onSearch(e) {
+        let value = e.detail;
+        let seach = this.data.allCareer.filter(item => {
+            return item.value.includes(value)
+        })
+        this.setData({
+            renderList: seach
+        })
+    },
+    onCancel() {
+        this.setData({
+            renderList: this.data.allCareer
+        })
     },
     cancelChecked() {
-        this.data.allCareer.forEach(item => {
+        this.data.renderList.forEach(item => {
             item.isActive = false
         })
         this.setData({
             checkedList: [],
-            allCareer: this.data.allCareer
+            renderList: this.data.renderList
         })
     },
     confirmChecked() {
@@ -156,7 +183,6 @@ Page({
         prevPage.setData({
             nameList: this.data.checkedList
         })
-
         wx.navigateBack({
             delta: 1
         })
@@ -172,25 +198,26 @@ Page({
         })
     },
     addConfirm() {
+
         if (this.data.checkedList.length >= 3) {
             wx.showToast({
                 title: "最多可选3个标签",
                 icon: 'error',
             });
         } else {
-            let length = this.data.allCareer.length
+            let length = this.data.renderList.length
             let newTag = {
                 value: this.data.newTag,
                 index: length,
                 isActive: true
             }
             this.data.checkedList.push(newTag)
-            this.data.allCareer.push(newTag)
+            this.data.renderList.push(newTag)
             this.setData({
                 addShow: false,
                 newTag: '',
                 checkedList: this.data.checkedList,
-                allCareer: this.data.allCareer
+                renderList: this.data.renderList
             })
         }
 

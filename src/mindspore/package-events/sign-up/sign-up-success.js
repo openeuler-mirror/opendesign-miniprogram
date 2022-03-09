@@ -14,7 +14,7 @@ let remoteMethods = {
             type: 'GET',
             service,
             otherParams: {
-                id: 7
+                id: that.data.id
             },
             success: function (ret) {
                 _callback && _callback(ret);
@@ -79,11 +79,9 @@ Page({
                         wx.saveImageToPhotosAlbum({
                             filePath: res.tempFilePath,
                             success: function () {
-                                wx.showToast({
-                                    title: "保存成功",
-                                    icon: "success",
-                                    duration: 2000
-                                });
+                                wx.navigateTo({
+                                  url: './save-success',
+                                })
                             },
                             fail: function (err) {
                                 console.log(err);

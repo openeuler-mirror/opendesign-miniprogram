@@ -42,7 +42,8 @@
                 "sign-up/career-direction",
                 "sign-up/career-name",
                 "events/sign",
-                "events/sign-success"
+                "events/sign-success",
+                "sign-up/save-success"
             ]
         },
         {

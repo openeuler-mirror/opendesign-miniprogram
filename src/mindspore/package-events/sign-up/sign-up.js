@@ -129,35 +129,38 @@ Page({
   onLoad: function (options) {
     that = this;
     this.setData({
-      id: options.id,
-      eventTitle: options.title,
-      poster: options.poster,
+      
     });
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onLoad: function (options) {
+      that = this;
       let pages = getCurrentPages();
       let currPage = pages[pages.length - 1];
       remoteMethods.getUserInfo((res) => {
-        console.log(JSON.stringify(res.profession));
+      let nameList = null;
+      let directionList =null;
+      currPage.__data__.nameList.length ===0 ? nameList = JSON.parse(res.profession) : nameList = currPage.__data__.nameList
+      currPage.__data__.directionList.length === 0 ? directionList = JSON.parse(res.career_direction):directionList = currPage.__data__.directionList
       this.setData({
         name: res.name || '',
         tel: res.telephone || '',
         mail: res.email || '',
+        wechat:res.wx_account || '',
         enterprise: res.company || '',
-        nameList: JSON.parse(res.profession) || '',
-        directionList:JSON.parse(res.career_direction) || '',
         gender:res.gender||'',
         work:res.working_years||'',
         age:res.age||'',
-        wechat:res.wechat||'',
         gitee: res.gitee_name || '',
         work:res.working_years||'',
-        directionList:currPage.__data__.directionList ||[],
-        nameList:currPage.__data__.nameList|| [],
+        nameList: nameList,
+        directionList:directionList,
+        id: options.id,
+        eventTitle: options.title,
+        poster: options.poster,
       });
     });
   },
@@ -213,7 +216,7 @@ Page({
   },
   careerNameClick() {
     wx.navigateTo({
-      url: `/package-events/sign-up/career-name`
+      url: `/package-events/sign-up/career-name?nameList=${JSON.stringify(this.data.nameList)}`
     });
   },
   radioOnChange(e) {
@@ -233,7 +236,7 @@ Page({
   },
   careerClick() {
     wx.navigateTo({
-      url: `/package-events/sign-up/career-direction`
+      url: `/package-events/sign-up/career-direction?directionList=${JSON.stringify(this.data.directionList)}`
     });
   },
   giteeInput(e) {
@@ -253,8 +256,8 @@ Page({
       email: this.data.mail,
       gitee_id: this.data.gitee,
       name: this.data.name,
-      career_direction:this.data.directionList,
-      profession: this.data.nameList,
+      career_direction:JSON.stringify(this.data.directionList),
+      profession: JSON.stringify(this.data.nameList),
       working_years:this.data.work,
       telephone: this.data.tel,
       activity: this.data.id,
@@ -265,7 +268,7 @@ Page({
           this.data.name
         )}&title=${encodeURIComponent(this.data.eventTitle)}&tel=${encodeURIComponent(
           this.data.tel
-        )}&poster=${encodeURIComponent(this.data.poster)}`,
+        )}&poster=${encodeURIComponent(this.data.poster)}&id=${encodeURIComponent(this.data.id)}`,
       });
     });
   },
