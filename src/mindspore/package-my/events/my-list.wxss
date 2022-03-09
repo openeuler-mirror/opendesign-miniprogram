@@ -225,3 +225,6 @@ page {
     width: 180rpx;
     height: 180rpx;
 }
+.buttons .empty{
+    width: 182rpx;
+}

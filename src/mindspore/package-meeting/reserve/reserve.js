@@ -216,6 +216,7 @@ Page({
         that.setData({
           msgListAll: list,
           permission:['Tech','MSG','SIG'], 
+          msgList:tempList,
           msgCityList:list
         });
       });

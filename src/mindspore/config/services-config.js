@@ -206,7 +206,10 @@ var commonServiceConfig = {
   GET_SIGNUP_INFO: '/ticket/{id}/',
 
   // 活动签到
-  SIGN:'/sign/'
+  SIGN:'/sign/',
+
+  //添加城市
+  ADDCITY:'/city/'
 };
 
 let servicesConfig = _.deepExtend(true, commonServiceConfig);

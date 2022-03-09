@@ -13,6 +13,17 @@ let remoteMethods = {
       },
     });
   },
+  addCity: function (postData, _callback) {
+    appAjax.postJson({
+      autoShowWait: true,
+      type: 'POST',
+      service: 'ADDCITY',
+      data: postData,
+      success: function (ret) {
+        _callback && _callback(ret);
+      },
+    });
+  },
 };
 Page({
 
@@ -42,6 +53,8 @@ Page({
         group_type:2
       },
     ],
+    addCityPopShow:false,
+    cityName:''
   },
 
   /**
@@ -78,6 +91,59 @@ Page({
       });
     });
   },
-
+  AddMember:function(){
+    this.setData(
+      {
+        addCityPopShow:true
+      }
+    )
+  },
+  addCityConfirm:function(){
+    let that=this
+    let postData = {
+      name: this.data.cityName,
+    };
+    remoteMethods.addCity(postData, function (data) {
+      if (data&&data.id) {
+        that.setData({
+          isShowMes: true,
+          cityName:''
+        });
+        remoteMethods.getMsgList('', function (list) {
+          that.setData({
+            list: list,
+          });
+        });
+        wx.showToast({
+          title: '添加成功',
+          duration: 2000,
+        });
+      } else {
+        wx.showToast({
+          title: '操作失败',
+          icon: 'none',
+          duration: 2000,
+        });
+      }
+    });
+    this.setData(
+      {
+        addCityPopShow:false
+      }
+    )
+  },
+  addCityCancel:function(){
+    this.setData(
+      {
+        addCityPopShow:false,
+        cityName:''
+      }
+    )
+  },
+  onInput:function(e){
+    this.setData({
+      cityName: e.detail.value
+    })
+  }
   
 })
