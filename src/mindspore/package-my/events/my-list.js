@@ -204,8 +204,7 @@ Page({
             showDialogDel: true,
           });
         }
-      } else {
-        if (e.detail.operaType == 1) {
+      } else if (e.detail.operaType == 1) {
           if (this.data.collectionId) {
             remoteMethods.unCollect(() => {
               this.onShow();
@@ -230,7 +229,6 @@ Page({
             noAuthDialogShow: true,
           });
         }
-      }
     }
   },
   onMore(e) {

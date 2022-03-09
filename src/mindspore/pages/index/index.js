@@ -73,7 +73,6 @@ Page(
         wx.navigateTo({
           url: '/pages/auth/auth',
         });
-        return;
       }
     },
     play() {
