@@ -32,8 +32,8 @@
             <input class="tag" placeholder-class="placeholder" bindinput="tagInput" value="{{newTag}}"
                 maxlength="{{10}}" placeholder="请输入标签名称"></input>
             <view class="btn-wrapper">
-                <button class="confirm" bindtap="addConfirm">确定</button>
                 <button class="cancel" bindtap="addCancel">取消</button>
+                <button class="confirm" bindtap="addConfirm">确定</button>
             </view>
         </view>
     </van-popup>

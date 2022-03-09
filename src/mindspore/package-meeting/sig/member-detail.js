@@ -82,7 +82,7 @@ Page({
       {
         id: that.data.id,
         gitee_name: that.data.gitee_name,
-        eamil: that.data.eamil,
+        email: that.data.email,
         telephone: that.data.phoneNmuber,
       },
       function (data) {

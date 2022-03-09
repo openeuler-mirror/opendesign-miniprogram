@@ -48,10 +48,19 @@ Page({
         seachValue: '',
         newTag: ''
     },
-    onShow() {
-        wx.getStorageSync('addNew')
+    onLoad(options) {
+        let active = JSON.parse(options.directionList);
+        let render = this.data.allCareer
+        try {
+            active.forEach(item =>{
+                render[item.index].isActive = true
+           })
+        } catch (error) {
+            render = this.data.allCareer
+        }
         this.setData({
-            renderList:this.data.allCareer
+            renderList:render,
+            checkedList:active
         })
     },
     itemClick(e) {

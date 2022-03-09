@@ -10,7 +10,7 @@ let remoteMethods = {
       type: 'GET',
       service: 'ALL_EVENTS_LIST',
       data: {
-        activity: that.data.activity,
+        activity_status: that.data.activity,
         activity_category: that.data.curFilterType,
         search: that.data.curKeyword,
       },
@@ -23,10 +23,6 @@ let remoteMethods = {
     appAjax.postJson({
       type: 'GET',
       service: 'GET_EVENTS_COUNT',
-      data: {
-        activity_category: that.data.curFilterType,
-        search: that.data.curKeyword,
-      },
       success: function (ret) {
         _callback && _callback(ret);
       },
@@ -118,11 +114,19 @@ Page({
       },
       {
         type: 1,
-        name: '线下',
+        name: '课程',
       },
       {
         type: 2,
-        name: '线上',
+        name: 'MSG',
+      },
+      {
+        type: 3,
+        name: '赛事',
+      },
+      {
+        type: 4,
+        name: '其他',
       },
     ],
     list: [],
@@ -199,7 +203,6 @@ Page({
     this.onLoad();
   },
   toUpdateSchedule(e) {
-    console.log(e.currentTarget.dataset.id);
     wx.navigateTo({
       url: `/package-events/events/event-detail?id=${e.currentTarget.dataset.id}&type=5`,
     });
@@ -222,12 +225,12 @@ Page({
             this.onLoad();
           });
         }
-      } else {
+      } else if(e.detail.operaType == 2){
         this.setData({
-          showDialogDel: true,
-        });
-      }
-    }  if (e.detail.operaType == 1) {
+          showDialogDel:true
+        })
+      } 
+    } else if (e.detail.operaType == 1) {
       if (this.data.collectionId) {
         remoteMethods.unCollect(() => {
           this.onLoad();
@@ -244,7 +247,7 @@ Page({
             res.name
           )}&title=${encodeURIComponent(res.title)}&tel=${encodeURIComponent(
             res.telephone
-          )}&poster=${encodeURIComponent(res.poster)}`,
+          )}&poster=${encodeURIComponent(res.poster)}&id=${encodeURIComponent(res.activity_id)}`,
         });
       });
     } else {
@@ -327,7 +330,7 @@ Page({
   },
   copyWechat() {
     wx.setClipboardData({
-      data: 'openeuler123',
+      data: 'mindspore0328',
       success: () => {
         this.setData({
           noAuthDialogShow: false,

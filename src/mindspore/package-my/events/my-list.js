@@ -204,8 +204,7 @@ Page({
             showDialogDel: true,
           });
         }
-      } else {
-        if (e.detail.operaType == 1) {
+      } else if (e.detail.operaType == 1) {
           if (this.data.collectionId) {
             remoteMethods.unCollect(() => {
               this.onShow();
@@ -230,7 +229,6 @@ Page({
             noAuthDialogShow: true,
           });
         }
-      }
     }
   },
   onMore(e) {
@@ -337,14 +335,13 @@ Page({
     }
   },
   toSign(e){
-    console.log(e)
     wx.navigateTo({
       url: `/package-events/events/sign?id=${e.currentTarget.dataset.id}`,
     });
   },
   copyWechat() {
     wx.setClipboardData({
-      data: 'openeuler123',
+      data: 'mindspore0328',
       success: () => {
         this.setData({
           noAuthDialogShow: false,

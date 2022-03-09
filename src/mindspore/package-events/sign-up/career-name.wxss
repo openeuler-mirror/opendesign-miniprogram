@@ -4,12 +4,7 @@
 }
 
 .career-top {
-    display: flex;
-    align-items: center;
-    padding: 20rpx 0;
-    flex-wrap: wrap;
     margin-top: 30rpx;
-    padding: 20rpx 30rpx;
     background-color: #ffffff;
 }
 .career-body {
@@ -20,6 +15,7 @@
 }
 .career-item {
     margin-right: 15rpx;
+    margin-bottom: 20rpx;
     padding: 8rpx 14rpx;
     color: #6189FF;
     font-size: 27rpx;
@@ -32,6 +28,11 @@
     flex-wrap: wrap;
     margin-top: 40rpx;
     margin-bottom: 100rpx;
+}
+.checked-list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 30rpx;
 }
 .all-item {
     margin-right: 15rpx;
@@ -102,4 +103,3 @@
     background-color: #fff;
     border: 1px solid #40ADFF;
 }
-

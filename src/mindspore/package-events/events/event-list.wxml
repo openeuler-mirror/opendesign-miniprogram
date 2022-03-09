@@ -31,7 +31,7 @@
         <block wx:for="{{list}}" wx:key="index">
             <view class="event-item">
                 <view bindtap="onMore" data-item="{{item}}" class="header {{item.collection_id?'isCollection':''}}">
-                    <text class="enterprise">{{item.enterprise}}</text>
+                    <text class="enterprise">{{columns[item.activity_category].name}}</text>
                     <image src="./../../static/common/more.svg" />
                 </view>
                 <view class="body" bindtap="toUpdateSchedule" data-id="{{item.id}}">
@@ -42,11 +42,16 @@
                         <view class="title">{{item.title}}</view>
                         <view class="date">
                             <image src="./../../static/index/date.png"></image>
-                            <text>{{item.date}}</text>
+                            <text wx:if="{{item.start_date == item.end_date}}">{{item.start_date}}</text>
+                            <text wx:else >{{item.start_date}}-{{item.end_date}}</text>
                         </view>
-                        <view class="address">
+                        <view class="address" wx:if="{{item.activity_type !== 2}}">
                             <image src="./../../static/common/location.svg"></image>
-                            <text>{{item.address||item.live_address}}</text>
+                            <text>{{item.address}}</text>
+                        </view>
+                        <view class="address" wx:else >
+                            <image src="./../../static/index/link.svg"></image>
+                            <text>{{item.online_url}}</text>
                         </view>
                         <view class="button">
                             <block wx:if="{{item.status==5}}">
@@ -107,7 +112,7 @@
         <view class="dialog-slot-content">
             <text>
                 活动一经发布，暂不支持自行下架删除。如有需要，请联系
-                <text class="blue">小助手 (微信号openeuler123)</text>
+                <text class="blue">小助手 (微信号mindspore0328)</text>
                 下架活动
             </text>
             <view>
@@ -119,7 +124,7 @@
         <view class="dialog-slot-content">
             <text>
                 您暂时没有预定会议的权限，请联系
-                <text class="blue">小助手 (微信号openeuler123)</text>
+                <text class="blue">小助手 (微信号mindspore0328)</text>
                 提交预定会议权限申请
             </text>
             <view>

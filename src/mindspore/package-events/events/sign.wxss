@@ -6,7 +6,9 @@ page {
 .container {
     padding: 0 !important;
 }
-
+.black {
+    color: #000000 !important;
+}
 .container .post-wrapper {
     width: 750rpx;
     height: 1503rpx;

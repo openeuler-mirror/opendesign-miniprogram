@@ -99,6 +99,7 @@ Page({
 
   data: {
     info: {},
+    showReplay:false,
     id: '',
     startTime:'',
     endTime:'',
@@ -114,9 +115,6 @@ Page({
     isIphoneX: false,
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     that = this;
     this.setData({
@@ -131,15 +129,11 @@ Page({
           that.setData({
             isIphoneX: true,
           });
-          console.log(that.data.isIphoneX);
         }
       },
     });
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
     this.setData({
       user: sessionUtil.getUserInfoByKey('userId'),
@@ -184,18 +178,39 @@ Page({
       showDialog:true
     })
   },
-  copyLink() {
+  colseDiglog() {
+    this.setData({
+      showReplay:false,
+      showDialog:false
+    })
+  },
+  maskClick () {
+    if (this.data.info.replay_url && this.data.info.status == 5) {
+      this.setData({
+        showReplay:true
+      })
+    } else {
+      this.setData({
+        showDialog:true
+      })
+    }
+   
+  },
+  copyLink(e) {
+    let link = e.currentTarget.dataset.link
     let that = this
     wx.setClipboardData({
-      data: this.data.info.online_url,
+      data: link,
       success: function () {
           that.setData({
-              showDialog: false
+              showDialog: false,
+              showReplay:false
           })
       },
       fail:function () {
         that.setData({
-          showDialog: false
+          showDialog: false,
+          showReplay:false
       })
       }
   })

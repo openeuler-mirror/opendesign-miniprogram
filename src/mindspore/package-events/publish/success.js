@@ -24,7 +24,7 @@ Page({
         type: 2,
         typeCn: '申请',
         typeDesc:
-          '审核通过后您的活动将在openEuler官网和小程序上发布，请耐心等待，您可以在“我的 > 我的活动 > 发布中”查看此活动',
+          '审核通过后您的活动将在MindSpore官网和小程序上发布，请耐心等待，您可以在“我的 > 我的活动 > 发布中”查看此活动',
       });
     } else if (options.type == 3) {
       this.setData({

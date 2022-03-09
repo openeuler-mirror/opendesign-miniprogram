@@ -195,7 +195,7 @@
             </view>
         </view>
     </van-popup>
-    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialogWarn }}" class-name="sig-dialog">
+    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialogWarn }}" closeOnClickOverlay='true' class-name="sig-dialog">
         <view class="dialog-slot-content">
             <text wx:if="{{tipsType=='SIG'}}">当前您不属于任何SIG组，请联系
                 <text class="blue">小助手(微信号mindspore0328) </text>为您关联SIG组

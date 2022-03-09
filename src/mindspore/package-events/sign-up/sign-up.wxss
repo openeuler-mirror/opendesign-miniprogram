@@ -1,6 +1,6 @@
 /* package-events/sign-up/sign-up.wxss */
 page {
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHwAAAAeCAYAAADuInrvAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACdSURBVGhD7dbBDYAwDAPAbsTYjFnEDn5YyT34WinWpT3nea9v0T9Q9qKyf9wKV7gVP/maI5xwwglfpkDhCh9z9Y05yGSVybMpfNn2UrjCvdKTK7Qti3DCCW9TmZyHcMIJT4pqyyKccMLbVCbnIZxwwpOi2rIIJ5zwNpXJeQgnnPCkqLYswgknvE1lch7CCSc8Kaoti3DCCW9TGZznA1f9oK8GgBpHAAAAAElFTkSuQmCC) no-repeat;
+    background: url(data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAAAlCAYAAAA0ubnLAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAB5SURBVHhe7dJBDQAgAAMxpGEYjUPHJX3UQc99GxTJS5a8ZMlLlrxkyUuWvGTJS5a8ZMlLlrxkyUuWvGTJS5a8ZMlLlrxkyUuWvGTJS5a8ZMlLlrxkyUuWvGTJS5a8ZMlLlrxkyUuWvGTJS5a8ZMlLlrxkyUuWvERtH4Xg0iHi5cqkAAAAAElFTkSuQmCC) no-repeat;
     background-size: 100% 108rpx;
     background-color: #f5f7fa !important;
     padding: 0 30rpx;
