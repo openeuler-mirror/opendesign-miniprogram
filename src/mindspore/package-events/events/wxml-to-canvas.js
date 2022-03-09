@@ -1,5 +1,4 @@
 const wxml = (data) => {
-  console.log(data);
   return `
     <view class="container">
         <image class="bgImg" src="https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/poster/bg${

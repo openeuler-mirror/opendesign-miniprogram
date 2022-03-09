@@ -15,11 +15,16 @@
                         <view class="title">{{item.title}}</view>
                         <view class="date">
                             <image src="./../../static/index/date.png"></image>
-                            <text>{{item.date}}</text>
+                            <text wx:if="{{item.start_date === item.end_date}}">{{item.start_date}}</text>
+                            <text wx:else>{{item.start_date}}-{{item.end_date}}</text>
                         </view>
-                        <view class="address">
+                        <view class="address" wx:if="{{item.activity_type !== 2}}">
                             <image src="./../../static/common/location.svg"></image>
-                            <text>{{item.address||item.live_address}}</text>
+                            <text>{{item.address}}</text>
+                        </view>
+                        <view class="address" wx:else >
+                            <image src="./../../static/index/link.svg"></image>
+                            <text>{{item.online_url}}</text>
                         </view>
                         <view class="button" wx:if="{{type == 4}}">
                             <button bindtap="editDraft" data-id="{{item.id}}">编辑活动</button>
@@ -90,7 +95,7 @@
             </view>
         </view>
     </van-dialog>
-    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ noAuthDialogShow }}" class-name="sig-dialog">
+    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" closeOnClickOverlay='true' show="{{ noAuthDialogShow }}" class-name="sig-dialog">
         <view class="dialog-slot-content">
             <text>
                 活动一经发布，暂不支持自行下架删除。如有需要，请联系

@@ -1,0 +1,8 @@
+<view class="container">
+    <view class="suc-wrapper">
+        <image src="../../static/meeting/meeting-success.png" />
+        <text>保存成功</text>
+        <text>快去相册看看吧！</text>
+    </view>
+    <button bindtap="toList">返回活动首页</button>
+</view>

@@ -44,6 +44,8 @@ Page({
     });
     if (this.data.id) {
       remoteMethods.getDraftDetail((res) => {
+        res.start_date =  res.start_date.replaceAll('-','.')
+        res.end_date = res.end_date.replaceAll('-','.')
         this.setData({
           info: res,
         });
@@ -52,8 +54,8 @@ Page({
       this.setData({
         info: {
           title: options.title,
-          starTime:options.starTime,
-          endTime:options.endTime,
+          start_date:options.starTime.replaceAll('-','.'),
+          end_date:options.endTime.replaceAll('-','.'),
           detail_address: options.address || '',
           poster: options.poster,
           live_address: options.liveAddress || '',
@@ -74,8 +76,8 @@ Page({
     const p1 = this.widget.renderToCanvas({
       wxml: wxml({
         title: that.data.info.title,
-        start_date: that.data.info.start_date,
-        end_date:that.data.info.end_date,
+        start_date:that.data.info.start_date.replaceAll('-','.'),
+        end_date:that.data.info.end_date.replaceAll('-','.'),
         address: that.data.info.address,
         poster: that.data.info.poster,
         qrcode: that.data.info.wx_code,

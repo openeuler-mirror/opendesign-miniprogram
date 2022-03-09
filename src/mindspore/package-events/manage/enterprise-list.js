@@ -47,8 +47,10 @@ Page({
         e.currentTarget.dataset.name +
         '&nickname=' +
         e.currentTarget.dataset.nickname +
-        '&enterprise=' +
-        (e.currentTarget.dataset.enterprise || ''),
+        '&email=' +
+        (e.currentTarget.dataset.email || '') +
+        '&telephone=' +
+        (e.currentTarget.dataset.telephone || ''),
     });
   },
   addMember: function () {

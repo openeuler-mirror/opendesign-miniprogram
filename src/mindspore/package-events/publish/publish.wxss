@@ -96,7 +96,6 @@ input {
 }
 
 .container .form > .form-item {
-    box-shadow: 0rpx 5rpx 15rpx 0rpx rgba(0, 47, 167, 0.1);
     border-radius: 8rpx;
 }
 

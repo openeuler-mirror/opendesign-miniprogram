@@ -337,14 +337,13 @@ Page({
     }
   },
   toSign(e){
-    console.log(e)
     wx.navigateTo({
       url: `/package-events/events/sign?id=${e.currentTarget.dataset.id}`,
     });
   },
   copyWechat() {
     wx.setClipboardData({
-      data: 'openeuler123',
+      data: 'mindspore0328',
       success: () => {
         this.setData({
           noAuthDialogShow: false,

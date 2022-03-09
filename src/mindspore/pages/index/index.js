@@ -34,6 +34,10 @@ Page(
       });
     },
     onLoad: function () {
+      wx.showShareMenu({
+        withShareTicket: true,
+        menus: ['shareAppMessage', 'shareTimeline']
+      })
       that = this;
       appUser.updateUserInfo(function () {
         that.setData({

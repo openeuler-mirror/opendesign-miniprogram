@@ -1,7 +1,10 @@
 <!-- package-events/events/event-detail.wxml -->
 <view class="container">
     <view class="banner-title banner-type{{info.poster}}">
-        <text>{{info.title}}</text>
+        <text class="{{info.poster === 3 ? 'black':''}}">{{info.title}}</text>
+        <view class="video-mask" bindtap="maskClick" wx:if="{{info.status == 4 || info.status == 5 && info.online_url !== ''}}">
+            <image src="../../static/events/video.png"></image> 
+        </view>
     </view>
     <view class="detail-wrapper">
         <view class="title-wrapper">
@@ -13,7 +16,8 @@
         </view>
         <view class="date">
             <image src="./../../static/index/date.png"></image>
-            <text>{{startTime}} - {{endTime}}</text>
+            <text wx:if="{{startTime !== endTime}}">{{startTime}} - {{endTime}}</text>
+            <text wx:else>{{startTime}}</text>
         </view>
         <view class="address date" wx:if="{{info.activity_type==1 || info.activity_type==3}}" bindtap="openLocation" data-item="{{info}}">
             <view class="left" >
@@ -96,7 +100,10 @@
         </button>
         <button class="btn-ghost" bindtap="toPoster">下载海报</button>
         <block wx:if="{{info.status==5}}">
-            <button class="btn-primary" wx:if="{{info.status==5}}" bindtap="switchTab2">
+            <button class="btn-primary" wx:if="{{info.status==5 && info.user === user}}" bindtap="editSchedule">
+                添加回放
+            </button>
+            <button class="btn-primary" wx:else bindtap="switchTab2">
                 精彩回顾
             </button>
         </block>
@@ -129,18 +136,32 @@
         </button>
         <button class="btn-ghost" bindtap="redrictLogin">下载海报</button>
         <block wx:if="{{info.status==5}}">
-            <button class="btn-primary" wx:if="{{info.status==5}}" bindtap="switchTab2">
+            <button class="btn-primary" wx:if="{{info.status==5 && info.user === user}}" bindtap="switchTab2">
+                添加回放
+            </button>
+            <button class="btn-primary" wx:else bindtap="switchTab2">
                 精彩回顾
             </button>
         </block>
         <button class="btn-primary" wx:else bindtap="redrictLogin">立即报名</button>
     </view>
-    <van-dialog use-slot title="线上链接" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialog }}" class-name="sig-dialog">
+    <van-dialog use-slot title="线上链接" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialog }}" closeOnClickOverlay='true' class-name="sig-dialog">
         <view class="dialog-slot-content">
             <text>
                {{info.online_url}}
             </text>
-            <view bindtap="copyLink">
+            <view data-link="{{info.online_url}}" bindtap="copyLink">
+                <button >复制</button>
+            </view>
+        </view>
+    </van-dialog>
+    <van-dialog use-slot title="活动回放链接" show-confirm-button="{{false}}" bind:click-overlay="colseDiglog" closeOnClickOverlay='true' 
+     show-cancel-button="{{false}}" show="{{ showReplay }}" class-name="sig-dialog">
+        <view class="dialog-slot-content">
+            <text>
+               {{info.replay_url}}
+            </text>
+            <view data-link="{{info.replay_url}}" bindtap="copyLink">
                 <button >复制</button>
             </view>
         </view>

@@ -18,7 +18,7 @@
         </view>
     </view>
     <meeting-list id="meeting" bind:action-status="actionStatus"></meeting-list>
-    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ noAuthDialogShow }}" class-name="sig-dialog">
+    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ noAuthDialogShow }}" closeOnClickOverlay='true' class-name="sig-dialog">
         <view class="dialog-slot-content">
             <text>您暂时没有预定会议的权限，请联系<text class="blue">小助手(微信号mindspore0328) </text>提交预定会议权限申请</text>
             <view>

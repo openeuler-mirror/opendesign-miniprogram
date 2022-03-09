@@ -50,7 +50,6 @@ Page({
                     status: 1
                 })
             }
-
             if(res.code === 201) {
                 this.setData({
                     status: 2
