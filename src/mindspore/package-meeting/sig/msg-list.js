@@ -103,8 +103,16 @@ Page({
     let postData = {
       name: this.data.cityName,
     };
+    if(this.data.cityName==''){
+      wx.showToast({
+        title: '请输入城市名',
+        duration: 2000,
+        icon: 'none'
+      });
+      return
+    }
     remoteMethods.addCity(postData, function (data) {
-      if (data&&data.id) {
+      if (data&&data.code&&data.code==201) {
         that.setData({
           isShowMes: true,
           cityName:''
@@ -118,7 +126,14 @@ Page({
           title: '添加成功',
           duration: 2000,
         });
-      } else {
+      }else if(data&&data.code&&data.code==400&&data.msg&&data.msg=='城市名重复'){
+        wx.showToast({
+          title: '城市名重复',
+          icon: 'none',
+          duration: 2000,
+        });
+      }
+       else {
         wx.showToast({
           title: '操作失败',
           icon: 'none',
