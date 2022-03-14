@@ -1,6 +1,7 @@
 // pages/meeting/detail.js
 const { rest } = require('../../utils/underscore');
 var appAjax = require('./../../utils/app-ajax');
+const sessionUtil = require('../../utils/app-session.js');
 let remoteMethods = {
   getMeetingDetail: function (id, _callback) {
     appAjax.postJson({
@@ -52,7 +53,7 @@ Page({
   data: {
     id: '',
     info: {},
-    collection_id:'null'
+    collection_id:null
   },
 
   /**
@@ -60,8 +61,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      id: options.id,
-      collection_id:options.collection_id||'null'
+      id: options.id
     });
   },
   copy: function (e) {
@@ -79,6 +79,7 @@ Page({
       if (data) {
         that.setData({
           info: data,
+          collection_id:data.collection_id||null
         });
       }
     });
@@ -92,10 +93,16 @@ Page({
   },
   collect: function () {
     let that=this
-    if (this.data.collection_id!='null') {
+    if (!sessionUtil.getUserInfoByKey('access')) {
+      wx.navigateTo({
+        url: '/pages/auth/auth',
+      });
+      return;
+    }
+    if (this.data.collection_id!=null) {
       remoteMethods.uncollect(this.data.collection_id, function (res) {
        that.setData({
-        collection_id:'null'
+        collection_id:null
        })       
       });
     } else {
