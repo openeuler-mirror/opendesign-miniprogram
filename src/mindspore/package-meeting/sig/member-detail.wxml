@@ -13,10 +13,10 @@
         </view>
         <view class="input-title">输入ID</view>
         <input placeholder="请输入ID" value="{{gitee_name}}" data-index="id" bindinput="onInput"></input>
-        <view class="input-title">输入手机</view>
-        <input placeholder="请输入手机号码" value="{{phoneNumber}}" data-index="phone" bindinput="onInput"></input>
-        <view class="input-title">输入邮箱</view>
-        <input placeholder="请输入电子邮箱地址" value="{{email}}" data-index="email" bindinput="onInput"></input>
+        <view class="input-title">备注一</view>
+        <input placeholder="请输入备注一" value="{{phoneNumber}}" data-index="phone" bindinput="onInput"></input>
+        <view class="input-title">备注二</view>
+        <input placeholder="请输入备注二" value="{{email}}" data-index="email" bindinput="onInput"></input>
         <view class="btn-wraper">
             <button class="reset" bindtap="reset">重置</button>
             <button class="confirm" bindtap="confirm">确定</button>

@@ -36,14 +36,9 @@
                 "publish/publish",
                 "publish/success",
                 "events/event-detail",
-                "sign-up/sign-up",
-                "sign-up/sign-up-success",
                 "events/poster",
-                "sign-up/career-direction",
-                "sign-up/career-name",
                 "events/sign",
-                "events/sign-success",
-                "sign-up/save-success"
+                "events/sign-success"
             ]
         },
         {

@@ -1,0 +1,9 @@
+{
+    "usingComponents": {
+        "user-info": "/components/user-info/user-info"
+    },
+    "navigationBarTitleText": "openEuler活动管理",
+    "enablePullDownRefresh": true,
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#fff"
+}

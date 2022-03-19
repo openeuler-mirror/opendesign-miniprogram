@@ -1,0 +1,4 @@
+/* package-meeting/meeting/meeting-list.wxss */
+page {
+    background-color: #f5f7fa !important;
+}

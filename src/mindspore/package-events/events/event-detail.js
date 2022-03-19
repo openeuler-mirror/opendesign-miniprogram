@@ -108,6 +108,7 @@ Page({
     activeNames:0,
     betweenDay:[],
     showDialog:false,
+    showRegister:false,
     type: 0,
     level: 1,
     user: '',
@@ -181,7 +182,8 @@ Page({
   colseDiglog() {
     this.setData({
       showReplay:false,
-      showDialog:false
+      showDialog:false,
+      showRegister:false,
     })
   },
   maskClick () {
@@ -204,53 +206,60 @@ Page({
       success: function () {
           that.setData({
               showDialog: false,
-              showReplay:false
+              showReplay:false,
+              showRegister:false,
           })
       },
       fail:function () {
         that.setData({
           showDialog: false,
-          showReplay:false
+          showReplay:false,
+          showRegister:false
       })
       }
   })
   },
-  getBetweenDateStr(start, end) {
-    let startDate = Date.parse(start);
-    let endDate = Date.parse(end);
+  getBetweenDateStr(starDay, endDay) {
+    let startDate = Date.parse(starDay);
+    let endDate = Date.parse(endDay);
     if (startDate > endDate) {
       return false;
     } else if (startDate == endDate) {
-      return [start]
+      starDay = starDay.split('')
+      starDay[4] = '年'
+      starDay[7] = '月'
+      starDay[10] = '日'
+      starDay = starDay.join('')
+      return [starDay]
     }
-    let result = [];
-    let beginDay = start.split("-");
-    let endDay = end.split("-");
-    let diffDay = new Date();
-    let dateList = new Array;
-    let i = 0;
-    diffDay.setDate(beginDay[2]);
-    diffDay.setMonth(beginDay[1] - 1);
-    diffDay.setFullYear(beginDay[0]);
-    result.push(start);
-    while (i == 0) {
-      let countDay = diffDay.getTime() + 24 * 60 * 60 * 1000;
-      diffDay.setTime(countDay);
-      dateList[2] = diffDay.getDate();
-      dateList[1] = diffDay.getMonth() + 1;
-      dateList[0] = diffDay.getFullYear();
-      if (String(dateList[1]).length == 1) {
-        dateList[1] = "0" + dateList[1]
-      }
-      if (String(dateList[2]).length == 1) {
-        dateList[2] = "0" + dateList[2]
-      }
-      result.push(dateList[0] + "-" + dateList[1] + "-" + dateList[2]);
-      if (dateList[0] == endDay[0] && dateList[1] == endDay[1] && dateList[2] == endDay[2]) {
-        i = 1;
-      }
+    let arr = [];
+    let dates = [];
+
+    // 设置两个日期UTC时间
+    let db = new Date(starDay);
+    let de = new Date(endDay);
+
+    // 获取两个日期GTM时间
+    let s = db.getTime() - 24 * 60 * 60 * 1000;
+    let d = de.getTime() - 24 * 60 * 60 * 1000;
+
+    // 获取到两个日期之间的每一天的毫秒数
+    for (let i = s; i <= d;) {
+        i = i + 24 * 60 * 60 * 1000;
+        arr.push(parseInt(i))
     }
-    return result;
+
+    // 获取每一天的时间  YY-MM-DD
+    for (let j in arr) {
+        let time = new Date(arr[j]);
+        let year = time.getFullYear(time);
+        let mouth = (time.getMonth() + 1) >= 10 ? (time.getMonth() + 1) : ('0' + (time.getMonth() + 1));
+        let day = time.getDate() >= 10 ? time.getDate() : ('0' + time.getDate());
+        let YYMMDD =year + '年-' +  mouth + '月' + '-' + day + '日';
+        dates.push(YYMMDD)
+    }
+
+    return dates
   },
   dateChange(event) {
     this.setData({
@@ -321,14 +330,17 @@ Page({
     });
   },
   toSignUp() {
-    if (!sessionUtil.getUserInfoByKey('access')) {
-        wx.navigateTo({
-            url: '/pages/auth/auth'
-        })
-        return;
-    }
-    wx.navigateTo({
-        url: `/package-events/sign-up/sign-up?id=${this.data.info.id}&title=${this.data.info.title}&poster=${this.data.info.poster}`
+    // if (!sessionUtil.getUserInfoByKey('access')) {
+    //     wx.navigateTo({
+    //         url: '/pages/auth/auth'
+    //     })
+    //     return;
+    // }
+    // wx.navigateTo({
+    //     url: `/package-events/sign-up/sign-up?id=${this.data.info.id}&title=${this.data.info.title}&poster=${this.data.info.poster}`
+    // })
+    this.setData({
+      showRegister:true
     })
 },
   onShareAppMessage() {

@@ -1,0 +1,9 @@
+<!--package-events/publish/success.wxml-->
+<view class="container">
+    <view class="suc-wrapper">
+        <image src="./../../static/reserve/meeting-success.png" />
+        <text>{{typeCn}}成功!</text>
+        <text>{{typeDesc}}</text>
+    </view>
+    <button bindtap="toList">返回活动首页</button>
+</view>

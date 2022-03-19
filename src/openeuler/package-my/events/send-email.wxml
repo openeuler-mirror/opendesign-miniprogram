@@ -1,0 +1,8 @@
+<!--package-my/events/send-email.wxml-->
+<view class="container">
+    <view class="input-title">邮箱地址</view>
+    <input placeholder="输入您的邮箱地址" value="{{emailAddress}}" bindinput="onInput"></input>
+    <view class="btn-wraper">
+        <button class="confirm" bindtap="confirm">提交</button>
+    </view>
+</view>

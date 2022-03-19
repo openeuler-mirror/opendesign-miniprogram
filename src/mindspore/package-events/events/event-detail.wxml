@@ -145,6 +145,16 @@
         </block>
         <button class="btn-primary" wx:else bindtap="redrictLogin">立即报名</button>
     </view>
+    <van-dialog use-slot title="报名链接" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showRegister }}" closeOnClickOverlay='true' class-name="sig-dialog">
+        <view class="dialog-slot-content">
+            <text>
+               {{info.register_url}}
+            </text>
+            <view data-link="{{info.register_url}}" bindtap="copyLink">
+                <button >复制</button>
+            </view>
+        </view>
+    </van-dialog>
     <van-dialog use-slot title="线上链接" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialog }}" closeOnClickOverlay='true' class-name="sig-dialog">
         <view class="dialog-slot-content">
             <text>

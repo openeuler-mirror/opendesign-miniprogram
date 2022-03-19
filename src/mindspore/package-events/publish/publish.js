@@ -77,7 +77,7 @@ let localMethods = {
   validation: function (data) {
     if (data.activity_type === 1) {
       if (!data.title) {
-        this.toast('请输入活动标题');
+        this.toast('请输入活动名称');
         return;
       }
       if (!data.start_date) {
@@ -121,10 +121,6 @@ let localMethods = {
     } else if (data.activity_type === 2) {
       if (!data.title) {
         this.toast('请输入活动标题');
-        return;
-      }
-      if (data.activity_category === 2) {
-        this.toast('MSG活动需添加线下地址');
         return;
       }
       if (!data.online_url) {
@@ -273,7 +269,7 @@ Page({
     maxEndTime: 22,
     filter(type, options) {
       if (type === 'minute') {
-        return options.filter((option) => option % 15 === 0);
+        return options.filter((option) => option % 5 === 0);
       }
       return options;
     },
@@ -357,42 +353,47 @@ Page({
       typeShow: true,
     })
   },
-  getBetweenDateStr(start, end) {
-    let startDate = Date.parse(start);
-    let endDate = Date.parse(end);
+  getBetweenDateStr(starDay, endDay) {
+    let startDate = Date.parse(starDay);
+    let endDate = Date.parse(endDay);
     if (startDate > endDate) {
       return false;
     } else if (startDate == endDate) {
-      return [start]
+      starDay = starDay.split('')
+      starDay[4] = '年'
+      starDay[7] = '月'
+      starDay[10] = '日'
+      starDay = starDay.join('')
+      return [starDay]
     }
-    let result = [];
-    let beginDay = start.split("-");
-    let endDay = end.split("-");
-    let diffDay = new Date();
-    let dateList = new Array;
-    let i = 0;
-    diffDay.setDate(beginDay[2]);
-    diffDay.setMonth(beginDay[1] - 1);
-    diffDay.setFullYear(beginDay[0]);
-    result.push(start);
-    while (i == 0) {
-      let countDay = diffDay.getTime() + 24 * 60 * 60 * 1000;
-      diffDay.setTime(countDay);
-      dateList[2] = diffDay.getDate();
-      dateList[1] = diffDay.getMonth() + 1;
-      dateList[0] = diffDay.getFullYear();
-      if (String(dateList[1]).length == 1) {
-        dateList[1] = "0" + dateList[1]
-      }
-      if (String(dateList[2]).length == 1) {
-        dateList[2] = "0" + dateList[2]
-      }
-      result.push(dateList[0] + "-" + dateList[1] + "-" + dateList[2]);
-      if (dateList[0] == endDay[0] && dateList[1] == endDay[1] && dateList[2] == endDay[2]) {
-        i = 1;
-      }
+    let arr = [];
+    let dates = [];
+
+    // 设置两个日期UTC时间
+    let db = new Date(starDay);
+    let de = new Date(endDay);
+
+    // 获取两个日期GTM时间
+    let s = db.getTime() - 24 * 60 * 60 * 1000;
+    let d = de.getTime() - 24 * 60 * 60 * 1000;
+
+    // 获取到两个日期之间的每一天的毫秒数
+    for (let i = s; i <= d;) {
+        i = i + 24 * 60 * 60 * 1000;
+        arr.push(parseInt(i))
     }
-    return result;
+
+    // 获取每一天的时间  YY-MM-DD
+    for (let j in arr) {
+        let time = new Date(arr[j]);
+        let year = time.getFullYear(time);
+        let mouth = (time.getMonth() + 1) >= 10 ? (time.getMonth() + 1) : ('0' + (time.getMonth() + 1));
+        let day = time.getDate() >= 10 ? time.getDate() : ('0' + time.getDate());
+        let YYMMDD =year + '年-' +  mouth + '月' + '-' + day + '日';
+        dates.push(YYMMDD)
+    }
+
+    return dates
   },
   onModeShow: function () {
     this.setData({
@@ -440,7 +441,7 @@ Page({
               allSchedule: allSchedule
             })
         } else {
-          localMethods.toast('请正确填写日期')
+          localMethods.toast('结束日期应大于等于开始日期')
         }
       } else {
         this.setData({
@@ -531,6 +532,9 @@ Page({
           latitude: res.latitude,
         });
       },
+      fail:function(res) {
+        console.log(res);
+      }
     });
   },
   addressNameInput(e) {
@@ -714,7 +718,7 @@ Page({
         poster: this.data.topicSelIndex,
         schedules: this.data.allSchedule,
       };
-    } else if (this.data.form[0] - 0 === 2 && this.data.form[0].length !== 2) {
+    } else if (this.data.form[0] - 0 === 2 && this.data.form.length !== 2) {
       postData = {
         title: this.data.title,
         activity_category: this.data.actegory,
@@ -725,8 +729,6 @@ Page({
         end_date: this.data.endTime,
         synopsis: this.data.desc,
         online_url: this.data.liveAddress,
-        longitude: this.data.longitude,
-        latitude: this.data.latitude,
         poster: this.data.topicSelIndex,
         schedules: this.data.allSchedule,
       };
@@ -788,8 +790,6 @@ Page({
         end_date: this.data.endTime,
         synopsis: this.data.desc,
         online_url: this.data.liveAddress,
-        longitude: this.data.longitude,
-        latitude: this.data.latitude,
         poster: this.data.topicSelIndex,
         schedules: this.data.allSchedule,
       };
@@ -856,8 +856,6 @@ Page({
         end_date: this.data.endTime,
         synopsis: this.data.desc,
         online_url: this.data.liveAddress,
-        longitude: this.data.longitude,
-        latitude: this.data.latitude,
         poster: this.data.topicSelIndex,
         schedules: this.data.allSchedule,
       };

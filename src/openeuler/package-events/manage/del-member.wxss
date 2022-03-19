@@ -1,0 +1,51 @@
+/* pages/sig/del-member.wxss */
+.container {
+    background-color: #fff;
+    margin-top: 20rpx;
+    margin-bottom: 150rpx;
+    padding: 0;
+}
+
+.container .del-item {
+    border-bottom: 1px solid #c7cad0;
+    padding: 0 30rpx;
+    height: 108rpx;
+    line-height: 108rpx;
+    display: flex;
+    align-items: center;
+}
+
+.container .del-item image {
+    width: 72rpx;
+    height: 72rpx;
+    border-radius: 8rpx;
+    display: inline-block;
+    border: 1px solid #979797;
+    margin: 0 20rpx 0 10rpx;
+}
+
+.container .del-item text {
+    display: inline-block;
+    height: 100%;
+}
+
+.container .del-item .inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.container .del-btn {
+    position: fixed;
+    bottom: 60rpx;
+    left: 125rpx;
+    width: 500rpx;
+    height: 90rpx;
+    line-height: 90rpx;
+    font-size: 36rpx;
+    color: #fff;
+    background-color: #002fa7;
+    border-radius: 8rpx;
+    text-align: center;
+    box-shadow: 0px 5px 20px 0px rgba(126, 146, 178, 0.7);
+}

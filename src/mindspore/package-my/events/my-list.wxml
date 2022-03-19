@@ -34,9 +34,9 @@
                         </view>
                         <view class="buttons" wx:if="{{type == 2}}">
                             <view class="empty" wx:if="{{(item.status==5)}}"></view>
-                            <button bindtap="toSign" data-id="{{item.id}}" wx:if="{{(item.status==3) || (item.status==4)}}">
-                                签到码
-                            </button>
+                            <view  class="empty" data-id="{{item.id}}" wx:if="{{(item.status==3) || (item.status==4)}}">
+                                
+                            </view>
                             <button bindtap="toUpdateSchedule" data-id="{{item.id}}" wx:if="{{(item.status==3) || (item.status==4)||(item.status==5)}}">
                                 补充修改
                             </button>

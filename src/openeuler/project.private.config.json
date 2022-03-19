@@ -1,0 +1,30 @@
+{
+    "setting": {},
+    "condition": {
+        "plugin": {
+            "list": []
+        },
+        "game": {
+            "list": []
+        },
+        "gamePlugin": {
+            "list": []
+        },
+        "miniprogram": {
+            "list": [
+                {
+                    "name": "package-events/events/event-detail",
+                    "pathName": "package-events/events/event-detail",
+                    "query": "scene=33",
+                    "scene": 1047
+                },
+                {
+                    "name": "package-events/events/sign-success",
+                    "pathName": "package-events/events/sign-success",
+                    "query": "scene=49",
+                    "scene": 1011
+                }
+            ]
+        }
+    }
+}

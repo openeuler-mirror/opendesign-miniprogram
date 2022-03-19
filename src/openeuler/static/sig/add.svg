@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="25px" viewBox="0 0 26 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Style</title>
+    <g id="控件" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
+        <g id="小程序icon" transform="translate(-230.000000, -624.000000)" fill="#C7CAD0">
+            <polygon id="Style" points="256 636 244 636 244 624 242 624 242 636 230 636 230 638 242 638 242 649 244 649 244 638 256 638"></polygon>
+        </g>
+    </g>
+</svg>

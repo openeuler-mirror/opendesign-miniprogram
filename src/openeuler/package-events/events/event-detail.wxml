@@ -1,0 +1,135 @@
+<!-- package-events/events/event-detail.wxml -->
+<view class="container">
+    <video wx:if="{{info.replay_url}}" hidden="{{videoHidden}}" bindfullscreenchange="fullScreenChange" id="video" src="https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/openEuler_MG%2BAnimate_1920x500_0128.mp4"></video>
+    <view class="banner-title banner-type{{info.poster}}">
+        <text>{{info.title}}</text>
+        <view class="mask" wx:if="{{info.replay_url}}" bindtap="clickVideo">
+            <image src="./../../static/events/play.png" />
+        </view>
+    </view>
+    <view class="detail-wrapper">
+        <view class="title-wrapper">
+            <view class="title">{{info.title}}</view>
+            <view wx:if="{{(info.status==1)||(info.status==2)}}" class="status">待发布</view>
+            <view wx:elif="{{info.status==3}}" class="status registering">报名中</view>
+            <view wx:elif="{{info.status==4}}" class="status ongoing">进行中</view>
+            <view wx:elif="{{info.status==5}}" class="status over">已结束</view>
+        </view>
+        <view class="date">
+            <image src="./../../static/index/date.svg"></image>
+            <text>{{info.date}}</text>
+        </view>
+        <view class="address" bindtap="openLocation" data-item="{{info}}">
+            <view class="left" wx:if="{{info.activity_type==1}}">
+                <image src="./../../static/common/location.svg"></image>
+                <text >{{info.address}}</text>
+            </view>
+            <view class="left" wx:else>
+                <image src="./../../static/index/link.svg"></image>
+                <text bindtap="copyLink" >{{info.join_url}}</text>
+            </view>
+            <image hidden="{{info.activity_type==2}}" class="arrow-right" src="./../../static/common/arrow-right.svg" />
+        </view>
+    </view>
+    <view class="detail-tab-wrapper">
+        <view class="tabs">
+            <view bindtap="switchTab" data-index="{{0}}" class="tab {{!tabIndex?'active':''}}">
+                活动简介
+            </view>
+            <view bindtap="switchTab" data-index="{{1}}" class="tab {{tabIndex==1?'active':''}}">
+                活动议程
+            </view>
+            <view bindtap="switchTab" data-index="{{2}}" class="tab {{tabIndex==2?'active':''}}">
+                活动须知
+            </view>
+        </view>
+        <view class="tab-content" hidden="{{tabIndex}}">
+            <view class="content">{{info.synopsis}}</view>
+        </view>
+        <view class="tab-content" hidden="{{tabIndex!=1}}">
+            <view class="content">
+                <view class="steps-wrapper">
+                    <view class="steps">
+                        <block wx:for="{{steps}}" wx:key="index">
+                            <view class="step-item">
+                                <view class="detail">
+                                    <view class="duration">{{item.duration}}</view>
+                                    <view wx:if="{{item.title}}" class="title">{{item.title}}</view>
+                                    <block wx:for="{{item.speakerList}}" wx:key="index">
+                                        <view class="speaker">
+                                            {{item.name}}-{{item.title||''}}
+                                        </view>
+                                    </block>
+                                    
+                                </view>
+                                <view class="circle"></view>
+                                <view class="line"></view>
+                            </view>
+                        </block>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="tab-content" hidden="{{tabIndex!=2}}">
+            <view class="content">活动须知</view>
+        </view>
+    </view>
+    <view class="footer-wrapper {{isIphoneX?'footer-iphonex':''}}" wx:if="{{type==4}}">
+        <button class="btn-ghost" bindtap="toPoster" data-flag="1">预览海报</button>
+        <button class="btn-ghost" bindtap="toEditDraft">编辑活动</button>
+        <button class="btn-primary" bindtap="draftPublish">申请发布</button>
+    </view>
+    <view class="footer-wrapper type1 {{isIphoneX?'footer-iphonex':''}}" wx:elif="{{type==1}}">
+        <button class="btn-ghost" bindtap="reject">驳回修改</button>
+        <button class="btn-primary" bindtap="resolve">同意发布</button>
+    </view>
+    <view class="footer-wrapper {{isIphoneX?'footer-iphonex':''}}" wx:elif="{{(user&&!type) || (type==5)}}">
+        <view class="collect" bindtap="collect">
+            <image src="./../../static/events/{{info.collection_id?'collect':'uncollect'}}.svg" />
+            <text>收藏</text>
+        </view>
+        <button open-type="share" class="share">
+            <image src="./../../static/events/share.svg" />
+            <text>分享</text>
+        </button>
+        <button class="btn-ghost" bindtap="toPoster">下载海报</button>
+        <block wx:if="{{info.status==5}}">
+            <button class="btn-primary" wx:if="{{info.status==5}}" bindtap="switchTab2">
+                精彩回顾
+            </button>
+        </block>
+        <block wx:else>
+            <block wx:if="{{level==1}}">
+                <button class="btn-primary {{info.register_id?'register':''}}" wx:if="{{info.register_id}}">
+                    已报名
+                </button>
+                <button class="btn-primary" wx:else bindtap="toSignUp">立即报名</button>
+            </block>
+            <block wx:elif="{{level==2}}">
+                <button class="btn-primary" wx:if="{{info.user==user}}" bindtap="editSchedule">修改日程</button>
+                <button class="btn-primary register" wx:elif="{{info.register_id}}">已报名</button>
+                <button class="btn-primary" wx:else bindtap="toSignUp">立即报名</button>
+            </block>
+            <block wx:else>
+                <button class="btn-primary" wx:if="{{(info.status==3) || (info.status==4)}}" bindtap="editSchedule">修改日程</button>
+            </block>
+        </block>
+    </view>
+    <view class="footer-wrapper {{isIphoneX?'footer-iphonex':''}}" wx:elif="{{!user&&!type}}">
+        <view class="collect" bindtap="redrictLogin">
+            <image src="./../../static/events/{{info.collection_id?'collect':'uncollect'}}.svg" />
+            <text>收藏</text>
+        </view>
+        <button bindtap="redrictLogin" class="share">
+            <image src="./../../static/events/share.svg" />
+            <text>分享</text>
+        </button>
+        <button class="btn-ghost" bindtap="redrictLogin">下载海报</button>
+        <block wx:if="{{info.status==5}}">
+            <button class="btn-primary" wx:if="{{info.status==5}}" bindtap="switchTab2">
+                精彩回顾
+            </button>
+        </block>
+        <button class="btn-primary" wx:else bindtap="redrictLogin">立即报名</button>
+    </view>
+</view>

@@ -45,7 +45,7 @@
         <text>当前暂无任何会议哦</text>
     </view>
 </view>
-<van-dialog use-slot title="腾讯会议" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialog }}" class-name="sig-dialog" close-on-click-overlay="{{true}}">
+<van-dialog use-slot title="会议" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialog }}" class-name="sig-dialog" close-on-click-overlay="{{true}}">
     <view class="dialog-slot-content">
         <text>{{curMid}}</text>
         <text>{{curJoinUrl}}</text>

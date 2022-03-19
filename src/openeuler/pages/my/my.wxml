@@ -1,0 +1,80 @@
+<!-- pages/my/my.wxml -->
+<view class="container {{iphoneX?'container-x':''}}" style="height: 100%">
+    <view class="user-info-wrapper">
+        <view class="my-user-info">
+            <image src="{{avatarUrl}}"></image>
+            <text>{{nickName}}</text>
+        </view>
+        <view class="my-meetings common-list">
+            <view class="header">我的会议</view>
+            <view class="list">
+                <view class="item" wx:if="{{level!==1}}" bindtap="go" data-url="/package-my/my/my-meetings">
+                    <text class="count">{{myCount.created_meetings_count||0}}</text>
+                    <text class="text">已预定</text>
+                </view>
+                <view class="item" bindtap="go" data-url="/package-my/my/my-collection">
+                    <text class="count">{{myCount.collected_meetings_count||0}}</text>
+                    <text class="text">已收藏</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="my-events common-list">
+        <view class="header">我的活动</view>
+        <view class="list">
+            <view class="item" wx:if="{{avtivityLevel!=1}}" bindtap="go" data-url="/package-my/events/my-list?type=2">
+                <text class="count">{{myCount.published_activities_count||0}}</text>
+                <text class="text">已发布</text>
+            </view>
+            <view class="item" wx:if="{{avtivityLevel!=1}}" bindtap="go" data-url="/package-my/events/my-list?type=3">
+                <text class="count">{{myCount.register_table_count||0}}</text>
+                <text class="text">报名表单</text>
+            </view>
+            <view class="item" wx:if="{{avtivityLevel!=1}}" bindtap="go" data-url="/package-my/events/my-list?type=4">
+                <text class="count">{{myCount.drafts_count||0}}</text>
+                <text class="text">草稿箱</text>
+            </view>
+            <view class="item" wx:if="{{avtivityLevel!=1}}" bindtap="go" data-url="/package-my/events/my-list?type={{avtivityLevel===3?1:5}}">
+                <text class="count">{{myCount.publishing_activities_count||0}}</text>
+                <text class="text">{{avtivityLevel===3?'待发布':'发布中'}}</text>
+            </view>
+            <view class="item" bindtap="go" data-url="/package-my/events/my-list?type=6">
+                <text class="count">{{myCount.collected_activities_count||0}}</text>
+                <text class="text">已收藏</text>
+            </view>
+            <view wx:if="{{avtivityLevel!=3}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=7">
+                <text class="count">{{myCount.registerd_activities_count||0}}</text>
+                <text class="text">已报名</text>
+            </view>
+        </view>
+    </view>
+    <view class="common-functions">
+        <view class="header">常用功能</view>
+        <view class="list">
+            <view class="item" bindtap="go" data-url="/package-my/my/help">
+                <image src="./../../static/my/common-functions/help.svg" />
+                <text>使用帮助</text>
+            </view>
+            <view class="item" bindtap="go" data-url="/package-my/my/feedback">
+                <image src="./../../static/my/common-functions/feedback.svg" />
+                <text>留言反馈</text>
+            </view>
+            <view class="item" bindtap="go" data-url="/package-my/my/privecy">
+                <image src="./../../static/my/common-functions/privacy.svg" />
+                <text>隐私声明</text>
+            </view>
+            <view class="item" bindtap="go" data-url="/package-my/my/qrcode?type=1">
+                <image src="./../../static/my/common-functions/official-account.svg" />
+                <text>关注公众号</text>
+            </view>
+            <view class="item" bindtap="go" data-url="/package-my/my/qrcode?type=2">
+                <image src="./../../static/my/common-functions/living.svg" />
+                <text>B站直播</text>
+            </view>
+            <view class="item" bindtap="go" data-url="/package-my/my/qrcode?type=3">
+                <image src="./../../static/my/common-functions/headlines.svg" />
+                <text>关注头条号</text>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,12 @@
+<!-- pages/my/help.wxml -->
+<view class="container">
+    <view class="tabs">
+        <view class="tab-item {{index==curIndex?'active':''}}" data-index="{{index}}" bindtap="switchTab" wx:for="{{list}}" wx:key="index">{{item.name}}</view>
+    </view>
+    <block wx:for="{{list}}" wx:key="index">
+        <view class="tab-content" wx:if="{{index==curIndex}}">
+            <image wx:for="{{item.contentImg}}" src="{{item}}" mode="widthFix" wx:key="index" />
+        </view>    
+    </block>
+    
+</view>

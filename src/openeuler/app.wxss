@@ -1,0 +1,175 @@
+/**app.wxss**/
+page {
+    height: 100vh;
+    background-color: #fff;
+    font-family: PingFangSC-Regular, PingFangSC;
+    font-weight: 400;
+}
+
+.container {
+    padding: 0 30rpx 129rpx 30rpx;
+}
+
+.container-x {
+    padding-bottom: 195rpx;
+}
+
+page,
+view,
+scroll-view,
+swiper,
+swiper-item,
+movable-area,
+movable-view,
+cover-view,
+cover-image,
+icon,
+text,
+rich-text,
+progress,
+button,
+checkbox-group,
+checkbox,
+form,
+input,
+label,
+picker,
+picker-view,
+radio-group,
+radio,
+slider,
+switch,
+textarea,
+navigator,
+functional-page-navigator,
+image,
+video,
+camera,
+live-player,
+live-pusher,
+map,
+canvas,
+open-data,
+web-view,
+ad {
+    box-sizing: border-box;
+}
+
+.dialog-index--sig-dialog {
+    border-radius: 8rpx;
+    width: 550rpx;
+}
+
+.van-dialog__header {
+    padding-top: 30rpx;
+    color: #222;
+    font-size: 36rpx;
+    line-height: 50rpx;
+}
+
+.dialog-slot-content {
+    color: #6d7278;
+    font-size: 32rpx;
+}
+
+.dialog-slot-content text {
+    word-break: break-all;
+    display: inherit;
+    text-align: center;
+    overflow: hidden;
+    line-height: 45rpx;
+    margin-top: 19rpx;
+    padding: 0 30rpx;
+}
+
+.dialog-slot-content .blue {
+    color: #002fa7;
+    margin-top: 0;
+}
+
+.dialog-slot-content view {
+    margin-top: 52rpx;
+    border-top: 1px solid #f0f3f7;
+    height: 88rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.dialog-slot-content view button {
+    font-size: 28rpx;
+    line-height: 88rpx;
+    text-align: center;
+    background-color: #fff;
+    color: #002fa7;
+}
+
+
+.sig-pop-wrapper {
+    padding: 0 30rpx;
+}
+
+.sig-pop-wrapper .title {
+    margin: 30rpx 0 40rpx 0;
+    color: #222;
+    font-size: 36rpx;
+}
+
+.sig-pop-wrapper .item .radio {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.sig-pop-wrapper .item .name {
+    font-size: 34rpx;
+    color: #6d7278;
+    width: 600rpx;
+}
+
+.sig-pop-wrapper .item {
+    height: 108rpx;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f0f3f7;
+}
+
+.sig-pop-wrapper .item:last-child {
+    border: none;
+}
+
+.sig-pop-wrapper .btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 90rpx;
+    font-size: 36rpx;
+    margin: 60rpx 0;
+}
+
+.sig-pop-wrapper .btn-wrapper .confirm {
+    height: 100%;
+    width: 320rpx;
+    text-align: center;
+    line-height: 90rpx;
+    color: #fff;
+    background-color: #002fa7;
+}
+
+.sig-pop-wrapper .btn-wrapper .cancel {
+    height: 100%;
+    width: 320rpx;
+    text-align: center;
+    line-height: 90rpx;
+    color: #002fa7;
+    background-color: #fff;
+    border: 1px solid #002fa7;
+}
+
+
+button::after {
+    content: unset;
+}
+
+button {
+    background-color: unset;
+}

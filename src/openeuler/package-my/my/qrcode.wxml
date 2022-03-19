@@ -1,0 +1,9 @@
+<!--package-my/my/qrcode.wxml-->
+<view class="container">
+    <image class="avatar" src="{{data[type].avatar}}" />
+    <text class="name">{{data[type].name}}</text>
+    <view class="line"></view>
+    <text class="qrcode-desc">1.保存二维码 → 2.用微信从相册选图扫描 → 3.关注</text>
+    <image class="qrcode" src="{{data[type].qrcode}}" />
+    <button bindtap="saveQrcode">保存二维码到相册</button>
+</view>

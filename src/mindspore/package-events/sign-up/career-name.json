@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "van-search": "@vant/weapp/search/index"
-  },
-  "navigationBarTitleText": "职业名称",
-  "navigationBarBackgroundColor": "#40ADFF",
-  "navigationBarTextStyle": "white"
-}

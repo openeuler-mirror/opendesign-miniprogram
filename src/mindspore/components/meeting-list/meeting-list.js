@@ -291,7 +291,7 @@ Component({
     },
     del: function () {
       that = this;
-      remoteMethods.delMeeting(this.data.curMmid, function (data) {
+      remoteMethods.delMeeting(this.data.curMid, function (data) {
         if (data.code == 200) {
           wx.redirectTo({
             url: that.properties.isHome

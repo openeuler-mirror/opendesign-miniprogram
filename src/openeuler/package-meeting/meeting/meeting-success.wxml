@@ -1,0 +1,9 @@
+<!-- pages/meeting/meeting-success.wxml -->
+<view class="container">
+    <view class="suc-wrapper">
+        <image src="./../../static/reserve/meeting-success.png" />
+        <text>预定成功</text>
+        <text>您已成功预定会议</text>
+    </view>
+    <button bindtap="toDetail">查看此会议</button>
+</view>
