@@ -14,6 +14,16 @@
                 <text class="label">发起人</text>
                 <input value="{{sponsor}}" disabled="{{true}}" placeholder-class="placeholder" placeholder="gitee ID"></input>
             </view>
+            <view class="form-item" bindtap="onTypeShow">
+                <text class="label">
+                    <text>会议平台</text>
+                    <text class="require">*</text>
+                </text>
+                <view class="arrow">
+                    <text class="sel-data">{{meetingType}}</text>
+                    <image src="./../../static/common/arrow-right.svg" />
+                </view>
+            </view>
             <view class="form-item" bindtap="selType" >
                 <text class="label">
                     <text>会议类型</text>
@@ -80,7 +90,7 @@
         <view class="info">
             <view>
                 <image src="./../../static/reserve/info.svg" />
-                <text>勾选此项进入会议自动开启录屏，录制服务由Zoom提供，会后自动上传至B站mindspore的账号下</text>
+                <text>勾选此项进入会议自动开启录屏，录制服务由{{meetingType}}提供，会后自动上传至B站mindspore的账号下</text>
             </view>
         </view>
         <view class="form-item meeting-desc">
@@ -211,4 +221,22 @@
             </view>
         </view>
     </van-dialog>
+    <van-popup show="{{ typeShow }}" round position="bottom" bind:click-overlay="typeCancel">
+        <view class="sig-pop-wrapper">
+            <view class="title">选择会议平台</view>
+            <van-radio-group value="{{ meetingType }}" bind:change="typeRadioOnChange1">
+                <block wx:for="{{typeList}}" wx:key="index">
+                    <view class="item" >
+                        <van-radio icon-size="46rpx"  custom-class="radio" checked-color="#40ADFF" name="{{item}}">
+                            <view class="name">{{item}}</view>
+                        </van-radio>
+                    </view>
+                </block>
+            </van-radio-group>
+            <view class="btn-wrapper">
+                <button class="confirm" bindtap="platformTypeConfirm">确定</button>
+                <button class="cancel" bindtap="platformTypeCancel">取消</button>
+            </view>
+        </view>
+    </van-popup>
 </view>

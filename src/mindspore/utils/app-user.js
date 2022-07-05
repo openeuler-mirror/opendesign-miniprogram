@@ -169,38 +169,6 @@ var appUser = {
    * 获取微信地址
    * @param {Object} callback 回调
    */
-  getWxAddress: function (self, callback) {
-    wx.getSetting({
-      success(res) {
-        var status = res.authSetting['scope.address'];
-        if (status == undefined) {
-          wx.authorize({
-            scope: 'scope.address',
-            success() {
-              // 用户已经同意小程序使用地址功能，后续调用地址接口不会弹窗询问
-              wx.chooseAddress({
-                success: function (result) {
-                  callback && callback(result);
-                },
-              });
-            },
-            fail() {
-              self.setData({
-                wxAddressShow: true,
-              });
-            },
-          });
-        } else if (status) {
-          // 已获取权限
-          wx.chooseAddress({
-            success: function (result) {
-              callback && callback(result);
-            },
-          });
-        }
-      },
-    });
-  },
 
   /**
    * 微信登录

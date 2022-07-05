@@ -1,0 +1,41 @@
+/* pages/my/help.wxss */
+page {
+    background-color: #f5f7fa;
+}
+
+.container {
+    padding: 0 !important;
+}
+
+.container .tabs {
+    height: 134rpx;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20rpx;
+    background-color: #fff;
+}
+
+.container .tabs .tab-item {
+    color: #c7cad0;
+    font-size: 34rpx;
+    height: 100%;
+    line-height: 134rpx;
+}
+
+.container .tabs .active {
+    border-bottom: 10rpx solid #3265e8;
+    color: #333;
+    border-radius: 0 0 5px 5px;
+}
+
+.container .tab-content {
+    background-color: #fff;
+    padding: 40rpx 30rpx 0;
+}
+
+.container .tab-content image {
+    width: 690rpx;
+    height: 1100rpx;
+    margin-bottom: 40rpx;
+}

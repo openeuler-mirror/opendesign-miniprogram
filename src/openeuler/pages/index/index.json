@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+      "user-info": "/components/user-info/user-info",
+      "meeting-list": "/components/meeting-list/meeting-list"
+  },
+  "navigationBarTitleText": "openEuler",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "backgroundColor":"#fff"
+}

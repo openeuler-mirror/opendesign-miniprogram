@@ -77,7 +77,7 @@
                 <input value="{{addressName}}" bindinput="addressNameInput" placeholder-class="placeholder"
                     placeholder="请输入详细活动地址"></input>
             </view>
-            <view class="form-item" bindtap="onModeShow">
+            <!-- <view class="form-item" bindtap="onModeShow">
                 <text class="label">
                     <text>
                         <text>报名方式</text>
@@ -88,8 +88,8 @@
                     <text class="sel-data">{{mode}}</text>
                     <image src="./../../static/common/arrow-right.svg" />
                 </view>
-            </view>
-            <view wx:if="{{ method == 2 }}" class="form-item">
+            </view> -->
+            <view class="form-item">
                 <text class="label">
                     <text>报名链接</text>
                     <text class="require">*</text>

@@ -133,6 +133,8 @@ Page({
     date: '',
     start: '',
     end: '',
+    meetingType:'腾讯会议',
+    typeList:['腾讯会议','WeLink（蓝版）'],
     etherpad: '',
     agenda: '',
     emaillist: '',
@@ -371,9 +373,12 @@ Page({
       tmplIds: ['tK51rqE72oFo5e5ajCnvkPwnsCncfydgcV1jb9ed6Qc'],
       success() {},
       complete() {
+        let platform = '';
+        that.data.meetingType.includes('WeLink') ? platform = that.data.meetingType.slice(0,6):platform = 'tencent';
         let param={
           topic: that.data.topic,
           sponsor: that.data.sponsor,
+          platform:platform,
           group_name: that.data.group_name,
           date: that.data.date,
           start: that.data.start,
@@ -473,6 +478,26 @@ Page({
         });
       }
     })
+  },
+  onTypeShow: function () {
+    this.setData({
+      typeShow: true,
+    })
+  },
+  platformTypeCancel: function () {
+    this.setData({
+      typeShow: false,
+    });
+  },
+  platformTypeConfirm: function () {
+    this.setData({
+      typeShow: false,
+    });
+  },
+  typeRadioOnChange1: function (e) {
+      this.setData({
+        meetingType:e.detail
+    });
   },
   typeConfirm: function (e) {
     this.setData({

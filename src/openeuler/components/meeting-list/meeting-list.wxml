@@ -1,0 +1,81 @@
+<!-- components/meeting-list/meeting-list.wxml -->
+<view wx:if="{{pageType===1}}" class="today-meeting">{{isHome?'最近':'今天'}}的会议({{list.length}})</view>
+<view wx:if="{{pageType===2}}" class="input-wraper">
+    <input placeholder="搜索会议" class="keyword" bindinput="search">
+        <image src="./../../static/common/search-icon.svg" class="search-icon" />
+    </input>
+    <view class="filter-wraper" bindtap="filterSig">
+        <text>{{curFilterSigName}}</text>
+        <image src="./../../static/common/arrow-down.svg" />
+    </view>
+</view>
+<view class="list swiper-list">
+    <block wx:for="{{list}}" wx:key="index">
+        <view class="item" bindtap="toDetail" data-id="{{item.id}}">
+            <view catchtap="getMore" data-item="{{item}}" class="header {{item.collection_id?'isCollection':''}}">
+                <text>{{item.group_name}}</text>
+                <image src="./../../static/common/more.svg" />
+            </view>
+            <view class="wrapper">
+                <view class="name">{{item.topic}}</view>
+                <view class="date">
+                    <image src="./../../static/index/date.svg"></image>
+                    <text wx:if="{{item.video_url}}">{{item.date}} {{item.start}}-{{item.end}} (可回放)</text>
+                    <text wx:else>{{item.date}} {{item.start}}-{{item.end}}</text>
+                </view>
+                <view class="desc">
+                    <image src="./../../static/index/desc.svg"></image>
+                    <text>{{item.agenda||'暂无描述'}}</text>
+                </view>
+            </view>
+            <image wx:if="{{item.collection_id}}" class="collection" src="./../../static/common/collection-icon.svg"></image>
+        </view>
+    </block>
+</view>
+<view class="empty-status" wx:if="{{!list.length && ((pageType === 3) || (pageType === 4) || (pageType === 2))}}">
+    <view class="suc-wrapper" wx:if="{{pageType === 4}}">
+        <image src="./../../static/my/no-collection.png" />
+        <text>暂无收藏!</text>
+        <text>当前暂未收藏任何会议哦</text>
+    </view>
+    <view class="suc-wrapper" wx:if="{{pageType === 3}}">
+        <image src="./../../static/meeting/no-meeting.png" />
+        <text>暂无会议!</text>
+        <text>当前暂未创建任何会议哦</text>
+    </view>
+    <view class="suc-wrapper" wx:if="{{pageType === 2}}">
+        <image src="./../../static/meeting/no-meeting.png" />
+        <text>暂无会议!</text>
+        <text>当前暂无任何会议哦</text>
+    </view>
+</view>
+<van-dialog use-slot title="会议" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialog }}" class-name="sig-dialog" close-on-click-overlay="{{true}}">
+    <view class="dialog-slot-content">
+        <text>{{curMid}}</text>
+        <text>{{curJoinUrl}}</text>
+        <view>
+            <button bindtap="copyLink">复制链接</button>
+            <button bindtap="copyId">复制ID</button>
+            <button bindtap="closeDialog">关闭</button>
+        </view>
+    </view>
+</van-dialog>
+<van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialogDel }}" class-name="sig-dialog">
+    <view class="dialog-slot-content">
+        <text>请确认删除当前会议</text>
+        <view>
+            <button bindtap="del">删除</button>
+            <button bindtap="delCancel">取消</button>
+        </view>
+    </view>
+</van-dialog>
+<van-action-sheet show="{{ actionShow }}" actions="{{ actions }}" bind:close="onActionClose" bind:cancel="onActionClose" bind:select="onActionSelect" cancel-text="取消" close-on-click-action close-on-click-overlay />
+<van-popup show="{{ popShow }}" round position="bottom" bind:click-overlay="popCancel">
+    <view class="sig-pop-wrapper">
+        <van-picker columns="{{ columns }}" value-key="group_name" bind:change="pickerChange" />
+        <view class="btn-wrapper">
+            <button class="confirm" bindtap="popConfirm">确定</button>
+            <button class="cancel" bindtap="popCancel">取消</button>
+        </view>
+    </view>
+</van-popup>

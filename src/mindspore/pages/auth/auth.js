@@ -35,7 +35,7 @@ Page(
           if (res.authSetting['scope.userInfo']) {
             appUser.wxLogin(function () {
               const pages = getCurrentPages(); // 当前页面
-              const beforePage = pages[pages.length - 2]; // 前一个页面
+              const beforePage = ((pages[pages.length - 2].route === 'pages/auth/auth') ? pages[pages.length - 3] : pages[pages.length - 2]); // 前一个页面
               const id = beforePage.options.id || that.data.id;
               const url = id ? '/' + beforePage.route + '?id=' + id : '/' + beforePage.route;
               wx.reLaunch({
@@ -52,7 +52,7 @@ Page(
         success: (res) => {
           appUser.wxGetUserProfileLogin(function () {
             const pages = getCurrentPages(); // 当前页面
-            const beforePage = pages[pages.length - 2]; // 前一个页面
+            const beforePage = ((pages[pages.length - 2].route === 'pages/auth/auth') ? pages[pages.length - 3] : pages[pages.length - 2]); // 前一个页面
             const id = beforePage.options.id || that.data.id;
             const url = id ? '/' + beforePage.route + '?id=' + id : '/' + beforePage.route;
             wx.reLaunch({

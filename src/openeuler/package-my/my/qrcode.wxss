@@ -1,0 +1,53 @@
+/* package-my/my/qrcode.wxss */
+.container {
+    height: 1502rpx;
+    background: url(https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/qrcode/back.png) no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container .avatar {
+    margin-top: 188rpx;
+    width: 128rpx;
+    height: 128rpx;
+    border-radius: 100%;
+}
+
+.container .name {
+    margin-top: 20rpx;
+    color: #333;
+    font-size: 34rpx;
+    line-height: 48rpx;
+}
+.container .line {
+    height: 2rpx;
+    width: 500rpx;
+    border-top: 2rpx solid #f0f3f7;
+    margin-top: 30rpx;
+}
+
+.container .qrcode-desc {
+    margin-top: 128rpx;
+    font-size: 24rpx;
+    line-height: 38rpx;
+    color: #6d7278;
+}
+
+.container .qrcode {
+    margin-top: 30rpx;
+    width: 300rpx;
+    height: 300rpx;
+}
+
+.container button {
+    margin-top: 128rpx;
+    width: 500rpx;
+    height: 90rpx;
+    line-height: 90rpx;
+    border-radius: 8rpx;
+    background-color: #002fa7;
+    text-align: center;
+    color: #fff;
+}

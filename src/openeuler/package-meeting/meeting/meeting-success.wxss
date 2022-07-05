@@ -1,0 +1,48 @@
+/* pages/meeting/meeting-success.wxss */
+.container {
+    background-color: #fff;
+    height: 100%;
+    margin-top: 20rpx;
+    position: relative
+}
+
+.container .suc-wrapper {
+    position: absolute;
+    top: 386rpx;
+    left: 254rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .suc-wrapper image {
+    width: 234rpx;
+    height: 218rpx;
+}
+
+.container .suc-wrapper text {
+    text-align: center;
+    margin-top: 20rpx;
+    font-size: 34rpx;
+    color: #333;
+}
+
+.container .suc-wrapper text:last-child {
+    font-size: 28rpx;
+    color: #6d7278;
+}
+
+.container button {
+    position: absolute;
+    top: 858rpx;
+    left: 125rpx;
+    width: 500rpx;
+    height: 90rpx;
+    line-height: 90rpx;
+    text-align: center;
+    font-size: 36rpx;
+    color: #fff;
+    background-color: #002fa7;
+    border-radius: 8rpx;
+}

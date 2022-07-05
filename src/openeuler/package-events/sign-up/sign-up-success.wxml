@@ -1,0 +1,16 @@
+<!--package-events/sign-up/sign-up-success.wxml-->
+<view class="container bg{{poster}}">
+    <image class="avatar" src="./../../static/common/default-avatar.png" />
+    <text class="open-euler">openEuler</text>
+    <text class="success-text">报名成功!</text>
+    <text class="title">{{title}}</text>
+    <text class="voucher">您的参会凭证</text>
+    <text class="name">姓名: {{name}}</text>
+    <text class="tel">手机: {{tel}}</text>
+    <image class="qrcode" src="{{qrcode}}" />
+    <button bindtap="saveToAlbum">保存参会凭证到相册</button>
+</view>
+
+<view class="canvas">
+    <wxml-to-canvas class="widget" width="375" height="750"></wxml-to-canvas>
+</view>

@@ -1,0 +1,268 @@
+/* package-events/events/test.wxss */
+page {
+    background-color: #f5f7fa !important;
+}
+
+.container .input-wraper {
+    box-sizing: border-box;
+    margin: 20rpx 0 30rpx;
+    height: 108rpx;
+    position: relative;
+    box-shadow: 0px 5px 15px 0px rgba(225, 230, 238, 1);
+    border-radius: 8rpx;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.container .input-wraper .keyword {
+    padding-left: 94rpx;
+    border-left: 1px solid #f0f3f7;
+    height: 108rpx;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    font-size: 28rpx;
+    line-height: 40rpx;
+}
+
+.container .input-wraper .keyword .search-icon {
+    height: 39rpx;
+    width: 39rpx;
+    display: inline-block;
+    position: absolute;
+    top: 34rpx;
+    left: 32rpx;
+}
+
+.container .input-wraper .filter-wraper {
+    position: absolute;
+    height: 108rpx;
+    left: 0;
+    top: 0;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .input-wraper .filter-wraper text {
+    width: 113rpx;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 28rpx;
+    color: #6d7278;
+    text-align: center;
+}
+
+.container .input-wraper .filter-wraper image {
+    margin-left: 17rpx;
+    width: 30rpx;
+    height: 30rpx;
+}
+
+.container .event-type-wrapper {
+    background-color: #fff;
+    box-shadow: 0rpx 5rpx 15rpx 0rpx rgba(0, 47, 167, 0.1);
+    border-radius: 8rpx;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30rpx;
+    height: 168rpx;
+}
+
+.container .event-type-wrapper .tab-filter {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+}
+
+.container .event-type-wrapper .tab-filter .num {
+    margin-bottom: 20rpx;
+    color: #3265e8;
+    font-size: 46rpx;
+}
+
+.container .event-type-wrapper .tab-filter .text {
+    font-size: 30rpx;
+    color: #6d7278;
+}
+
+.container .event-type-wrapper .active {
+    background-color: #3265e8;
+    border-radius: 8rpx;
+}
+
+.container .event-type-wrapper .active .num,.container .event-type-wrapper .active .text {
+    color: #fff;
+}
+
+.container .event-list-wrapper .event-item {
+    margin-bottom: 30rpx;
+    box-shadow: 0rpx 5rpx 15rpx 0rpx rgba(0, 47, 167, 0.1);
+    border-radius: 8rpx;
+    overflow: hidden;
+    position: relative;
+    background-color: #fff;
+}
+
+.container .event-list-wrapper .event-item .collection {
+    width: 40rpx;
+    height: 26rpx;
+    position: absolute;
+    top: 33rpx;
+    left: 0;
+}
+
+.container .event-list-wrapper .event-item .header {
+    height: 90rpx;
+    padding: 0 30rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 28rpx;
+    color: #333;
+    border-bottom: 2rpx solid #f0f3f7;
+}
+
+.container .event-list-wrapper .event-item .isCollection {
+    padding-left: 60rpx;
+}
+
+.container .event-list-wrapper .event-item .header image {
+    height: 36rpx;
+    width: 8rpx;
+}
+
+.container .event-list-wrapper .event-item .body {
+    padding: 30rpx;
+    display: flex;
+}
+
+.container .event-list-wrapper .event-item .body .left {
+    margin-right: 20rpx;
+}
+
+.container .event-list-wrapper .event-item .body .left image {
+    width: 241rpx;
+    height: 241rpx;
+    border-radius: 8rpx;
+}
+
+.container .event-list-wrapper .event-item .body .right .title {
+    font-size: 30rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 20rpx;
+    width: 380rpx;
+}
+
+.container .event-list-wrapper .event-item .body .right .date {
+    margin-bottom: 20rpx;
+    font-size: 24rpx;
+    color: #6d7278;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 380rpx;
+}
+
+.container .event-list-wrapper .event-item .body .right .date image {
+    height: 28rpx;
+    width: 28rpx;
+    margin-right: 16rpx;
+    vertical-align: middle;
+}
+.container .event-list-wrapper .event-item .body .right .date text {
+    vertical-align: middle;
+}
+
+.container .event-list-wrapper .event-item .body .right .address {
+    font-size: 24rpx;
+    color: #6d7278;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 380rpx;
+    margin-bottom: 30rpx;
+}
+
+.container .event-list-wrapper .event-item .body .right .address image {
+    height: 28rpx;
+    width: 28rpx;
+    margin-right: 16rpx;
+    vertical-align: middle;
+}
+
+.container .event-list-wrapper .event-item .body .right .address image text {
+    vertical-align: middle;
+}
+
+.container .event-list-wrapper .event-item .body .right .button {
+    text-align: right;
+    height: 68rpx;
+}
+
+.container .event-list-wrapper .event-item .body .right .button button {
+    height: 68rpx;
+    width: 172rpx;
+    text-align: center;
+    line-height: 68rpx;
+    color: #fff;
+    background-color: #002fa7;
+    border-radius: 8rpx;
+    font-size: 28rpx;
+    display: inline-block;
+}
+
+.container .event-list-wrapper .event-item .body .right .button .register {
+    background-color: #6682ca;
+}
+
+.container .event-list-wrapper .event-item .mask {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #002fa7;
+    opacity: 0.65;
+    top: 0;
+    left: 0;
+}
+
+.container .event-list-wrapper .event-item .mask .mask-img {
+    position: absolute;
+    height: 137rpx;
+    width: 180rpx;
+    left: 50%;
+    top: 50%;
+    margin-left: -90rpx;
+    margin-top: -68rpx;
+}
+
+.empty-status .suc-wrapper {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-status .suc-wrapper image {
+    width: 234rpx;
+    height: 218rpx;
+}
+
+.empty-status .suc-wrapper text {
+    text-align: center;
+    margin-top: 20rpx;
+    font-size: 34rpx;
+    color: #333;
+}

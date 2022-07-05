@@ -1,0 +1,69 @@
+/* pages/auth/auth.wxss */
+page {
+    background-color: #fff;
+    height: unset;
+}
+
+.container {
+    padding: 0 !important;
+}
+
+.container .img {
+    display: block;
+    width: 503rpx;
+    height: 408rpx;
+    margin: 160rpx auto;
+}
+
+.container .p {
+    margin-top: 196rpx;
+    line-height: 48rpx;
+    font-size: 34rpx;
+    color: #6d7278;
+    margin-bottom: 120rpx;
+    padding: 0 60rpx;
+    font-weight: 400;
+}
+
+.container .button {
+    line-height: 90rpx;
+    padding: 0;
+    height: 90rpx;
+    width: 500rpx;
+    margin: 0 auto;
+    color: #fff;
+    font-size: 36rpx;
+    background-color: #002fa7;
+    border-radius: 8rpx;
+    font-weight: normal;
+    box-shadow: 0px 5px 20px 0px rgba(126, 146, 178, 0.7);
+}
+
+.container .button view {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .button text {
+    vertical-align: middle;
+}
+
+.container .button .wechat-icon {
+    vertical-align: middle;
+    margin-right: 20rpx;
+    width: 44rpx;
+    height: 36rpx;
+}
+
+.container .privacy {
+    color: #6d7278;
+    font-size: 28prpx;
+    text-align: center;
+    margin-top: 30rpx;
+}
+
+.container .privacy text {
+    color: #002fa7;
+}

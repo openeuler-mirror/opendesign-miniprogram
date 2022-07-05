@@ -30,7 +30,8 @@
         </view>
     </view>
     <view class="detail-item">
-        <view class="name">腾讯会议</view>
+        <view class="name" wx:if="{{info.mplatform ==='tencent'}}">腾讯会议</view>
+        <view class="name" wx:else>WeLink</view>
         <view class="id">
             <image src="./../../static/index/link.svg"></image>
             <text>ID: {{info.mid}}</text>

@@ -1,0 +1,22 @@
+/* components/user-info/user-info.wxss */
+.userinfo {
+    padding-top: 30rpx;
+    margin-bottom: 30rpx;
+    line-height: 84rpx;
+}
+
+.userinfo .image {
+    vertical-align: middle;
+    height: 84rpx;
+    width: 84rpx;
+    border-radius: 100%;
+    margin-right: 30rpx;
+}
+
+.userinfo .text {
+    vertical-align: middle;
+    font-size: 36rpx;
+    line-height: 50rpx;
+    font-weight: 400;
+    color: #333;
+}

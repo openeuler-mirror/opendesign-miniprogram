@@ -1,0 +1,16 @@
+<!-- pages/sig/del-member.wxml -->
+<view class="container">
+    <van-checkbox-group value="{{ result }}" bind:change="onChange">
+        <block wx:for="{{list}}" wx:key="index">
+            <view class="del-item">
+                <van-checkbox icon-size="46rpx" checked-color="#002fa7" name="{{item.id}}">
+                    <view class="inner">
+                        <image src="{{item.avatar}}" />
+                        <text>{{item.nickname}}</text>
+                    </view>
+                </van-checkbox>
+            </view>
+        </block>
+    </van-checkbox-group>
+    <button class="del-btn" bindtap="del">删除</button>
+</view>

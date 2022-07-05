@@ -1,0 +1,35 @@
+<!--package-events/manage/enterprise-list.wxml-->
+<view class="container {{memberList.length?'':'bg'}}">
+    <view class="sig-members" wx:if="{{memberList.length}}">
+        <block wx:for="{{memberList}}" wx:key="index">
+            <view class="item" bindtap="toDetail" data-telephone="{{item.telephone}}" data-email="{{item.email}}" data-id="{{item.id}}" data-avatar="{{item.avatar}}" data-name="{{item.gitee_name||''}}" data-nickname="{{item.nickname}}" data-enterprise="{{item.enterprise}}">
+                <image src="{{item.avatar}}" />
+                <text>{{item.nickname}}</text>
+            </view>
+        </block>
+        <block>
+            <view class="item opera-item">
+                <view class="del" bindtap="delMember">
+                    <image src="./../../static/sig/del.svg" />
+                </view>
+            </view>
+        </block>
+        <block>
+            <view class="item opera-item">
+                <view class="add" bindtap="addMember">
+                    <image src="./../../static/sig/add.svg" />
+                </view>
+            </view>
+        </block>
+    </view>
+    <view class="empty-wraper" wx:else>
+        <view class="img-wraper">
+            <image src="./../../static/sig/empty-img.png" />
+            <text>暂无活动发起人!</text>
+        </view>
+        <button bindtap="addMember">
+            <image src="./../../static/sig/add.svg" />
+            添加成员
+        </button>
+    </view>
+</view>

@@ -1,0 +1,88 @@
+/* pages/sig/add-member.wxss */
+.container {
+    background-color: #fff;
+    margin-top: 20rpx;
+    margin-bottom: 150rpx;
+    padding: 0;
+}
+
+.container .fill {
+    width: 100%;
+    text-align: center;
+    font-size: 28rpx;
+    color: #6d7278;
+    height: 28rpx;
+    background-color: #f5f7fa;
+}
+
+.container .input-wraper {
+    box-sizing: border-box;
+    margin: 20rpx 0 0 0;
+    height: 108rpx;
+    position: relative;
+}
+
+.container .input-wraper .keyword {
+    padding-left: 94rpx;
+    background-color: #fff;
+    border-radius: 8rpx;
+    height: 108rpx;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    font-size: 28rpx;
+    line-height: 40rpx;
+}
+
+.container .input-wraper .search-icon {
+    height: 39rpx;
+    width: 39rpx;
+    display: inline-block;
+    position: absolute;
+    top: 34rpx;
+    left: 32rpx;
+}
+
+.container .add-item {
+    border-bottom: 1px solid #c7cad0;
+    padding: 0 30rpx;
+    height: 108rpx;
+    line-height: 108rpx;
+    display: flex;
+    align-items: center;
+}
+
+.container .add-item image {
+    width: 72rpx;
+    height: 72rpx;
+    border-radius: 8rpx;
+    display: inline-block;
+    border: 1px solid #979797;
+    margin: 0 20rpx 0 10rpx;
+}
+
+.container .add-item text {
+    display: inline-block;
+    height: 100%;
+}
+
+.container .add-item .inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.container .add-btn {
+    position: fixed;
+    bottom: 60rpx;
+    left: 125rpx;
+    width: 500rpx;
+    height: 90rpx;
+    line-height: 90rpx;
+    font-size: 36rpx;
+    color: #fff;
+    background-color: #002fa7;
+    border-radius: 8rpx;
+    text-align: center;
+    box-shadow: 0px 5px 20px 0px rgba(126, 146, 178, 0.7);
+}

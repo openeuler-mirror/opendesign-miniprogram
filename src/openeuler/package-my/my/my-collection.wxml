@@ -1,0 +1,4 @@
+<!-- pages/my/my-collection.wxml -->
+<view class="container">
+    <meeting-list page-type="{{4}}" api-url="MY_COLLECT_LIST"></meeting-list>
+</view>

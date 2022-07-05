@@ -12,7 +12,7 @@ let remoteMethods = {
       data: {
         gitee_name: postData.gitee_name,
         email: postData.email,
-        telephone: postData.email,
+        telephone: postData.telephone,
       },
       success: function (ret) {
         _callback && _callback(ret);

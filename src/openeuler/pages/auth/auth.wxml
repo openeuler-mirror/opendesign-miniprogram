@@ -1,0 +1,20 @@
+<!-- pages/auth/auth.wxml -->
+<view class="container">
+    <image class="img" src="./../../static/auth/auth.png"></image>
+    <view class="p">为便于您在使用 openEuler 会议预定小程序的过程中能够获得所有操作权限， 需要您允许授权使用微信用户信息。</view>
+    <button class="button" wx:if="{{canIUseGetUserProfile}}" bindtap="bindGetUserProfile">
+        <view>
+            <image class="wechat-icon" src="./../../static/auth/wechat-icon.svg"></image>
+            <text>微信授权登录</text>
+        </view>
+    </button>
+    <button class="button" wx:else open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
+        <view>
+            <image class="wechat-icon" src="./../../static/auth/wechat-icon.svg"></image>
+            <text>微信授权登录</text>
+        </view>
+    </button>
+    <view class="privacy">
+        登录即表示同意<text bindtap="toPrivacy">隐私条款</text>
+    </view>
+</view>
