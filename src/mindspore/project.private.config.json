@@ -1,59 +1,47 @@
 {
-  "setting": {},
-  "condition": {
-    "plugin": {
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "gamePlugin": {
-      "list": []
-    },
-    "miniprogram": {
-      "list": [
-        {
-          "name": "pages/meeting/meeting",
-          "pathName": "pages/meeting/meeting",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "",
-          "pathName": "pages/meeting/meeting",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "",
-          "pathName": "package-meeting/meeting/detail",
-          "query": "id=6",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "",
-          "pathName": "pages/my/my",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "扫描进入",
-          "pathName": "pages/my/my",
-          "query": "",
-          "launchMode": "default",
-          "scene": 1011
-        },
-        {
-          "name": "",
-          "pathName": "pages/index/index",
-          "query": "",
-          "scene": 1011,
-          "launchMode": "default"
+    "setting": {},
+    "condition": {
+        "miniprogram": {
+            "list": [
+                {
+                    "name": "pages/meeting/meeting",
+                    "pathName": "pages/meeting/meeting",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/meeting/meeting",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "package-meeting/meeting/detail",
+                    "query": "id=6",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/my/my",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "扫描进入",
+                    "pathName": "pages/my/my",
+                    "query": "",
+                    "scene": 1011
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/index/index",
+                    "query": "",
+                    "scene": 1011
+                }
+            ]
         }
-      ]
-    }
-  }
+    },
+    "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+    "libVersion": "2.32.3"
 }

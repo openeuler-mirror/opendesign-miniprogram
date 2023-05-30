@@ -1,7 +1,7 @@
-var _ = require('../utils/underscore-extend.js');
+let _ = require('../utils/underscore-extend.js');
 
 // 通用接口配置
-var commonServiceConfig = {
+let commonServiceConfig = {
   // 登录接口
   LOGIN: '/login/',
 
@@ -9,16 +9,16 @@ var commonServiceConfig = {
   SIG_LIST: '/sigs/',
 
   // msg城市列表
-  MSG_LIST:'/cities/',
+  MSG_LIST: '/cities/',
 
   // 获取当前组已添加成员列表
   GROUP_MEMBER_LIST: '/users_include/',
 
   // 查询某个城市的成员
-  GROUP_CITY_MEMBER_LIST:'/users_include_city/',
+  GROUP_CITY_MEMBER_LIST: '/users_include_city/',
 
   // 查询一个用户的城市关系
-  GROUP_USER_CITY:'/usercity/{id}/',
+  GROUP_USER_CITY: '/usercity/{id}/',
 
   // 获取当前组未添加成员列表
   GROUP_EXCLUDE_MEMBER_LIST: '/users_exclude/',
@@ -66,7 +66,7 @@ var commonServiceConfig = {
   GET_USER_STATUS: '/userinfo/{id}/',
 
   // "我的"页面各项计数
-  GET_COUNTS:'/counts/',
+  GET_COUNTS: '/counts/',
 
   // 保存用户giteename
   SAVE_MEMBER_DETAIL: '/user/{id}/',
@@ -108,16 +108,16 @@ var commonServiceConfig = {
   GET_DRAFT_LIST: '/activitiesdraft/',
 
   // 我的待发布活动列表（发布中）
-  MY_WAITING_ACTIVITIES:'/mywaitingactivities/',
+  MY_WAITING_ACTIVITIES: '/mywaitingactivities/',
 
-    // 待发布活动列表（超级管理员）
-  WAITING_ACTIVITIES:'/waitingactivities/',
+  // 待发布活动列表（超级管理员）
+  WAITING_ACTIVITIES: '/waitingactivities/',
 
   // 活动收藏列表（已收藏）
-  ACTIVITY_COLLECTIONS:'/activitycollections/',
+  ACTIVITY_COLLECTIONS: '/activitycollections/',
 
   //  我报名的活动（已报名）
-  MY_REGISTERD_ACTIVITES:'/myregisterdactivities/',
+  MY_REGISTERD_ACTIVITES: '/myregisterdactivities/',
 
   // 活动草稿箱列表
   DRAFTS: '/drafts/',
@@ -142,7 +142,7 @@ var commonServiceConfig = {
   PUBLISHER_EVENTS_LIST: '/sponsoractivitiespublishing/',
 
   // 我发布的活动新增
-  MY_EVENTS_LISTS:'/mypublishedactivities/',
+  MY_EVENTS_LISTS: '/mypublishedactivities/',
   // 我发布的活动
   MY_EVENTS_LIST: '/sponsoractivities/',
 
@@ -165,10 +165,8 @@ var commonServiceConfig = {
   EVENT_COLLECT: '/activity/action/collect/',
 
   // 收藏活动：
-  EVENT_COLLECTS:'/activity/action/collect/',
+  EVENT_COLLECTS: '/activity/action/collect/',
 
-  // 修改日程
-  EVENT_UNCOLLECT: '/collectactivitydel/{id}/',
   // 取消收藏
   EVENT_UNCOLLECT: '/activity/action/collectdel/{id}/',
 
@@ -206,10 +204,10 @@ var commonServiceConfig = {
   GET_SIGNUP_INFO: '/ticket/{id}/',
 
   // 活动签到
-  SIGN:'/sign/',
+  SIGN: '/sign/',
 
   //添加城市
-  ADDCITY:'/city/'
+  ADDCITY: '/city/',
 };
 
 let servicesConfig = _.deepExtend(true, commonServiceConfig);

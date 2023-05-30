@@ -14,8 +14,9 @@
             </view>
         </block>
         <block wx:for="{{memberList}}" wx:key="index">
-            <view class="box member-item" bindtap="toDetail" data-id="{{item.id}}" data-avatar="{{item.avatar}}" 
-            data-email="{{item.email}}" data-telephone="{{item.telephone}}" data-name="{{item.gitee_name||''}}" data-nickname="{{item.nickname}}">
+            <view class="box member-item" bindtap="toDetail" data-id="{{item.id}}" data-avatar="{{item.avatar}}"
+                data-email="{{item.email}}" data-telephone="{{item.telephone}}" data-name="{{item.gitee_name||''}}"
+                data-nickname="{{item.nickname}}">
                 <view class="left">
                     <image src="{{item.avatar}}" />
                     <view class="member-info">

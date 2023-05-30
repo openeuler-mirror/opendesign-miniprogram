@@ -133,11 +133,11 @@ Page({
     if (options.type == 1) {
       title = '待发布';
     } else if (options.type == 2) {
-      if(that.data.level==3){
+      if (that.data.level == 3) {
         title = '发布的活动';
-      }else{
+      } else {
         title = '我发布的活动';
-      } 
+      }
     } else if (options.type == 3) {
       title = '报名表单';
     } else if (options.type == 4) {
@@ -158,15 +158,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let that=this
+    let that = this;
     remoteMethods.getList((res) => {
-      res.forEach(item=>{
-        if(item.start_date==item.end_date){
-          item.date=that.timefomart(item.start_date)
-        }else{
-          item.date=that.timefomart(item.start_date)+'—'+that.timefomart(item.end_date)
+      res.forEach((item) => {
+        if (item.start_date == item.end_date) {
+          item.date = that.timefomart(item.start_date);
+        } else {
+          item.date = that.timefomart(item.start_date) + '—' + that.timefomart(item.end_date);
         }
-      })
+      });
       this.setData({
         list: res,
       });
@@ -205,30 +205,30 @@ Page({
           });
         }
       } else if (e.detail.operaType == 1) {
-          if (this.data.collectionId) {
-            remoteMethods.unCollect(() => {
-              this.onShow();
-            });
-          } else {
-            remoteMethods.collect(() => {
-              this.onShow();
-            });
-          }
-        } else if (e.detail.operaType == 3) {
-          remoteMethods.getSignUpInfo(this.data.curId, (res) => {
-            wx.navigateTo({
-              url: `/package-events/sign-up/sign-up-success?name=${encodeURIComponent(
-                res.name
-              )}&title=${encodeURIComponent(res.title)}&tel=${encodeURIComponent(
-                res.telephone
-              )}&poster=${encodeURIComponent(res.poster)}`,
-            });
+        if (this.data.collectionId) {
+          remoteMethods.unCollect(() => {
+            this.onShow();
           });
         } else {
-          this.setData({
-            noAuthDialogShow: true,
+          remoteMethods.collect(() => {
+            this.onShow();
           });
         }
+      } else if (e.detail.operaType == 3) {
+        remoteMethods.getSignUpInfo(this.data.curId, (res) => {
+          wx.navigateTo({
+            url: `/package-events/sign-up/sign-up-success?name=${encodeURIComponent(
+              res.name
+            )}&title=${encodeURIComponent(res.title)}&tel=${encodeURIComponent(
+              res.telephone
+            )}&poster=${encodeURIComponent(res.poster)}`,
+          });
+        });
+      } else {
+        this.setData({
+          noAuthDialogShow: true,
+        });
+      }
     }
   },
   onMore(e) {
@@ -334,7 +334,7 @@ Page({
       this.sendEmail(e);
     }
   },
-  toSign(e){
+  toSign(e) {
     wx.navigateTo({
       url: `/package-events/events/sign?id=${e.currentTarget.dataset.id}`,
     });
@@ -354,11 +354,11 @@ Page({
       url: `/package-my/events/send-email?id=${e.currentTarget.dataset.id}`,
     });
   },
-  timefomart:function(time){
-    if(time){
-      return time.slice(5).replace('-','月')+'日' 
-    }else{
-      return null
+  timefomart: function (time) {
+    if (time) {
+      return time.slice(5).replace('-', '月') + '日';
+    } else {
+      return null;
     }
-  }
+  },
 });

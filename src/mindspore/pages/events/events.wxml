@@ -2,7 +2,8 @@
 <view class="container {{iphoneX?'container-x':''}}">
     <user-info></user-info>
     <view class="meeting-level-wrapper">
-        <view wx:if="{{level===3}}" bindtap="navigateTo" data-url="/package-events/manage/enterprise-list" class="sig-manage-btn">
+        <view wx:if="{{level===3}}" bindtap="navigateTo" data-url="/package-events/manage/enterprise-list"
+            class="sig-manage-btn">
             <image class="icon" src="./../../static/events/enterprise-manage.png" />
             <text>发起人管理</text>
         </view>
@@ -33,14 +34,15 @@
                         <view class="title">{{item.title}}</view>
                         <view class="date">
                             <image src="./../../static/index/date.png"></image>
-                            <text wx:if="{{item.start_date !== item.end_date}}">{{item.start_date}} - {{item.end_date}}</text>
+                            <text wx:if="{{item.start_date !== item.end_date}}">{{item.start_date}} -
+                                {{item.end_date}}</text>
                             <text wx:else>{{item.start_date}}</text>
                         </view>
                         <view class="address" wx:if="{{item.activity_type !== 2}}">
                             <image src="./../../static/common/location.svg"></image>
                             <text>{{item.address}}</text>
                         </view>
-                        <view class="address" wx:else >
+                        <view class="address" wx:else>
                             <image src="./../../static/index/link.svg"></image>
                             <text>{{item.online_url}}</text>
                         </view>
@@ -52,20 +54,24 @@
                             </block>
                             <block wx:else>
                                 <block wx:if="{{level==1}}">
-                                    <button class="{{item.register_id?'register':''}}" wx:if="{{item.register_id}}" data-id="{{item.id}}" bindtap="toUpdateSchedule">
+                                    <button class="{{item.register_id?'register':''}}" wx:if="{{item.register_id}}"
+                                        data-id="{{item.id}}" bindtap="toUpdateSchedule">
                                         已报名
                                     </button>
                                     <button wx:else data-id="{{item.id}}" bindtap="toUpdateSchedule">立即报名</button>
                                 </block>
                                 <block wx:elif="{{level==2}}">
-                                    <button bindtap="toUpdateSchedule" wx:if="{{item.user==user}}" data-id="{{item.id}}">
+                                    <button bindtap="toUpdateSchedule" wx:if="{{item.user==user}}"
+                                        data-id="{{item.id}}">
                                         修改日程
                                     </button>
-                                    <button class="register" wx:elif="{{item.register_id}}" data-id="{{item.id}}" bindtap="toUpdateSchedule">已报名</button>
+                                    <button class="register" wx:elif="{{item.register_id}}" data-id="{{item.id}}"
+                                        bindtap="toUpdateSchedule">已报名</button>
                                     <button wx:else data-id="{{item.id}}" bindtap="toUpdateSchedule">立即报名</button>
                                 </block>
                                 <block wx:else>
-                                    <button bindtap="toUpdateSchedule" data-id="{{item.id}}" wx:if="{{(item.status==3) || (item.status==4)}}">
+                                    <button bindtap="toUpdateSchedule" data-id="{{item.id}}"
+                                        wx:if="{{(item.status==3) || (item.status==4)}}">
                                         修改日程
                                     </button>
                                 </block>
@@ -73,18 +79,22 @@
                         </view>
                     </view>
                 </view>
-                <image wx:if="{{item.collection_id}}" class="collection" src="./../../static/common/collection-icon.svg"></image>
+                <image wx:if="{{item.collection_id}}" class="collection"
+                    src="./../../static/common/collection-icon.svg"></image>
             </view>
         </block>
     </view>
-    <van-action-sheet show="{{ actionShow }}" actions="{{ actions }}" bind:close="onActionClose" bind:cancel="onActionClose" bind:select="onActionSelect" cancel-text="取消" close-on-click-action close-on-click-overlay />
+    <van-action-sheet show="{{ actionShow }}" actions="{{ actions }}" bind:close="onActionClose"
+        bind:cancel="onActionClose" bind:select="onActionSelect" cancel-text="取消" close-on-click-action
+        close-on-click-overlay />
     <view class="empty-status" wx:if="{{!list.length}}">
         <view class="suc-wrapper">
             <image src="./../../static/events/empty-events.png" />
             <text>暂无活动!</text>
         </view>
     </view>
-    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialogDel }}"  class-name="sig-dialog">
+    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}"
+        show="{{ showDialogDel }}" class-name="sig-dialog">
         <view class="dialog-slot-content">
             <text>请确认下架当前活动</text>
             <view>
@@ -93,7 +103,8 @@
             </view>
         </view>
     </van-dialog>
-    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ underDialogShow }}" closeOnClickOverlay='true' class-name="sig-dialog">
+    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}"
+        show="{{ underDialogShow }}" closeOnClickOverlay='true' class-name="sig-dialog">
         <view class="dialog-slot-content">
             <text>
                 活动一经发布，暂不支持自行下架删除。如有需要，请联系
@@ -105,7 +116,8 @@
             </view>
         </view>
     </van-dialog>
-    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ noAuthDialogShow }}" closeOnClickOverlay='true' class-name="sig-dialog">
+    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}"
+        show="{{ noAuthDialogShow }}" closeOnClickOverlay='true' class-name="sig-dialog">
         <view class="dialog-slot-content">
             <text>
                 您暂时没有发布活动的权限，请联系

@@ -1,5 +1,5 @@
 // package-events/manage/enterprise-list.js
-var appAjax = require('./../../utils/app-ajax');
+const appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
   getMemberList: function (_callback) {
     appAjax.postJson({
@@ -19,12 +19,6 @@ Page({
   data: {
     memberList: [],
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function () {},
-
   /**
    * 生命周期函数--监听页面显示
    */

@@ -5,8 +5,7 @@
         "components/user-info/user-info",
         "pages/meeting/meeting",
         "pages/events/events",
-        "pages/my/my",
-        "pages/null/null"
+        "pages/my/my"
     ],
     "subpackages": [
         {
@@ -124,5 +123,8 @@
         "scope.userLocation": {
             "desc": "您的位置信息将用于确定活动地址"
         }
-    }
+    },
+    "requiredPrivateInfos": [
+        "chooseLocation"
+    ]
 }

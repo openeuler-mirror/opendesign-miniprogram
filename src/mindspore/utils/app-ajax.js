@@ -2,16 +2,17 @@
  * 请求方法
  */
 
-var appSession = require('./app-session.js');
-var underscore = require('./underscore-extend.js');
+const appSession = require('./app-session.js');
+const underscore = require('./underscore-extend.js');
 const servicesConfig = require('../config/services-config.js');
 const CONSTANTS = require('../config/constants.js');
 
-/* 基础通信参数  */
-var _authClient = function () {
-  var deviceId = 'miniprogram';
 
-  var auth = {
+/* 基础通信参数  */
+let _authClient = function () {
+    let deviceId = 'miniprogram';
+
+    let auth = {
     authParams: {
       timestamp: new Date().getTime(),
       deviceId: deviceId,
@@ -35,12 +36,12 @@ var _authClient = function () {
  * 获取service
  * @param {Object} params
  */
-var _getInterfaceUrl = function (params) {
-  var interfaceUrl;
+let _getInterfaceUrl = function (params) {
+    let interfaceUrl;
   if (!params.otherParams) {
     return servicesConfig[params['service']];
   }
-  for (var key in params.otherParams) {
+  for (let key in params.otherParams) {
     interfaceUrl = (interfaceUrl || servicesConfig[params['service']]).replace(
       '{' + key + '}',
       params.otherParams[key]
@@ -50,9 +51,9 @@ var _getInterfaceUrl = function (params) {
   return interfaceUrl;
 };
 
-var _addUrlParam = function (data) {
-  var postData = '';
-  for (var key in data) {
+let _addUrlParam = function (data) {
+    let postData = '';
+  for (let key in data) {
     if (!postData) {
       postData = '?' + key + '=' + data[key];
     } else {
@@ -63,7 +64,7 @@ var _addUrlParam = function (data) {
   return postData;
 };
 
-var appAjax = {
+let appAjax = {
   /**
    * 提交请求
    * @param {Object} options
@@ -76,10 +77,10 @@ var appAjax = {
    * complete: ""			// 完成回调
    */
   postJson: function (params) {
-    var authClient = _authClient();
+    let authClient = _authClient();
 
     // 默认参数
-    var defaultParams = {
+    let defaultParams = {
       service: '', // 服务的配置名称
       success: function () {}, // 成功后回调
       error: null, // 失败后回调
@@ -92,7 +93,7 @@ var appAjax = {
       },
       isAsync: true,
     };
-    var ajaxParams = underscore.deepExtend(true, defaultParams, params);
+    let ajaxParams = underscore.deepExtend(true, defaultParams, params);
     // rest请求路径
     ajaxParams['url'] = CONSTANTS['SERVICE_URL'] + _getInterfaceUrl(ajaxParams);
     if (
@@ -116,6 +117,11 @@ var appAjax = {
       method: ajaxParams['type'] || 'POST',
       data: ajaxParams.data,
       success: function (res) {
+        if (res?.data?.access && wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION)) {
+            let data = wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION);
+            data.access = res.data.access;
+            wx.setStorageSync(CONSTANTS.APP_USERINFO_SESSION, data);
+        }
         if (res.statusCode === 401) {
           wx.removeStorageSync('_app_userinfo_session');
           ajaxParams.success(0, res);
@@ -128,7 +134,7 @@ var appAjax = {
           return;
         }
         if (res.statusCode.toString()[0] != 2) {
-          var message = '有点忙开个小差，稍后再试~';
+            let message = '有点忙开个小差，稍后再试~';
           if (ajaxParams.error) {
             ajaxParams.error(message, res);
           } else {
@@ -143,7 +149,14 @@ var appAjax = {
         ajaxParams.success(res.data, res);
       },
       fail: function (res) {
-        var message = '有点忙开个小差，稍后再试~';
+        if (res?.data?.access) {
+            if (res.data.access && wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION)) {
+                let data = wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION);
+                data.access = res.data.access;
+                wx.setStorageSync(CONSTANTS.APP_USERINFO_SESSION, data);
+            }
+        }
+        let message = '有点忙开个小差，稍后再试~';
         ajaxParams.error && ajaxParams.error(message, res);
       },
       complete: function (res) {

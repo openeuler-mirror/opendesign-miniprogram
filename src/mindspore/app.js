@@ -1,7 +1,7 @@
 //app.js
 App({
   onLaunch: function (options) {
-    var self = this;
+    let self = this;
     wx.getSystemInfo({
       success(res) {
         if (res.model.indexOf('iPhone X') >= 0) {

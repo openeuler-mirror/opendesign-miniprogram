@@ -1,5 +1,5 @@
 // pages/sig/del-member.js
-var appAjax = require('./../../utils/app-ajax');
+const appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
   getCludeMemberList: function (_callback) {
     appAjax.postJson({

@@ -1,9 +1,0 @@
-<!--pages/null/null.wxml-->
-<view class="container null">
-    <view class="box">
-        <image src="../../static/index/null-events.png"></image>
-        <text class="title">暂无活动！</text>
-        <text>后台正在熬夜开发中，敬请期待！</text>
-    </view>
-</view>
-

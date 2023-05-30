@@ -1,5 +1,5 @@
 // pages/sig/add-sig-member.js
-var appAjax = require('./../../utils/app-ajax');
+const appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
   getSigMemberList: function (id, _callback) {
     appAjax.postJson({
@@ -14,7 +14,7 @@ let remoteMethods = {
       },
     });
   },
-  getMsgMemberList:function (id, _callback) {
+  getMsgMemberList: function (id, _callback) {
     appAjax.postJson({
       autoShowWait: true,
       type: 'GET',
@@ -26,7 +26,7 @@ let remoteMethods = {
         _callback && _callback(ret);
       },
     });
-  }
+  },
 };
 Page({
   /**
@@ -37,7 +37,7 @@ Page({
     id: '',
     groupTitle: '',
     urlGroup: '',
-    options:''
+    options: '',
   },
 
   /**
@@ -50,9 +50,9 @@ Page({
     this.setData({
       id: options.id,
       groupTitle: options.name,
-      options:options
+      options: options,
     });
-  if (options.name.includes('专家')) {
+    if (options.name.includes('专家')) {
       this.setData({
         urlGroup: 'Tech',
       });
@@ -68,14 +68,14 @@ Page({
    */
   onShow: function () {
     let that = this;
-    const {type}=that.data.options
-    if(type!='MSG'){
+    const { type } = that.data.options;
+    if (type != 'MSG') {
       remoteMethods.getSigMemberList(this.data.urlGroup, function (list) {
         that.setData({
           memberList: list,
         });
       });
-    }else{
+    } else {
       remoteMethods.getMsgMemberList(this.data.urlGroup, function (list) {
         that.setData({
           memberList: list,
@@ -99,15 +99,27 @@ Page({
     });
   },
   addMember: function () {
-    const {type}=this.data.options
+    const { type } = this.data.options;
     wx.navigateTo({
-      url: '/package-meeting/sig/add-member?group_id=' + this.data.id + '&grouptitle=' + this.data.groupTitle+'&type='+type,
+      url:
+        '/package-meeting/sig/add-member?group_id=' +
+        this.data.id +
+        '&grouptitle=' +
+        this.data.groupTitle +
+        '&type=' +
+        type,
     });
   },
   delMember: function () {
-    const {type}=this.data.options
+    const { type } = this.data.options;
     wx.navigateTo({
-      url: '/package-meeting/sig/del-member?group_id=' + this.data.id + '&grouptitle=' + this.data.groupTitle+'&type='+type,
+      url:
+        '/package-meeting/sig/del-member?group_id=' +
+        this.data.id +
+        '&grouptitle=' +
+        this.data.groupTitle +
+        '&type=' +
+        type,
     });
   },
 });

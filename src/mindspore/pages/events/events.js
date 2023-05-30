@@ -91,12 +91,7 @@ Page({
     noAuthDialogShow: false,
     user: '',
     list: [],
-    typeList: [
-      '课程',
-      'MSG',
-      '赛事',
-      '其他'
-    ],
+    typeList: ['课程', 'MSG', '赛事', '其他'],
     actionShow: false,
     actions: [],
     underDialogShow: false,
@@ -136,6 +131,12 @@ Page({
   },
   navigateTo(e) {
     const url = e.currentTarget.dataset.url;
+    if (url.includes('publish') && !sessionUtil.getUserInfoByKey('access')) {
+      wx.navigateTo({
+        url: '/pages/auth/auth',
+      });
+      return;
+    }
     if (this.data.level === 1 && url.includes('publish')) {
       this.setData({
         noAuthDialogShow: true,
@@ -149,14 +150,6 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-    wx.stopPullDownRefresh();
-    appUser.updateUserInfo(function () {
-      that.setData({
-        level: sessionUtil.getUserInfoByKey('eventLevel') || 1,
-      });
-    });
-  },
   copyWechat() {
     wx.setClipboardData({
       data: 'mindspore0328',
@@ -188,39 +181,39 @@ Page({
             this.onLoad();
           });
         }
-      } else if(e.detail.operaType == 2){
+      } else if (e.detail.operaType == 2) {
         this.setData({
-          showDialogDel:true
-        })
+          showDialogDel: true,
+        });
       } else {
         this.setData({
           showDialoogDel: true,
         });
       }
     } else if (e.detail.operaType == 1) {
-        if (this.data.collectionId) {
-          remoteMethods.unCollect(() => {
-            this.onLoad();
-          });
-        } else {
-          remoteMethods.collect(() => {
-            this.onLoad();
-          });
-        }
+      if (this.data.collectionId) {
+        remoteMethods.unCollect(() => {
+          this.onLoad();
+        });
+      } else {
+        remoteMethods.collect(() => {
+          this.onLoad();
+        });
+      }
     } else if (e.detail.operaType == 3) {
-        remoteMethods.getSignUpInfo(this.data.curId, (res) => {
-          wx.navigateTo({
-            url: `/package-events/sign-up/sign-up-success?name=${encodeURIComponent(
-              res.name
-            )}&title=${encodeURIComponent(res.title)}&tel=${encodeURIComponent(
-              res.telephone
-            )}&poster=${encodeURIComponent(res.poster)}&id=${encodeURIComponent(res.activity_id)}`,
-          });
+      remoteMethods.getSignUpInfo(this.data.curId, (res) => {
+        wx.navigateTo({
+          url: `/package-events/sign-up/sign-up-success?name=${encodeURIComponent(res.name)}&title=${encodeURIComponent(
+            res.title
+          )}&tel=${encodeURIComponent(res.telephone)}&poster=${encodeURIComponent(res.poster)}&id=${encodeURIComponent(
+            res.activity_id
+          )}`,
         });
+      });
     } else {
-        this.setData({
-          underDialogShow: true,
-        });
+      this.setData({
+        underDialogShow: true,
+      });
     }
   },
   del() {
@@ -254,7 +247,8 @@ Page({
     const strTemp = this.data.collectionId ? '取消收藏' : '收藏活动';
     if (this.data.level == 3) {
       this.setData({
-        actions: [{
+        actions: [
+          {
             name: strTemp,
             operaType: 1,
           },
@@ -267,7 +261,8 @@ Page({
     } else {
       if (this.data.user == this.data.userId) {
         this.setData({
-          actions: [{
+          actions: [
+            {
               name: strTemp,
               operaType: 1,
             },
@@ -279,10 +274,12 @@ Page({
         });
       } else {
         this.setData({
-          actions: [{
-            name: strTemp,
-            operaType: 1,
-          }, ],
+          actions: [
+            {
+              name: strTemp,
+              operaType: 1,
+            },
+          ],
         });
       }
 

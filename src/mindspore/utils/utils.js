@@ -2,9 +2,9 @@
  * 工具类
  */
 
-var _ = require('./underscore-extend');
+let _ = require('./underscore-extend');
 
-var utils = {
+let utils = {
   /**
    * underscore工具库
    */
@@ -28,21 +28,21 @@ var utils = {
    */
   getDiffTime: function (startTime, endTime) {
     // 相差时间
-    var diffTime = endTime - startTime;
+    let diffTime = endTime - startTime;
     if (diffTime <= 0) {
       return false;
     }
     // 计算出相差天数
-    var days = Math.floor(diffTime / (24 * 3600 * 1000));
+    let days = Math.floor(diffTime / (24 * 3600 * 1000));
     // 计算出小时数
-    var leave1 = diffTime % (24 * 3600 * 1000); //计算天数后剩余的毫秒数
-    var hours = Math.floor(leave1 / (3600 * 1000));
+    let leave1 = diffTime % (24 * 3600 * 1000); //计算天数后剩余的毫秒数
+    let hours = Math.floor(leave1 / (3600 * 1000));
     // 计算相差分钟数
-    var leave2 = leave1 % (3600 * 1000); //计算小时数后剩余的毫秒数
-    var minutes = Math.floor(leave2 / (60 * 1000));
+    let leave2 = leave1 % (3600 * 1000); //计算小时数后剩余的毫秒数
+    let minutes = Math.floor(leave2 / (60 * 1000));
     // 计算相差秒数
-    var leave3 = leave2 % (60 * 1000); //计算分钟数后剩余的毫秒数
-    var seconds = Math.round(leave3 / 1000);
+    let leave3 = leave2 % (60 * 1000); //计算分钟数后剩余的毫秒数
+    let seconds = Math.round(leave3 / 1000);
 
     return {
       days: days,
@@ -57,7 +57,7 @@ var utils = {
    * @param {Object} time
    */
   getTiktokStr: function (time) {
-    var str = time.seconds + '秒';
+    let str = time.seconds + '秒';
     if (time.days != 0) {
       str = time.days + '天' + time.hours + '小时' + time.minutes + '分钟' + str;
     } else if (time.hours != 0) {
@@ -82,14 +82,14 @@ var utils = {
     startTime = parseInt(startTime);
     endTime = parseInt(endTime);
 
-    var that = this;
+    let that = this;
 
-    var diffTime = that.getDiffTime(startTime, endTime);
+    let diffTime = that.getDiffTime(startTime, endTime);
     diffTime = that.getTiktokStr(diffTime);
     renderFunc && renderFunc(diffTime);
     startTime += 1000;
 
-    var interval = setInterval(function () {
+    let interval = setInterval(function () {
       diffTime = that.getDiffTime(startTime, endTime);
       if (diffTime) {
         startTime += 1000;
@@ -106,7 +106,7 @@ var utils = {
    * 判断对象是否为空
    */
   isEmptyObject: function (obj) {
-    var t;
+    let t;
     for (t in obj) {
       return false;
     }
@@ -117,17 +117,17 @@ var utils = {
    * 获取当前页面url
    */
   getCurrentUrl: function () {
-    var pageStack = getCurrentPages();
-    var thisPage = pageStack[pageStack.length - 1];
+    let pageStack = getCurrentPages();
+    let thisPage = pageStack[pageStack.length - 1];
 
-    var baseUrl = thisPage.route;
-    var paramObj = thisPage.options;
-    var params = '';
+    let baseUrl = thisPage.route;
+    let paramObj = thisPage.options;
+    let params = '';
 
     if (this.isEmptyObject(paramObj)) {
       return baseUrl;
     } else {
-      for (var i in paramObj) {
+      for (let i in paramObj) {
         if (params.indexOf('?') >= 0) {
           params += '&';
         } else {
@@ -162,7 +162,7 @@ var utils = {
     if (url.indexOf(name + '=') > -1) {
       return url;
     }
-    var tmpUrl = url;
+    let tmpUrl = url;
 
     // 判断是否已经有其他参数
     if (tmpUrl.indexOf('?') >= 0) {
@@ -186,7 +186,7 @@ var utils = {
     // (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423
     // (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18
     Date.prototype.Format = function (fmt) {
-      var o = {
+      let o = {
         'M+': this.getMonth() + 1, //月份
         'd+': this.getDate(), //日
         'h+': this.getHours(), //小时
@@ -196,7 +196,7 @@ var utils = {
         S: this.getMilliseconds(), //毫秒
       };
       if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
-      for (var k in o)
+      for (let k in o)
         if (new RegExp('(' + k + ')').test(fmt))
           fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length));
       return fmt;
@@ -210,7 +210,7 @@ var utils = {
   compareVersion: function (v1, v2) {
     v1 = v1.split('.');
     v2 = v2.split('.');
-    var len = Math.max(v1.length, v2.length);
+    let len = Math.max(v1.length, v2.length);
 
     while (v1.length < len) {
       v1.push('0');
@@ -220,9 +220,9 @@ var utils = {
       v2.push('0');
     }
 
-    for (var i = 0; i < len; i++) {
-      var num1 = parseInt(v1[i]);
-      var num2 = parseInt(v2[i]);
+    for (let i = 0; i < len; i++) {
+      let num1 = parseInt(v1[i]);
+      let num2 = parseInt(v2[i]);
 
       if (num1 > num2) {
         return 1;
@@ -238,7 +238,7 @@ var utils = {
    * 静态资源定时清理缓存用的后缀
    */
   resourceSuffix: function () {
-    var randomStr = '?' + new Date().getTime().toString().slice(0, 7) + '000000';
+    let randomStr = '?' + new Date().getTime().toString().slice(0, 7) + '000000';
     return randomStr;
   },
 
@@ -250,20 +250,20 @@ var utils = {
    * 		id:资讯详情id
    */
   jumpToInfo: function (options) {
-    var id = options.id ? options.id : '';
-    var type = options.infoType ? options.infoType : 1;
-    var jumpType =
+    let id = options.id ? options.id : '';
+    let type = options.infoType ? options.infoType : 1;
+    let jumpType =
       options.jumpType && options.jumpType in wx && typeof wx[options.jumpType] == 'function'
         ? options.jumpType
         : 'navigateTo';
 
     // 1文章  2图集  3视频  4链接(不支持)
-    var infoConfig = {
+    let infoConfig = {
       1: '/pages/discovery/info',
       2: '/pages/discovery/picture-info',
     };
 
-    var path = type in infoConfig ? infoConfig[type] + '?id=' + id : infoConfig[1] + '?id=' + id;
+    let path = type in infoConfig ? infoConfig[type] + '?id=' + id : infoConfig[1] + '?id=' + id;
 
     wx[jumpType]({
       url: path,

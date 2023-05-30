@@ -1,5 +1,5 @@
 // pages/sig/member-detail.js
-var appAjax = require('./../../utils/app-ajax');
+const appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
   saveMemberGiteeName: function (postData, _callback) {
     appAjax.postJson({
@@ -85,7 +85,7 @@ Page({
         email: that.data.email,
         telephone: that.data.phoneNmuber,
       },
-      function (data) {
+      function () {
         that.setData({
           isShowMes: true,
         });

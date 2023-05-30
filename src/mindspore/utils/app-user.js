@@ -1,9 +1,9 @@
-var appAjax = require('./app-ajax.js');
-var appSession = require('./app-session.js');
-var constants = require('../config/constants');
-var app = getApp();
+let appSession = require('./app-session.js');
+let constants = require('../config/constants');
+let appAjax = require('./app-ajax.js');
+let app = getApp();
 
-var remote = {
+let remote = {
   /**
    * 绑定手机
    * @param {Object} phone
@@ -22,7 +22,7 @@ var remote = {
   },
 };
 
-var privateMethods = {
+let privateMethods = {
   /**
    * 登录
    * @param {Object} callback
@@ -71,7 +71,7 @@ var privateMethods = {
   },
 };
 
-var appUser = {
+let appUser = {
   /**
    * 需要登录的跳转
    * page为空不能传null 要 ""

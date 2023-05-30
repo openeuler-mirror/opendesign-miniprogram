@@ -1,5 +1,5 @@
 // pages/sig/member-detail.js
-var appAjax = require('./../../utils/app-ajax');
+const appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
   saveMemberGiteeName: function (postData, _callback) {
     appAjax.postJson({
@@ -12,7 +12,7 @@ let remoteMethods = {
       data: {
         gitee_name: postData.gitee_name,
         email: postData.email,
-        telephone:postData.telephone
+        telephone: postData.telephone,
       },
       success: function (ret) {
         wx.showToast({
@@ -31,7 +31,7 @@ Page({
    */
   data: {
     id: '',
-    email:'',
+    email: '',
     avatar: '',
     nickname: '',
     gitee_name: '',
@@ -47,8 +47,8 @@ Page({
       avatar: options.avatar,
       nickname: options.nickname,
       gitee_name: options.name,
-      phoneNmuber:options.telephone,
-      email:options.email
+      phoneNmuber: options.telephone,
+      email: options.email,
     });
   },
 
@@ -87,7 +87,7 @@ Page({
         email: that.data.email,
         telephone: that.data.phoneNmuber,
       },
-      function (data) {
+      function () {
         that.setData({
           isShowMes: true,
         });
@@ -116,12 +116,6 @@ Page({
       name: '',
       phoneNmuber: '',
       email: '',
-    });
-  },
-  reset: function () {
-    this.setData({
-      name: '',
-      enterprise: '',
     });
   },
 });

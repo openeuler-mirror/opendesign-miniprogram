@@ -240,3 +240,21 @@ input {
     text-overflow: unset;
 
 }
+
+.container .privacy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6d7278;
+    font-size: 28rpx;
+    text-align: center;
+    margin: 30rpx 0;
+}
+
+.container .privacy text {
+    color: #40ADFF;
+}
+
+.container .privacy .van-checkbox {
+    margin-right: 16rpx;
+}

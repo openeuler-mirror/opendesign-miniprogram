@@ -1,5 +1,5 @@
 // package-meeting/sig/group.js
-var appAjax = require('./../../utils/app-ajax');
+const appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
   getALLGroupList: function (data, _callback) {
     appAjax.postJson({
@@ -37,33 +37,21 @@ Page({
       wx.navigateTo({
         url: '/package-meeting/sig/sig-list',
       });
-    } else if(e.currentTarget.dataset.id === 'MSG'){
+    } else if (e.currentTarget.dataset.id === 'MSG') {
       wx.navigateTo({
         url: '/package-meeting/sig/msg-list',
       });
-    }else {
+    } else {
       wx.navigateTo({
         url:
           '/package-meeting/sig/add-sig-member?id=' +
           e.currentTarget.dataset.id +
           '&name=' +
-          e.currentTarget.dataset.name+
+          e.currentTarget.dataset.name +
           '&type=Tech',
       });
     }
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-   
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {},
 
   /**
    * 生命周期函数--监听页面显示
@@ -71,12 +59,9 @@ Page({
   onShow: function () {
     let that = this;
     remoteMethods.getALLGroupList('', function (list) {
-      let msgID = 'MSG';
       let techID = '';
       list.forEach((item) => {
-        if (item.name === 'MSG') {
-          msgID = item.id;
-        } else {
+        if (item.name !== 'MSG') {
           techID = item.id;
         }
       });
@@ -98,29 +83,4 @@ Page({
       });
     });
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {},
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {},
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {},
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {},
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {},
 });
