@@ -11,17 +11,12 @@ Page(
           url: '/static/index/banner-1.png',
         },
       ],
+      isPrivecyShown:false,
       iphoneX: false,
       meetingConponent: null,
       autoplay: true,
     },
     swithTab(e) {
-      if (!sessionUtil.getUserInfoByKey('access')) {
-        wx.navigateTo({
-          url: '/pages/auth/auth',
-        });
-        return;
-      }
       wx.switchTab({
         url: e.currentTarget.dataset.url,
       });
@@ -36,8 +31,8 @@ Page(
     onLoad: function () {
       wx.showShareMenu({
         withShareTicket: true,
-        menus: ['shareAppMessage', 'shareTimeline']
-      })
+        menus: ['shareAppMessage', 'shareTimeline'],
+      });
       that = this;
       appUser.updateUserInfo(function () {
         that.setData({
@@ -45,10 +40,22 @@ Page(
           iphoneX: that.getTabBar().data.iPhoneX,
         });
       });
+
     },
     onShow: function () {
       this.getTabBar().setData({
         _tabbat: 0,
+      });
+      if (!wx.getStorageSync('privecy')) {
+        this.setData({
+          isPrivecyShown: true,
+        });
+      } 
+    },
+    handleClick:function () {
+      wx.setStorageSync('privecy', true);
+      this.setData({
+        isPrivecyShown: false,
       });
     },
     onPullDownRefresh: function () {

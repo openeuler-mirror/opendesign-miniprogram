@@ -32,8 +32,8 @@ const methods = {
    * 监听属性 并执行监听函数
    */
   $observe(obj, key, watchFun) {
-    var val = obj[key]; // 给该属性设默认值
-    var that = this;
+    let val = obj[key]; // 给该属性设默认值
+    let that = this;
     Object.defineProperty(obj, key, {
       configurable: true,
       enumerable: true,
@@ -65,9 +65,9 @@ const lifeCycle = {
     before() {
       this.$setWatcher(this.data, this.watch); // 设置监听器
 
-      var pages = getCurrentPages(); //获取加载的页面
-      var currentPage = pages[pages.length - 1]; //获取当前页面的对象
-      var url = currentPage.route; //当前页面url
+      let pages = getCurrentPages(); //获取加载的页面
+      let currentPage = pages[pages.length - 1]; //获取当前页面的对象
+      let url = currentPage.route; //当前页面url
 
       // 判断是否登录
       let userInfo = wx.getStorageSync(constants.APP_USERINFO_SESSION);
@@ -91,7 +91,7 @@ const lifeCycle = {
   },
 };
 
-var local = {
+let local = {
   getLifeCycle(rewriteList, lifeCycle, pageConfig) {
     let config = {};
 
@@ -109,7 +109,7 @@ var local = {
   },
 };
 
-var $pageMixin = function (pageConfig) {
+let $pageMixin = function (pageConfig) {
   let rewriteList = [
     'onLoad', // 生命周期函数--监听页面加载
     //		'onReady',				// 生命周期函数--监听页面初次渲染完成

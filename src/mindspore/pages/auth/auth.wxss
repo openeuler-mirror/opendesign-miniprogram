@@ -72,3 +72,30 @@ page {
 .container .privacy text {
     color: #40ADFF;
 }
+.container .privacy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6d7278;
+    font-size: 28rpx;
+    text-align: center;
+    margin-top: 30rpx;
+}
+
+.container .privacy text {
+    color: #40ADFF;
+}
+
+.container .privacy .van-checkbox {
+    margin-right: 16rpx;
+}
+
+.auth-btn {
+    position: relative;
+}
+.auth-btn .mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+}

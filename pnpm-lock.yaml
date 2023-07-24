@@ -1,4 +1,4 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 specifiers:
   eslint: ^8.8.0
@@ -9,7 +9,7 @@ specifiers:
 devDependencies:
   eslint: registry.npmmirror.com/eslint/8.8.0
   eslint-config-prettier: registry.npmmirror.com/eslint-config-prettier/8.3.0_eslint@8.8.0
-  eslint-plugin-prettier: registry.npmmirror.com/eslint-plugin-prettier/4.0.0_43197c8d12d1d439034cfcf65e1c48c2
+  eslint-plugin-prettier: registry.npmmirror.com/eslint-plugin-prettier/4.0.0_immxzdis2hkdsa2m7t3f4hciyi
   prettier: registry.npmmirror.com/prettier/2.5.1
 
 packages:
@@ -216,7 +216,7 @@ packages:
       eslint: registry.npmmirror.com/eslint/8.8.0
     dev: true
 
-  registry.npmmirror.com/eslint-plugin-prettier/4.0.0_43197c8d12d1d439034cfcf65e1c48c2:
+  registry.npmmirror.com/eslint-plugin-prettier/4.0.0_immxzdis2hkdsa2m7t3f4hciyi:
     resolution: {integrity: sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/eslint-plugin-prettier/-/eslint-plugin-prettier-4.0.0.tgz}
     id: registry.npmmirror.com/eslint-plugin-prettier/4.0.0
     name: eslint-plugin-prettier

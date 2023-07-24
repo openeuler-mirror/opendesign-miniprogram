@@ -2,25 +2,25 @@
  * underscore扩展方法
  */
 
-var _ = require('./underscore.js');
+let _ = require('./underscore.js');
 
 _.mixin({
   /**
    * 对象深拷贝
    */
   deepExtend: function (target) {
-    var deep = true,
+    let deep = true,
       args = [].slice.call(arguments, 1);
 
-    var extend = function (target, source, deep) {
-      var isArray = _.isArray;
-      var isWindow = function (obj) {
+    let extend = function (target, source, deep) {
+      let isArray = _.isArray;
+      let isWindow = function (obj) {
         return obj != null && obj == obj.window;
       };
-      var isPlainObject = function (obj) {
+      let isPlainObject = function (obj) {
         return _.isObject(obj) && !isWindow(obj) && obj.__proto__ == Object.prototype;
       };
-      for (var key in source) {
+      for (let key in source) {
         //如果深度扩展
         if (deep && (isPlainObject(source[key]) || isArray(source[key]))) {
           //如果要扩展的数据是对象且target相对应的key不是对象

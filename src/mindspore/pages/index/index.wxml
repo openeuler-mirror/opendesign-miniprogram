@@ -1,7 +1,8 @@
 <!-- index.wxml -->
 <view class="container {{iphoneX?'container-x':''}}">
     <user-info></user-info>
-    <swiper indicator-dots="{{true}}" autoplay="{{autoplay}}" interval="{{5000}}" indicator-color="#e1e6ee" indicator-active-color="#40ADFF">
+    <swiper indicator-dots="{{true}}" autoplay="{{autoplay}}" interval="{{5000}}" indicator-color="#e1e6ee"
+        indicator-active-color="#40ADFF">
         <block wx:for="{{imgUrls}}" wx:key="index">
             <swiper-item>
                 <image bindtap='previewImage' src="{{item.url}}" class="slide-image" />
@@ -20,5 +21,16 @@
             <image class="arrow" src="./../../static/common/arrow-right.svg"></image>
         </view>
     </view>
-    <meeting-list class="meeting1" is-home="true" bind:action-status="actionStatus" apiUrl="RECENTLY_MEETINGS"></meeting-list>
+    <meeting-list class="meeting1" is-home="true" bind:action-status="actionStatus" apiUrl="RECENTLY_MEETINGS">
+    </meeting-list>
+    <van-dialog use-slot show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ isPrivecyShown }}"
+        class-name="sig-dialog">
+        <view class="dialog-slot-content">
+            <view>隐私政策更新通知</view>
+            <image
+                src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/mindsporeMini/mindspore%20Privacy%20Policy-1.png">
+            </image>
+        </view>
+            <button bindtap="handleClick">我已知晓</button>
+    </van-dialog>
 </view>

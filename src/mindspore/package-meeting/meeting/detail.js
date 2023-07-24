@@ -1,6 +1,5 @@
 // pages/meeting/detail.js
-const { rest } = require('../../utils/underscore');
-var appAjax = require('./../../utils/app-ajax');
+const appAjax = require('./../../utils/app-ajax');
 const sessionUtil = require('../../utils/app-session.js');
 let remoteMethods = {
   getMeetingDetail: function (id, _callback) {
@@ -11,9 +10,6 @@ let remoteMethods = {
       otherParams: {
         id: id,
       },
-      // headers: {
-      //   Authorization: '',
-      // },
       success: function (ret) {
         _callback && _callback(ret);
       },
@@ -53,7 +49,7 @@ Page({
   data: {
     id: '',
     info: {},
-    collection_id:null
+    collection_id: null,
   },
 
   /**
@@ -61,7 +57,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      id: options.id
+      id: options.id,
     });
   },
   copy: function (e) {
@@ -79,7 +75,7 @@ Page({
       if (data) {
         that.setData({
           info: data,
-          collection_id:data.collection_id||null
+          collection_id: data.collection_id || null,
         });
       }
     });
@@ -92,18 +88,18 @@ Page({
     };
   },
   collect: function () {
-    let that=this
+    let that = this;
     if (!sessionUtil.getUserInfoByKey('access')) {
       wx.navigateTo({
         url: '/pages/auth/auth',
       });
       return;
     }
-    if (this.data.collection_id!=null) {
-      remoteMethods.uncollect(this.data.collection_id, function (res) {
-       that.setData({
-        collection_id:null
-       })       
+    if (this.data.collection_id != null) {
+      remoteMethods.uncollect(this.data.collection_id, function () {
+        that.setData({
+          collection_id: null,
+        });
       });
     } else {
       wx.requestSubscribeMessage({
@@ -112,8 +108,8 @@ Page({
           remoteMethods.collect(that.data.id, function (res) {
             if (res.code == 201) {
               that.setData({
-                collection_id:res.collection_id||''
-               })  
+                collection_id: res.collection_id || '',
+              });
             }
           });
         },

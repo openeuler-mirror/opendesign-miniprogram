@@ -1,8 +1,8 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
-var component_1 = require('../common/component');
-var button_1 = require('../mixins/button');
-var open_type_1 = require('../mixins/open-type');
+let component_1 = require('../common/component');
+let button_1 = require('../mixins/button');
+let open_type_1 = require('../mixins/open-type');
 component_1.VantComponent({
   mixins: [button_1.button, open_type_1.openType],
   props: {
@@ -41,8 +41,8 @@ component_1.VantComponent({
   },
   methods: {
     onSelect: function (event) {
-      var index = event.currentTarget.dataset.index;
-      var item = this.data.actions[index];
+      let index = event.currentTarget.dataset.index;
+      let item = this.data.actions[index];
       if (item && !item.disabled && !item.loading) {
         this.$emit('select', item);
         if (this.data.closeOnClickAction) {

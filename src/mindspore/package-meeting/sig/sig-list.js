@@ -1,4 +1,4 @@
-var appAjax = require('./../../utils/app-ajax');
+const appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
   getSigList: function (keyword, _callback) {
     appAjax.postJson({
@@ -22,11 +22,6 @@ Page({
     keyword: '',
     list: [],
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function () {},
   /**
    * 生命周期函数--监听页面显示
    */
@@ -48,7 +43,7 @@ Page({
         '/package-meeting/sig/add-sig-member?id=' +
         e.currentTarget.dataset.id +
         '&name=' +
-        e.currentTarget.dataset.name+
+        e.currentTarget.dataset.name +
         '&type=SIG',
     });
   },

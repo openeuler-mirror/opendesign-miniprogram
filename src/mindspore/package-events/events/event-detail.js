@@ -99,16 +99,16 @@ Page({
 
   data: {
     info: {},
-    showReplay:false,
+    showReplay: false,
     id: '',
-    startTime:'',
-    endTime:'',
+    startTime: '',
+    endTime: '',
     steps: [],
     tabIndex: 0,
-    activeNames:0,
-    betweenDay:[],
-    showDialog:false,
-    showRegister:false,
+    activeNames: 0,
+    betweenDay: [],
+    showDialog: false,
+    showRegister: false,
     type: 0,
     level: 1,
     user: '',
@@ -140,35 +140,37 @@ Page({
       user: sessionUtil.getUserInfoByKey('userId'),
     });
     remoteMethods.getDraftDetail((res) => {
-      let betweenDay = this.getBetweenDateStr(res.start_date,res.end_date)
+      let betweenDay = this.getBetweenDateStr(res.start_date, res.end_date);
       this.setData({
         info: res,
-        startTime:res.start_date.replaceAll('-','.'),
-        endTime:res.end_date.replaceAll('-','.'),
-        betweenDay:betweenDay
+        startTime: res.start_date.replaceAll('-', '.'),
+        endTime: res.end_date.replaceAll('-', '.'),
+        betweenDay: betweenDay,
       });
       let arr = [];
-      JSON.parse(res.schedules).forEach((dayTime,index) => {
-        arr.push([])
-        dayTime.forEach(item => {
-          if(item.speakerList){
+      JSON.parse(res.schedules).forEach((dayTime, index) => {
+        arr.push([]);
+        dayTime.forEach((item) => {
+          if (item.speakerList) {
             arr[index].push({
-                duration: item.start + '-' + item.end,
-                title: item.topic,
-                speakerList: item.speakerList
-            })
+              duration: item.start + '-' + item.end,
+              title: item.topic,
+              speakerList: item.speakerList,
+            });
           } else {
             arr.push({
-                duration: item.start + '-' + item.end,
-                title: item.topic,
-                speakerList: [{
-                    name: item.speaker || '',
-                    title: item.desc || ''
-                }]
-            })
-         }
-        })
-    });
+              duration: item.start + '-' + item.end,
+              title: item.topic,
+              speakerList: [
+                {
+                  name: item.speaker || '',
+                  title: item.desc || '',
+                },
+              ],
+            });
+          }
+        });
+      });
       this.setData({
         steps: arr,
       });
@@ -176,48 +178,47 @@ Page({
   },
   linkClick() {
     this.setData({
-      showDialog:true
-    })
+      showDialog: true,
+    });
   },
   colseDiglog() {
     this.setData({
-      showReplay:false,
-      showDialog:false,
-      showRegister:false,
-    })
+      showReplay: false,
+      showDialog: false,
+      showRegister: false,
+    });
   },
-  maskClick () {
+  maskClick() {
     if (this.data.info.replay_url && this.data.info.status == 5) {
       this.setData({
-        showReplay:true
-      })
+        showReplay: true,
+      });
     } else {
       this.setData({
-        showDialog:true
-      })
+        showDialog: true,
+      });
     }
-   
   },
   copyLink(e) {
-    let link = e.currentTarget.dataset.link
-    let that = this
+    let link = e.currentTarget.dataset.link;
+    let that = this;
     wx.setClipboardData({
       data: link,
       success: function () {
-          that.setData({
-              showDialog: false,
-              showReplay:false,
-              showRegister:false,
-          })
-      },
-      fail:function () {
         that.setData({
           showDialog: false,
-          showReplay:false,
-          showRegister:false
-      })
-      }
-  })
+          showReplay: false,
+          showRegister: false,
+        });
+      },
+      fail: function () {
+        that.setData({
+          showDialog: false,
+          showReplay: false,
+          showRegister: false,
+        });
+      },
+    });
   },
   getBetweenDateStr(starDay, endDay) {
     let startDate = Date.parse(starDay);
@@ -225,12 +226,12 @@ Page({
     if (startDate > endDate) {
       return false;
     } else if (startDate == endDate) {
-      starDay = starDay.split('')
-      starDay[4] = '年'
-      starDay[7] = '月'
-      starDay[10] = '日'
-      starDay = starDay.join('')
-      return [starDay]
+      starDay = starDay.split('');
+      starDay[4] = '年';
+      starDay[7] = '月';
+      starDay[10] = '日';
+      starDay = starDay.join('');
+      return [starDay];
     }
     let arr = [];
     let dates = [];
@@ -244,22 +245,22 @@ Page({
     let d = de.getTime() - 24 * 60 * 60 * 1000;
 
     // 获取到两个日期之间的每一天的毫秒数
-    for (let i = s; i <= d;) {
-        i = i + 24 * 60 * 60 * 1000;
-        arr.push(parseInt(i))
+    for (let i = s; i <= d; ) {
+      i = i + 24 * 60 * 60 * 1000;
+      arr.push(parseInt(i));
     }
 
     // 获取每一天的时间  YY-MM-DD
     for (let j in arr) {
-        let time = new Date(arr[j]);
-        let year = time.getFullYear(time);
-        let mouth = (time.getMonth() + 1) >= 10 ? (time.getMonth() + 1) : ('0' + (time.getMonth() + 1));
-        let day = time.getDate() >= 10 ? time.getDate() : ('0' + time.getDate());
-        let YYMMDD =year + '年-' +  mouth + '月' + '-' + day + '日';
-        dates.push(YYMMDD)
+      let time = new Date(arr[j]);
+      let year = time.getFullYear(time);
+      let mouth = time.getMonth() + 1 >= 10 ? time.getMonth() + 1 : '0' + (time.getMonth() + 1);
+      let day = time.getDate() >= 10 ? time.getDate() : '0' + time.getDate();
+      let YYMMDD = year + '年-' + mouth + '月' + '-' + day + '日';
+      dates.push(YYMMDD);
     }
 
-    return dates
+    return dates;
   },
   dateChange(event) {
     this.setData({
@@ -340,9 +341,9 @@ Page({
     //     url: `/package-events/sign-up/sign-up?id=${this.data.info.id}&title=${this.data.info.title}&poster=${this.data.info.poster}`
     // })
     this.setData({
-      showRegister:true
-    })
-},
+      showRegister: true,
+    });
+  },
   onShareAppMessage() {
     return {
       title: '活动详情',

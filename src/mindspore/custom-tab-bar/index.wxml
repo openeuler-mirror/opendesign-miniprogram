@@ -5,11 +5,13 @@
         <text>首页</text>
     </view>
     <view class="titem {{_tabbat==1?'tCdk':''}}" data-index="1" bind:tap="switchTap">
-        <image class="img" src="{{_tabbat==1?'./../static/tabbar/meeting-selected.png':'./../static/tabbar/meeting.png'}}" />
+        <image class="img"
+            src="{{_tabbat==1?'./../static/tabbar/meeting-selected.png':'./../static/tabbar/meeting.png'}}" />
         <text>会议</text>
     </view>
     <view class="titem {{_tabbat==2?'tCdk':''}}" data-index="2" bind:tap="switchTap">
-        <image class="img" src="{{_tabbat==2?'./../static/tabbar/events-selected.png':'./../static/tabbar/events.png'}}" />
+        <image class="img"
+            src="{{_tabbat==2?'./../static/tabbar/events-selected.png':'./../static/tabbar/events.png'}}" />
         <text>活动</text>
     </view>
     <view class="titem {{_tabbat==3?'tCdk':''}}" data-index="3" bind:tap="switchTap">

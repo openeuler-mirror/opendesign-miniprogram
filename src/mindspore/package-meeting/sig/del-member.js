@@ -1,5 +1,5 @@
 // pages/sig/del-member.js
-var appAjax = require('./../../utils/app-ajax');
+const appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
   getCludeMemberList: function (postData, _callback) {
     appAjax.postJson({
@@ -48,8 +48,7 @@ let remoteMethods = {
         _callback && _callback(ret);
       },
     });
-  }
-  
+  },
 };
 Page({
   /**
@@ -62,7 +61,7 @@ Page({
     group_id: '',
     btnText: '',
     group_name: '',
-    options:''
+    options: '',
   },
 
   /**
@@ -72,7 +71,7 @@ Page({
     this.setData({
       group_id: options.group_id,
       btnText: '返回' + options.grouptitle,
-      options:options
+      options: options,
     });
     if (options.grouptitle.includes('MSG')) {
       this.setData({
@@ -94,8 +93,8 @@ Page({
    */
   onShow: function () {
     let that = this;
-    const {type}=this.data.options
-    if(type!='MSG'){
+    const { type } = this.data.options;
+    if (type != 'MSG') {
       remoteMethods.getCludeMemberList(
         {
           id: this.data.group_name,
@@ -106,7 +105,7 @@ Page({
           });
         }
       );
-    }else{
+    } else {
       remoteMethods.getCityCludeMemberList(
         {
           id: this.data.group_name,
@@ -118,7 +117,6 @@ Page({
         }
       );
     }
-   
   },
   onChange: function (e) {
     this.setData({
@@ -139,8 +137,8 @@ Page({
       ids: this.data.result.join('-'),
       group_id: this.data.group_id,
     };
-    const {type}=this.data.options
-    if(type!='MSG'){
+    const { type } = this.data.options;
+    if (type != 'MSG') {
       remoteMethods.delMemberList(postData, function (data) {
         if (data.code === 204) {
           that.setData({
@@ -154,7 +152,7 @@ Page({
           });
         }
       });
-    }else{
+    } else {
       postData = {
         ids: this.data.result.join('-'),
         city_id: this.data.group_id,
@@ -173,6 +171,5 @@ Page({
         }
       });
     }
-   
   },
 });

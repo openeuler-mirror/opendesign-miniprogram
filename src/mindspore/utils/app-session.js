@@ -1,9 +1,9 @@
-var constants = require('../config/constants.js');
+let constants = require('../config/constants.js');
 /**
  * 获取用户信息
  */
-var _getUserinfo = function () {
-  var userInfo = wx.getStorageSync(constants.APP_USERINFO_SESSION);
+let _getUserinfo = function () {
+  let userInfo = wx.getStorageSync(constants.APP_USERINFO_SESSION);
 
   return userInfo;
 };
@@ -12,12 +12,12 @@ var _getUserinfo = function () {
  * 通过key获取值
  * @params key
  */
-var _getValueByKey = function (key) {
+let _getValueByKey = function (key) {
   if (!key) {
     return;
   }
 
-  var userinfo = _getUserinfo();
+  let userinfo = _getUserinfo();
 
   if (!userinfo) {
     return;
@@ -48,7 +48,7 @@ module.exports = {
   },
 
   /**
-   * 清楚用户信息
+   * 清除用户信息
    */
   clearUserInfo: function () {
     wx.removeStorageSync(constants.APP_USERINFO_SESSION);

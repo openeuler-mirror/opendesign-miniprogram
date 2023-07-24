@@ -26,7 +26,6 @@ let remoteMethods = {
   },
 };
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -34,33 +33,29 @@ Page({
     keyword: '',
     list: [
       {
-        id:24,
-        name:'上海',
-        group_type:2
+        id: 24,
+        name: '上海',
+        group_type: 2,
       },
       {
-        id:25,
-        name:'北京',
-        group_type:2
+        id: 25,
+        name: '北京',
+        group_type: 2,
       },
       {
-        id:26,
-        name:'深圳',
-        group_type:2
-      },{
-        id:27,
-        name:'成都',
-        group_type:2
+        id: 26,
+        name: '深圳',
+        group_type: 2,
+      },
+      {
+        id: 27,
+        name: '成都',
+        group_type: 2,
       },
     ],
-    addCityPopShow:false,
-    cityName:''
+    addCityPopShow: false,
+    cityName: '',
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {},
 
   /**
    * 生命周期函数--监听页面显示
@@ -79,7 +74,7 @@ Page({
         '/package-meeting/sig/add-sig-member?id=' +
         e.currentTarget.dataset.id +
         '&name=' +
-        e.currentTarget.dataset.name+
+        e.currentTarget.dataset.name +
         '&type=MSG',
     });
   },
@@ -91,31 +86,29 @@ Page({
       });
     });
   },
-  AddMember:function(){
-    this.setData(
-      {
-        addCityPopShow:true
-      }
-    )
+  AddMember: function () {
+    this.setData({
+      addCityPopShow: true,
+    });
   },
-  addCityConfirm:function(){
-    let that=this
+  addCityConfirm: function () {
+    let that = this;
     let postData = {
       name: this.data.cityName,
     };
-    if(this.data.cityName==''){
+    if (this.data.cityName == '') {
       wx.showToast({
         title: '请输入城市名',
         duration: 2000,
-        icon: 'none'
+        icon: 'none',
       });
-      return
+      return;
     }
     remoteMethods.addCity(postData, function (data) {
-      if (data&&data.code&&data.code==201) {
+      if (data && data.code && data.code == 201) {
         that.setData({
           isShowMes: true,
-          cityName:''
+          cityName: '',
         });
         remoteMethods.getMsgList('', function (list) {
           that.setData({
@@ -126,14 +119,13 @@ Page({
           title: '添加成功',
           duration: 2000,
         });
-      }else if(data&&data.code&&data.code==400&&data.msg&&data.msg=='城市名重复'){
+      } else if (data && data.code && data.code == 400 && data.msg && data.msg == '城市名重复') {
         wx.showToast({
           title: '城市名重复',
           icon: 'none',
           duration: 2000,
         });
-      }
-       else {
+      } else {
         wx.showToast({
           title: '操作失败',
           icon: 'none',
@@ -141,24 +133,19 @@ Page({
         });
       }
     });
-    this.setData(
-      {
-        addCityPopShow:false
-      }
-    )
-  },
-  addCityCancel:function(){
-    this.setData(
-      {
-        addCityPopShow:false,
-        cityName:''
-      }
-    )
-  },
-  onInput:function(e){
     this.setData({
-      cityName: e.detail.value
-    })
-  }
-  
-})
+      addCityPopShow: false,
+    });
+  },
+  addCityCancel: function () {
+    this.setData({
+      addCityPopShow: false,
+      cityName: '',
+    });
+  },
+  onInput: function (e) {
+    this.setData({
+      cityName: e.detail.value,
+    });
+  },
+});

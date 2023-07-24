@@ -1,5 +1,5 @@
 // pages/sig/add-member.js
-var appAjax = require('./../../utils/app-ajax');
+const appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
   getExcludeMemberList: function (postData, _callback) {
     appAjax.postJson({
@@ -62,7 +62,7 @@ Page({
     isShowMes: false,
     btnText: '',
     group_name: '',
-    options:''
+    options: '',
   },
 
   /**
@@ -72,9 +72,9 @@ Page({
     this.setData({
       group_id: options.group_id,
       btnText: '返回' + options.grouptitle,
-      options:options
+      options: options,
     });
-   if (options.grouptitle.includes('专家')) {
+    if (options.grouptitle.includes('专家')) {
       this.setData({
         group_name: 'Tech',
       });
@@ -90,8 +90,8 @@ Page({
    */
   onShow: function () {
     let that = this;
-    const {type}=this.data.options
-    if(type!='MSG'){
+    const { type } = this.data.options;
+    if (type != 'MSG') {
       remoteMethods.getExcludeMemberList(
         {
           id: that.data.group_name,
@@ -102,7 +102,7 @@ Page({
           });
         }
       );
-    }else{
+    } else {
       remoteMethods.getCityExcludeMemberList(
         {
           id: that.data.group_name,
@@ -134,8 +134,8 @@ Page({
       ids: this.data.result.join('-'),
       group_id: this.data.group_id,
     };
-    const {type}=this.data.options
-    if(type!='MSG'){
+    const { type } = this.data.options;
+    if (type != 'MSG') {
       remoteMethods.addMemberList(postData, function (data) {
         if (data.code === 201) {
           that.setData({
@@ -149,7 +149,7 @@ Page({
           });
         }
       });
-    }else{
+    } else {
       postData = {
         ids: this.data.result.join('-'),
         city_id: this.data.group_id,

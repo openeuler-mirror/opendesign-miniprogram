@@ -104,7 +104,6 @@ Page({
               },
               complete(res) {
                 wx.hideLoading();
-                console.log(res);
               },
             });
           },

@@ -46,10 +46,10 @@
                     <text class="require">*</text>
                 </text>
                 <view class="arrow record">
-                    <van-checkbox-group value="{{form}}"  class="checkbox" bind:change="radioOnChange"
+                    <van-checkbox-group value="{{form}}" class="checkbox" bind:change="radioOnChange"
                         direction="horizontal">
-                        <van-checkbox shape="square" value="true" label-class="checkbox-class offline" name="{{1}}" icon-size="40rpx"
-                            checked-color="#40ADFF">
+                        <van-checkbox shape="square" value="true" label-class="checkbox-class offline" name="{{1}}"
+                            icon-size="40rpx" checked-color="#40ADFF">
                             线下
                         </van-checkbox>
                         <van-checkbox shape="square" label-class="checkbox-class" name="{{2}}" icon-size="40rpx"
@@ -77,18 +77,6 @@
                 <input value="{{addressName}}" bindinput="addressNameInput" placeholder-class="placeholder"
                     placeholder="请输入详细活动地址"></input>
             </view>
-            <!-- <view class="form-item" bindtap="onModeShow">
-                <text class="label">
-                    <text>
-                        <text>报名方式</text>
-                        <text class="require">*</text>
-                    </text>
-                </text>
-                <view class="arrow">
-                    <text class="sel-data">{{mode}}</text>
-                    <image src="./../../static/common/arrow-right.svg" />
-                </view>
-            </view> -->
             <view class="form-item">
                 <text class="label">
                     <text>报名链接</text>
@@ -100,31 +88,31 @@
             <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType==5)}}"></cover-view>
         </view>
         <view wx:if="{{form[0]==2||form.length===2}}" class="form-item">
-                <text class="label">
-                    <text>线上链接</text>
-                    <text class="require">*</text>
-                </text>
-                <input value="{{liveAddress}}" bindinput="liveAddressInput" placeholder-class="placeholder"
-                    placeholder="请输入您的线上链接"></input>
+            <text class="label">
+                <text>线上链接</text>
+                <text class="require">*</text>
+            </text>
+            <input value="{{liveAddress}}" bindinput="liveAddressInput" placeholder-class="placeholder"
+                placeholder="请输入您的线上链接"></input>
         </view>
         <view class="form-item">
-                <text class="label">
-                    <text>活动回放链接</text>
-                </text>
-                <input value="{{playback}}" maxlength="{{100}}" bindinput="playbackInput"
-                    placeholder-class="placeholder" placeholder="请输入您的活动回放链接"></input>
-            </view>
+            <text class="label">
+                <text>活动回放链接</text>
+            </text>
+            <input value="{{playback}}" maxlength="{{100}}" bindinput="playbackInput" placeholder-class="placeholder"
+                placeholder="请输入您的活动回放链接"></input>
+        </view>
         <view class="playback">
             <image src="./../../static/reserve/info.svg" role="img"></image> <text>活动回放链接请在活动结束后补充</text>
         </view>
         <view class="form-item meeting-desc relative">
             <text class="label">活动简介</text>
-            <textarea value="{{desc}}" 	maxlength="{{-1}}" hidden="{{datePopShow||timePopShow||endTimePopShow}}"
+            <textarea value="{{desc}}" maxlength="{{-1}}" hidden="{{datePopShow||timePopShow||endTimePopShow}}"
                 placeholder-class="placeholder" bindinput="descInput" placeholder="请输入活动简介">
             </textarea>
             <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType==5)}}"></cover-view>
         </view>
-        <van-collapse value="{{ activeNames }}" bind:change="dateChange" >
+        <van-collapse value="{{ activeNames }}" bind:change="dateChange">
             <van-collapse-item wx:for="{{allSchedule}}" data-index="{{myindex}}" wx:for-item="date"
                 wx:for-index="dayIndex" wx:key='myindex' name="{{myindex}}">
                 <view slot="title">活动日程<text class="date-title">{{betweenDay[dayIndex]}}</text></view>
@@ -293,8 +281,9 @@
             <view class="title">选择活动类型</view>
             <van-radio-group value="{{ type }}" bind:change="typeRadioOnChange">
                 <block wx:for="{{typeList}}" wx:key="index">
-                    <view class="item" >
-                        <van-radio icon-size="46rpx" bindtap="typeClick" data-index="{{ index + 1 }}" custom-class="radio" checked-color="#40ADFF" name="{{item}}">
+                    <view class="item">
+                        <van-radio icon-size="46rpx" bindtap="typeClick" data-index="{{ index + 1 }}"
+                            custom-class="radio" checked-color="#40ADFF" name="{{item}}">
                             <view class="name">{{item}}</view>
                         </van-radio>
                     </view>
@@ -311,9 +300,10 @@
             <view class="title">选择报名方式</view>
             <van-radio-group value="{{ mode }}" bind:change="modeRadioOnChange">
                 <block wx:for="{{modeList}}" wx:key="index">
-                    <view class="item" >
-                        <van-radio icon-size="46rpx" bindtap="radioClick" data-index="{{index + 1}}" custom-class="radio"  checked-color="#40ADFF" name="{{item}}">
-                            <view class="name" >{{item}}</view>
+                    <view class="item">
+                        <van-radio icon-size="46rpx" bindtap="radioClick" data-index="{{index + 1}}"
+                            custom-class="radio" checked-color="#40ADFF" name="{{item}}">
+                            <view class="name">{{item}}</view>
                         </van-radio>
                     </view>
                 </block>
