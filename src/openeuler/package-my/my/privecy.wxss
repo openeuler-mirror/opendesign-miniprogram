@@ -6,3 +6,10 @@ page {
 .container image {
     width: 100%;
 }
+.historical {
+    display: flex;
+    font-size: 36rpx;
+}
+navigator {
+    color: #002fa7;
+}

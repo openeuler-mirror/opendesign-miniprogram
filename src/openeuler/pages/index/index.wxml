@@ -5,7 +5,6 @@
         <block wx:for="{{imgUrls}}" wx:key="index">
             <swiper-item>
                 <image wx:if="{{item.type===2 || item.type===3}}"  data-src="{{item.src}}" src="{{item.url}}" class="slide-image" />
-                <video bindplay="play" bindpause="pause" bindended="ended" wx:else enable-progress-gesture="{{false}}" src="{{item.url}}" object-fit="fill" poster="{{item.poster}}" class="slide-image"></video>
             </swiper-item>
         </block>
     </swiper>

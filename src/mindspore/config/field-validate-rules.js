@@ -30,12 +30,6 @@ const rules = {
     errorMsg: ' 无效的手机号/邮箱',
   },
 
-  //	金额类型
-  money: {
-    regex: /^(\d+)(\.\d+)?$/,
-    errorMsg: '请输入正确的金额',
-  },
-
   //	最多输入两位小数
   validateTwoDecimal: {
     regex: /^(\d+)(\.\d+)?$/,
@@ -86,11 +80,6 @@ const rules = {
     errorMsg: ' 无效的日期或时间格式',
   },
 
-  //	ipv4地址校验
-  ipv4: {
-    regex: /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
-    errorMsg: ' 无效的 IP 地址',
-  },
 
   //	网址校验
   url: {
@@ -117,24 +106,12 @@ const rules = {
     errorMsg: ' 只能填写中文汉字',
   },
 
-  //	身份证校验
-  chinaId: {
-    regex:
-      /^[1-9]\d{5}[1-9]\d{3}(((0[13578]|1[02])(0[1-9]|[12]\d|3[0-1]))|((0[469]|11)(0[1-9]|[12]\d|30))|(02(0[1-9]|[12]\d)))(\d{4}|\d{3}[xX])$/,
-    errorMsg: ' 无效的身份证号码',
-  },
-
   //	邮政编码校验
   chinaZip: {
     regex: /^\d{6}$/,
     errorMsg: ' 无效的邮政编码',
   },
 
-  //	QQ号码校验
-  qq: {
-    regex: /(^[0-9]{5,15}$)|^$/,
-    errorMsg: ' 无效的 QQ 号码',
-  },
   // 密码验证
   checkPassword618: {
     regex:
@@ -165,54 +142,6 @@ const rules = {
     errorMsg: ' 请输入合法的邮政编码',
   },
 
-  // 验证公司名称、工作描述
-  checkSomeName: {
-    regex: /^[0-9A-Za-z\u4e00-\u9fa5]{0,30}$/,
-    errorMsg: ' 最多可输入30字，包含中文、字母、数字',
-  },
-
-  // 验证政府事业单位中（组织机构代码）包含数字或字母，且长度为15-30位
-  checkOrganizationCode: {
-    regex: /^[0-9A-Za-z]{15,30}$/,
-    errorMsg: ' 请输入正确的组织机构代码',
-  },
-
-  // 企业认证-验证企业名称
-  chenckCompanyName: {
-    regex: /^[0-9A-Za-z\u4e00-\u9fa5\()\（）]{0,50}$/,
-    errorMsg: '最多可输入50字，包含中文、字母、数字',
-  },
-
-  //	企业认证-验证证件号
-  checkCertificateLicense: {
-    regex: /^[0-9A-Za-z()-]{9,30}$/,
-    errorMsg: '请输入正确的证件号',
-  },
-
-  //	验证法定代表人
-  validateLegalPerson: {
-    regex: /^[A-Za-z\u4e00-\u9fa5]{0,15}$/,
-    errorMsg: '请输入正确的法定代表人',
-  },
-
-  //	验证微信号
-  validateWeixin: {
-    regex: /^(([A-Za-z]+[0-9A-Za-z_-]*))*$/,
-    errorMsg: '请输入正确的微信号',
-  },
-
-  //	验证微博地址
-  validateWeibo: {
-    regex: /^(http[s]{0,1}:\/\/.+)*$/,
-    errorMsg: '请输入正确的微博地址',
-  },
-
-  //	银行卡号验证
-  validateBankCard: {
-    regex: /^[0-9]{10,19}$/,
-    errorMsg: '请输入正确的银行卡号验证',
-  },
-
   //	用户输入内容
   checkIntro: {
     regex: /^[0-9A-Za-z\u4e00-\u9fa5]{0,500}$/,
@@ -225,29 +154,6 @@ const rules = {
     errorMsg: ' 无效的电话号码',
   },
 
-  // 校验护照
-  validatePassport: {
-    regex: /^1[45][0-9]{7}|([P|p|S|s]\\d{7})|([S|s|G|g]\\d{8})|([Gg|Tt|Ss|Ll|Qq|Dd|Aa|Ff]\\d{8})|([H|h|M|m]\\d{8,10})$/,
-    errorMsg: '请输入正确的护照',
-  },
-
-  //	校验香港身份证
-  validateIdentityHK: {
-    regex: /^[A-Z]\d{6}\(\d|[A-Z]\)$/,
-    errorMsg: '请输入正确的香港身份证',
-  },
-
-  //	澳门身份证验证
-  validateIdentityMC: {
-    regex: /^\d{7}\(\d\)$/,
-    errorMsg: '请输入正确的澳门身份证',
-  },
-
-  //	台湾身份证验证
-  validateIdentityTW: {
-    regex: /^[A-Z]\d{9}$/,
-    errorMsg: '请输入正确的台湾身份证',
-  },
 
   // 关键词校验
   keywordcheck: {

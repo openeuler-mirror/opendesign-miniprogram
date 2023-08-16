@@ -32,7 +32,16 @@ page {
     margin-right: 20rpx;
 }
 
+.container .user-info-wrapper .my-user-info .copy {
+    width: 48rpx;
+    height: 48rpx;
+    border: none;
+    top: -142rpx;
+    color: #fff;
+}
+
 .container .user-info-wrapper .my-user-info text {
+    margin-right: 20rpx;
     color: #fff;
     font-size: 36rpx;
     position: relative;

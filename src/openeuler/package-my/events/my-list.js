@@ -22,7 +22,7 @@ let remoteMethods = {
         } else if (that.data.type == 6) {
             service = 'EVENT_COLLECT_LIST'
         } else if (that.data.type == 7) {
-            service = 'MY_SIGNUP_EVENTS'
+            return;
         } else if (that.data.type == 3) {
             if (that.data.level == 2) {
                 service = 'MY_EVENTS_LIST'
@@ -92,19 +92,6 @@ let remoteMethods = {
             }
         });
     },
-    getSignUpInfo: function (id, _callback) {
-        appAjax.postJson({
-            autoShowWait: true,
-            type: 'GET',
-            service: 'GET_SIGNUP_INFO',
-            otherParams: {
-                id
-            },
-            success: function (ret) {
-                _callback && _callback(ret);
-            }
-        });
-    }
 }
 Page({
 
@@ -218,11 +205,7 @@ Page({
                         })
                     }
                 } else if(e.detail.operaType == 3) {
-                    remoteMethods.getSignUpInfo(this.data.curId, (res) => {
-                        wx.navigateTo({
-                            url: `/package-events/sign-up/sign-up-success?name=${encodeURIComponent(res.name)}&title=${encodeURIComponent(res.title)}&tel=${encodeURIComponent(res.telephone)}&poster=${encodeURIComponent(res.poster)}&id=${encodeURIComponent(this.data.curId)}`
-                        })
-                    })
+                  return;
                 } else {
                     this.setData({
                         noAuthDialogShow: true
@@ -328,7 +311,7 @@ Page({
                 url: `/package-events/events/event-detail?id=${e.currentTarget.dataset.id}&type=5`
             })
         } else if (this.data.type == 3) {
-            this.sendEmail(e);
+            return;
         }
 
     },
@@ -343,9 +326,4 @@ Page({
         })
 
     },
-    sendEmail(e) {
-        wx.navigateTo({
-            url: `/package-my/events/send-email?id=${e.currentTarget.dataset.id}`
-        })
-    }
 })

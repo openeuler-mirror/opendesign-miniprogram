@@ -25,7 +25,8 @@ Page({
         nickName: '',
         level: 1,
         avtivityLevel: 1,
-        myCount: {}
+        myCount: {},
+        userId:''
     },
 
     /**
@@ -38,6 +39,7 @@ Page({
             avatarUrl: sessionUtil.getUserInfoByKey('avatarUrl'),
             nickName: sessionUtil.getUserInfoByKey('nickName'),
             level: sessionUtil.getUserInfoByKey('level'),
+            userId:sessionUtil.getUserInfoByKey('userId'),
             avtivityLevel: sessionUtil.getUserInfoByKey('eventLevel')
         })
         remoteMethods.getMyCount(res => {
@@ -60,6 +62,15 @@ Page({
             url: e.currentTarget.dataset.url
         })
     },
+    copy: function (e) {
+        wx.setClipboardData({
+          data:`${ e.currentTarget.dataset.copy}`,
+          success: function () {},
+          fail:function (err) {
+              console.log(err);
+          }
+        });
+      },
     onPullDownRefresh() {
         wx.stopPullDownRefresh();
         remoteMethods.getMyCount(res => {

@@ -276,12 +276,22 @@ Page({
     if (e.currentTarget.dataset.item.activity_type == 2) {
       return;
     }
-    wx.openLocation({
-      latitude: Number(e.currentTarget.dataset.item.latitude),
-      longitude: Number(e.currentTarget.dataset.item.longitude),
-      name: e.currentTarget.dataset.item.detail_address, // 名称
-      address: e.currentTarget.dataset.item.address, // 地址
-    });
+    wx.showModal({
+        title: '提示',
+        content: '即将唤起腾讯地图，是否同意？',
+        success(res) {
+            if (res.confirm) {
+                wx.openLocation({
+                    latitude: Number(e.currentTarget.dataset.item.latitude),
+                    longitude: Number(e.currentTarget.dataset.item.longitude),
+                    name: e.currentTarget.dataset.item.detail_address, // 名称
+                    address: e.currentTarget.dataset.item.address, // 地址
+                  });
+            } else if (res.cancel) {
+                return false
+            }
+        }
+    })
   },
   toEditDraft() {
     wx.redirectTo({
@@ -331,15 +341,6 @@ Page({
     });
   },
   toSignUp() {
-    // if (!sessionUtil.getUserInfoByKey('access')) {
-    //     wx.navigateTo({
-    //         url: '/pages/auth/auth'
-    //     })
-    //     return;
-    // }
-    // wx.navigateTo({
-    //     url: `/package-events/sign-up/sign-up?id=${this.data.info.id}&title=${this.data.info.title}&poster=${this.data.info.poster}`
-    // })
     this.setData({
       showRegister: true,
     });

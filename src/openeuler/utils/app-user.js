@@ -54,6 +54,7 @@ var privateMethods = {
                                 code: data.code
                             },
                             success: function (result) {
+                                res.userInfo.agreePrivacy = result.agree_privacy_policy;
                                 res.userInfo.access = result.access;
                                 res.userInfo.level = result.level;
                                 res.userInfo.eventLevel = result.activity_level;
@@ -253,6 +254,7 @@ var appUser = {
                         code: data.code
                     },
                     success: function (result) {
+                        userInfo.agreePrivacy = result.agree_privacy_policy;
                         userInfo.access = result.access;
                         userInfo.level = result.level;
                         userInfo.eventLevel = result.activity_level;

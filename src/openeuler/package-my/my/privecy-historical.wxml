@@ -1,0 +1,4 @@
+<!-- pages/my/privecy.wxml -->
+<view class="container">
+    <image src="https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/privacy policy.png"></image>
+</view>

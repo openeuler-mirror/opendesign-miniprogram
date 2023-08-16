@@ -176,17 +176,8 @@ let commonServiceConfig = {
   // 最新活动列表
   LATEST_EVENTS: '/recentactivities/',
 
-  // 获取报名者信息
-  APPLICANT_INFO: '/applicant/{id}/',
-
-  // 报名
-  SAVE_SIGNUP_INFO: '/register/',
-
   // 我报名的活动
   MY_SIGNUP_EVENTS: '/registeractivities/',
-
-  // 报名表单
-  SEND_SIGNUP_INFO: '/applicants/',
 
   // 保存意见反馈
   SAVE_FEEDBACK: '/feedback/',
@@ -200,11 +191,8 @@ let commonServiceConfig = {
   // 获取我已收藏的会议
   GET_MY_COLLECT: '/collections/',
 
-  // 获取我的活动报名信息
-  GET_SIGNUP_INFO: '/ticket/{id}/',
-
-  // 活动签到
-  SIGN: '/sign/',
+  // 同意隐私政策
+  AGREE: '/agree/',
 
   //添加城市
   ADDCITY: '/city/',

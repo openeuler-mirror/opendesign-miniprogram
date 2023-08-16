@@ -2,7 +2,7 @@
 <view wx:if="{{pageType===1}}" class="today-meeting">{{isHome?'最近':'今天'}}的会议({{list.length}})</view>
 <view wx:if="{{pageType===2}}" class="input-wraper">
     <input placeholder="搜索会议" class="keyword" bindinput="search">
-        <image src="./../../static/common/search-icon.svg" class="search-icon" />
+    <image src="./../../static/common/search-icon.svg" class="search-icon" />
     </input>
     <view class="filter-wraper" bindtap="filterSig">
         <text>{{curFilterSigName}}</text>
@@ -14,6 +14,9 @@
         <view class="item" bindtap="toDetail" data-id="{{item.id}}">
             <view catchtap="getMore" data-item="{{item}}" class="header {{item.collection_id?'isCollection':''}}">
                 <text>{{item.group_name}}</text>
+                <text class="mplatform" wx:if="{{item.mplatform ==='zoom'}}">Zoom</text>
+                <text class="mplatform" wx:elif="{{item.mplatform ==='welink'}}">WeLink(蓝版)</text>
+                <text class="mplatform" wx:else>腾讯会议</text>
                 <image src="./../../static/common/more.svg" />
             </view>
             <view class="wrapper">

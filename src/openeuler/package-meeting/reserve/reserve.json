@@ -1,6 +1,8 @@
 {
-  "usingComponents": {},
   "navigationBarTitleText": "预定会议",
   "navigationBarBackgroundColor": "#002fa7",
-  "navigationBarTextStyle": "white"
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "t-date-time-picker": "tdesign-miniprogram/miniprogram_dist/date-time-picker/date-time-picker"
+  }
 }

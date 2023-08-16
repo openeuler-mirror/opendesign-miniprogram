@@ -56,6 +56,8 @@
 }
 
 .list .item .header image {
+    position: absolute;
+    right: 20rpx;
     height: 36rpx;
     width: 8rpx;
 }
@@ -172,4 +174,10 @@
 .empty-status .suc-wrapper text:last-child {
     font-size: 28rpx;
     color: #6d7278;
+}
+
+.mplatform {
+    margin-right: 40rpx;
+    color: #6d7278;
+    font-size: 24rpx;
 }

@@ -147,6 +147,16 @@ Component({
         curMid: '',
         curJoinUrl: '',
         collectionId: '',
+        platformList: [{
+            value: 'zoom',
+            name: 'Zoom'
+        }, {
+            value: 'welink',
+            name: 'WeLink(蓝版)'
+        }, {
+            value: 'tencent',
+            name: '腾讯会议'
+        }],
         id: '',
         showDialog: false,
         showDialogDel: false,
@@ -178,8 +188,8 @@ Component({
         // 组件所在页面的生命周期函数
         show: function () {
             that = this;
-            if((this.properties.pageType === 3) || (this.properties.pageType === 4)){
-                this.initData();    
+            if ((this.properties.pageType === 3) || (this.properties.pageType === 4)) {
+                this.initData();
             }
         }
     },
@@ -219,6 +229,9 @@ Component({
                 showDialog: true
             })
 
+        },
+        getPlatform: function (key) {
+            return this.data.platformList.find(item => item.name === key)?.value
         },
         copyLink: function () {
             wx.setClipboardData({
@@ -271,9 +284,9 @@ Component({
             })
         },
         toDetail: function (e) {
-            if(!localMethod.checkLogin()){
-                return;
-            }
+            // if(!localMethod.checkLogin()){
+            //     return;
+            // }
             wx.navigateTo({
                 url: '/package-meeting/meeting/detail?id=' + e.currentTarget.dataset.id
             })
@@ -286,7 +299,7 @@ Component({
             })
         },
         getMore(e) {
-            if(!localMethod.checkLogin()){
+            if (!localMethod.checkLogin()) {
                 return;
             }
             this.setData({

@@ -30,10 +30,6 @@
                 <text class="counts">{{publishedActivitiesCount||0}}</text>
                 <text class="text">已发布</text>
             </view>
-            <view  wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=3">
-                <text class="counts">{{registerTableCount||0}}</text>
-                <text class="text">报名表单</text>
-            </view>
             <view  wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=4">
                 <text class="counts">{{draftsCount||0}}</text>
                 <text class="text">草稿箱</text>
@@ -50,11 +46,6 @@
                 <text class="counts">{{collectedActivitiesCount||0}}</text>
                 <text class="text">已收藏</text>
             </view>
-            <view class="item" bindtap="go" data-url="/package-my/events/my-list?type=7">
-                <text class="counts">{{registerdActivitiesCount||0}}</text>
-                <text class="text">已报名</text>
-            </view>
-            
         </view>
     </view>
     <view class="center-bg"></view>

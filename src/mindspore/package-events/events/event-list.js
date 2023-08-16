@@ -80,19 +80,6 @@ let remoteMethods = {
       },
     });
   },
-  getSignUpInfo: function (id, _callback) {
-    appAjax.postJson({
-      autoShowWait: true,
-      type: 'GET',
-      service: 'GET_SIGNUP_INFO',
-      otherParams: {
-        id,
-      },
-      success: function (ret) {
-        _callback && _callback(ret);
-      },
-    });
-  },
 };
 Page({
   /**
@@ -241,15 +228,7 @@ Page({
         });
       }
     } else if (e.detail.operaType == 3) {
-      remoteMethods.getSignUpInfo(this.data.curId, (res) => {
-        wx.navigateTo({
-          url: `/package-events/sign-up/sign-up-success?name=${encodeURIComponent(
-            res.name
-          )}&title=${encodeURIComponent(res.title)}&tel=${encodeURIComponent(
-            res.telephone
-          )}&poster=${encodeURIComponent(res.poster)}&id=${encodeURIComponent(res.activity_id)}`,
-        });
-      });
+        return;
     } else {
       this.setData({
         underDialogShow: true,

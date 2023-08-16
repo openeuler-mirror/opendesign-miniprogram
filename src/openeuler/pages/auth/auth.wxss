@@ -58,12 +58,69 @@ page {
 }
 
 .container .privacy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #6d7278;
-    font-size: 28prpx;
+    font-size: 28rpx;
     text-align: center;
     margin-top: 30rpx;
 }
 
 .container .privacy text {
     color: #002fa7;
+}
+
+.container .privacy .van-checkbox {
+    margin-right: 16rpx;
+}
+
+.auth-btn {
+    position: relative;
+}
+.auth-btn .mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+.dialog-slot-content {
+    position: relative;
+    z-index: 1;
+    max-height: calc(70vh);
+    padding: 32rpx;
+    overflow-y: auto;
+    color: #000;
+}
+.dialog-slot-content view{
+    position: absolute;
+    margin-top: 0;
+    top: 32rpx;
+    z-index: 1;
+    left: 50%;
+    font-size: 36rpx;
+    transform: translateX(-50%);
+}
+.dialog-slot-content image {
+    width: 100%;
+    height: 6000rpx;
+}
+van-dialog button {
+    background-color: #002fa7;
+    color: #fff;
+}
+.btn-box {
+    display: flex;
+    padding: 24rpx;
+    background-color: #fff;
+}
+.btn-box button {
+    font-size: 30rpx;
+    flex:1;
+}
+.btn-box button:last-child {
+    margin-left: 12rpx;
+    color: #000;
+    background-color: transparent;
+    border: 1px solid #000;
 }

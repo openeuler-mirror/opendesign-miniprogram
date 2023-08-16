@@ -31,7 +31,8 @@
     </view>
     <view class="detail-item">
         <view class="name" wx:if="{{info.mplatform ==='zoom'}}">Zoom</view>
-        <view class="name" wx:else>WeLink</view>
+        <view class="name" wx:elif="{{info.mplatform ==='welink'}}">WeLink（蓝版）</view>
+        <view class="name" wx:else>腾讯会议</view>
         <view class="id">
             <image src="./../../static/index/link.svg"></image>
             <text>ID: {{info.mid}}</text>

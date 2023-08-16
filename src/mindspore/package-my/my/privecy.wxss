@@ -7,3 +7,11 @@ page {
     width: 690rpx;
     height: 7872rpx;
 }
+
+.historical {
+    display: flex;
+    font-size: 36rpx;
+}
+navigator {
+    color: #389EEB;
+}
