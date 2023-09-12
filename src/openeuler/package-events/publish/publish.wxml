@@ -32,6 +32,11 @@
                     </van-radio-group>
                 </view>
             </view>
+            <view class="form-item">
+                <text class="label">报名链接</text>
+                <text class="require">*</text>
+                <input value="{{registerUrl}}" bindinput="registerUrlInput" placeholder-class="placeholder" placeholder="请输入活动报名链接"></input>
+            </view>
             <view class="form-item" wx:if="{{type===2}}">
                 <text class="label">
                     <text>活动时间</text>
@@ -116,7 +121,7 @@
                     <view class="del-btn" bindtap="delSpeaker" data-outindex="{{index}}" data-innerindex="{{index1}}">
                         <image src="./../../static/events/speaker-del.svg" />
                     </view>
-                </view>  
+                </view>
                 <view class="form-item">
                     <text class="label">
                         <text>Name</text>
@@ -127,7 +132,7 @@
                 <view class="form-item">
                     <text class="label">Title</text>
                     <input value="{{item1.title}}" data-outindex="{{index}}" data-innerindex="{{index1}}" bindinput="speakerTitleInput" placeholder-class="placeholder" placeholder="请填写嘉宾的职位"></input>
-                </view>    
+                </view>
                 <view class="form-item">
                     <text class="label" wx:if="{{type==2}}">
                         <text>Mail</text>
@@ -135,7 +140,7 @@
                     </text>
                     <text class="label" wx:else>Mail</text>
                     <input value="{{item1.mail}}" data-outindex="{{index}}" data-innerindex="{{index1}}" bindinput="mailInput" placeholder-class="placeholder" placeholder="请填写嘉宾邮箱"></input>
-                </view> 
+                </view>
             </view>
             <view class="add-speaker" data-index="{{index}}" bindtap="addSpeaker">
                 <text>+ 继续添加Speaker</text>

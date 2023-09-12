@@ -3,7 +3,7 @@
     <image class="image" src="./../../static/common/default-avatar.png"></image>
     <text class="text">登录</text>
 </view>
-<view class="userinfo" wx:if="{{isLogin}}">
+<view class="userinfo" wx:else>
     <image class="image" src="{{avatarUrl}}"></image>
     <text class="text">{{text}}，{{nickName}}</text>
 </view>

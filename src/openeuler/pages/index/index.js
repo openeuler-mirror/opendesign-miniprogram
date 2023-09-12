@@ -6,9 +6,8 @@ let that = null;
 Page(mixin({
     data: {
         imgUrls: [{
-                type: 1,
-                url: 'https://openeuler-website-beijing.obs.cn-north-4.myhuaweicloud.com/MoocStudio/MoocStudio%E7%9A%84%E8%A7%86%E9%A2%911920X1080_small.mp4',
-                poster: 'https://openeuler-website-beijing.obs.cn-north-4.myhuaweicloud.com/detail-banner/mooc-banner.png'
+                type: 2,
+                url: 'https://openeuler-website-beijing.obs.cn-north-4.myhuaweicloud.com/detail-banner/mooc-banner.png'
         }, ],
         iphoneX: false,
         meetingConponent: null,
@@ -26,12 +25,12 @@ Page(mixin({
         })
     },
     swithTab(e) {
-        if (!sessionUtil.getUserInfoByKey('access')) {
-            wx.navigateTo({
-                url: '/pages/auth/auth'
-            })
-            return;
-        }
+        // if (!sessionUtil.getUserInfoByKey('access')) {
+        //     wx.navigateTo({
+        //         url: '/pages/auth/auth'
+        //     })
+        //     return;
+        // }
         wx.switchTab({
             url: e.currentTarget.dataset.url
         })
@@ -60,7 +59,7 @@ Page(mixin({
     onShow: function () {
         this.getTabBar().setData({
             _tabbat: 0
-        })
+        });
     },
     onPullDownRefresh: function () {
         wx.stopPullDownRefresh();

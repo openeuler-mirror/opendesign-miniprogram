@@ -1,40 +1,7 @@
 <!-- package-my/my/feedback.wxml -->
 <view class="container">
-    <view class="form">
-        <view class="form-item">
-                <text class="label">反馈类型</text>
-                <view class="type">
-                    <view data-index="{{1}}" bindtap="switchTab" class="tab {{type==1?'active':''}}">问题反馈</view>
-                    <view data-index="{{2}}" bindtap="switchTab" class="tab {{type==2?'active':''}}">产品建议</view>
-                </view>
-            </view>  
-        <view class="form-item meeting-desc">
-            <text class="label">
-                <text>留言反馈</text>
-                <text class="require">*</text>
-            </text>
-            <textarea value="{{content}}" maxlength="{{200}}" placeholder-class="placeholder" bindinput="contentInput" placeholder="请说明您的建议，我们将不断为您改进~">
-                <text class="hint">{{content.length}}/200</text>
-            </textarea>
-        </view>
-        <view class="form-item">
-            <text class="label">
-                <text>邮箱地址</text>
-                <text class="require">*</text>
-            </text>
-            <input value="{{email}}" maxlength="{{100}}" placeholder-class="placeholder" bindinput="emailInput" placeholder="请输入您的邮箱地址"></input>
+    <view>如果您对本服务有任何意见或建议，请联系 <view class="link">contact@openeuler.io</view></view>
+        <view class="commit">
+            <button  class="meeting-btn" bindtap="copyEmail">复制邮箱</button>
         </view>
     </view>
-    <view class="info">
-        <view>
-            <image src="./../../static/reserve/info.svg" />
-            <text>
-                <text class="require">*</text>
-                <text>号为必填项</text>
-            </text>
-        </view>
-    </view>
-    <view class="commit">
-        <button class="meeting-btn" bindtap="saveFeedback">提交</button>
-    </view>
-</view>

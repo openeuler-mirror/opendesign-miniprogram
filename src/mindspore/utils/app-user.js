@@ -49,6 +49,7 @@ let privateMethods = {
                 code: data.code,
               },
               success: function (result) {
+                res.userInfo.agreePrivacy = result.agree_privacy_policy;
                 res.userInfo.access = result.access;
                 res.userInfo.level = result.level;
                 res.userInfo.eventLevel = result.activity_level;
@@ -242,6 +243,7 @@ let appUser = {
             userInfo.eventLevel = result.activity_level;
             userInfo.gitee = result.gitee_name;
             userInfo.userId = result.user_id;
+            userInfo.agreePrivacy = result.agree_privacy_policy;
             // // 缓存用户信息
             appUser.saveLoginInfo(userInfo || {});
 

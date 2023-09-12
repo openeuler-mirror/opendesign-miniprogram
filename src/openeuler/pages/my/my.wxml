@@ -4,6 +4,7 @@
         <view class="my-user-info">
             <image src="{{avatarUrl}}"></image>
             <text>{{nickName}}</text>
+            <image bindtap="copy" data-copy="{{userId}}"  class="copy" src="../../static/common/copy.svg"></image>
         </view>
         <view class="my-meetings common-list">
             <view class="header">我的会议</view>
@@ -26,10 +27,6 @@
                 <text class="count">{{myCount.published_activities_count||0}}</text>
                 <text class="text">已发布</text>
             </view>
-            <view class="item" wx:if="{{avtivityLevel!=1}}" bindtap="go" data-url="/package-my/events/my-list?type=3">
-                <text class="count">{{myCount.register_table_count||0}}</text>
-                <text class="text">报名表单</text>
-            </view>
             <view class="item" wx:if="{{avtivityLevel!=1}}" bindtap="go" data-url="/package-my/events/my-list?type=4">
                 <text class="count">{{myCount.drafts_count||0}}</text>
                 <text class="text">草稿箱</text>
@@ -41,10 +38,6 @@
             <view class="item" bindtap="go" data-url="/package-my/events/my-list?type=6">
                 <text class="count">{{myCount.collected_activities_count||0}}</text>
                 <text class="text">已收藏</text>
-            </view>
-            <view wx:if="{{avtivityLevel!=3}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=7">
-                <text class="count">{{myCount.registerd_activities_count||0}}</text>
-                <text class="text">已报名</text>
             </view>
         </view>
     </view>

@@ -28,9 +28,9 @@ input {
 }
 
 .container .form .form-item {
-    padding: 0 30rpx;
+    padding: 28rpx 30rpx;
     background-color: #fff;
-    height: 108rpx;
+    /* height: 108rpx; */
     color: #333;
     font-size: 34rpx;
     display: flex;
@@ -92,6 +92,7 @@ input {
 }
 
 .container .form .form-item .label {
+    flex-shrink: 0;
     margin-right: 60rpx;
 }
 
@@ -217,6 +218,7 @@ input {
     height: 90rpx;
     font-size: 36rpx;
     margin: 60rpx 0;
+    overflow: hidden;
 }
 
 .container .sig-pop-wrapper .btn-wrapper .confirm {
@@ -243,4 +245,29 @@ input {
     overflow: unset;
     text-overflow: unset;
 
+}
+.container .privacy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6d7278;
+    font-size: 28rpx;
+    text-align: center;
+    margin: 30rpx 0;
+}
+
+.container .privacy text {
+    color: #002fa7;
+}
+
+.container .privacy .van-checkbox {
+    margin-right: 16rpx;
+}
+
+.van-radio {
+    margin-top: 20rpx;
+}
+
+.radio-class {
+    justify-content: center;
 }

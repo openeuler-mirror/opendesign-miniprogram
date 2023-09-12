@@ -60,6 +60,10 @@ let localMethods = {
             this.toast('开始时间必须小于结束时间');
             return;
         }
+        if (!that.data.privacyState) {
+            this.toast('请先阅读并同意隐私声明');
+            return;
+        }
         return true;
     },
     toast: function (msg) {
@@ -76,10 +80,11 @@ Page({
      * 页面的初始数据
      */
     data: {
+        privacyState: false,
         record: false,
-        sendDev:false,
-        meetingType:'Zoom',
-        typeList:['Zoom','WeLink（蓝版）'],
+        sendDev: false,
+        meetingType: 'zoom',
+        typeList: ['Zoom', 'WeLink（蓝版）', '腾讯会议'],
         topic: '',
         sponsor: '',
         groupName: '',
@@ -88,6 +93,7 @@ Page({
         start: '',
         end: '',
         etherpad: '',
+        sigEmail: '',
         agenda: '',
         emaillist: '',
         sigPopShow: false,
@@ -118,9 +124,6 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
-
-    },
     recordoOnChange: function (event) {
         this.setData({
             record: event.detail
@@ -129,6 +132,16 @@ Page({
     devOnChange: function (event) {
         this.setData({
             sendDev: event.detail,
+        });
+    },
+    toPrivacy() {
+        wx.navigateTo({
+            url: '/package-my/my/privecy'
+        })
+    },
+    privacyStateOnChange: function (event) {
+        this.setData({
+            privacyState: event.detail
         });
     },
     reset: function () {
@@ -154,11 +167,9 @@ Page({
         wx.requestSubscribeMessage({
             tmplIds: ['2xSske0tAcOVKNG9EpBjlb1I-cjPWSZrpwPDTgqAmWI'],
             success(res) {
-                let platform = '';
-                that.data.meetingType.includes('WeLink') ? platform = that.data.meetingType.slice(0,6):platform = that.data.meetingType
                 let email = null;
-                if(that.data.sendDev) {
-                    if (that.data.emaillist.charAt(that.data.emaillist.length-1) == ';' || that.data.emaillist.charAt(that.data.emaillist.length-1) =='；'|| that.data.emaillist.charAt(that.data.emaillist.length-1) =='') {
+                if (that.data.sendDev) {
+                    if (that.data.emaillist.charAt(that.data.emaillist.length - 1) == ';' || that.data.emaillist.charAt(that.data.emaillist.length - 1) == '；' || that.data.emaillist.charAt(that.data.emaillist.length - 1) == '') {
                         email = `${that.data.emaillist}dev@openeuler.org;`;
                     } else {
                         email = `${that.data.emaillist};dev@openeuler.org;`;
@@ -174,7 +185,7 @@ Page({
                     date: that.data.date,
                     start: that.data.start,
                     end: that.data.end,
-                    platform:platform,
+                    platform: that.data.meetingType,
                     etherpad: that.data.etherpad,
                     agenda: that.data.agenda,
                     emaillist: email,
@@ -224,10 +235,12 @@ Page({
             return item.group === that.data.sigResult;
         });
         sigObj = sigObj.length ? sigObj[0] : {}
+        sigObj.maillist === 'dev@openeuler.org' ? sigObj.maillist = '' : sigObj.maillist = `${sigObj.maillist};`;
         this.setData({
             groupName: sigObj.group_name || '',
             groupId: sigObj.group || '',
             etherpad: sigObj.etherpad || '',
+            emaillist: `${sigObj.maillist}` || '',
             sigPopShow: false
         })
     },
@@ -251,24 +264,29 @@ Page({
     },
     onTypeShow: function () {
         this.setData({
-          typeShow: true,
+            typeShow: true,
         })
-      },
+    },
     typeCancel: function () {
         this.setData({
-          typeShow: false,
+            typeShow: false,
         });
-      },
-      typeConfirm: function () {
+    },
+    typeConfirm: function () {
         this.setData({
-          typeShow: false,
+            typeShow: false,
         });
-      },
-      typeRadioOnChange: function (e) {
-          this.setData({
-            meetingType:e.detail
+    },
+    typeRadioOnChange: function (e) {
+        this.setData({
+            meetingType: e.detail
         });
-      },
+    },
+    radioOnChange(e) {
+        this.setData({
+            meetingType: e.detail,
+        })
+    },
     /**
      * 生命周期函数--监听页面显示
      */
@@ -291,6 +309,7 @@ Page({
             sigResult: e.detail
         })
     },
+    
     selSig: function () {
         if (!this.data.sigList.length) {
             this.setData({
@@ -344,17 +363,17 @@ Page({
     },
     dateOnInput: function (e) {
         this.setData({
-            currentDate: e.detail
+            currentDate: e.detail.value
         })
     },
     timeOnInput: function (e) {
         this.setData({
-            currentTime: e.detail
+            currentTime: e.detail.value
         })
     },
     endTimeOnInput: function (e) {
         this.setData({
-            currentEndTime: e.detail
+            currentEndTime: e.detail.value
         })
     },
 })

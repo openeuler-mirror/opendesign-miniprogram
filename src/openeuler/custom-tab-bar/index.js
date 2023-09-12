@@ -39,7 +39,7 @@ Component({
      */
     methods: {
         switchTap: function (e) {
-            if(!sessionUtil.getUserInfoByKey('access')){
+            if(!sessionUtil.getUserInfoByKey('access') && Number(e.currentTarget.dataset.index) ===3 ){
                 wx.navigateTo({
                     url: '/pages/auth/auth'
                 })

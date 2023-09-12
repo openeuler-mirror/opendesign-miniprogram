@@ -48,7 +48,7 @@ Component({
 
         show: function () {
             this.setData({
-                isLogin: sessionUtil.getUserInfoByKey('access')
+                isLogin: sessionUtil.getUserInfoByKey('access') || false
             })
             if (this.data.isLogin) {
                 this.setData({

@@ -48,7 +48,6 @@ Page({
     publishedActivitiesCount: 0,
     publishingActivitiesCount: 0,
     registerTableCount: 0,
-    registerdActivitiesCount: 0,
     userId: '',
   },
 
@@ -82,8 +81,6 @@ Page({
         draftsCount: res.drafts_count || 0,
         publishedActivitiesCount: res.published_activities_count || 0,
         publishingActivitiesCount: res.publishing_activities_count || 0,
-        registerTableCount: res.register_table_count || 0,
-        registerdActivitiesCount: res.registerd_activities_count || 0,
       });
     });
   },
@@ -119,8 +116,6 @@ Page({
         draftsCount: res.drafts_count || 0,
         publishedActivitiesCount: res.published_activities_count || 0,
         publishingActivitiesCount: res.publishing_activities_count || 0,
-        registerTableCount: res.register_table_count || 0,
-        registerdActivitiesCount: res.registerd_activities_count || 0,
       });
     });
   },

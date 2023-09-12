@@ -88,7 +88,6 @@ let appAjax = {
       loadingText: '加载中...', // 加载的提示语
       autoCloseWait: true, // 自动关闭菊花
       headers: {
-        'base-params': JSON.stringify(authClient),
         Authorization: appSession.getToken() ? 'Bearer ' + appSession.getToken() : '',
       },
       isAsync: true,
@@ -125,7 +124,7 @@ let appAjax = {
         if (res.statusCode === 401) {
           wx.removeStorageSync('_app_userinfo_session');
           ajaxParams.success(0, res);
-          if (beforePage.route === 'pages/auth/auth') {
+          if (beforePage?.route === 'pages/auth/auth') {
             return;
           }
           wx.navigateTo({

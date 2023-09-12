@@ -35,21 +35,19 @@
                 "publish/publish",
                 "publish/success",
                 "events/event-detail",
-                "events/poster",
-                "events/sign",
-                "events/sign-success"
+                "events/poster"
             ]
         },
         {
             "root": "package-my",
             "pages": [
                 "my/privecy",
+                "my/privecy-historical",
                 "my/my-meetings",
                 "my/my-collection",
                 "my/help",
                 "my/qrcode",
                 "events/my-list",
-                "events/send-email",
                 "my/feedback"
             ]
         }
@@ -87,6 +85,7 @@
         "wxml-to-canvas": "./miniprogram_npm/wxml-to-canvas"
     },
     "sitemapLocation": "sitemap.json",
+    "__usePrivacyCheck__": true,
     "tabBar": {
         "custom": true,
         "color": "#C7CAD0",

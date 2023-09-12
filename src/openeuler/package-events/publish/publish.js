@@ -84,6 +84,10 @@ let localMethods = {
                 this.toast('请选择活动日期');
                 return;
             }
+            if (!data.register_url) {
+                this.toast('请输入报名链接');
+                return;
+            }
             if (!data.address) {
                 this.toast('请输入活动城市');
                 return;
@@ -120,6 +124,10 @@ let localMethods = {
             }
             if (!data.date) {
                 this.toast('请选择活动日期');
+                return;
+            }
+            if (!data.register_url) {
+                this.toast('请输入报名链接');
                 return;
             }
             if (!data.start && !data.end) {
@@ -175,18 +183,17 @@ Page({
         type: 1,
         address: '',
         addressName: '',
+        registerUrl:'',
         desc: '',
         schedule: [{
             start: '',
             end: '',
             topic: '',
-            speakerList: [
-                {
-                    name: '',
-                    title: '',
-                    mail: ''
-                }
-            ]
+            speakerList: [{
+                name: '',
+                title: '',
+                mail: ''
+            }]
         }],
         datePopShow: false,
         timePopShow: false,
@@ -234,6 +241,7 @@ Page({
                     title: res.title,
                     date: res.date,
                     type: res.activity_type,
+                    registerUrl: res.register_url || '',
                     longitude: res.longitude || '',
                     latitude: res.latitude || '',
                     address: res.address || '',
@@ -280,26 +288,52 @@ Page({
         })
     },
     radioOnChange(e) {
+        let url;
+        if (e.detail === 2) {
+            url = 'https://space.bilibili.com/527064077'
+        } else {
+            url = '';
+        }
         this.setData({
-            type: e.detail
+            type: e.detail,
+            registerUrl:url
         })
     },
     selAddress() {
-        wx.chooseLocation({
-            success: function (res) {
-                that.setData({
-                    address: res.address,
-                    addressName: res.name,
-                    longitude: res.longitude,
-                    latitude: res.latitude
-                })
+        wx.showModal({
+            title: '提示',
+            content: '即将唤起腾讯地图，是否同意？',
+            success(res) {
+                if (res.confirm) {
+                    wx.chooseLocation({
+                        success: function (res) {
+                            that.setData({
+                                address: res.address,
+                                addressName: res.name,
+                                longitude: res.longitude,
+                                latitude: res.latitude,
+                            });
+                        },
+                        fail: function (res) {
+                            console.error(res);
+                        },
+                    });
+                } else if (res.cancel) {
+                    return false
+                }
             }
         })
+
     },
     addressNameInput(e) {
         this.setData({
             addressName: e.detail.value
         })
+    },
+    registerUrlInput(e) {
+        this.setData({
+            registerUrl: e.detail.value,
+        });
     },
     descInput(e) {
         this.setData({
@@ -343,7 +377,7 @@ Page({
         })
     },
     addSpeaker(e) {
-        const length =  this.data.schedule[e.currentTarget.dataset.index].speakerList.length;
+        const length = this.data.schedule[e.currentTarget.dataset.index].speakerList.length;
         const key = `schedule[${e.currentTarget.dataset.index}].speakerList[${length}]`;
         this.setData({
             [key]: {
@@ -392,7 +426,7 @@ Page({
         })
     },
     timeConfirm: function (e) {
-        if(this.data.isOnline){
+        if (this.data.isOnline) {
             this.setData({
                 onlineStartTime: this.data.currentTime,
                 isOnline: 0,
@@ -435,7 +469,7 @@ Page({
         })
     },
     endTimeConfirm: function () {
-        if(this.data.isOnline){
+        if (this.data.isOnline) {
             this.setData({
                 isOnline: 0,
                 onlineEndTime: this.data.currentEndTime,
@@ -468,6 +502,7 @@ Page({
                 "title": this.data.title,
                 "date": this.data.date,
                 "activity_type": 1,
+                "register_url": this.data.registerUrl || '',
                 "synopsis": this.data.desc,
                 "address": this.data.address,
                 "detail_address": this.data.addressName,
@@ -481,6 +516,7 @@ Page({
                 "title": this.data.title,
                 "date": this.data.date,
                 "activity_type": 2,
+                "register_url": this.data.registerUrl || '',
                 "synopsis": this.data.desc,
                 "longitude": this.data.longitude,
                 "latitude": this.data.latitude,
@@ -506,6 +542,7 @@ Page({
                 "title": this.data.title,
                 "date": this.data.date,
                 "activity_type": 1,
+                "register_url": this.data.registerUrl || '',
                 "synopsis": this.data.desc,
                 "address": this.data.address,
                 "detail_address": this.data.addressName,
@@ -519,6 +556,7 @@ Page({
                 "title": this.data.title,
                 "date": this.data.date,
                 "activity_type": 2,
+                "register_url": this.data.registerUrl || '',
                 "synopsis": this.data.desc,
                 "longitude": this.data.longitude,
                 "latitude": this.data.latitude,
@@ -547,6 +585,7 @@ Page({
                 "title": this.data.title,
                 "date": this.data.date,
                 "activity_type": 1,
+                "register_url": this.data.registerUrl || '',
                 "synopsis": this.data.desc,
                 "address": this.data.address,
                 "detail_address": this.data.addressName,
@@ -560,6 +599,7 @@ Page({
                 "title": this.data.title,
                 "date": this.data.date,
                 "activity_type": 2,
+                "register_url": this.data.registerUrl || '',
                 "synopsis": this.data.desc,
                 "longitude": this.data.longitude,
                 "latitude": this.data.latitude,

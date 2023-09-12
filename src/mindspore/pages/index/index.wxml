@@ -23,14 +23,4 @@
     </view>
     <meeting-list class="meeting1" is-home="true" bind:action-status="actionStatus" apiUrl="RECENTLY_MEETINGS">
     </meeting-list>
-    <van-dialog use-slot show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ isPrivecyShown }}"
-        class-name="sig-dialog">
-        <view class="dialog-slot-content">
-            <view>隐私政策更新通知</view>
-            <image
-                src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/mindsporeMini/mindspore%20Privacy%20Policy-1.png">
-            </image>
-        </view>
-            <button bindtap="handleClick">我已知晓</button>
-    </van-dialog>
 </view>

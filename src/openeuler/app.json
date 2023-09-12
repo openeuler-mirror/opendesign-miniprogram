@@ -31,23 +31,19 @@
                 "publish/publish",
                 "publish/success",
                 "events/event-detail",
-                "sign-up/sign-up",
-                "sign-up/sign-up-success",
-                "events/poster",
-                "events/sign",
-                "events/sign-success"
+                "events/poster"
             ]
         },
         {
             "root": "package-my",
             "pages": [
+                "my/privecy-historical",
                 "my/privecy",
                 "my/my-meetings",
                 "my/my-collection",
                 "my/help",
                 "my/qrcode",
                 "events/my-list",
-                "events/send-email",
                 "my/feedback"
             ]
         }
@@ -119,5 +115,8 @@
         "scope.userLocation": {
             "desc": "您的位置信息将用于确定活动地址"
         }
-    }
+    },
+    "requiredPrivateInfos": [
+        "chooseLocation"
+    ]
 }

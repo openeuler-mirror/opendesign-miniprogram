@@ -2,64 +2,64 @@ var _ = require('../utils/underscore-extend.js');
 
 // 通用接口配置	
 var commonServiceConfig = {
-	
-	// 登录接口
-	LOGIN : "/login/",
 
-	// 登录接口
-	SIG_LIST : "/groups/",
+    // 登录接口
+    LOGIN: "/login/",
 
-	// 获取sig组已添加成员列表
-	SIG_MEMBER_LIST: "/users_include/{id}/",
+    // 登录接口
+    SIG_LIST: "/groups/",
 
-	// 获取sig组未添加成员列表
-	SIG_EXCLUDE_MEMBER_LIST: "/users_exclude/{id}/",
+    // 获取sig组已添加成员列表
+    SIG_MEMBER_LIST: "/users_include/{id}/",
 
-	// 获取sig组未添加成员列表
-	ADD_MEMBER_LIST: "/groupuser/action/new/",
+    // 获取sig组未添加成员列表
+    SIG_EXCLUDE_MEMBER_LIST: "/users_exclude/{id}/",
 
-	// 获取sig组已添加成员列表
-	SIG_CLUDE_MEMBER_LIST: "/users_include/{id}/",
+    // 获取sig组未添加成员列表
+    ADD_MEMBER_LIST: "/groupuser/action/new/",
 
-	// 获取sig组未添加成员列表
-	DEL_MEMBER_LIST: "/groupuser/action/del/",
-	
-	// 获取sig组未添加成员列表
-	GET_USER_GROUP: "/usergroup/{id}/",
+    // 获取sig组已添加成员列表
+    SIG_CLUDE_MEMBER_LIST: "/users_include/{id}/",
 
-	// 创建会议
-	SAVE_MEETING: "/meetings/",
+    // 获取sig组未添加成员列表
+    DEL_MEMBER_LIST: "/groupuser/action/del/",
 
-	// 获取会议详情
-	GET_MEETING_DETAIL: "/meetings/{id}/",
+    // 获取sig组未添加成员列表
+    GET_USER_GROUP: "/usergroup/{id}/",
 
-	// 获取当日会议列表
-	GET_MEETING_DAILY: "/meetings_daily/",
+    // 创建会议
+    SAVE_MEETING: "/meetings/",
 
-	// 获取前后一周会议列表
-	GET_MEETING_WEEKLY: "/meetings_weekly/",
+    // 获取会议详情
+    GET_MEETING_DETAIL: "/meetings/{id}/",
 
-	// 删除会议
-	DEL_MEETING: "/meeting/{id}/",
+    // 获取当日会议列表
+    GET_MEETING_DAILY: "/meetings_daily/",
 
-	// 获取用户状态
-	GET_USER_STATUS: "/userinfo/{id}/",
+    // 获取前后一周会议列表
+    GET_MEETING_WEEKLY: "/meetings_weekly/",
 
-	// 保存用户giteename
-	SAVE_MEMBER_DETAIL: '/user/{id}/',
+    // 删除会议
+    DEL_MEETING: "/meeting/{id}/",
 
-	// 我创建的会议列表
-	MY_MEETINGS_LIST: '/mymeetings/',
+    // 获取用户状态
+    GET_USER_STATUS: "/userinfo/{id}/",
 
-	// 收藏会议
-	COLLECT: '/collect/',
+    // 保存用户giteename
+    SAVE_MEMBER_DETAIL: '/user/{id}/',
 
-	// 取消收藏
-	UNCOLLECT: '/collect/{id}/',
+    // 我创建的会议列表
+    MY_MEETINGS_LIST: '/mymeetings/',
 
-	// 收藏列表
+    // 收藏会议
+    COLLECT: '/collect/',
+
+    // 取消收藏
+    UNCOLLECT: '/collect/{id}/',
+
+    // 收藏列表
     MY_COLLECT_LIST: '/collections/',
-    
+
     // 获取发起人列表
     ENTERPRISE_MEMBER_LIST: '/sponsors/',
 
@@ -108,7 +108,7 @@ var commonServiceConfig = {
 
     // 我发布的活动
     MY_EVENTS_LIST: '/sponsoractivities/',
-    
+
     // 我发布的活动
     DEL_EVENT: '/activitydel/{id}/',
 
@@ -136,18 +136,6 @@ var commonServiceConfig = {
     // 最新活动列表
     LATEST_EVENTS: '/recentactivities/',
 
-    // 获取报名者信息
-    APPLICANT_INFO: '/applicantinfo/{id}/',
-    
-    // 报名
-    SAVE_SIGNUP_INFO: '/activityregister/',
-
-    // 我报名的活动
-    MY_SIGNUP_EVENTS: '/registeractivities/',
-
-    // 报名表单
-    SEND_SIGNUP_INFO: '/applicantsinfo/',
-
     // 保存意见反馈
     SAVE_FEEDBACK: '/feedback/',
 
@@ -157,20 +145,17 @@ var commonServiceConfig = {
     // 获取我的页面各类计数
     GET_MY_COUNT: '/mycounts/',
 
-    // 获取我的活动报名信息
-    GET_SIGNUP_INFO: '/ticket/{id}/',
-
     // 最近的会议列表
     RECENTLY_MEETINGS: '/meetings_recently/',
 
-    // 签到
-    SIGN: '/activitysign/'
+    // 同意隐私政策
+    AGREE: '/agree/',
 };
 
 
 
-let servicesConfig = _.deepExtend(true, 
-	commonServiceConfig
+let servicesConfig = _.deepExtend(true,
+    commonServiceConfig
 );
 
 module.exports = servicesConfig;

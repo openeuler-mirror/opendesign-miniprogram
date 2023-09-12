@@ -23,7 +23,7 @@ Page(mixin({
             meetingConponent: this.selectComponent('#meeting')
         })
         let that = this;
-        
+
         appUser.updateUserInfo(function () {
             that.setData({
                 level: sessionUtil.getUserInfoByKey('level')
@@ -62,6 +62,12 @@ Page(mixin({
     },
     navigateTo(e) {
         const url = e.currentTarget.dataset.url;
+        if (url.includes('reserve') && !sessionUtil.getUserInfoByKey('access')) {
+            wx.navigateTo({
+                url: '/pages/auth/auth'
+            })
+            return;
+        }
         if ((this.data.level === 1) && url.includes('reserve')) {
             this.setData({
                 noAuthDialogShow: true
