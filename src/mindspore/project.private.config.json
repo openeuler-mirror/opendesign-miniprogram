@@ -4,6 +4,13 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "",
+                    "pathName": "pages/auth/auth",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "pages/meeting/meeting",
                     "pathName": "pages/meeting/meeting",
                     "query": "",

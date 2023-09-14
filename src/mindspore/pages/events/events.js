@@ -146,6 +146,9 @@ Page({
                     underDialogShow: false,
                 });
             },
+            fail: (err) => {
+                console.log(err);
+            }
         });
     },
     onActionClose() {

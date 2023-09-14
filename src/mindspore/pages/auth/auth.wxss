@@ -100,25 +100,22 @@ page {
     background-color: rgba(255, 255, 255, 0.5);
 }
 .dialog-slot-content {
-    position: relative;
-    z-index: 1;
-    max-height: calc(70vh);
-    padding: 32rpx;
+    height: 70vh;
     overflow-y: auto;
     color: #000;
+    padding: 0 24rpx;
 }
-.dialog-slot-content view{
-    position: absolute;
-    margin-top: 0;
-    top: 32rpx;
-    z-index: 1;
-    left: 50%;
+.dialog-slot-content .title {
     font-size: 36rpx;
-    transform: translateX(-50%);
 }
-.dialog-slot-content image {
+.dialog-slot-content .container {
+    display: block;
+    margin-top: 0;
     width: 100%;
-    height: 6000rpx;
+}
+.dialog-slot-content .container text{
+    padding: 0;
+    text-align: left;
 }
 van-dialog button {
     background-color: #40ADFF;

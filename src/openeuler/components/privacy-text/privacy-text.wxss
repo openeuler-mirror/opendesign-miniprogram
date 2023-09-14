@@ -1,15 +1,9 @@
 /* pages/my/privecy.wxss */
-/* pages/my/privecy.wxss */
 page {
     background-color: #fff;
 }
 
-.container image {
-    width: 690rpx;
-    height: 7600rpx;
-}
-
-text {
+.privecy-text text {
     display: block;
     margin: 24rpx 0;
     line-height: 56rpx;
@@ -20,7 +14,7 @@ text {
     font-size: 40rpx;
 }
 .center {
-    text-align: center;
+    text-align: center !important;
 }
 
 .title {
@@ -30,3 +24,4 @@ text {
 .content {
     color: #6C7279FF;
 }
+
