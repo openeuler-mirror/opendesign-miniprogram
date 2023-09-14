@@ -1,7 +1,8 @@
 {
   "usingComponents": {
       "user-info": "/components/user-info/user-info",
-      "meeting-list": "/components/meeting-list/meeting-list"
+      "meeting-list": "/components/meeting-list/meeting-list",
+      "privacy": "/components/privacy/privacy"
   },
   "navigationBarTitleText": "MindSpore",
   "enablePullDownRefresh": true,

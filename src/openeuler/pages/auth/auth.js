@@ -90,6 +90,9 @@ Page(
                         }
                     }, res.userInfo);
                 },
+                fail:(err) => {
+                    console.log(err);
+                }
             });
         },
         recordoOnChange: function (event) {

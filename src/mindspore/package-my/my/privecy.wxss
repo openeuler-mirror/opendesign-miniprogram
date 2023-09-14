@@ -1,17 +1,17 @@
-/* pages/my/privecy.wxss */
-page {
-    background-color: #fff;
+.content {
+    color: #6C7279FF;
 }
-
-.container image {
-    width: 690rpx;
-    height: 7872rpx;
+.container  {
+    padding-bottom: 0;
 }
-
 .historical {
     display: flex;
     font-size: 36rpx;
+    color: #333;
+    padding: 0 30rpx;
+    padding-bottom: 129rpx;
 }
+
 navigator {
     color: #389EEB;
 }

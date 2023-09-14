@@ -79,6 +79,7 @@
         "wxml-to-canvas": "wxml-to-canvas"
     },
     "sitemapLocation": "sitemap.json",
+    "__usePrivacyCheck__": true,
     "tabBar": {
         "custom": true,
         "color": "#000000",

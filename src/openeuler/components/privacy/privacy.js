@@ -49,10 +49,6 @@ Component({
             wx.switchTab({
                 url: '/pages/index/index',
             });
-            // wx.showToast({
-            //     title: '必须同意后才可以继续使用当前小程序',
-            //     icon: 'none'
-            // })
         },
         // 同意隐私协议
         handleAgreePrivacyAuthorization() {

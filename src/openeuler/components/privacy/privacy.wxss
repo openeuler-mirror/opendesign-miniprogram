@@ -36,7 +36,7 @@
 }
 
 .content .des .link {
-    color: #389EEB;
+    color: #002fa7;
     text-decoration: underline;
 }
 
@@ -63,6 +63,6 @@
 }
 
 .btns .agree {
-    background: #389EEB;
+    background: #002fa7;
     color: #fff;
 }

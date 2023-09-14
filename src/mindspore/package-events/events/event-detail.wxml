@@ -1,5 +1,6 @@
 <!-- package-events/events/event-detail.wxml -->
 <view class="container">
+    <privacy />
     <view class="banner-title banner-type{{info.poster}}">
         <text class="{{info.poster === 3 ? 'black':''}}">{{info.title}}</text>
         <view class="video-mask" bindtap="maskClick"

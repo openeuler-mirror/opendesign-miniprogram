@@ -1,5 +1,6 @@
 <!-- package-events/events/event-detail.wxml -->
 <view class="container">
+    <privacy />
     <video wx:if="{{info.replay_url}}" hidden="{{videoHidden}}" bindfullscreenchange="fullScreenChange" id="video" src="https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/openEuler_MG%2BAnimate_1920x500_0128.mp4"></video>
     <view class="banner-title banner-type{{info.poster}}">
         <text>{{info.title}}</text>
@@ -22,11 +23,11 @@
         <view class="address" bindtap="openLocation" data-item="{{info}}">
             <view class="left" wx:if="{{info.activity_type==1}}">
                 <image src="./../../static/common/location.svg"></image>
-                <text >{{info.address}}</text>
+                <text>{{info.address}}</text>
             </view>
             <view class="left" wx:else>
                 <image src="./../../static/index/link.svg"></image>
-                <text bindtap="copyLink" >{{info.join_url}}</text>
+                <text bindtap="copyLink">{{info.join_url}}</text>
             </view>
             <image hidden="{{info.activity_type==2}}" class="arrow-right" src="./../../static/common/arrow-right.svg" />
         </view>
@@ -60,7 +61,7 @@
                                             {{item.name}}-{{item.title||''}}
                                         </view>
                                     </block>
-                                    
+
                                 </view>
                                 <view class="circle"></view>
                                 <view class="line"></view>
@@ -132,8 +133,7 @@
         </block>
         <button class="btn-primary" wx:else bindtap="redrictLogin">立即报名</button>
     </view>
-    <van-dialog use-slot title="报名链接" show-confirm-button="{{false}}" show-cancel-button="{{false}}"
-        show="{{ showRegister }}" closeOnClickOverlay='true' class-name="sig-dialog">
+    <van-dialog use-slot title="报名链接" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showRegister }}" closeOnClickOverlay='true' class-name="sig-dialog">
         <view class="dialog-slot-content">
             <text>
                 {{info.register_url}}
