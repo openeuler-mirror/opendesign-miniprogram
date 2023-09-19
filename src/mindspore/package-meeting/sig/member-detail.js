@@ -11,8 +11,6 @@ let remoteMethods = {
       },
       data: {
         gitee_name: postData.gitee_name,
-        email: postData.email,
-        telephone: postData.telephone,
       },
       success: function (ret) {
         _callback && _callback(ret);
@@ -30,8 +28,6 @@ Page({
     gitee_name: '',
     name: '',
     nickname: '',
-    phoneNmuber: '',
-    email: '',
     btnText: '',
     isShowMes: false,
   },
@@ -63,27 +59,11 @@ Page({
         duration: 2000,
       });
       return;
-    } else if (!that.data.phoneNmuber) {
-      wx.showToast({
-        title: '请输入手机号码',
-        icon: 'none',
-        duration: 2000,
-      });
-      return;
-    } else if (!that.data.email) {
-      wx.showToast({
-        title: '请输入电子邮箱地址',
-        icon: 'none',
-        duration: 2000,
-      });
-      return;
-    }
+    } 
     remoteMethods.saveMemberGiteeName(
       {
         id: that.data.id,
         gitee_name: that.data.gitee_name,
-        email: that.data.email,
-        telephone: that.data.phoneNmuber,
       },
       function () {
         that.setData({
@@ -97,23 +77,13 @@ Page({
       this.setData({
         gitee_name: e.detail.value,
       });
-    } else if (e.target.dataset.index === 'phone') {
-      this.setData({
-        phoneNmuber: e.detail.value,
-      });
-    } else if (e.target.dataset.index === 'email') {
-      this.setData({
-        email: e.detail.value,
-      });
-    } else {
+    }  else {
       return false;
     }
   },
   reset: function () {
     this.setData({
       name: '',
-      phoneNmuber: '',
-      email: '',
     });
   },
 });

@@ -235,7 +235,6 @@ Page({
             speakerList: [{
                 name: '',
                 title: '',
-                mail: '',
             }, ],
         }, ],
         allSchedule: [],
@@ -420,7 +419,6 @@ Page({
                             speakerList: [{
                                 name: '',
                                 title: '',
-                                mail: '',
                             }, ],
                         }, ]);
                     }
@@ -451,7 +449,6 @@ Page({
                         speakerList: [{
                             name: '',
                             title: '',
-                            mail: '',
                         }, ],
                     }, ]);
                 }
@@ -499,7 +496,6 @@ Page({
             [key]: {
                 name: '',
                 title: '',
-                mail: '',
             },
         });
     },
@@ -568,12 +564,6 @@ Page({
     },
     speakerTitleInput(e) {
         const key = `allSchedule[${e.currentTarget.dataset.dayindex}][${e.currentTarget.dataset.outindex}].speakerList[${e.currentTarget.dataset.innerindex}].title`;
-        this.setData({
-            [key]: e.detail.value,
-        });
-    },
-    mailInput(e) {
-        const key = `allSchedule[${e.currentTarget.dataset.dayindex}][${e.currentTarget.dataset.outindex}].speakerList[${e.currentTarget.dataset.innerindex}].mail`;
         this.setData({
             [key]: e.detail.value,
         });

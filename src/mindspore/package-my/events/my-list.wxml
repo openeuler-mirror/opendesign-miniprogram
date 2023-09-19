@@ -72,10 +72,6 @@
                         </view>
                     </view>
                 </view>
-                <view wx:if="{{type==3}}" class="sendSignUpInfo">
-                    <text class="signUpNum">已报名 {{item.register_count}}人</text>
-                    <button class="sendBtn" data-id="{{item.id}}" bindtap="sendEmail">发送名单到邮箱</button>
-                </view>
                 <image wx:if="{{(type != 3)&&(type != 5)&&(type != 1)&&(type != 4)&&item.collection_id}}"
                     class="collection" src="./../../static/common/collection-icon.svg"></image>
                 <view class="mask" wx:if="{{type==1}}" bindtap="toExamine" data-id="{{item.id}}">

@@ -1,16 +1,17 @@
 <!-- pages/my/privecy.wxml -->
 <view class="container">
     <text class="privecy-text" user-select="{true}">
-        <text class="center font-h1 title">openEuler小程序隐私政策</text>
+        <text class="center font-h1 title">openEuler小程序隐私声明</text>
         <text class="content">我们深知您的隐私对您的重要性，并充分尊重您的隐私。在向我们提交您的个人信息之前，请您仔细阅读本《隐私政策声明》（以下简称“本声明”）。如果您对于我们处理您的个人信息的方式有任何疑问，欢迎与我们联系。本声明中的“我们”是指openEuler社区，“服务”是指openEuler小程序。</text>
         <text class="title">1.我们如何收集和处理您的个人信息</text>
         <text class="content">a) 当您登录时，我们会收集您的微信昵称、头像和性别，用于确认您是否具有创建会议的权限，向您发送会议通知及向第三方告知会议的组织人（maintainer）等。无论您是否拥有相关权限，您均可以收藏、订阅会议信息。</text>
         <text class="content">b) 当您预定会议之前，我们会收集您的Gitee ID和所属SIG组别名称，用于配置预定会议权限，并作为会议信息的部分展示在小程序。</text>
-        <text class="content">c) 当您创建会议后，我们会将您的Gitee ID及会议相关信息同步至本服务页面，以便对您的会议感兴趣的个人或组织及时获取相关信息。</text>
-        <text class="content">d) 当您创建活动之前，我们会收集您的Gitee ID、所属企业名称、电话、邮箱，用于配置活动发布权限，Gitee ID和您的所属企业名称会作为活动的发布者信息呈现在活动详情页，电话、邮箱便于我们与您取得联系。</text>
-        <text class="content">e) 当您为您创建的活动添加议题时，我们会收集您所填写议题的嘉宾名称、职位、邮箱，用于在活动议题的内容中展示。</text>
-        <text class="content">f) 当您在下载活动海报时，我们会申请您的相册保存权限，保存小程序生成的活动海报。</text>
-        <text class="content">g) 当您在活动详情页面点击地址时，我们在获取您的同意后会关联启动腾讯地图。</text>
+        <text class="content">c ) 当您预定会议时，如您填写邮箱地址我们会收集填写邮箱并向其发送会议通知。</text>
+        <text class="content">d ) 当您创建会议后，我们会将您的Gitee ID及会议相关信息同步至本服务页面及openEuler社区网站（https://www.openeuler.org）以便对您的会议感兴趣的个人或组织及时获取相关信息。</text>
+        <text class="content">e ) 当您创建活动之前，我们会收集您的Gitee ID、所属企业名称用于配置活动发布权限，Gitee ID和您的所属企业名称会作为活动的发布者信息呈现在活动详情页。</text>
+        <text class="content">f ) 当您为您创建的活动添加议题时，我们会收集您所填写议题的嘉宾名称、职位用于在活动议题的内容中展示。</text>
+        <text class="content">g ) 当您在下载活动海报时，我们会申请您的相册保存权限，保存小程序生成的活动海报。</text>
+        <text class="content">h ) 当您在活动详情页面点击地址时，我们在获取您的同意后会关联启动腾讯地图。</text>
         <text class="title">2. 我们在何种情况披露或共享您的个人信息</text>
         <text class="content">共享是指我们向第三方披露您的个人信息。我们仅会出于合法、正当、必要、特定、明确的目的共享您的个人信息，我们共享这些信息的目的仅限于本声明披露或在您允许的范围内进行。</text>
         <text class="content">a) 为了保护国家安全、公共安全以及您和其他个人的重大合法权益而需要共享您的个人信息。</text>
@@ -39,7 +40,7 @@
         <text class="content">如果您对本协议有任何疑问或主张任何与个人信息有关的权利，您可以通过以下方式与我们联系</text>
         <text class="content">联系邮箱：contact@openeuler.io</text>
         <text class="content">联系热线：+86 18683791700</text>
-        <text class="content">最近更新时间：2023年9月11日</text>
-        <text class="content">隐私政策版本：v2023091101</text>
+        <text class="content">最近更新时间：2023年9月19日</text>
+        <text class="content">隐私声明版本：v2023091901</text>
     </text>
 </view>
