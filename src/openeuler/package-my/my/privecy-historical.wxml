@@ -13,7 +13,7 @@
         <text class="content">g) 当您在活动详情页面点击地址时，我们在获取您的同意后会关联启动腾讯地图。</text>
         <text class="title">2. 我们在何种情况披露或共享您的个人信息</text>
         <text class="content">共享是指我们向第三方披露您的个人信息。我们仅会出于合法、正当、必要、特定、明确的目的共享您的个人信息，我们共享这些信息的目的仅限于本声明披露或在您允许的范围内进行。</text>
-        <text class="content">a)为合规、防止欺诈和安全目的共享。我们可能为遵循适用的法律法规、防止欺诈和安全目的共享您的个人信息。</text>
+        <text class="content">a) 为了保护国家安全、公共安全以及您和其他个人的重大合法权益而需要共享您的个人信息。</text>
         <text class="title">3. 我们将保留多久您的个人信息</text>
         <text class="content">我们将会在达成本声明所述目的所需的期限内保留您的个人信息，除非按照法律要求或您的要求需要延长保留期。</text>
         <text class="content">一般而言，我们会自您使用本服务时获取您的个人信息之日起，根据可适用法律的要求或服务协议的约定，在留存期限内存储或保留您的个人信息。在您的个人信息超出保留期限后，且没有法律要求我们继续处理您的特定个人信息的情况下，我们将会根据可适用法律的要求删除您的个人信息，或进行匿名化处理。</text>
@@ -38,8 +38,8 @@
         <text class="title">9.如何联系我们</text>
         <text class="content">如果您对本协议有任何疑问或主张任何与个人信息有关的权利，您可以通过以下方式与我们联系</text>
         <text class="content">联系邮箱：contact@openeuler.io</text>
-        <text class="content">联系热线：18683791700</text>
-        <text class="content">最近更新时间：2023年8月24日</text>
-        <text class="content">隐私政策版本：v2023082401</text>
+        <text class="content">联系热线：+86 18683791700</text>
+        <text class="content">最近更新时间：2023年9月11日</text>
+        <text class="content">隐私政策版本：v2023091101</text>
     </text>
 </view>
