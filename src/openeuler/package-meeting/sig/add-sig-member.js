@@ -1,5 +1,5 @@
 // pages/sig/add-sig-member.js
-var appAjax = require('./../../utils/app-ajax');
+const appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
     getSigMemberList: function (id, _callback) {
         appAjax.postJson({

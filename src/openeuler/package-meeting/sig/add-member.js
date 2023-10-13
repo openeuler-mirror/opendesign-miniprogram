@@ -1,5 +1,5 @@
 // pages/sig/add-member.js
-var appAjax = require('./../../utils/app-ajax');
+const appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
     getExcludeMemberList: function (postData, _callback) {
         appAjax.postJson({

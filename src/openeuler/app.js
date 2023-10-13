@@ -1,8 +1,7 @@
 //app.js
-var appSession = require("./utils/app-session.js");
 App({
     onLaunch: function () {
-        var self = this
+        const self = this
         //判断微信版本是否 兼容小程序更新机制API的使用
         if (wx.canIUse('getUpdateManager')) {
             //创建 UpdateManager 实例

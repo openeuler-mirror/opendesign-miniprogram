@@ -2,16 +2,16 @@
  * 请求方法
  */
 
-var appSession = require('./app-session.js');
-var underscore = require('./underscore-extend.js');
+const appSession = require('./app-session.js');
+const underscore = require('./underscore-extend.js');
 const servicesConfig = require('../config/services-config.js');
 const CONSTANTS = require('../config/constants.js');
 
 /* 基础通信参数  */
-var _authClient = function () {
-    var deviceId = "miniprogram";
+const _authClient = function () {
+    const deviceId = "miniprogram";
 
-    var auth = {
+    const auth = {
         authParams: {
             timestamp: new Date().getTime(),
             deviceId: deviceId,
@@ -35,22 +35,22 @@ var _authClient = function () {
  * 获取service
  * @param {Object} params
  */
-var _getInterfaceUrl = function (params) {
-    var interfaceUrl;
+const _getInterfaceUrl = function (params) {
+    let interfaceUrl;
     if (!params.otherParams) {
         return servicesConfig[params["service"]];
     }
-    for (var key in params.otherParams) {
+    for (let key in params.otherParams) {
         interfaceUrl = (interfaceUrl || servicesConfig[params["service"]]).replace("{" + key + "}", params.otherParams[key]);
     }
 
     return interfaceUrl;
 };
 
-var _addUrlParam = function (data) {
+const _addUrlParam = function (data) {
 
-    var postData = "";
-    for (var key in data) {
+    let postData = "";
+    for (let key in data) {
         if (!postData) {
             postData = "?" + key + "=" + data[key];
         } else {
@@ -61,7 +61,7 @@ var _addUrlParam = function (data) {
     return postData;
 };
 
-var appAjax = {
+const appAjax = {
 
     /**
      * 提交请求
@@ -76,10 +76,10 @@ var appAjax = {
      */
     postJson: function (params) {
 
-        var authClient = _authClient();
+        let authClient = _authClient();
 
         // 默认参数
-        var defaultParams = {
+        let defaultParams = {
             service: "", // 服务的配置名称
             success: function (d) {}, // 成功后回调
             error: null, // 失败后回调
@@ -92,7 +92,7 @@ var appAjax = {
             },
             isAsync: true
         };
-        var ajaxParams = underscore.deepExtend(true, defaultParams, params);
+        let ajaxParams = underscore.deepExtend(true, defaultParams, params);
         // rest请求路径
         ajaxParams["url"] = CONSTANTS["SERVICE_URL"] + _getInterfaceUrl(ajaxParams);
         if ((ajaxParams.type == "GET" || ajaxParams.type == "DELETE") && ajaxParams.data && typeof (ajaxParams.data) == "object") {

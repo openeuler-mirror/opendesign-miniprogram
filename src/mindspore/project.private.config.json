@@ -5,6 +5,20 @@
             "list": [
                 {
                     "name": "",
+                    "pathName": "package-my/my/privecy-seting",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/my/my",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
                     "pathName": "package-events/manage/member-detail",
                     "query": "id=3&avatar=https%253A%252F%252Fthirdwx.qlogo.cn%252Fmmopen%252Fvi_32%252FPOgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg%252F132&name=haml-707&nickname=%25E5%25BE%25AE%25E4%25BF%25A1%25E7%2594%25A8%25E6%2588%25B7",
                     "launchMode": "default",

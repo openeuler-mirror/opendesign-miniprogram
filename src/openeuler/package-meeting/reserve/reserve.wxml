@@ -14,10 +14,6 @@
                     <text>会议平台</text>
                     <text class="require">*</text>
                 </text>
-                <!-- <view class="arrow">
-                    <text class="sel-data">{{meetingType}}</text>
-                    <image src="./../../static/common/arrow-right.svg" />
-                </view> -->
                 <van-radio-group value="{{meetingType}}" bind:change="radioOnChange" direction="horizontal">
                     <van-radio label-class="radio-class" name="zoom" icon-size="40rpx" checked-color="#002fa7">
                         Zoom
@@ -67,7 +63,6 @@
             </view>
             <view class="form-item">
                 <text class="label">Etherpad链接</text>
-                <!-- <text class="etherpad">{{etherpad}}</text> -->
                 <input value="{{etherpad}}" maxlength="{{100}}" placeholder-class="placeholder" bindinput="etherInput" placeholder="请输入Etherpad链接"></input>
             </view>
             <view class="form-item">
@@ -100,10 +95,6 @@
                     <van-checkbox value="{{ sendDev }}" icon-size="46rpx" bind:change="devOnChange" checked-color="#002fa7"></van-checkbox>
                 </view>
             </view>
-            <!-- <view class="form-item" wx:if="{{ sigEmail!=='dev@openeuler.org' }}">
-                <text class="label">SIG邮箱</text>
-                <text class="etherpad">{{ sigEmail }}</text>
-            </view>    -->
         </view>
     </view>
     <view class="info">
@@ -177,9 +168,6 @@
             </view>
         </t-date-time-picker>
     </view>
-    <!-- <van-popup show="{{ endTimePopShow }}" round position="bottom" bind:click-overlay="endTimeCancel">
-
-    </van-popup> -->
     <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialogWarn }}" class-name="sig-dialog">
         <view class="dialog-slot-content">
             <text>当前您不属于任何SIG组，请先在SIG管理中关联SIG组</text>

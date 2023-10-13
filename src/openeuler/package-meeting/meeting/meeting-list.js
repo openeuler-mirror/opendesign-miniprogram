@@ -7,12 +7,12 @@ Page({
     data: {
         meetingConponent: null
     },
-    
+
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
-        
+    onLoad: function () {
+
         this.setData({
             meetingConponent: this.selectComponent('#meeting')
         })

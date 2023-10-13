@@ -19,10 +19,12 @@ page {
 }
 
 .container .user-info-wrapper .my-user-info {
+    display: flex;
+    justify-content: space-between;
     height: 110rpx;
 }
 
-.container .user-info-wrapper .my-user-info image {
+.container .user-info-wrapper .my-user-info  image {
     border-radius: 100%;
     height: 135rpx;
     width: 135rpx;
@@ -30,6 +32,14 @@ page {
     position: relative;
     top: -67.5rpx;
     margin-right: 20rpx;
+}
+
+.container .user-info-wrapper .my-user-info  .right image {
+    top: -54rpx;
+    width: 48rpx;
+    height: 48rpx;
+    border: none;
+    margin: 0;
 }
 
 .container .user-info-wrapper .my-user-info .copy {
@@ -41,12 +51,12 @@ page {
 }
 
 .container .user-info-wrapper .my-user-info text {
-    margin-right: 20rpx;
     color: #fff;
     font-size: 36rpx;
     position: relative;
     line-height: 50rpx;
     top: -157.5rpx;
+    margin-right: 20rpx;
 }
 
 .container .common-list .header {

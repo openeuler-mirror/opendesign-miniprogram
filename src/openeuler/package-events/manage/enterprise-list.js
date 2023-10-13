@@ -1,5 +1,5 @@
 // package-events/manage/enterprise-list.js
-var appAjax = require('./../../utils/app-ajax');
+const appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
     getMemberList: function (_callback) {
         appAjax.postJson({
