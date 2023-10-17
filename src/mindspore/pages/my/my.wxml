@@ -3,9 +3,16 @@
     <view class="top-box">
         <view class="user-info-wrapper">
             <view class="my-user-info">
-                <image src="{{avatarUrl}}"></image>
-                <text>{{nickName}}</text>
-                <image bindtap="copy" data-copy="{{userId}}"  class="copy" src="../../static/common/copy.svg"></image>
+                <view class="left">
+                    <image src="{{avatarUrl}}"></image>
+                    <text>{{nickName}}</text>
+                    <image bindtap="copy" data-copy="{{userId}}" class="copy" src="../../static/common/copy.svg"></image>
+                </view>
+                <view class="right">
+                    <navigator url='/package-my/my/privecy-seting'>
+                        <image class="seting" src="../../static/my/common-functions/seting.svg"></image>
+                    </navigator>
+                </view>
             </view>
             <view class="my-meetings common-list">
                 <view class="header">我的会议</view>
@@ -26,19 +33,19 @@
     <view class="common-functions">
         <view class="header">我的活动</view>
         <view class="list">
-            <view  wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=2">
+            <view wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=2">
                 <text class="counts">{{publishedActivitiesCount||0}}</text>
                 <text class="text">已发布</text>
             </view>
-            <view  wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=4">
+            <view wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=4">
                 <text class="counts">{{draftsCount||0}}</text>
                 <text class="text">草稿箱</text>
             </view>
-            <view  wx:if="{{avtivityLevel==3}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=1">
+            <view wx:if="{{avtivityLevel==3}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=1">
                 <text class="counts">{{publishingActivitiesCount||0}}</text>
                 <text class="text">待发布</text>
             </view>
-            <view  wx:if="{{avtivityLevel==2}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=5">
+            <view wx:if="{{avtivityLevel==2}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=5">
                 <text class="counts">{{publishingActivitiesCount||0}}</text>
                 <text class="text">发布中</text>
             </view>

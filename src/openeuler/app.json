@@ -44,7 +44,8 @@
                 "my/help",
                 "my/qrcode",
                 "events/my-list",
-                "my/feedback"
+                "my/feedback",
+                "my/privecy-seting"
             ]
         }
     ],

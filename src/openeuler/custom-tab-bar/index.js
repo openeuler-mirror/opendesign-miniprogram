@@ -23,7 +23,7 @@ Component({
         ]
     },
     attached() {
-        var self = this
+        let self = this
         wx.getSystemInfo({
             success(res) {
                 if ((res.model.indexOf('iPhone X') >= 0) || (res.model.indexOf('iPhone 11') >= 0)) {
@@ -45,9 +45,9 @@ Component({
                 })
                 return;
             }
-            var self = this
-            var index = e.currentTarget.dataset.index;
-            var urls = self.data.urls
+            let self = this
+            let index = e.currentTarget.dataset.index;
+            let urls = self.data.urls
             wx.switchTab({
                 url: urls[index],
             })

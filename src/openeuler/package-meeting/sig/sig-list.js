@@ -1,5 +1,5 @@
 // pages/sig/sig-list.js
-var appAjax = require('./../../utils/app-ajax');
+const appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
     getSigList: function (keyword, _callback) {
         appAjax.postJson({

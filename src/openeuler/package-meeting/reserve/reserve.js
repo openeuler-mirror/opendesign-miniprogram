@@ -1,9 +1,8 @@
 // pages/reserve/reserve.js
-var appAjax = require('./../../utils/app-ajax');
-var appSession = require("./../../utils/app-session.js");
-var utils = require("./../../utils/utils.js");
+const appAjax = require('./../../utils/app-ajax');
+const appSession = require("./../../utils/app-session.js");
+const utils = require("./../../utils/utils.js");
 utils.formateDate();
-let that = null;
 let remoteMethods = {
     getUserGroup: function (id, _callback) {
         appAjax.postJson({
@@ -169,7 +168,7 @@ Page({
             success(res) {
                 let email = null;
                 if (that.data.sendDev) {
-                    if (that.data.emaillist.charAt(that.data.emaillist.length - 1) == ';' || that.data.emaillist.charAt(that.data.emaillist.length - 1) == '；' || that.data.emaillist.charAt(that.data.emaillist.length - 1) == '') {
+                    if (that.data.emaillist.at(-1) == ';' || that.data.emaillist.at(-1) == '；' || that.data.emaillist.at(-1) == '') {
                         email = `${that.data.emaillist}dev@openeuler.org;`;
                     } else {
                         email = `${that.data.emaillist};dev@openeuler.org;`;
@@ -309,7 +308,7 @@ Page({
             sigResult: e.detail
         })
     },
-    
+
     selSig: function () {
         if (!this.data.sigList.length) {
             this.setData({

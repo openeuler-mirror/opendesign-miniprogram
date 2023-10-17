@@ -1,0 +1,21 @@
+<!-- pages/my/my.wxml -->
+<view class=" {{iphoneX?'container-x':''}}">
+    <view class="cancel-consent" data-operate="isPrivecyDiaShown" bindtap="shownDialog">
+        <view class="left">取消同意隐私声明</view>
+        <view class="right">></view>
+    </view>
+    <view class="cancel-consent">
+        <view class="left">账号注销</view>
+        <view class="right">></view>
+    </view>
+    <button>退出登陆</button>
+    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ isPrivecyDiaShown || isLogoffDiaShown||  isLogoutDiaShown }}" class-name="scancel-consent-dialog">
+        <view class="dialog-slot-content">
+            <text>请确认是否取消同意隐私声明</text>
+            <view>
+                <button bindtap="confirmCancel">确认</button>
+                <button bindtap="cancel">我再想想</button>
+            </view>
+        </view>
+    </van-dialog>
+</view>

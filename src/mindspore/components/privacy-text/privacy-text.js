@@ -2,8 +2,6 @@
 // const app = getApp();
 
 Page({
-    data: {
-    },
-    onLoad: function () {
-    },
-})
+  data: {},
+  onLoad: function () {},
+});

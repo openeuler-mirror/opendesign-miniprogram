@@ -2,13 +2,13 @@
 const sessionUtil = require("../../utils/app-session.js");
 const localMethods = {
     getCurText() {
-        var timestamp = Date.parse(new Date());
+        let timestamp = Date.parse(new Date());
         timestamp = timestamp / 1000;
-        var n = timestamp * 1000;
-        var date = new Date(n);
-        var h = date.getHours();
-        var m = date.getMinutes();
-        var hm = parseFloat(h + '.' + m);
+        let n = timestamp * 1000;
+        let date = new Date(n);
+        let h = date.getHours();
+        let m = date.getMinutes();
+        let hm = parseFloat(h + '.' + m);
         if (23 < hm || hm <= 6) {
             return '请睡吧';
         }

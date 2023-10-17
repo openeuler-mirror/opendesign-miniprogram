@@ -1,0 +1,13 @@
+.privecy-seting {
+    display: flex;
+    flex-direction: column;
+}
+
+.cancel-consent {
+    display: flex;
+    justify-content: space-between;
+    padding: 30rpx;
+    margin-top: 20rpx;
+    font-size: 34rpx;
+    background-color: #ffffff;
+}

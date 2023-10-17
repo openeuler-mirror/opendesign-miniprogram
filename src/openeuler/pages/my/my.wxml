@@ -2,9 +2,16 @@
 <view class="container {{iphoneX?'container-x':''}}" style="height: 100%">
     <view class="user-info-wrapper">
         <view class="my-user-info">
-            <image src="{{avatarUrl}}"></image>
-            <text>{{nickName}}</text>
-            <image bindtap="copy" data-copy="{{userId}}"  class="copy" src="../../static/common/copy.svg"></image>
+            <view class="left">
+                <image src="{{avatarUrl}}"></image>
+                <text>{{nickName}}</text>
+                <image bindtap="copy" data-copy="{{userId}}" class="copy" src="../../static/common/copy.svg"></image>
+            </view>
+            <view class="right">
+                <navigator url='/package-my/my/privecy-seting'>
+                    <image class="seting" src="../../static/my/common-functions/seting.svg"></image>
+                </navigator>
+            </view>
         </view>
         <view class="my-meetings common-list">
             <view class="header">我的会议</view>

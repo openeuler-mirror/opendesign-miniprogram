@@ -1,7 +1,7 @@
-var _ = require('../utils/underscore-extend.js');
+let _ = require('../utils/underscore-extend.js');
 
 // 通用接口配置	
-var commonServiceConfig = {
+let commonServiceConfig = {
 
     // 登录接口
     LOGIN: "/login/",
@@ -150,6 +150,12 @@ var commonServiceConfig = {
 
     // 同意隐私政策
     AGREE: '/agree/',
+    // 退出登陆
+    LOGOUT: '/logout/',
+    // 注销账号
+    LOGOFF: '/logoff/',
+    // 撤销登陆
+    REVOKE: '/revoke/'
 };
 
 

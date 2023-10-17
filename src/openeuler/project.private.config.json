@@ -6,6 +6,13 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "",
+                    "pathName": "package-my/my/privecy-seting",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "package-events/events/event-detail",
                     "pathName": "package-events/events/event-detail",
                     "query": "scene=33",
