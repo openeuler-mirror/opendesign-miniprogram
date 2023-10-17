@@ -1,6 +1,3 @@
 {
-    "usingComponents": {
-        "message": "/components/message/message"
-    },
     "navigationBarTitleText": "留言反馈"
 }

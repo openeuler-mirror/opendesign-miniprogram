@@ -25,7 +25,7 @@
     </view>
     <van-dialog use-slot show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ isPrivecyShown }}" class-name="sig-dialog">
         <view class="dialog-slot-content">
-            <view class="title">隐私政策更新通知</view>
+            <view class="title">隐私声明更新通知</view>
             <privacy-text />
         </view>
         <view class="btn-box">

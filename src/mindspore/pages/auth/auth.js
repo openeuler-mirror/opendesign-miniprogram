@@ -44,7 +44,6 @@ Page(
                                 pages[pages.length - 2].route === 'pages/auth/auth' ? pages[pages.length - 3] : pages[pages.length - 2]; // 前一个页面
                             const id = beforePage?.options.id || that.data.id;
                             const url = id ? '/' + beforePage?.route + '?id=' + id : '/' + beforePage?.route;
-                            console.log(sessionUtil.getUserInfoByKey('agreePrivacy'));
                             if (!sessionUtil.getUserInfoByKey('agreePrivacy')) {
                                 this.setData({
                                     isPrivecyShown: true,

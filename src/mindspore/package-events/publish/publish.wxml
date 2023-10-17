@@ -174,16 +174,6 @@
                                 data-dayindex="{{dayIndex}}" bindinput="speakerTitleInput"
                                 placeholder-class="placeholder" placeholder="请填写嘉宾的职位"></input>
                         </view>
-                        <view class="form-item">
-                            <text class="label" wx:if="{{type==2}}">
-                                <text>Mail</text>
-                                <text class="require">*</text>
-                            </text>
-                            <text class="label" wx:else>Mail</text>
-                            <input value="{{item1.mail}}" data-outindex="{{index}}" data-innerindex="{{index1}}"
-                                data-dayindex="{{dayIndex}}" bindinput="mailInput" placeholder-class="placeholder"
-                                placeholder="请填写嘉宾邮箱"></input>
-                        </view>
                     </view>
                     <view class="add-speaker" data-index="{{index}}" data-dayindex="{{dayIndex}}" bindtap="addSpeaker">
                         <text>+ 继续添加Speaker</text>

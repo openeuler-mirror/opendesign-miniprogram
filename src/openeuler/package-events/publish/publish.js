@@ -149,9 +149,6 @@ let localMethods = {
                     if (!item.name) {
                         flag = false;
                     }
-                    if (!item.mail) {
-                        flag = false;
-                    }
                 })
             });
             if (!flag) {
@@ -192,7 +189,6 @@ Page({
             speakerList: [{
                 name: '',
                 title: '',
-                mail: ''
             }]
         }],
         datePopShow: false,
@@ -358,12 +354,6 @@ Page({
             [key]: e.detail.value
         })
     },
-    mailInput(e) {
-        const key = `schedule[${e.currentTarget.dataset.outindex}].speakerList[${e.currentTarget.dataset.innerindex}].mail`;
-        this.setData({
-            [key]: e.detail.value
-        })
-    },
     addSchedule() {
         let arrTemp = this.data.schedule;
         arrTemp.push({
@@ -383,7 +373,6 @@ Page({
             [key]: {
                 name: '',
                 title: '',
-                mail: ''
             }
         })
     },
