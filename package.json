@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "lint": "eslint src",
-    "lint:mindspore": "eslint src/mindspore"
+    "lint:mindspore": "eslint src/mindspore",
+    "lint:fix": "eslint --fix --ext \".wxml,.js,.json\" --ignore-path .eslintignore ."
   },
   "repository": {
     "type": "git",

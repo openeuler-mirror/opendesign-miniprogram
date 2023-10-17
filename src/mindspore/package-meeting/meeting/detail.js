@@ -103,6 +103,7 @@ Page({
       });
     } else {
       wx.requestSubscribeMessage({
+        //TODO::确认用途
         tmplIds: ['tK51rqE72oFo5e5ajCnvkPwnsCncfydgcV1jb9ed6Qc', 'kKkokqmaH62qp_txDQrNnyoRbM5wCptTAymhmsfHT7c'],
         complete() {
           remoteMethods.collect(that.data.id, function (res) {

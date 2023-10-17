@@ -95,13 +95,13 @@ Page({
                   duration: 2000,
                 });
               },
-              fail: function (err) {
+              fail: function () {
                 wx.showModal({
                   title: '保存失败~',
                   content: '请尝试点击右上角 “...” => “设置” 同意添加到相册后再保存~',
                 });
               },
-              complete(res) {
+              complete() {
                 wx.hideLoading();
               },
             });
@@ -123,7 +123,7 @@ Page({
           req(filePath);
         },
         fail: (err) => {
-          req(err);
+          rej(err);
         },
       });
     });

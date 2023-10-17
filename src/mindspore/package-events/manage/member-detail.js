@@ -59,7 +59,7 @@ Page({
         duration: 2000,
       });
       return;
-    } 
+    }
     remoteMethods.saveMemberGiteeName(
       {
         id: that.data.id,
@@ -77,11 +77,11 @@ Page({
       this.setData({
         gitee_name: e.detail.value,
       });
-    } 
+    }
   },
   reset: function () {
     this.setData({
-        gitee_name: '',
+      gitee_name: '',
     });
   },
 });

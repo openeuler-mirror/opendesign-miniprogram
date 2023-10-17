@@ -3,25 +3,6 @@ const appSession = require('./app-session.js');
 const constants = require('../config/constants');
 const app = getApp();
 
-const remote = {
-  /**
-   * 绑定手机
-   * @param {Object} phone
-   * @param {Object} _callback
-   */
-  _bindUserPhone: function (phone, _callback) {
-    appAjax.postJson({
-      service: 'BIND_PHONE',
-      data: {
-        phone: phone,
-      },
-      success: function (ret) {
-        _callback && _callback(ret);
-      },
-    });
-  },
-};
-
 const privateMethods = {
   /**
    * 登录
@@ -123,8 +104,6 @@ const appUser = {
     }
   },
 
-  bindPhone: remote._bindUserPhone,
-
   /**
    * 登录
    * @param {Object} successCallback
@@ -144,22 +123,6 @@ const appUser = {
           wx.navigateTo({
             url: '/pages/auth/auth',
           });
-        }
-      },
-    });
-  },
-
-  /**
-   * 退出登录
-   */
-  logOut: function (callback) {
-    wx.showModal({
-      title: '',
-      content: '确定要退出您的账号？',
-      success: function (res) {
-        if (res.confirm) {
-          appSession.clearUserInfo();
-          callback && callback();
         }
       },
     });

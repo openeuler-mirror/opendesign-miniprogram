@@ -1,7 +1,5 @@
 const appAjax = require('./../../utils/app-ajax');
-const sessionUtil = require('../../utils/app-session.js');
 
-let that = null;
 let remoteMethods = {
   handleLogout: function (_callback) {
     appAjax.postJson({
@@ -39,9 +37,6 @@ Page({
     isPrivecyDiaShown: false,
     isLogoffDiaShown: false,
     content: '',
-  },
-  onShow: function () {
-    that = this;
   },
   shownDialog: function (e) {
     const operate = e.currentTarget.dataset.operate;

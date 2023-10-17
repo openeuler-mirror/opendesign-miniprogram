@@ -1,26 +1,6 @@
-let appSession = require('./app-session.js');
 let constants = require('../config/constants');
 let appAjax = require('./app-ajax.js');
 let app = getApp();
-
-let remote = {
-  /**
-   * 绑定手机
-   * @param {Object} phone
-   * @param {Object} _callback
-   */
-  _bindUserPhone: function (phone, _callback) {
-    appAjax.postJson({
-      service: 'BIND_PHONE',
-      data: {
-        phone: phone,
-      },
-      success: function (ret) {
-        _callback && _callback(ret);
-      },
-    });
-  },
-};
 
 let privateMethods = {
   /**
@@ -74,58 +54,6 @@ let privateMethods = {
 
 let appUser = {
   /**
-   * 需要登录的跳转
-   * page为空不能传null 要 ""
-   */
-  loginRedirect: function (page, callback) {
-    // 是否有登录
-    if (!appSession.loginCheck()) {
-      appUser.login(function (result) {
-        if (result && !result.phone) {
-          wx.navigateTo({
-            url: '../register/bind-phone?page=' + page,
-          });
-        } else {
-          wx.navigateTo({
-            url: page,
-          });
-        }
-
-        // 支持回调
-        callback && callback();
-      });
-    } else {
-      wx.navigateTo({
-        url: page,
-      });
-    }
-  },
-
-  /**
-   * 需要登录的操作
-   * @param page  操作页 page为空不能传null 要 ""
-   * @param callback
-   */
-  loginHandle: function (page, callback) {
-    // 是否有登录
-    if (!appSession.loginCheck()) {
-      appUser.login(function (result) {
-        if (result && !result.phone) {
-          wx.navigateTo({
-            url: '../register/bind-phone?page=' + page,
-          });
-        } else {
-          callback && callback();
-        }
-      });
-    } else {
-      callback && callback();
-    }
-  },
-
-  bindPhone: remote._bindUserPhone,
-
-  /**
    * 登录
    * @param {Object} successCallback
    * @param {Object} failCallback
@@ -144,23 +72,6 @@ let appUser = {
           wx.navigateTo({
             url: '/pages/auth/auth',
           });
-        }
-      },
-    });
-  },
-
-  /**
-   * 退出登录
-   */
-  logOut: function (callback) {
-    wx.showModal({
-      title: '',
-      content: '确定要退出您的账号？',
-      success: function (res) {
-        if (res.confirm) {
-          // 清理用户信息
-          appSession.clearUserInfo();
-          callback && callback();
         }
       },
     });
@@ -197,7 +108,7 @@ let appUser = {
         type: 'GET',
         service: 'GET_USER_STATUS',
         otherParams: {
-          id: userInfo.userId
+          id: userInfo.userId,
         },
         success: function (ret) {
           if (ret) {

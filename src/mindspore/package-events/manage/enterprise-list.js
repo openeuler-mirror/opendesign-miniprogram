@@ -40,11 +40,7 @@ Page({
         '&name=' +
         e.currentTarget.dataset.name +
         '&nickname=' +
-        e.currentTarget.dataset.nickname +
-        '&email=' +
-        (e.currentTarget.dataset.email || '') +
-        '&telephone=' +
-        (e.currentTarget.dataset.telephone || ''),
+        e.currentTarget.dataset.nickname,
     });
   },
   addMember: function () {
