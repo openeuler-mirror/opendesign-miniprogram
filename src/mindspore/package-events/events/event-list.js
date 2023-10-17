@@ -212,11 +212,11 @@ Page({
             this.onLoad();
           });
         }
-      } else if(e.detail.operaType == 2){
+      } else if (e.detail.operaType == 2) {
         this.setData({
-          showDialogDel:true
-        })
-      } 
+          showDialogDel: true,
+        });
+      }
     } else if (e.detail.operaType == 1) {
       if (this.data.collectionId) {
         remoteMethods.unCollect(() => {
@@ -228,7 +228,7 @@ Page({
         });
       }
     } else if (e.detail.operaType == 3) {
-        return;
+      return;
     } else {
       this.setData({
         underDialogShow: true,

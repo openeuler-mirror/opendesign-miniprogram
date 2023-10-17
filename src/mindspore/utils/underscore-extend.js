@@ -1,10 +1,13 @@
-/**
- * underscore扩展方法
- */
+function isObject(obj) {
+  return obj !== null && typeof obj === 'object' && !Array.isArray(obj);
+}
 
-let _ = require('./underscore.js');
+// 实现 isArray 方法
+function isArray(obj) {
+  return Array.isArray(obj);
+}
 
-_.mixin({
+const _ = {
   /**
    * 对象深拷贝
    */
@@ -13,12 +16,11 @@ _.mixin({
       args = [].slice.call(arguments, 1);
 
     let extend = function (target, source, deep) {
-      let isArray = _.isArray;
       let isWindow = function (obj) {
         return obj != null && obj == obj.window;
       };
       let isPlainObject = function (obj) {
-        return _.isObject(obj) && !isWindow(obj) && obj.__proto__ == Object.prototype;
+        return isObject(obj) && !isWindow(obj) && obj.__proto__ == Object.prototype;
       };
       for (let key in source) {
         //如果深度扩展
@@ -44,6 +46,6 @@ _.mixin({
     });
     return target;
   },
-});
+};
 
 module.exports = _;

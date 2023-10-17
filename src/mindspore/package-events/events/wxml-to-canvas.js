@@ -1,9 +1,7 @@
 const wxml = (data) => {
   return `
     <view class="container">
-        <image class="bgImg" src="https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/poster/bg${
-          data.poster
-        }.png" />
+        <image class="bgImg" src="https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/poster/bg${data.poster}.png" />
         <view class="absolute">
             <text class="title">${data.title}</text>
             <image class="logo" src="https://community-meeting-minutes.obs.cn-north-4.myhuaweicloud.com:443/imgs/logo.png" />
