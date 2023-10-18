@@ -33,6 +33,7 @@ const privateMethods = {
                 res.userInfo.agreePrivacy = result.agree_privacy_policy;
                 res.userInfo.access = result.access;
                 res.userInfo.level = result.level;
+                res.userInfo.nickName = result.nickname;
                 res.userInfo.eventLevel = result.activity_level;
                 res.userInfo.gitee = result.gitee_name;
                 res.userInfo.userId = result.user_id;
@@ -160,6 +161,7 @@ const appUser = {
           if (ret) {
             userInfo.gitee = ret.gitee_name;
             userInfo.level = ret.level;
+            userInfo.nickName = ret.nickname;
             userInfo.eventLevel = ret.activity_level;
             wx.setStorageSync(constants.APP_USERINFO_SESSION, userInfo);
           }
@@ -200,9 +202,9 @@ const appUser = {
             userInfo.eventLevel = result.activity_level;
             userInfo.gitee = result.gitee_name;
             userInfo.userId = result.user_id;
+            userInfo.nickName = result.nickname;
             // // 缓存用户信息
             appUser.saveLoginInfo(userInfo || {});
-
             // 回调
             callback && callback(userInfo || {});
           },

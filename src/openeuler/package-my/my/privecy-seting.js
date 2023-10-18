@@ -35,16 +35,15 @@ const remoteMethods = {
 Page({
   data: {
     iphoneX: false,
-    avatarUrl: './../../static/common/default-avatar.png',
-    nickName: 'haml-707',
+    avatarUrl: '',
+    nickName: '',
     isPrivecyDiaShown: false,
     isLogoffDiaShown: false,
     content: '',
     deleteText: '',
   },
-  onload: function () {
+  onLoad: function () {
     this.setData({
-      iphoneX: this.getTabBar().data.iPhoneX,
       avatarUrl: sessionUtil.getUserInfoByKey('avatarUrl'),
       nickName: sessionUtil.getUserInfoByKey('nickName'),
     });

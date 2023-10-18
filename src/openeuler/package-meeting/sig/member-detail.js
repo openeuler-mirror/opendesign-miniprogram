@@ -26,6 +26,7 @@ Page({
     id: '',
     avatar: '',
     nickname: '',
+    rawName: '',
     name: '',
   },
 
@@ -38,6 +39,7 @@ Page({
       avatar: options.avatar,
       nickname: options.nickname,
       name: options.name,
+      rawName: options.name,
     });
   },
 

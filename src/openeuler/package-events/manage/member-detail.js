@@ -5,7 +5,7 @@ let remoteMethods = {
     appAjax.postJson({
       autoShowWait: true,
       type: 'PUT',
-      service: 'ENTERPRISE_SAVE_MEMBER_DETAIL',
+      service: 'SAVE_MEMBER_DETAIL',
       otherParams: {
         id: postData.id,
       },
@@ -30,9 +30,7 @@ Page({
     avatar: '',
     nickname: '',
     name: '',
-    enterprise: '',
-    telephone: '',
-    email: '',
+    rawName: '',
   },
 
   /**
@@ -44,9 +42,7 @@ Page({
       avatar: options.avatar,
       nickname: options.nickname,
       name: options.name,
-      enterprise: options.enterprise || '',
-      telephone: options.telephone || '',
-      email: options.email || '',
+      rawName: options.name,
     });
   },
 
@@ -64,21 +60,10 @@ Page({
       });
       return;
     }
-    if (!that.data.enterprise) {
-      wx.showToast({
-        title: '请输入企业名称',
-        icon: 'none',
-        duration: 2000,
-      });
-      return;
-    }
     remoteMethods.saveMemberGiteeName(
       {
         id: that.data.id,
         name: that.data.name,
-        enterprise: that.data.enterprise,
-        telephone: that.data.telephone,
-        email: that.data.email,
       },
       function (data) {
         if (data.code == 400) {
@@ -103,21 +88,6 @@ Page({
   onInput: function (e) {
     this.setData({
       name: e.detail.value,
-    });
-  },
-  enterpriseOnInput(e) {
-    this.setData({
-      enterprise: e.detail.value,
-    });
-  },
-  telephoneOnInput(e) {
-    this.setData({
-      telephone: e.detail.value,
-    });
-  },
-  emailOnInput(e) {
-    this.setData({
-      email: e.detail.value,
     });
   },
   reset: function () {
