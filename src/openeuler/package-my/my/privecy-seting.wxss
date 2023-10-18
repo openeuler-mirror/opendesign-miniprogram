@@ -22,6 +22,7 @@
 .cancel-consent image {
   width: 34rpx;
   height: 34rpx;
+  border-radius: 50%;
 }
 .my-user-info view {
   display: flex;

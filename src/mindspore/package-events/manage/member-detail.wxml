@@ -8,7 +8,7 @@
         </view>
     </view>
     <view class="input-title">输入ID</view>
-    <input placeholder="请输入ID" value="{{gitee_name}}" data-index="id" bindinput="onInput"></input>
+    <input placeholder="请输入ID" maxlength="{{20}}" value="{{gitee_name}}" data-index="id" bindinput="onInput"></input>
     <view class="btn-wraper">
         <button class="confirm" bindtap="confirm">确定</button>
         <button class="reset" bindtap="reset">重置</button>

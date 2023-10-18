@@ -5,7 +5,7 @@
             <view class="left">
                 <image src="{{avatarUrl}}"></image>
                 <text>{{nickName}}</text>
-                <image bindtap="copy" data-copy="{{userId}}" class="copy" src="../../static/common/copy.svg"></image>
+                <image bindtap="copy" data-copy="{{nickName}}" class="copy" src="../../static/common/copy.svg"></image>
             </view>
             <view class="right">
                 <navigator url='/package-my/my/privecy-seting'>

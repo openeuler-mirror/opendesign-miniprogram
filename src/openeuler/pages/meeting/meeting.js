@@ -11,6 +11,7 @@ Page(
      */
     data: {
       noAuthDialogShow: false,
+      level: 1,
       iphoneX: false,
       meetingConponent: null,
     },
