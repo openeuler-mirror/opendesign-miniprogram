@@ -7,7 +7,7 @@
                     <text>会议名称</text>
                     <text class="require">*</text>
                 </text>
-                <input value="{{topic}}" maxlength="{{100}}" bindinput="sigNameInput" placeholder-class="placeholder" placeholder="请输入会议名称"></input>
+                <input value="{{topic}}" maxlength="{{128}}" bindinput="sigNameInput" placeholder-class="placeholder" placeholder="请输入会议名称"></input>
             </view>
             <view class="form-item">
                 <text class="label">
@@ -63,7 +63,7 @@
             </view>
             <view class="form-item">
                 <text class="label">Etherpad链接</text>
-                <input value="{{etherpad}}" maxlength="{{100}}" placeholder-class="placeholder" bindinput="etherInput" placeholder="请输入Etherpad链接"></input>
+                <input value="{{etherpad}}" maxlength="{{255}}" placeholder-class="placeholder" bindinput="etherInput" placeholder="请输入Etherpad链接"></input>
             </view>
             <view class="form-item">
                 <text class="label">自动录制会议</text>

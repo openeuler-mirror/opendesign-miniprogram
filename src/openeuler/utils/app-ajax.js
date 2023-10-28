@@ -7,30 +7,6 @@ const underscore = require('./underscore-extend.js');
 const servicesConfig = require('../config/services-config.js');
 const CONSTANTS = require('../config/constants.js');
 
-/* 基础通信参数  */
-const _authClient = function () {
-  const deviceId = 'miniprogram';
-
-  const auth = {
-    authParams: {
-      timestamp: new Date().getTime(),
-      deviceId: deviceId,
-    },
-    clientParams: {
-      os: 'mini',
-      network: '',
-      deviceId: deviceId,
-      appVersion: CONSTANTS.APP_VERSION,
-    },
-    openId: appSession.getUserInfoByKey('openId') || '',
-    appId: CONSTANTS.APP_ID,
-    areaCode: CONSTANTS.AREA_CODE,
-    miniId: CONSTANTS.MINI_ID,
-  };
-
-  return auth;
-};
-
 /**
  * 获取service
  * @param {Object} params
@@ -76,8 +52,6 @@ const appAjax = {
    * complete: ""			// 完成回调
    */
   postJson: function (params) {
-    let authClient = _authClient();
-
     // 默认参数
     let defaultParams = {
       service: '', // 服务的配置名称
@@ -87,7 +61,6 @@ const appAjax = {
       loadingText: '加载中...', // 加载的提示语
       autoCloseWait: true, // 自动关闭菊花
       headers: {
-        'base-params': JSON.stringify(authClient),
         Authorization: appSession.getToken() ? 'Bearer ' + appSession.getToken() : '',
       },
       isAsync: true,
@@ -124,13 +97,16 @@ const appAjax = {
         if (res.statusCode === 401) {
           wx.removeStorageSync('_app_userinfo_session');
           ajaxParams.success(0, res);
-          wx.navigateTo({
-            url: '/pages/auth/auth',
-          });
+          const pages = getCurrentPages(); // 当前页面
+          if (pages[0].route !== '/pages/auth/auth') {
+            wx.navigateTo({
+              url: '/pages/auth/auth',
+            });
+          }
           return;
         }
         if (res.statusCode.toString()[0] != 2) {
-          let message = '有点忙开个小差，稍后再试~';
+          let message = (res?.data?.detail && res.statusCode.toString() === 400) || '有点忙开个小差，稍后再试~';
           if (ajaxParams.error) {
             ajaxParams.error(message, res);
           } else {
@@ -152,7 +128,7 @@ const appAjax = {
             wx.setStorageSync(CONSTANTS.APP_USERINFO_SESSION, data);
           }
         }
-        let message = '有点忙开个小差，稍后再试~';
+        let message = (res?.data?.detail && res.statusCode.toString() === 400) || '有点忙开个小差，稍后再试~';
         ajaxParams.error && ajaxParams.error(message, res);
       },
       complete: function (res) {

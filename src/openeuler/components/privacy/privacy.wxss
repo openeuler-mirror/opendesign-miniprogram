@@ -59,10 +59,10 @@
 
 .btns .reject {
     background: #f4f4f5;
-    color: #909399;
+    color: #000;
 }
 
 .btns .agree {
-    background: #002fa7;
-    color: #fff;
+    background: #f4f4f5;
+    color: #000;
 }

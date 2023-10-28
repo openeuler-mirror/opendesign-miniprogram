@@ -6,10 +6,8 @@ App({
     if (wx.canIUse('getUpdateManager')) {
       //创建 UpdateManager 实例
       const updateManager = wx.getUpdateManager();
-      console.log('是否进入模拟更新');
       //检测版本更新
       updateManager.onCheckForUpdate(function (res) {
-        console.log('是否获取版本');
         // 请求完新版本信息的回调
         if (res.hasUpdate) {
           //监听小程序有版本更新事件

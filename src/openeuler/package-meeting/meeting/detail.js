@@ -61,7 +61,6 @@ Page({
     });
   },
   getPlatform: function (target) {
-    console.log(target);
     return this.data.platformList.find((item) => {
       return item.name === target;
     });

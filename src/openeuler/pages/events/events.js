@@ -166,7 +166,7 @@ Page({
         }
       } else {
         this.setData({
-          showDialoogDel: true,
+          showDialogDel: true,
         });
       }
     } else {

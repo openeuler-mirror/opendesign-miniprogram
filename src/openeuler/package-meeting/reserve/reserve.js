@@ -51,6 +51,10 @@ let localMethods = {
       this.toast('请选择开始时间');
       return;
     }
+    if (new Date() > new Date(`${that.data.date} ${that.data.start}`)) {
+      this.toast('会议时间已过，请正确选择');
+      return;
+    }
     if (!that.data.end) {
       this.toast('请选择结束时间');
       return;

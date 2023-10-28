@@ -1,8 +1,0 @@
-<div class="container">
-    <text class="privecy-text" user-select="{true}">
-        <text class="center">版本更新说明</text>
-        <text class="content">请您仔细阅读此次隐私声明的更新内容：</text>
-        <text class="content">● “我们将保留多久您的个人信息” 章节中，明确了注销账号后的个人信息处理时间</text>
-        <text class="content">● “如何访问或控制您的个人信息” 章节中，该等权利刷新为上述权利</text>
-    </text>
-</div>
