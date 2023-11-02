@@ -519,9 +519,11 @@ Page({
       return;
     }
     remoteMethods.addEvents(postData, (res) => {
-      wx.redirectTo({
-        url: '/package-events/publish/success?type=2',
-      });
+      if (res.code === 201) {
+        wx.redirectTo({
+          url: '/package-events/publish/success?type=2',
+        });
+      }
     });
   },
   saveDraft() {

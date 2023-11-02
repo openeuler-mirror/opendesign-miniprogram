@@ -208,6 +208,7 @@ Component({
                 })
             } else {
                 wx.requestSubscribeMessage({
+                    // tmplIds 对应消息模板
                     tmplIds: ['2xSske0tAcOVKNG9EpBjlb1I-cjPWSZrpwPDTgqAmWI', 'UpxRbZf8Z9QiEPlZeRCgp_MKvvqHlo6tcToY8fToK50'],
                     success(res) {
                         remoteMethods.collect(that.data.id, function (res) {
@@ -236,7 +237,7 @@ Component({
         copyLink: function () {
             wx.setClipboardData({
                 data: this.data.curJoinUrl,
-                success: function (res) {
+                success: function () {
                     that.setData({
                         showDialog: false
                     })

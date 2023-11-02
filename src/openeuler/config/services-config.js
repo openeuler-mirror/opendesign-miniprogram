@@ -108,7 +108,7 @@ let commonServiceConfig = {
   // 我发布的活动
   MY_EVENTS_LIST: '/sponsoractivities/',
 
-  // 我发布的活动
+  // 下架活动
   DEL_EVENT: '/activitydel/{id}/',
 
   // 所有活动

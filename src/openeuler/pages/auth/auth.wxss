@@ -117,8 +117,8 @@ page {
     text-align: left;
 }
 van-dialog button {
-    background-color: #002fa7;
-    color: #fff;
+    color: #000;
+    background: #f4f4f5;
 }
 .btn-box {
     display: flex;
@@ -131,7 +131,4 @@ van-dialog button {
 }
 .btn-box button:last-child {
     margin-left: 12rpx;
-    color: #000;
-    background-color: transparent;
-    border: 1px solid #000;
 }
