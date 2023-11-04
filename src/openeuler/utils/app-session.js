@@ -48,7 +48,7 @@ module.exports = {
   },
 
   /**
-   * 清楚用户信息
+   * 清除用户信息
    */
   clearUserInfo: function () {
     wx.removeStorageSync(constants.APP_USERINFO_SESSION);

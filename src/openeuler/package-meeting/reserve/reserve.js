@@ -51,7 +51,7 @@ let localMethods = {
       this.toast('请选择开始时间');
       return;
     }
-    if (new Date() > new Date(`${that.data.date} ${that.data.start}`)) {
+    if (new Date() > new Date(`${that.data.date} ${that.data.start}`.replace(/-/g, '/'))) {
       this.toast('会议时间已过，请正确选择');
       return;
     }
@@ -67,8 +67,35 @@ let localMethods = {
       this.toast('开始时间必须小于结束时间');
       return;
     }
+    if (!that.data.etherpad) {
+      this.toast('etherpad地址不能为空');
+      return;
+    }
+    const regex = /^https:\/\/etherpad/;
+    if (!regex.test(that.data.etherpad)) {
+      this.toast('请正确填写etherpad');
+      return;
+    }
+    if (that.data.emaillist?.includes('；')) {
+      this.toast('多个邮箱请使用英文分号分割');
+      return;
+    }
+    const mailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailArray = that.data.emaillist.split(';');
+    for (let i = 0; i < emailArray.length; i++) {
+      let email = emailArray[i].trim(); // 去除空格
+      if (email && !mailRegex.test(email)) {
+        this.toast(`${email}不是一个有效的邮箱地址`);
+        return;
+      }
+    }
     if (!that.data.privacyState) {
       this.toast('请先阅读并同意隐私声明');
+      return;
+    }
+    const regexHttp = /(http:\/\/|https:\/\/|www.)/;
+    if (regexHttp.test(that.data.topic) || regexHttp.test(that.data.agenda)) {
+      this.toast('输入内容中禁止包含链接');
       return;
     }
     return true;
@@ -81,6 +108,7 @@ let localMethods = {
     });
   },
 };
+
 Page({
   /**
    * 页面的初始数据
@@ -163,6 +191,7 @@ Page({
       etherpad: '',
       agenda: '',
       emaillist: '',
+      privacyState: false,
     });
   },
   meeting: function () {
@@ -172,18 +201,13 @@ Page({
     let that = this;
     wx.requestSubscribeMessage({
       tmplIds: ['2xSske0tAcOVKNG9EpBjlb1I-cjPWSZrpwPDTgqAmWI'],
-      success(res) {
+      success() {
+        console.log(that.data.emaillist);
+        that.data.emaillist.replace(/；/g, ';');
         let email = null;
         if (that.data.sendDev) {
-          if (
-            that.data.emaillist.at(-1) == ';' ||
-            that.data.emaillist.at(-1) == '；' ||
-            that.data.emaillist.at(-1) == ''
-          ) {
-            email = `${that.data.emaillist}dev@openeuler.org;`;
-          } else {
-            email = `${that.data.emaillist};dev@openeuler.org;`;
-          }
+          email = that.data.emaillist ? `${that.data.emaillist};dev@openeuler.org;` : 'dev@openeuler.org;';
+          email.replace(';;', ';');
         } else {
           email = that.data.emaillist;
         }
@@ -213,7 +237,7 @@ Page({
                   {
                     title: data.message,
                     icon: 'none',
-                    duration: 4000,
+                    duration: 2000,
                   },
                   100
                 );
@@ -255,7 +279,7 @@ Page({
       groupName: sigObj.group_name || '',
       groupId: sigObj.group || '',
       etherpad: sigObj.etherpad || '',
-      emaillist: `${sigObj.maillist}` || '',
+      emaillist: sigObj.maillist || '',
       sigPopShow: false,
     });
   },
@@ -378,17 +402,17 @@ Page({
   },
   dateOnInput: function (e) {
     this.setData({
-      currentDate: e.detail.value,
+      currentDate: e.detail,
     });
   },
   timeOnInput: function (e) {
     this.setData({
-      currentTime: e.detail.value,
+      currentTime: e.detail,
     });
   },
   endTimeOnInput: function (e) {
     this.setData({
-      currentEndTime: e.detail.value,
+      currentEndTime: e.detail,
     });
   },
 });

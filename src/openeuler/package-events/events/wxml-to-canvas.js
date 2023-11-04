@@ -1,12 +1,12 @@
+const { OBS_URL } = require('./../../utils/url-config');
+
 const wxml = (data) => {
   return `
     <view class="container">
-        <image class="bgImg" src="https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/poster/bg${
-          data.poster
-        }.png" />
+        <image class="bgImg" src="${OBS_URL}/poster/bg${data.poster}.png" />
         <view class="absolute">
             <text class="title">${data.title}</text>
-            <image class="logo" src="https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/poster/logo.png" />
+            <image class="logo" src="${OBS_URL}/poster/logo.png" />
             <text class="date">时间：${data.date}</text>
             <text class="address">${data.address ? '地点：' + data.address : '直播地址：' + data.liveAddress}</text>
             <image class="qrcode" src="${data.qrcode}" />

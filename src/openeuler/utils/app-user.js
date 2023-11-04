@@ -37,10 +37,9 @@ const privateMethods = {
                 res.userInfo.eventLevel = result.activity_level;
                 res.userInfo.gitee = result.gitee_name;
                 res.userInfo.userId = result.user_id;
-                // // 缓存用户信息
+                // 缓存用户信息
                 appUser.saveLoginInfo(res.userInfo || {});
-
-                // 			// 回调
+                // 回调
                 callback && callback(res.userInfo || {});
               },
             });

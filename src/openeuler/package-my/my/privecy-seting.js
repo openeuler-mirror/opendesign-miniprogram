@@ -41,11 +41,13 @@ Page({
     isLogoffDiaShown: false,
     content: '',
     deleteText: '',
+    gitee: ''
   },
   onLoad: function () {
     this.setData({
       avatarUrl: sessionUtil.getUserInfoByKey('avatarUrl'),
       nickName: sessionUtil.getUserInfoByKey('nickName'),
+      gitee: sessionUtil.getUserInfoByKey('gitee'),
     });
   },
   shownDialog: function (e) {

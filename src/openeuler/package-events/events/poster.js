@@ -110,22 +110,4 @@ Page({
       });
     });
   },
-  setAndGetSysImage(data) {
-    const fsm = wx.getFileSystemManager();
-    const fileName = Date.now() + '.png';
-    return new Promise((req, rej) => {
-      const filePath = wx.env.USER_DATA_PATH + '/' + fileName;
-      fsm.writeFile({
-        filePath,
-        data,
-        encoding: 'base64',
-        success: () => {
-          req(filePath);
-        },
-        fail: (err) => {
-          rej(err);
-        },
-      });
-    });
-  },
 });

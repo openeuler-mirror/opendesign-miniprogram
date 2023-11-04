@@ -21,7 +21,7 @@ Page({
    */
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh();
-    this.data.meetingConponent.initData();
+    this.data.meetingConponent?.initData();
   },
 
   /**

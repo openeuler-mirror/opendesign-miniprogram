@@ -1,5 +1,5 @@
-// package-my/my/qrcode.js
-const resourceUrl = 'https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/qrcode/';
+const { OBS_URL } = require('./../../utils/url-config');
+const resourceUrl = `${OBS_URL}/qrcode/`;
 Page({
   /**
    * 页面的初始数据

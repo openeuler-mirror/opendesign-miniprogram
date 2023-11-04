@@ -7,6 +7,20 @@
             "list": [
                 {
                     "name": "",
+                    "pathName": "package-events/publish/publish",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "package-meeting/reserve/reserve",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
                     "pathName": "package-my/my/privecy-seting",
                     "query": "",
                     "launchMode": "default",

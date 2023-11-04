@@ -1,6 +1,5 @@
 /**
  * 页面通用方法
- * since 2020-8-20
  */
 
 const _ = require('./underscore-extend');
@@ -63,24 +62,7 @@ const lifeCycle = {
   onLoad: {
     before() {
       this.$setWatcher(this.data, this.watch); // 设置监听器
-
-      let pages = getCurrentPages(); //获取加载的页面
-      let currentPage = pages[pages.length - 1]; //获取当前页面的对象
-      let url = currentPage.route; //当前页面url
-
-      // 判断是否登录
-      let userInfo = wx.getStorageSync(constants.APP_USERINFO_SESSION);
-
-      if (url != 'pages/auth/auth') {
-        // wx.navigateTo({
-        // 	url: `/package-events/events/sign-success?id=46`
-        // })
-        if (!userInfo && !userInfo.access) {
-          // app.globalData.tourist = true;
-        }
-      }
     },
-    after() {},
   },
 
   onShow: {

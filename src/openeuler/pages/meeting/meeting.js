@@ -45,9 +45,9 @@ Page(
       wx.stopPullDownRefresh();
       appUser.updateUserInfo(function () {
         that.setData({
-          level: sessionUtil.getUserInfoByKey('level'),
+          level: sessionUtil.getUserInfoByKey('level') || 1,
         });
-        that.data.meetingConponent.initData();
+        that.data.meetingConponent?.initData();
       });
     },
     actionStatus(e) {

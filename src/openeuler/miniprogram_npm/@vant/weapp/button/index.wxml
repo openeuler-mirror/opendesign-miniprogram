@@ -2,14 +2,14 @@
 <wxs src="./index.wxs" module="computed" />
 
 <button
-  id="{{ id }}"
+  id="{{ id || buttonId }}"
   data-detail="{{ dataset }}"
   class="custom-class {{ utils.bem('button', [type, size, { block, round, plain, square, loading, disabled, hairline, unclickable: disabled || loading }]) }} {{ hairline ? 'van-hairline--surround' : '' }}"
-  hover-class="van-button--active hover-class"
+  hover-class="{{ disabled || loading ? '' : 'van-button--active hover-class'}}"
   lang="{{ lang }}"
   form-type="{{ formType }}"
   style="{{ computed.rootStyle({ plain, color, customStyle }) }}"
-  open-type="{{ disabled ? '' : openType }}"
+  open-type="{{ disabled || loading || (canIUseGetUserProfile && openType === 'getUserInfo') ? '' : openType }}"
   business-id="{{ businessId }}"
   session-from="{{ sessionFrom }}"
   send-message-title="{{ sendMessageTitle }}"
@@ -18,13 +18,16 @@
   show-message-card="{{ showMessageCard }}"
   app-parameter="{{ appParameter }}"
   aria-label="{{ ariaLabel }}"
-  bindtap="{{ !disabled ? 'onClick' : 'noop' }}"
-  bindgetuserinfo="bindGetUserInfo"
-  bindcontact="bindContact"
-  bindgetphonenumber="bindGetPhoneNumber"
-  binderror="bindError"
-  bindlaunchapp="bindLaunchApp"
-  bindopensetting="bindOpenSetting"
+  bindtap="{{ disabled || loading ? '' : 'onClick' }}"
+  bindgetuserinfo="onGetUserInfo"
+  bindcontact="onContact"
+  bindgetphonenumber="onGetPhoneNumber"
+  bindgetrealtimephonenumber="onGetRealTimePhoneNumber"
+  bindagreeprivacyauthorization="onAgreePrivacyAuthorization"
+  binderror="onError"
+  bindlaunchapp="onLaunchApp"
+  bindopensetting="onOpenSetting"
+  bindchooseavatar="onChooseAvatar"
 >
   <block wx:if="{{ loading }}">
     <van-loading

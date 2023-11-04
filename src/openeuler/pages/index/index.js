@@ -60,7 +60,7 @@ Page(
     onPullDownRefresh: function () {
       wx.stopPullDownRefresh();
       appUser.updateUserInfo(function () {
-        that.data.meetingConponent.initData();
+        that.data.meetingConponent?.initData();
       });
     },
     actionStatus(e) {
