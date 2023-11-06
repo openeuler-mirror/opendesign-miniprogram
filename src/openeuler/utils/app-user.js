@@ -191,7 +191,6 @@ const appUser = {
           },
           service: 'LOGIN',
           data: {
-            userInfo: userInfo,
             code: data.code,
           },
           success: function (result) {
