@@ -2,17 +2,17 @@
 <view class="container {{iphoneX?'container-x':''}}">
     <user-info></user-info>
     <view class="meeting-level-wrapper">
-        <view wx:if="{{level===3}}" bindtap="navigateTo" data-url="/package-meeting/sig/sig-list"
-            class="sig-manage-btn">
-            <image class="icon" src="./../../static/meeting/sig-manage.svg" />
-            <text>SIG组管理</text>
-        </view>
         <view class="tab-btn-wrapper">
             <view bindtap="navigateTo" data-url="/package-meeting/meeting/meeting-list" class="btn">
                 <image class="icon" src="./../../static/meeting/look-meeting.svg" />
                 <text>查看会议</text>
             </view>
-            <view bindtap="navigateTo" data-url="/package-meeting/reserve/reserve" class="btn">
+            <view wx:if="{{level===3}}" bindtap="navigateTo" data-url="/package-meeting/sig/sig-list"
+                class="btn">
+                <image class="icon" src="./../../static/meeting/sig-manage.svg" />
+                <text>SIG组管理</text>
+            </view>
+            <view wx:else bindtap="navigateTo" data-url="/package-meeting/reserve/reserve" class="btn">
                 <image class="icon" src="./../../static/meeting/reserve-meeting.svg" />
                 <text>预定会议</text>
             </view>

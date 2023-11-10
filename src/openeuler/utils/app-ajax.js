@@ -6,6 +6,33 @@ const appSession = require('./app-session.js');
 const underscore = require('./underscore-extend.js');
 const servicesConfig = require('../config/services-config.js');
 const CONSTANTS = require('../config/constants.js');
+const RETRY = require('./retry-ajax.js');
+
+const aa = new RETRY({
+  url: 'REFRESH',
+  unauthorizedCode: 401,
+  getRefreshToken: () => '555',
+  onSuccess: (res) => {
+    const accessToken = JSON.parse(res.data).accessToken;
+    localStorage.setItem(LOCAL_ACCESS_KEY, accessToken);
+  },
+  onError: () => {
+    console.log('refreshToken 过期了，乖乖去登录页');
+  },
+});
+console.log(aa);
+
+let remoteMethods = {
+  refreshToken: function (_callback) {
+    appAjax.postJson({
+      type: 'POST',
+      service: 'REFRESH',
+      success: function (ret) {
+        _callback && _callback(ret);
+      },
+    });
+  },
+};
 
 /**
  * 获取service
@@ -22,7 +49,6 @@ const _getInterfaceUrl = function (params) {
       params.otherParams[key]
     );
   }
-
   return interfaceUrl;
 };
 
@@ -38,6 +64,42 @@ const _addUrlParam = function (data) {
 
   return postData;
 };
+const loginQueue = [];
+let isLoginning = false;
+
+/**
+ * 获取sessionId
+ * 参数：undefined
+ * 返回值：[promise]sessionId
+ */
+function getSessionId() {
+  return new Promise((res, rej) => {
+    // 本地sessionId缺失，重新登录
+    if (!sessionId) {
+      loginQueue.push({ res, rej });
+
+      if (!isLoginning) {
+        isLoginning = true;
+
+        login()
+          .then((r1) => {
+            isLoginning = false;
+            while (loginQueue.length) {
+              loginQueue.shift().res(r1);
+            }
+          })
+          .catch((err) => {
+            isLoginning = false;
+            while (loginQueue.length) {
+              loginQueue.shift().rej(err);
+            }
+          });
+      }
+    } else {
+      res(sessionId);
+    }
+  });
+}
 
 const appAjax = {
   /**
@@ -70,9 +132,9 @@ const appAjax = {
     // rest请求路径
     ajaxParams['url'] = CONSTANTS['SERVICE_URL'] + _getInterfaceUrl(ajaxParams);
     if (
-      (ajaxParams.type == 'GET' || ajaxParams.type == 'DELETE') &&
+      (ajaxParams.type === 'GET' || ajaxParams.type === 'DELETE') &&
       ajaxParams.data &&
-      typeof ajaxParams.data == 'object'
+      typeof ajaxParams.data === 'object'
     ) {
       ajaxParams['url'] = ajaxParams['url'] + _addUrlParam(ajaxParams.data);
     }
@@ -90,10 +152,6 @@ const appAjax = {
       method: ajaxParams['type'] || 'POST',
       data: ajaxParams.data,
       success: function (res) {
-        // if (!timer && wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION)) {
-        //   timer = setInterval(() => {
-        //   }, 1000 * 6 * 10);
-        // }
         if (res?.data?.access && wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION)) {
           let data = wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION);
           data.access = res.data.access;
@@ -102,12 +160,9 @@ const appAjax = {
         if (res.statusCode === 401) {
           wx.removeStorageSync('_app_userinfo_session');
           ajaxParams.success(0, res);
-          const pages = getCurrentPages(); // 当前页面
-          if (pages[0].route !== '/pages/auth/auth') {
-            wx.navigateTo({
-              url: '/pages/auth/auth',
-            });
-          }
+          wx.navigateTo({
+            url: '/pages/auth/auth',
+          });
           return;
         }
         if (res.statusCode.toString()[0] != 2) {

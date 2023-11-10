@@ -4,7 +4,7 @@ const sessionUtil = require('../../utils/app-session.js');
 
 let that = null;
 let remoteMethods = {
-  getList: function (_callback) {
+  getList: function (params, _callback) {
     let service = '';
     if (that.data.type == 4) {
       service = 'GET_DRAFT_LIST';
@@ -36,6 +36,7 @@ let remoteMethods = {
       success: function (ret) {
         _callback && _callback(ret);
       },
+      data: params,
     });
   },
   delDraft: function (_callback) {
@@ -98,6 +99,11 @@ Page({
   data: {
     type: 1,
     list: [],
+    pageParams: {
+      page: 1,
+      size: 50,
+    },
+    total: 0,
     level: 1,
     actionShow: false,
     actions: [],
@@ -145,16 +151,31 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    remoteMethods.getList((res) => {
+    this.initData();
+  },
+  initData() {
+    let renderData = [];
+    remoteMethods.getList(this.data.pageParams, (data) => {
+      if (this.data.pageParams.page === 1) {
+        renderData = data.data;
+      } else {
+        renderData = this.data.list;
+        renderData.push(...data.data);
+      }
       this.setData({
-        list: res,
+        list: renderData,
+        total: data.total,
       });
     });
   },
-  toSign(e) {
-    wx.navigateTo({
-      url: `/package-events/events/sign?id=${e.currentTarget.dataset.id}`,
+  onReachBottom() {
+    if (this.data.total < this.data.pageParams.size * this.data.pageParams.page) {
+      return false;
+    }
+    this.setData({
+      'pageParams.page': this.data.pageParams.page + 1,
     });
+    this.initData();
   },
   editDraft(e) {
     wx.navigateTo({
@@ -166,21 +187,27 @@ Page({
       actionShow: false,
     });
   },
+  initialization() {
+    this.setData({
+      'pageParams.page': 1,
+    });
+    this.initData();
+  },
   onActionSelect(e) {
     if (this.data.type == 4) {
       remoteMethods.delDraft(() => {
-        this.onShow();
+        this.initialization();
       });
     } else if (this.data.type == 2 || this.data.type == 6 || this.data.type == 7) {
       if (this.data.level == 3) {
         if (e.detail.operaType == 1) {
           if (this.data.collectionId) {
             remoteMethods.unCollect(() => {
-              this.onShow();
+              this.initialization();
             });
           } else {
             remoteMethods.collect(() => {
-              this.onShow();
+              this.initialization();
             });
           }
         } else {
@@ -192,11 +219,11 @@ Page({
         if (e.detail.operaType == 1) {
           if (this.data.collectionId) {
             remoteMethods.unCollect(() => {
-              this.onShow();
+              this.initialization();
             });
           } else {
             remoteMethods.collect(() => {
-              this.onShow();
+              this.initialization();
             });
           }
         } else if (e.detail.operaType == 3) {
@@ -289,11 +316,7 @@ Page({
       showDialogDel: false,
     });
     remoteMethods.delEvent(() => {
-      remoteMethods.getList((res) => {
-        this.setData({
-          list: res,
-        });
-      });
+      this.initialization();
     });
   },
   delCancel() {

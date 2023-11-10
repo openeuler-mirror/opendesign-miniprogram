@@ -7,6 +7,13 @@
             "list": [
                 {
                     "name": "",
+                    "pathName": "pages/index/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
                     "pathName": "package-events/publish/publish",
                     "query": "",
                     "launchMode": "default",

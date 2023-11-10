@@ -1,5 +1,5 @@
 <!-- components/meeting-list/meeting-list.wxml -->
-<view wx:if="{{pageType===1}}" class="today-meeting">{{isHome?'最近':'今天'}}的会议({{list.length}})</view>
+<view wx:if="{{pageType===1}}" class="today-meeting">{{isHome?'最近':'今天'}}的会议({{total}})</view>
 <view wx:if="{{pageType===2}}" class="input-wraper">
     <input placeholder="搜索会议" class="keyword" bindinput="search">
     <image src="./../../static/common/search-icon.svg" class="search-icon" />
@@ -31,7 +31,8 @@
                     <text>{{item.agenda||'暂无描述'}}</text>
                 </view>
             </view>
-            <image wx:if="{{item.collection_id}}" class="collection" src="./../../static/common/collection-icon.svg"></image>
+            <image wx:if="{{item.collection_id}}" class="collection" src="./../../static/common/collection-icon.svg">
+            </image>
         </view>
     </block>
 </view>
@@ -52,7 +53,8 @@
         <text>当前暂无任何会议哦</text>
     </view>
 </view>
-<van-dialog use-slot title="会议" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialog }}" class-name="sig-dialog" close-on-click-overlay="{{true}}">
+<van-dialog use-slot title="会议" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialog }}"
+    class-name="sig-dialog" close-on-click-overlay="{{true}}">
     <view class="dialog-slot-content">
         <text>{{curMid}}</text>
         <text>{{curJoinUrl}}</text>
@@ -63,7 +65,8 @@
         </view>
     </view>
 </van-dialog>
-<van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ showDialogDel }}" class-name="sig-dialog">
+<van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}"
+    show="{{ showDialogDel }}" class-name="sig-dialog">
     <view class="dialog-slot-content">
         <text>请确认删除当前会议</text>
         <view>
@@ -72,7 +75,8 @@
         </view>
     </view>
 </van-dialog>
-<van-action-sheet show="{{ actionShow }}" actions="{{ actions }}" bind:close="onActionClose" bind:cancel="onActionClose" bind:select="onActionSelect" cancel-text="取消" close-on-click-action close-on-click-overlay />
+<van-action-sheet show="{{ actionShow }}" actions="{{ actions }}" bind:close="onActionClose" bind:cancel="onActionClose"
+    bind:select="onActionSelect" cancel-text="取消" close-on-click-action close-on-click-overlay />
 <van-popup show="{{ popShow }}" round position="bottom" bind:click-overlay="popCancel">
     <view class="sig-pop-wrapper">
         <van-picker columns="{{ columns }}" value-key="group_name" bind:change="pickerChange" />

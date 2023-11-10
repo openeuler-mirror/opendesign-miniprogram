@@ -11,6 +11,8 @@ let remoteMethods = {
       },
       data: {
         search: postData.nickname || '',
+        page: postData.page,
+        size: postData.size,
       },
       success: function (ret) {
         _callback && _callback(ret);
@@ -37,6 +39,11 @@ Page({
     list: [],
     result: [],
     sigId: '',
+    pageParams: {
+      page: 1,
+      size: 50,
+    },
+    total: 0,
     keyword: '',
   },
 
@@ -53,14 +60,35 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let that = this;
+    this.initData();
+  },
+  onReachBottom() {
+    if (this.data.total < this.data.pageParams.size * this.data.pageParams.page) {
+      return false;
+    }
+    this.setData({
+      'pageParams.page': this.data.pageParams.page + 1,
+    });
+    this.initData();
+  },
+  initData: function () {
+    let renderData = [];
     remoteMethods.getExcludeMemberList(
       {
+        ...this.data.pageParams,
         id: this.data.sigId,
+        nickname: this.data.keyword,
       },
-      function (data) {
-        that.setData({
-          list: data,
+      (data) => {
+        if (this.data.pageParams.page === 1) {
+          renderData = data.data;
+        } else {
+          renderData = this.data.list;
+          renderData.push(...data.data);
+        }
+        this.setData({
+          list: renderData,
+          total: data.total,
         });
       }
     );
@@ -71,7 +99,6 @@ Page({
     });
   },
   comfirm: function () {
-    let that = this;
     if (!this.data.result.length) {
       wx.showToast({
         title: '请选择人员',
@@ -102,20 +129,9 @@ Page({
     });
   },
   searchInput: function (e) {
-    let that = this;
     this.setData({
       keyword: e.detail.value,
     });
-    remoteMethods.getExcludeMemberList(
-      {
-        id: this.data.sigId,
-        nickname: this.data.keyword,
-      },
-      function (data) {
-        that.setData({
-          list: data,
-        });
-      }
-    );
+    this.initData();
   },
 });

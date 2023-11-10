@@ -78,6 +78,11 @@ Page({
     noAuthDialogShow: false,
     user: '',
     list: [],
+    pageParams: {
+      page: 1,
+      size: 50,
+    },
+    total: 0,
     actionShow: false,
     actions: [],
     underDialogShow: false,
@@ -102,7 +107,8 @@ Page({
       });
       remoteMethods.getList((res) => {
         that.setData({
-          list: res,
+          list: res.data,
+          total: res.total,
         });
       });
     });
@@ -142,6 +148,30 @@ Page({
           underDialogShow: false,
         });
       },
+    });
+  },
+  onReachBottom() {
+    if (this.data.total < this.data.pageParams.size * this.data.pageParams.page) {
+      return false;
+    }
+    this.setData({
+      'pageParams.page': this.data.pageParams.page + 1,
+    });
+    this.initData();
+  },
+  initData: function () {
+    let renderData = [];
+    remoteMethods.getList(this.data.pageParams, (data) => {
+      if (this.data.pageParams.page === 1) {
+        renderData = data.data;
+      } else {
+        renderData = this.data.list;
+        renderData.push(...data.data);
+      }
+      this.setData({
+        list: renderData,
+        total: data.total,
+      });
     });
   },
   onActionClose() {

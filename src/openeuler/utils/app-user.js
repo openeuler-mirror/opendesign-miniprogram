@@ -161,6 +161,7 @@ const appUser = {
             userInfo.gitee = ret.gitee_name;
             userInfo.level = ret.level;
             userInfo.nickName = ret.nickname;
+            userInfo.avatarUrl = ret.avatar;
             userInfo.eventLevel = ret.activity_level;
             wx.setStorageSync(constants.APP_USERINFO_SESSION, userInfo);
           }

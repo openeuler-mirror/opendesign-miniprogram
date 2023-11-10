@@ -65,6 +65,10 @@ Page(
         that.data.meetingConponent?.initData();
       });
     },
+    onReachBottom() {
+      const customComponent = this.selectComponent('#meeting');
+      customComponent.getMoreData();
+    },
     actionStatus(e) {
       if (e.detail === 1) {
         this.getTabBar().setData({

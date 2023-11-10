@@ -1,6 +1,4 @@
-// package-events/events/poster.js
 const appAjax = require('./../../utils/app-ajax');
-const { wxml, style } = require('./wxml-to-canvas.js');
 
 let that = null;
 let remoteMethods = {
@@ -37,7 +35,6 @@ Page({
    */
   onLoad: function (options) {
     that = this;
-    this.widget = this.selectComponent('.widget');
     this.setData({
       id: options.id || '',
       isDraft: options.isDraft,
@@ -62,52 +59,14 @@ Page({
       });
     }
   },
+  onShow() {
+    wx.showToast({
+      title: '如有需要请截图保存海报~',
+      icon: 'none',
+      duration: 4000,
+    });
+  },
   back() {
     wx.navigateBack();
-  },
-  saveToAlbum() {
-    wx.showLoading({
-      title: '保存中',
-      mask: true,
-    });
-    const p1 = this.widget.renderToCanvas({
-      wxml: wxml({
-        title: that.data.info.title,
-        date: that.data.info.date,
-        address: that.data.info.detail_address,
-        poster: that.data.info.poster,
-        qrcode: that.data.info.wx_code,
-        liveAddress: that.data.info.join_url,
-      }),
-      style: style(),
-    });
-    p1.then(() => {
-      const p2 = this.widget.canvasToTempFilePath();
-      p2.then((res) => {
-        wx.getSetting({
-          success() {
-            wx.saveImageToPhotosAlbum({
-              filePath: res.tempFilePath,
-              success: function () {
-                wx.showToast({
-                  title: '保存成功',
-                  icon: 'success',
-                  duration: 2000,
-                });
-              },
-              fail: function () {
-                wx.showModal({
-                  title: '保存失败~',
-                  content: '请尝试点击右上角 “...” => “设置” 同意添加到相册后再保存~',
-                });
-              },
-              complete() {
-                wx.hideLoading();
-              },
-            });
-          },
-        });
-      });
-    });
   },
 });

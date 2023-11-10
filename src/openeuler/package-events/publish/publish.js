@@ -81,8 +81,6 @@ let localMethods = {
       const parts = time.split(':');
       return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
     }
-    console.log(timeToMinutes(endTime));
-    console.log(timeToMinutes(startTime));
     return timeToMinutes(endTime) > timeToMinutes(startTime);
   },
   validation: function (data) {
@@ -125,7 +123,7 @@ let localMethods = {
         if (!data.schedules[i].end) {
           flag = false;
         }
-        if (!localMethods.validation(data.schedules[i].start, data.schedules[i].end)) {
+        if (!localMethods.timeValid(data.schedules[i].start, data.schedules[i].end)) {
           this.toast('议题开始时间必须小于结束时间');
           flag = false;
           return;
@@ -139,28 +137,6 @@ let localMethods = {
           }
         });
       }
-      // data.schedules.forEach((item) => {
-      //   if (!item.start) {
-      //     flag = false;
-      //   }
-      //   if (!item.end) {
-      //     flag = false;
-      //   }
-      //   if (!localMethods.validation(item.start, item.end)) {
-      //     console.log(555);
-      //     this.toast('开始时间必须小于结束时间');
-      //     flag = false;
-      //     return;
-      //   }
-      //   if (!item.topic) {
-      //     flag = false;
-      //   }
-      //   item.speakerList.forEach((item) => {
-      //     if (!item.name) {
-      //       flag = false;
-      //     }
-      //   });
-      // });
       if (!flag) {
         this.toast('请补充日程必填信息');
         return;
