@@ -55,9 +55,6 @@ Page({
                   content: '请尝试点击右上角 “...” => “设置” 同意添加到相册后再保存~',
                 });
               },
-              complete(res) {
-                console.log(res);
-              },
             });
           },
         });

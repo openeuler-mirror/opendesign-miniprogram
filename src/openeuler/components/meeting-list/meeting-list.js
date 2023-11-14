@@ -208,7 +208,7 @@ Component({
           tmplIds: ['2xSske0tAcOVKNG9EpBjlb1I-cjPWSZrpwPDTgqAmWI', 'UpxRbZf8Z9QiEPlZeRCgp_MKvvqHlo6tcToY8fToK50'],
           success() {
             remoteMethods.collect(that.data.id, (res) => {
-              if (res.code == 201) {
+              if (res.code == 200) {
                 that.setData({
                   'pageParams.page': 1,
                 });
@@ -258,9 +258,8 @@ Component({
       });
     },
     del: function () {
-      console.log(this.data.curMid);
       remoteMethods.delMeeting(this.data.curMid, (data) => {
-        if (data.code == 204) {
+        if (data.code == 200) {
           this.setData({
             showDialogDel: false,
             'pageParams.page': 1,
@@ -283,7 +282,6 @@ Component({
       if (!localMethod.checkLogin()) {
         return;
       }
-      console.log(e.currentTarget.dataset);
       this.setData({
         curMid: e.currentTarget.dataset.item.mid,
         curJoinUrl: e.currentTarget.dataset.item.join_url,

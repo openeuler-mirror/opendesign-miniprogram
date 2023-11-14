@@ -112,7 +112,7 @@ Page({
       group_id: this.data.sigId,
     };
     remoteMethods.addMemberList(postData, function (data) {
-      if (data.code === 201) {
+      if (data.code === 200) {
         wx.showToast({
           title: '操作成功',
           icon: 'success',

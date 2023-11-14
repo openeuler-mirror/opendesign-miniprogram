@@ -202,7 +202,6 @@ Page({
     wx.requestSubscribeMessage({
       tmplIds: ['2xSske0tAcOVKNG9EpBjlb1I-cjPWSZrpwPDTgqAmWI'],
       success() {
-        console.log(that.data.emaillist);
         that.data.emaillist.replace(/；/g, ';');
         let email = null;
         if (that.data.sendDev) {

@@ -158,6 +158,8 @@ const appUser = {
         },
         success: function (ret) {
           if (ret) {
+            // 更新userInfo数据
+            userInfo = wx.getStorageSync(constants.APP_USERINFO_SESSION);
             userInfo.gitee = ret.gitee_name;
             userInfo.level = ret.level;
             userInfo.nickName = ret.nickname;
@@ -202,6 +204,7 @@ const appUser = {
             userInfo.gitee = result.gitee_name;
             userInfo.userId = result.user_id;
             userInfo.nickName = result.nickname;
+            userInfo.refresh = result.refresh;
             // // 缓存用户信息
             appUser.saveLoginInfo(userInfo || {});
             // 回调

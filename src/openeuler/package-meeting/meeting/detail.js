@@ -109,9 +109,9 @@ Page({
     } else {
       wx.requestSubscribeMessage({
         tmplIds: ['2xSske0tAcOVKNG9EpBjlb1I-cjPWSZrpwPDTgqAmWI', 'UpxRbZf8Z9QiEPlZeRCgp_MKvvqHlo6tcToY8fToK50'],
-        success(res) {
+        success() {
           remoteMethods.collect(that.data.id, function (res) {
-            if (res.code == 201) {
+            if (res.code == 200) {
               that.setData({
                 collection_id: res.collection_id || '',
               });

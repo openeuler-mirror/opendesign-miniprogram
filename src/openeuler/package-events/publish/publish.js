@@ -553,7 +553,7 @@ Page({
       return;
     }
     remoteMethods.addEvents(postData, (res) => {
-      if (res.code === 201) {
+      if (res.code === 200) {
         wx.redirectTo({
           url: '/package-events/publish/success?type=2',
         });

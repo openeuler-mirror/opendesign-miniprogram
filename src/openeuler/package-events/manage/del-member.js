@@ -89,7 +89,7 @@ Page({
       ids: this.data.result.join('-'),
     };
     remoteMethods.delMemberList(postData, function (data) {
-      if (data.code === 204) {
+      if (data.code === 200) {
         wx.showToast({
           title: '操作成功',
           icon: 'success',

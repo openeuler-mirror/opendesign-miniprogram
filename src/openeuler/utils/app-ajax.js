@@ -2,31 +2,18 @@
  * 请求方法
  */
 
-const appSession = require('./app-session.js');
 const underscore = require('./underscore-extend.js');
 const servicesConfig = require('../config/services-config.js');
 const CONSTANTS = require('../config/constants.js');
-const RETRY = require('./retry-ajax.js');
-
-const aa = new RETRY({
-  url: 'REFRESH',
-  unauthorizedCode: 401,
-  getRefreshToken: () => '555',
-  onSuccess: (res) => {
-    const accessToken = JSON.parse(res.data).accessToken;
-    localStorage.setItem(LOCAL_ACCESS_KEY, accessToken);
-  },
-  onError: () => {
-    console.log('refreshToken 过期了，乖乖去登录页');
-  },
-});
-console.log(aa);
 
 let remoteMethods = {
-  refreshToken: function (_callback) {
+  refreshToken: function (refresh, _callback) {
     appAjax.postJson({
       type: 'POST',
       service: 'REFRESH',
+      data: {
+        refresh,
+      },
       success: function (ret) {
         _callback && _callback(ret);
       },
@@ -61,46 +48,32 @@ const _addUrlParam = function (data) {
       postData += '&' + key + '=' + data[key];
     }
   }
-
   return postData;
 };
-const loginQueue = [];
-let isLoginning = false;
 
-/**
- * 获取sessionId
- * 参数：undefined
- * 返回值：[promise]sessionId
- */
-function getSessionId() {
-  return new Promise((res, rej) => {
-    // 本地sessionId缺失，重新登录
-    if (!sessionId) {
-      loginQueue.push({ res, rej });
+let messageQueue = [];
+let isRefreshing = false;
 
-      if (!isLoginning) {
-        isLoginning = true;
+const handleSuccessfulRefresh = function (newTokens, userData) {
+  userData.access = newTokens.access;
+  userData.refresh = newTokens.refresh;
+  wx.setStorageSync(CONSTANTS.APP_USERINFO_SESSION, userData);
+  processMessageQueue();
+  isRefreshing = false;
+};
 
-        login()
-          .then((r1) => {
-            isLoginning = false;
-            while (loginQueue.length) {
-              loginQueue.shift().res(r1);
-            }
-          })
-          .catch((err) => {
-            isLoginning = false;
-            while (loginQueue.length) {
-              loginQueue.shift().rej(err);
-            }
-          });
-      }
-    } else {
-      res(sessionId);
-    }
-  });
-}
+const clearUserDataAndNavigate = function () {
+  messageQueue = [];
+  wx.removeStorageSync('_app_userinfo_session');
+  isRefreshing = false;
+  wx.navigateTo({ url: '/pages/auth/auth' });
+};
 
+const processMessageQueue = function () {
+  while (messageQueue.length) {
+    appAjax.postJson(messageQueue.shift());
+  }
+};
 const appAjax = {
   /**
    * 提交请求
@@ -123,7 +96,9 @@ const appAjax = {
       loadingText: '加载中...', // 加载的提示语
       autoCloseWait: true, // 自动关闭菊花
       headers: {
-        Authorization: appSession.getToken() ? 'Bearer ' + appSession.getToken() : '',
+        Authorization: wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION).access
+          ? 'Bearer ' + wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION).access
+          : '',
       },
       isAsync: true,
     };
@@ -152,27 +127,39 @@ const appAjax = {
       method: ajaxParams['type'] || 'POST',
       data: ajaxParams.data,
       success: function (res) {
-        if (res?.data?.access && wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION)) {
-          let data = wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION);
+        const data = wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION);
+        if (res?.data?.access && data) {
           data.access = res.data.access;
           wx.setStorageSync(CONSTANTS.APP_USERINFO_SESSION, data);
         }
-        if (res.statusCode === 401) {
-          wx.removeStorageSync('_app_userinfo_session');
-          ajaxParams.success(0, res);
-          wx.navigateTo({
-            url: '/pages/auth/auth',
-          });
-          return;
-        }
+        ajaxParams.success(res.data, res);
+
         if (res.statusCode.toString()[0] != 2) {
           let message = '';
           if (res?.data?.detail && res.statusCode === 400) {
             message = res.data.detail;
+          } else if (res.statusCode === 401) {
+            message = '请登陆！';
           } else if (res.statusCode === 418) {
             message = '您的请求疑似攻击行为！';
           } else {
             message = '有点忙开个小差，稍后再试~';
+          }
+          // 刷新token
+          if (res.statusCode === 401 && data && params.service !== 'REFRESH') {
+            messageQueue.push(params);
+            if (!isRefreshing) {
+              isRefreshing = true;
+              remoteMethods.refreshToken(data?.refresh, (res) => {
+                if (!res.refresh) {
+                  clearUserDataAndNavigate();
+                } else {
+                  handleSuccessfulRefresh(res, data);
+                }
+                isRefreshing = false;
+              });
+            }
+            return;
           }
           if (ajaxParams.error) {
             ajaxParams.error(message, res);
@@ -186,16 +173,8 @@ const appAjax = {
           }
           return;
         }
-        ajaxParams.success(res.data, res);
       },
       fail: function (res) {
-        if (res?.data?.access) {
-          if (res.data.access && wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION)) {
-            let data = wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION);
-            data.access = res.data.access;
-            wx.setStorageSync(CONSTANTS.APP_USERINFO_SESSION, data);
-          }
-        }
         let message = res?.data?.detail && res.statusCode === 400 ? res.data.detail : '有点忙开个小差，稍后再试~';
         ajaxParams.error && ajaxParams.error(message, res);
       },

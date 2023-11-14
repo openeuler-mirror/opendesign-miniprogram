@@ -207,7 +207,7 @@ Page({
     let postData = this.data.info;
     postData.schedules = JSON.parse(postData.schedules);
     remoteMethods.draftPublish(postData, (res) => {
-      if (res.code === 201) {
+      if (res.code === 200) {
         wx.redirectTo({
           url: '/package-events/publish/success?type=2',
         });
