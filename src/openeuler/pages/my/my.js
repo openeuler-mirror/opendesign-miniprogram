@@ -61,10 +61,6 @@ Page({
   copy: function (e) {
     wx.setClipboardData({
       data: `${e.currentTarget.dataset.copy}`,
-      success: function () {},
-      fail: function (err) {
-        console.log(err);
-      },
     });
   },
   onPullDownRefresh() {

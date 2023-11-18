@@ -140,7 +140,7 @@ Page({
     that = this;
     this.initData();
     remoteMethods.getCount((res) => {
-      that.setData({
+      this.setData({
         'pageParams.page': 1,
         level: sessionUtil.getUserInfoByKey('eventLevel') || 1,
         user: sessionUtil.getUserInfoByKey('userId'),

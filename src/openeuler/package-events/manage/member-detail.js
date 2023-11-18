@@ -11,9 +11,6 @@ let remoteMethods = {
       },
       data: {
         gitee_name: postData.name,
-        enterprise: postData.enterprise,
-        telephone: postData.telephone,
-        email: postData.email,
       },
       success: function (ret) {
         _callback && _callback(ret);
@@ -66,21 +63,15 @@ Page({
         name: that.data.name,
       },
       function (data) {
-        if (data.code == 400) {
-          wx.showToast({
-            title: data.msg,
-            icon: 'none',
-            duration: 2000,
-          });
-          return;
-        }
-        if (data.gitee_name) {
+        if (data.code === 200) {
           wx.showToast({
             title: '操作成功',
             icon: 'success',
             duration: 2000,
           });
-          wx.navigateBack();
+          that.setData({
+            rawName: that.data.name,
+          });
         }
       }
     );

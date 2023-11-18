@@ -5,7 +5,7 @@ const appUser = require('../../utils/app-user.js');
 let that = null;
 
 let remoteMethods = {
-  getList: function (_callback) {
+  getList: function (params, _callback) {
     appAjax.postJson({
       autoShowWait: true,
       type: 'GET',
@@ -13,6 +13,7 @@ let remoteMethods = {
       success: function (ret) {
         _callback && _callback(ret);
       },
+      data: params,
     });
   },
   delDraft: function (_callback) {
@@ -105,13 +106,8 @@ Page({
         level: sessionUtil.getUserInfoByKey('eventLevel') || 1,
         user: sessionUtil.getUserInfoByKey('userId'),
       });
-      remoteMethods.getList((res) => {
-        that.setData({
-          list: res.data,
-          total: res.total,
-        });
-      });
     });
+    this.initData();
   },
   /**
    * 生命周期函数--监听页面显示
@@ -187,11 +183,17 @@ Page({
       if (e.detail.operaType == 1) {
         if (this.data.collectionId) {
           remoteMethods.unCollect(() => {
-            this.onLoad();
+            this.setData({
+              'pageParams.page': 1,
+            });
+            this.initData();
           });
         } else {
           remoteMethods.collect(() => {
-            this.onLoad();
+            this.setData({
+              'pageParams.page': 1,
+            });
+            this.initData();
           });
         }
       } else {
@@ -203,11 +205,17 @@ Page({
       if (e.detail.operaType == 1) {
         if (this.data.collectionId) {
           remoteMethods.unCollect(() => {
-            this.onLoad();
+            this.setData({
+              'pageParams.page': 1,
+            });
+            this.initData();
           });
         } else {
           remoteMethods.collect(() => {
-            this.onLoad();
+            this.setData({
+              'pageParams.page': 1,
+            });
+            this.initData();
           });
         }
       } else if (e.detail.operaType == 3) {
@@ -224,11 +232,10 @@ Page({
       showDialogDel: false,
     });
     remoteMethods.delEvent(() => {
-      remoteMethods.getList((res) => {
-        this.setData({
-          list: res,
-        });
+      this.setData({
+        'pageParams.page': 1,
       });
+      this.initData();
     });
   },
   delCancel() {

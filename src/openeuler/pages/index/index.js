@@ -34,24 +34,16 @@ Page(
         url: e.currentTarget.dataset.url,
       });
     },
-    previewImage(e) {
-      const current = e.target.dataset.src; //获取当前点击的 图片 url
-      wx.previewImage({
-        current,
-        urls: [current],
-      });
-    },
     onLoad: function () {
       wx.showShareMenu({
         withShareTicket: true,
         menus: ['shareAppMessage', 'shareTimeline'],
       });
       that = this;
-      appUser.updateUserInfo(function () {
-        that.setData({
-          meetingConponent: that.selectComponent('#meeting'),
-          iphoneX: that.getTabBar().data.iPhoneX,
-        });
+      appUser.updateUserInfo();
+      this.setData({
+        meetingConponent: that.selectComponent('#meeting'),
+        iphoneX: that.getTabBar().data.iPhoneX,
       });
     },
     onShow: function () {
@@ -61,9 +53,8 @@ Page(
     },
     onPullDownRefresh: function () {
       wx.stopPullDownRefresh();
-      appUser.updateUserInfo(function () {
-        that.data.meetingConponent?.initData();
-      });
+      appUser.updateUserInfo();
+      this.data.meetingConponent?.initData();
     },
     onReachBottom() {
       const customComponent = this.selectComponent('#meeting');

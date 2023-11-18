@@ -340,8 +340,8 @@ Page({
               that.setData({
                 address: res.address,
                 addressName: res.name,
-                longitude: res.longitude,
-                latitude: res.latitude,
+                longitude: res.longitude.toFixed(5),
+                latitude: res.latitude.toFixed(5),
               });
             },
             fail: function (res) {

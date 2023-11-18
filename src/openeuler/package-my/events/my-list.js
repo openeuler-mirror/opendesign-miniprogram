@@ -316,6 +316,9 @@ Page({
       showDialogDel: false,
     });
     remoteMethods.delEvent(() => {
+      this.setData({
+        'pageParams.page': 1,
+      });
       this.initialization();
     });
   },

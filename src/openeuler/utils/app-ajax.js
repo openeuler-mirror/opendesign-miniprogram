@@ -1,10 +1,7 @@
-/**
- * 请求方法
- */
-
 const underscore = require('./underscore-extend.js');
 const servicesConfig = require('../config/services-config.js');
 const CONSTANTS = require('../config/constants.js');
+const sessionUtil = require('./app-session.js');
 
 let remoteMethods = {
   refreshToken: function (refresh, _callback) {
@@ -64,7 +61,7 @@ const handleSuccessfulRefresh = function (newTokens, userData) {
 
 const clearUserDataAndNavigate = function () {
   messageQueue = [];
-  wx.removeStorageSync('_app_userinfo_session');
+  sessionUtil.clearUserInfo();
   isRefreshing = false;
   wx.navigateTo({ url: '/pages/auth/auth' });
 };
@@ -90,7 +87,7 @@ const appAjax = {
     // 默认参数
     let defaultParams = {
       service: '', // 服务的配置名称
-      success: function (d) {}, // 成功后回调
+      success: function () {}, // 成功后回调
       error: null, // 失败后回调
       autoShowWait: false, // 自动显示菊花
       loadingText: '加载中...', // 加载的提示语
@@ -100,7 +97,6 @@ const appAjax = {
           ? 'Bearer ' + wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION).access
           : '',
       },
-      isAsync: true,
     };
     let isShowToast = false;
     let ajaxParams = underscore.deepExtend(true, defaultParams, params);
@@ -139,7 +135,7 @@ const appAjax = {
           if (res?.data?.detail && res.statusCode === 400) {
             message = res.data.detail;
           } else if (res.statusCode === 401) {
-            message = '请登陆！';
+            message = '请重新登陆~';
           } else if (res.statusCode === 418) {
             message = '您的请求疑似攻击行为！';
           } else {

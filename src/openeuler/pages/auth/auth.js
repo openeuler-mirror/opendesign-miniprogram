@@ -14,7 +14,6 @@ Page(
       url: '',
       id: '',
       record: false,
-      canIUseGetUserProfile: false,
       isPrivecyShown: false,
     },
     onLoad(options) {
@@ -24,41 +23,9 @@ Page(
           id: options.id,
         });
       }
-
-      if (wx.getUserProfile) {
-        this.setData({
-          canIUseGetUserProfile: true,
-        });
-      }
-    },
-    /**
-     * 绑定获取用户信息
-     */
-    bindGetUserInfo: function () {
-      wx.getSetting({
-        success: function (res) {
-          if (res.authSetting['scope.userInfo']) {
-            appUser.wxLogin(function () {
-              const pages = getCurrentPages(); // 当前页面
-              const beforePage =
-                pages[pages.length - 2].route === 'pages/auth/auth' ? pages[pages.length - 3] : pages[pages.length - 2]; // 前一个页面
-              const id = beforePage?.options.id || that.data.id;
-              const url = id ? '/' + beforePage?.route + '?id=' + id : '/' + beforePage?.route;
-              if (!sessionUtil.getUserInfoByKey('agreePrivacy')) {
-                this.setData({
-                  isPrivecyShown: true,
-                  url,
-                });
-              }
-              wx.reLaunch({
-                url: url,
-              });
-            });
-          }
-        },
-      });
     },
     bindGetUserProfile() {
+      console.log(555);
       if (!this.data.record) {
         wx.showToast(
           {
@@ -70,31 +37,23 @@ Page(
         );
         return false;
       }
-      wx.getUserProfile({
-        desc: '用于会议和活动所需信息',
-        success: (res) => {
-          appUser.wxGetUserProfileLogin(function () {
-            const pages = getCurrentPages(); // 当前页面
-            const beforePage =
-              pages[pages.length - 2]?.route === 'pages/auth/auth' ? pages[pages.length - 3] : pages[pages.length - 2]; // 前一个页面
-            const id = beforePage?.options.id || that.data.id;
-            const url = id ? '/' + beforePage?.route + '?id=' + id : '/' + beforePage?.route;
-            if (!sessionUtil.getUserInfoByKey('agreePrivacy')) {
-              that.setData({
-                isPrivecyShown: true,
-                url: url,
-              });
-            } else {
-              wx.reLaunch({
-                url: url,
-              });
-            }
-          }, res.userInfo);
-        },
-        fail: (err) => {
-          console.log(err);
-        },
-      });
+      appUser.wxGetUserProfileLogin(function () {
+        const pages = getCurrentPages(); // 当前页面
+        const beforePage =
+          pages[pages.length - 2]?.route === 'pages/auth/auth' ? pages[pages.length - 3] : pages[pages.length - 2]; // 前一个页面
+        const id = beforePage?.options.id || that.data.id;
+        const url = id ? '/' + beforePage?.route + '?id=' + id : '/' + beforePage?.route;
+        if (!sessionUtil.getUserInfoByKey('agreePrivacy')) {
+          that.setData({
+            isPrivecyShown: true,
+            url: url,
+          });
+        } else {
+          wx.reLaunch({
+            url: url,
+          });
+        }
+      }, {});
     },
     recordoOnChange: function (event) {
       this.setData({
@@ -130,9 +89,21 @@ Page(
       });
     },
     setStorage: function () {
-      let data = wx.getStorageSync('_app_userinfo_session');
-      data.agreePrivacy = true;
-      wx.setStorageSync('_app_userinfo_session', data);
+      // let data = wx.getStorageSync('_app_userinfo_session');
+      // data.agreePrivacy = true;
+      // wx.setStorageSync('_app_userinfo_session', data);
+      wx.getStorage({
+        key: '_app_userinfo_session',
+        encrypt: true,
+        success(data) {
+          data.agreePrivacy = true;
+          wx.setStorage({
+            key: '_app_userinfo_session',
+            encrypt: true,
+            data: data,
+          });
+        },
+      });
     },
     handleClick: function () {
       this.setAgreeState(() => {

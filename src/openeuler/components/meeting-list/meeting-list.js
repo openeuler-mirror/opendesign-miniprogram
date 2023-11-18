@@ -16,8 +16,8 @@ const remoteMethods = {
     if (that?.properties.pageType === 2) {
       params = {
         ...params,
-        topic: that.data.curKeyword,
-        search: that.data.filterSigName === '全部SIG' ? '' : that.data.filterSigName,
+        search: that.data.curKeyword,
+        group_name: that.data.filterSigName === '全部SIG' ? '' : that.data.filterSigName,
       };
     }
     appAjax.postJson({

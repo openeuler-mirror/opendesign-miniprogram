@@ -14,37 +14,33 @@ const privateMethods = {
       icon: 'loading',
       mask: true,
     });
-
     wx.login({
       success: function (data) {
-        wx.getUserInfo({
-          success: function (res) {
-            // 登录
-            appAjax.postJson({
-              headers: {
-                Authorization: '',
-              },
-              service: 'LOGIN',
-              data: {
-                userInfo: res.userInfo,
-                code: data.code,
-              },
-              success: function (result) {
-                res.userInfo.agreePrivacy = result.agree_privacy_policy;
-                res.userInfo.access = result.access;
-                res.userInfo.level = result.level;
-                res.userInfo.nickName = result.nickname;
-                res.userInfo.eventLevel = result.activity_level;
-                res.userInfo.gitee = result.gitee_name;
-                res.userInfo.userId = result.user_id;
-                // 缓存用户信息
-                appUser.saveLoginInfo(res.userInfo || {});
-                // 回调
-                callback && callback(res.userInfo || {});
-              },
-            });
+        appAjax.postJson({
+          headers: {
+            Authorization: '',
           },
-          fail: function () {
+          service: 'LOGIN',
+          data: {
+            code: data.code,
+          },
+          success: function (result) {
+            let userInfo = {};
+            userInfo.agreePrivacy = result.agree_privacy_policy;
+            userInfo.access = result.access;
+            userInfo.level = result.level;
+            userInfo.nickName = result.nickname;
+            userInfo.avatarUrl = result.avatar;
+            userInfo.eventLevel = result.activity_level;
+            userInfo.gitee = result.gitee_name;
+            userInfo.userId = result.user_id;
+            userInfo.refresh = result.refresh;
+            // 缓存用户信息
+            appUser.saveLoginInfo(userInfo || {});
+            // 回调
+            callback && callback(userInfo || {});
+          },
+          complete() {
             wx.hideToast();
           },
         });
@@ -114,7 +110,6 @@ const appUser = {
     wx.getSetting({
       success: function (res) {
         if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
           privateMethods._login(callback);
         } else {
           app.loginCallback = function () {
@@ -185,7 +180,6 @@ const appUser = {
       icon: 'loading',
       mask: true,
     });
-
     wx.login({
       success: function (data) {
         appAjax.postJson({
@@ -204,6 +198,7 @@ const appUser = {
             userInfo.gitee = result.gitee_name;
             userInfo.userId = result.user_id;
             userInfo.nickName = result.nickname;
+            userInfo.avatarUrl = result.avatar;
             userInfo.refresh = result.refresh;
             // // 缓存用户信息
             appUser.saveLoginInfo(userInfo || {});

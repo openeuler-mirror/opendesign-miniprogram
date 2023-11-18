@@ -147,26 +147,34 @@ Page({
         info: res,
       });
       let arr = [];
-      JSON.parse(res.schedules).forEach((item) => {
-        if (item.speakerList) {
-          arr.push({
-            duration: item.start + '-' + item.end,
-            title: item.topic,
-            speakerList: item.speakerList,
-          });
-        } else {
-          arr.push({
-            duration: item.start + '-' + item.end,
-            title: item.topic,
-            speakerList: [
-              {
-                name: item.speaker || '',
-                title: item.desc || '',
-              },
-            ],
-          });
-        }
-      });
+      try {
+        JSON.parse(res.schedules).forEach((item) => {
+          if (item.speakerList) {
+            arr.push({
+              duration: item.start + '-' + item.end,
+              title: item.topic,
+              speakerList: item.speakerList,
+            });
+          } else {
+            arr.push({
+              duration: item.start + '-' + item.end,
+              title: item.topic,
+              speakerList: [
+                {
+                  name: item.speaker || '',
+                  title: item.desc || '',
+                },
+              ],
+            });
+          }
+        });
+      } catch (error) {
+        wx.showToast({
+          title: error,
+          icon: 'none',
+          duration: 2000,
+        });
+      }
       this.setData({
         steps: arr,
       });
@@ -205,7 +213,11 @@ Page({
   },
   draftPublish() {
     let postData = this.data.info;
-    postData.schedules = JSON.parse(postData.schedules);
+    try {
+      postData.schedules = JSON.parse(postData.schedules);
+    } catch (error) {
+      return;
+    }
     remoteMethods.draftPublish(postData, (res) => {
       if (res.code === 200) {
         wx.redirectTo({

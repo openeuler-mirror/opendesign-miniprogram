@@ -43,16 +43,16 @@ Page(
     },
     onPullDownRefresh: function () {
       wx.stopPullDownRefresh();
-      appUser.updateUserInfo(function () {
-        that.setData({
+      appUser.updateUserInfo(() => {
+        this.setData({
           level: sessionUtil.getUserInfoByKey('level') || 1,
         });
-        that.data.meetingConponent?.initData();
       });
+      this.data.meetingConponent?.initData();
     },
     onReachBottom() {
       const customComponent = this.selectComponent('#meeting');
-      customComponent.getMoreData()
+      customComponent.getMoreData();
     },
     actionStatus(e) {
       if (e.detail === 1) {
