@@ -5,7 +5,6 @@ const sessionUtil = require('../../utils/app-session.js');
 let that = null;
 let remoteMethods = {
   getList: function (params, _callback) {
-    console.log(that.data.type);
     let service = '';
     if (that.data.type == 4) {
       service = 'GET_DRAFT_LIST';
