@@ -2,6 +2,7 @@ const underscore = require('./underscore-extend.js');
 const servicesConfig = require('../config/services-config.js');
 const CONSTANTS = require('../config/constants.js');
 const sessionUtil = require('./app-session.js');
+const { getStorageSync, setStorageSync } = require('./utils');
 
 let remoteMethods = {
   refreshToken: function (refresh, _callback) {
@@ -51,10 +52,10 @@ const _addUrlParam = function (data) {
 let messageQueue = [];
 let isRefreshing = false;
 
-const handleSuccessfulRefresh = function (newTokens, userData) {
+const handleSuccessfulRefresh = async function (newTokens, userData) {
   userData.access = newTokens.access;
   userData.refresh = newTokens.refresh;
-  wx.setStorageSync(CONSTANTS.APP_USERINFO_SESSION, userData);
+  await setStorageSync(CONSTANTS.APP_USERINFO_SESSION, userData);
   processMessageQueue();
   isRefreshing = false;
 };
@@ -83,8 +84,14 @@ const appAjax = {
    * error: "",			// 失败回调
    * complete: ""			// 完成回调
    */
-  postJson: function (params) {
+  postJson: async function (params) {
     // 默认参数
+    let storage;
+    try {
+      storage = await getStorageSync(CONSTANTS.APP_USERINFO_SESSION);
+    } catch (error) {
+      storage = null;
+    }
     let defaultParams = {
       service: '', // 服务的配置名称
       success: function () {}, // 成功后回调
@@ -93,9 +100,7 @@ const appAjax = {
       loadingText: '加载中...', // 加载的提示语
       autoCloseWait: true, // 自动关闭菊花
       headers: {
-        Authorization: wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION).access
-          ? 'Bearer ' + wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION).access
-          : '',
+        Authorization: storage ? 'Bearer ' + storage.access : '',
       },
     };
     let isShowToast = false;
@@ -122,11 +127,10 @@ const appAjax = {
       header: ajaxParams.headers,
       method: ajaxParams['type'] || 'POST',
       data: ajaxParams.data,
-      success: function (res) {
-        const data = wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION);
-        if (res?.data?.access && data) {
-          data.access = res.data.access;
-          wx.setStorageSync(CONSTANTS.APP_USERINFO_SESSION, data);
+      success: async function (res) {
+        if (res?.data?.access && storage) {
+          storage.access = res.data.access;
+          await setStorageSync(CONSTANTS.APP_USERINFO_SESSION, storage);
         }
         ajaxParams.success(res.data, res);
 
@@ -142,20 +146,23 @@ const appAjax = {
             message = '有点忙开个小差，稍后再试~';
           }
           // 刷新token
-          if (res.statusCode === 401 && data && params.service !== 'REFRESH') {
+          if (res.statusCode === 401 && storage && params.service !== 'REFRESH') {
             messageQueue.push(params);
             if (!isRefreshing) {
               isRefreshing = true;
-              remoteMethods.refreshToken(data?.refresh, (res) => {
+              remoteMethods.refreshToken(storage?.refresh, (res) => {
                 if (!res.refresh) {
                   clearUserDataAndNavigate();
                 } else {
-                  handleSuccessfulRefresh(res, data);
+                  handleSuccessfulRefresh(res, storage);
                 }
                 isRefreshing = false;
               });
             }
             return;
+          }
+          if (res.statusCode === 401 && !storage) {
+            clearUserDataAndNavigate();
           }
           if (ajaxParams.error) {
             ajaxParams.error(message, res);

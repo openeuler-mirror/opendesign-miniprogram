@@ -101,10 +101,10 @@ Page({
     this.setData({
       iphoneX: this.getTabBar().data.iPhoneX,
     });
-    appUser.updateUserInfo(function () {
+    appUser.updateUserInfo(async function () {
       that.setData({
-        level: sessionUtil.getUserInfoByKey('eventLevel') || 1,
-        user: sessionUtil.getUserInfoByKey('userId'),
+        level: (await sessionUtil.getUserInfoByKey('eventLevel')) || 1,
+        user: await sessionUtil.getUserInfoByKey('userId'),
       });
     });
     this.initData();
@@ -117,9 +117,9 @@ Page({
       _tabbat: 2,
     });
   },
-  navigateTo(e) {
+  async navigateTo(e) {
     const url = e.currentTarget.dataset.url;
-    if (url.includes('publish') && !sessionUtil.getUserInfoByKey('access')) {
+    if (url.includes('publish') && !(await sessionUtil.getUserInfoByKey('access'))) {
       wx.navigateTo({
         url: '/pages/auth/auth',
       });
@@ -306,12 +306,6 @@ Page({
     }
   },
   toUpdateSchedule(e) {
-    if (!sessionUtil.getUserInfoByKey('access')) {
-      wx.navigateTo({
-        url: '/pages/auth/auth',
-      });
-      return;
-    }
     wx.navigateTo({
       url: `/package-events/events/event-detail?id=${e.currentTarget.dataset.id}&type=5`,
     });

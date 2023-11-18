@@ -30,6 +30,29 @@ let utils = {
       return fmt;
     };
   },
+  setStorageSync(key, data) {
+    return new Promise((resolve, reject) => {
+      wx.setStorage({
+        key: key,
+        data: data,
+        encrypt: true,
+        success: resolve,
+        fail: reject,
+      });
+    });
+  },
+  getStorageSync(key) {
+    return new Promise((resolve, reject) => {
+      wx.getStorage({
+        key: key,
+        encrypt: true,
+        success: (res) => {
+          resolve(res.data);
+        },
+        fail: reject,
+      });
+    });
+  },
 };
 
 module.exports = utils;

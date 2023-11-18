@@ -1,6 +1,7 @@
 const appAjax = require('./app-ajax.js');
 const appSession = require('./app-session.js');
 const constants = require('../config/constants');
+const { getStorageSync, setStorageSync } = require('./utils');
 const app = getApp();
 
 const privateMethods = {
@@ -138,12 +139,17 @@ const appUser = {
    * 保存用户信息
    * @param {Object} result
    */
-  saveLoginInfo: function (result) {
-    wx.setStorageSync(constants.APP_USERINFO_SESSION, result);
+  saveLoginInfo: async function (result) {
+    await setStorageSync(constants.APP_USERINFO_SESSION, result);
   },
 
-  updateUserInfo: function (callback) {
-    let userInfo = wx.getStorageSync(constants.APP_USERINFO_SESSION);
+  updateUserInfo: async function (callback) {
+    let userInfo;
+    try {
+      userInfo = await getStorageSync(constants.APP_USERINFO_SESSION);
+    } catch (error) {
+      userInfo = null;
+    }
     if (userInfo && userInfo.userId) {
       appAjax.postJson({
         type: 'GET',
@@ -151,16 +157,16 @@ const appUser = {
         otherParams: {
           id: userInfo.userId,
         },
-        success: function (ret) {
+        success: async function (ret) {
           if (ret) {
             // 更新userInfo数据
-            userInfo = wx.getStorageSync(constants.APP_USERINFO_SESSION);
+            userInfo = await getStorageSync(constants.APP_USERINFO_SESSION);
             userInfo.gitee = ret.gitee_name;
             userInfo.level = ret.level;
             userInfo.nickName = ret.nickname;
             userInfo.avatarUrl = ret.avatar;
             userInfo.eventLevel = ret.activity_level;
-            wx.setStorageSync(constants.APP_USERINFO_SESSION, userInfo);
+            await setStorageSync(constants.APP_USERINFO_SESSION, userInfo);
           }
           callback && callback();
         },
@@ -190,7 +196,7 @@ const appUser = {
           data: {
             code: data.code,
           },
-          success: function (result) {
+          success: async function (result) {
             userInfo.agreePrivacy = result.agree_privacy_policy;
             userInfo.access = result.access;
             userInfo.level = result.level;
@@ -201,7 +207,7 @@ const appUser = {
             userInfo.avatarUrl = result.avatar;
             userInfo.refresh = result.refresh;
             // // 缓存用户信息
-            appUser.saveLoginInfo(userInfo || {});
+            await appUser.saveLoginInfo(userInfo || {});
             // 回调
             callback && callback(userInfo || {});
           },

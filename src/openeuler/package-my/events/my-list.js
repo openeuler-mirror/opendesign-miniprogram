@@ -5,6 +5,7 @@ const sessionUtil = require('../../utils/app-session.js');
 let that = null;
 let remoteMethods = {
   getList: function (params, _callback) {
+    console.log(that.data.type);
     let service = '';
     if (that.data.type == 4) {
       service = 'GET_DRAFT_LIST';
@@ -119,40 +120,36 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: async function (options) {
+    let type = Number(options.type);
     this.setData({
-      type: options.type,
-      level: sessionUtil.getUserInfoByKey('eventLevel'),
-      user: sessionUtil.getUserInfoByKey('userId'),
+      type: type,
+      level: await sessionUtil.getUserInfoByKey('eventLevel'),
+      user: await sessionUtil.getUserInfoByKey('userId'),
     });
     that = this;
     let title = '';
-    if (options.type == 1) {
+    if (type === 1) {
       title = '待发布';
-    } else if (options.type == 2) {
+    } else if (type === 2) {
       title = '已发布';
-    } else if (options.type == 3) {
+    } else if (type === 3) {
       title = '报名表单';
-    } else if (options.type == 4) {
+    } else if (type === 4) {
       title = '草稿箱';
-    } else if (options.type == 5) {
+    } else if (type === 5) {
       title = '发布中';
-    } else if (options.type == 6) {
+    } else if (type === 6) {
       title = '我收藏的活动';
-    } else if (options.type == 7) {
+    } else if (type === 7) {
       title = '我报名的活动';
     }
     wx.setNavigationBarTitle({
       title,
     });
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
     this.initData();
   },
+
   initData() {
     let renderData = [];
     remoteMethods.getList(this.data.pageParams, (data) => {
@@ -198,8 +195,8 @@ Page({
       remoteMethods.delDraft(() => {
         this.initialization();
       });
-    } else if (this.data.type == 2 || this.data.type == 6 || this.data.type == 7) {
-      if (this.data.level == 3) {
+    } else if (this.data.type === 2 || this.data.type === 6 || this.data.type === 7) {
+      if (this.data.level === 3) {
         if (e.detail.operaType == 1) {
           if (this.data.collectionId) {
             remoteMethods.unCollect(() => {
@@ -216,7 +213,7 @@ Page({
           });
         }
       } else {
-        if (e.detail.operaType == 1) {
+        if (e.detail.operaType === 1) {
           if (this.data.collectionId) {
             remoteMethods.unCollect(() => {
               this.initialization();
@@ -226,7 +223,7 @@ Page({
               this.initialization();
             });
           }
-        } else if (e.detail.operaType == 3) {
+        } else if (e.detail.operaType === 3) {
           return;
         } else {
           this.setData({

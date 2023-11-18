@@ -31,14 +31,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    this.setData({
-      iphoneX: this.getTabBar().data.iPhoneX,
-      avatarUrl: sessionUtil.getUserInfoByKey('avatarUrl'),
-      nickName: sessionUtil.getUserInfoByKey('nickName'),
-      level: sessionUtil.getUserInfoByKey('level'),
-      userId: sessionUtil.getUserInfoByKey('userId'),
-      avtivityLevel: sessionUtil.getUserInfoByKey('eventLevel'),
+    let that = this;
+    wx.getStorage({
+      key: '_app_userinfo_session',
+      encrypt: true,
+      success(res) {
+        that.setData({
+          iphoneX: that.getTabBar().data.iPhoneX,
+          avatarUrl: res.data?.avatarUrl,
+          nickName: res.data?.nickName,
+          level: res.data?.level,
+          userId: res.data?.userId,
+          avtivityLevel: res.data?.eventLevel,
+        });
+      },
     });
+
     remoteMethods.getMyCount((res) => {
       this.setData({
         myCount: res,

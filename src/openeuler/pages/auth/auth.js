@@ -3,6 +3,7 @@ const mixin = require('../../utils/page-mixin.js').$pageMixin;
 const appUser = require('../../utils/app-user.js');
 const appAjax = require('./../../utils/app-ajax');
 const sessionUtil = require('../../utils/app-session.js');
+const { getStorageSync, setStorageSync } = require('../../utils/utils');
 
 let that = null;
 Page(
@@ -25,7 +26,6 @@ Page(
       }
     },
     bindGetUserProfile() {
-      console.log(555);
       if (!this.data.record) {
         wx.showToast(
           {
@@ -37,13 +37,14 @@ Page(
         );
         return false;
       }
-      appUser.wxGetUserProfileLogin(function () {
+      appUser.wxGetUserProfileLogin(async function () {
         const pages = getCurrentPages(); // 当前页面
         const beforePage =
           pages[pages.length - 2]?.route === 'pages/auth/auth' ? pages[pages.length - 3] : pages[pages.length - 2]; // 前一个页面
         const id = beforePage?.options.id || that.data.id;
         const url = id ? '/' + beforePage?.route + '?id=' + id : '/' + beforePage?.route;
-        if (!sessionUtil.getUserInfoByKey('agreePrivacy')) {
+        console.log(await sessionUtil.getUserInfoByKey('agreePrivacy'));
+        if (!(await sessionUtil.getUserInfoByKey('agreePrivacy'))) {
           that.setData({
             isPrivecyShown: true,
             url: url,
@@ -88,26 +89,22 @@ Page(
         },
       });
     },
-    setStorage: function () {
-      // let data = wx.getStorageSync('_app_userinfo_session');
-      // data.agreePrivacy = true;
-      // wx.setStorageSync('_app_userinfo_session', data);
-      wx.getStorage({
-        key: '_app_userinfo_session',
-        encrypt: true,
-        success(data) {
-          data.agreePrivacy = true;
-          wx.setStorage({
-            key: '_app_userinfo_session',
-            encrypt: true,
-            data: data,
-          });
-        },
-      });
+    setStorage: async function () {
+      try {
+        let data = await getStorageSync('_app_userinfo_session');
+        data.agreePrivacy = true;
+        await setStorageSync('_app_userinfo_session', data);
+      } catch (error) {
+        wx.removeStorageSync('_app_userinfo_session');
+      }
     },
     handleClick: function () {
-      this.setAgreeState(() => {
-        this.setStorage();
+      this.setAgreeState((res) => {
+        if (res.code === 200) {
+          this.setStorage();
+        } else {
+          wx.removeStorageSync('_app_userinfo_session');
+        }
         this.setData({
           isPrivecyShown: false,
         });

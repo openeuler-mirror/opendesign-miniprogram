@@ -31,8 +31,8 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    switchTap: function (e) {
-      if (!sessionUtil.getUserInfoByKey('access') && Number(e.currentTarget.dataset.index) === 3) {
+    switchTap: async function (e) {
+      if (!(await sessionUtil.getUserInfoByKey('access')) && Number(e.currentTarget.dataset.index) === 3) {
         wx.navigateTo({
           url: '/pages/auth/auth',
         });

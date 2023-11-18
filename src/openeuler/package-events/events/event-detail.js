@@ -113,13 +113,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: async function (options) {
     that = this;
     this.setData({
       id: options.id || decodeURIComponent(options.scene),
       scene: decodeURIComponent(options.scene) || '',
       type: options.type,
-      level: sessionUtil.getUserInfoByKey('eventLevel') || 1,
+      level: (await sessionUtil.getUserInfoByKey('eventLevel')) || 1,
     });
     wx.getSystemInfo({
       success(res) {
@@ -138,9 +138,9 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: async function () {
     this.setData({
-      user: sessionUtil.getUserInfoByKey('userId'),
+      user: await sessionUtil.getUserInfoByKey('userId'),
     });
     remoteMethods.getDraftDetail((res) => {
       this.setData({
@@ -183,27 +183,6 @@ Page({
   switchTab(e) {
     this.setData({
       tabIndex: e.currentTarget.dataset.index,
-    });
-  },
-  openLocation(e) {
-    if (e.currentTarget.dataset.item.activity_type == 2) {
-      return;
-    }
-    wx.showModal({
-      title: '提示',
-      content: '即将唤起腾讯地图，是否同意？',
-      success(res) {
-        if (res.confirm) {
-          wx.openLocation({
-            latitude: Number(e.currentTarget.dataset.item.latitude),
-            longitude: Number(e.currentTarget.dataset.item.longitude),
-            name: e.currentTarget.dataset.item.detail_address, // 名称
-            address: e.currentTarget.dataset.item.address, // 地址
-          });
-        } else if (res.cancel) {
-          return false;
-        }
-      },
     });
   },
   toEditDraft() {
@@ -270,10 +249,10 @@ Page({
   },
   copyLink: function () {
     wx.setClipboardData({
-      data: this.data.info.join_url,
-      success: function () {
+      data: this.data.info.register_url,
+      success: () => {
         that.setData({
-          showDialog: false,
+          showRegister: false,
         });
       },
     });

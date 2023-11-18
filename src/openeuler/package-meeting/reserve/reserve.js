@@ -192,6 +192,7 @@ Page({
       agenda: '',
       emaillist: '',
       privacyState: false,
+      sendDev: false,
     });
   },
   meeting: function () {
@@ -328,13 +329,12 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    that = this;
+  onShow: async function () {
     this.setData({
-      sponsor: appSession.getUserInfoByKey('gitee') || '',
+      sponsor: (await appSession.getUserInfoByKey('gitee')) || '',
     });
     let that = this;
-    remoteMethods.getUserGroup(appSession.getUserInfoByKey('userId'), function (data) {
+    remoteMethods.getUserGroup(await appSession.getUserInfoByKey('userId'), function (data) {
       if (data && data.length) {
         that.setData({
           sigList: data,

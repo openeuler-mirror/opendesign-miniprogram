@@ -139,11 +139,11 @@ Page({
   onLoad: function () {
     that = this;
     this.initData();
-    remoteMethods.getCount((res) => {
+    remoteMethods.getCount(async (res) => {
       this.setData({
         'pageParams.page': 1,
-        level: sessionUtil.getUserInfoByKey('eventLevel') || 1,
-        user: sessionUtil.getUserInfoByKey('userId'),
+        level: (await sessionUtil.getUserInfoByKey('eventLevel')) || 1,
+        user: await sessionUtil.getUserInfoByKey('userId'),
         allNum: res.all_activities_count,
         signUpNum: res.registering_activities_count,
         goingNum: res.going_activities_count,

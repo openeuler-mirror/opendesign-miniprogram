@@ -44,15 +44,15 @@ Component({
   pageLifetimes: {
     // 组件所在页面的生命周期函数
 
-    show: function () {
+    show: async function () {
       this.setData({
-        isLogin: sessionUtil.getUserInfoByKey('access') || false,
+        isLogin: (await sessionUtil.getUserInfoByKey('access')) || false,
       });
       if (this.data.isLogin) {
         this.setData({
-          avatarUrl: sessionUtil.getUserInfoByKey('avatarUrl'),
+          avatarUrl: await sessionUtil.getUserInfoByKey('avatarUrl'),
           text: localMethods.getCurText(),
-          nickName: sessionUtil.getUserInfoByKey('nickName'),
+          nickName: await sessionUtil.getUserInfoByKey('nickName'),
         });
       }
     },

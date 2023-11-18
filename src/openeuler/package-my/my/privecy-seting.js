@@ -41,13 +41,13 @@ Page({
     isLogoffDiaShown: false,
     content: '',
     deleteText: '',
-    gitee: ''
+    gitee: '',
   },
-  onLoad: function () {
+  onLoad: async function () {
     this.setData({
-      avatarUrl: sessionUtil.getUserInfoByKey('avatarUrl'),
-      nickName: sessionUtil.getUserInfoByKey('nickName'),
-      gitee: sessionUtil.getUserInfoByKey('gitee'),
+      avatarUrl: await sessionUtil.getUserInfoByKey('avatarUrl'),
+      nickName: await sessionUtil.getUserInfoByKey('nickName'),
+      gitee: await sessionUtil.getUserInfoByKey('gitee'),
     });
   },
   shownDialog: function (e) {
@@ -70,8 +70,16 @@ Page({
       });
       return false;
     }
-    remoteMethods.handleLogoff(() => {
-      this.handleLogout();
+    remoteMethods.handleLogoff((res) => {
+      if (res.code === 200) {
+        this.handleLogout();
+      } else {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none',
+          duration: 2000,
+        });
+      }
     });
   },
   confirmLogout: function () {

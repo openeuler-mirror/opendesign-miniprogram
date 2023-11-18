@@ -115,6 +115,7 @@ Page({
   },
   searchInput: function (e) {
     this.setData({
+      'pageParams.page': 1,
       keyword: e.detail.value,
     });
     this.initData();

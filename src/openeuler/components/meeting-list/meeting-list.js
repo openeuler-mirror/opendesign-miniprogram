@@ -13,7 +13,7 @@ const remoteMethods = {
     });
   },
   getMeettingData: function (params, _callback) {
-    if (that?.properties.pageType === 2) {
+    if (that.properties.pageType === 2) {
       params = {
         ...params,
         search: that.data.curKeyword,
@@ -71,8 +71,8 @@ const remoteMethods = {
   },
 };
 const localMethod = {
-  checkLogin() {
-    if (!sessionUtil.getUserInfoByKey('access')) {
+  async checkLogin() {
+    if (!(await sessionUtil.getUserInfoByKey('access'))) {
       wx.navigateTo({
         url: '/pages/auth/auth',
       });
@@ -278,8 +278,8 @@ Component({
         url: '/package-meeting/meeting/detail?id=' + e.currentTarget.dataset.id,
       });
     },
-    getMore(e) {
-      if (!localMethod.checkLogin()) {
+    async getMore(e) {
+      if (!(await localMethod.checkLogin())) {
         return;
       }
       this.setData({
@@ -290,7 +290,7 @@ Component({
       });
       const collectDesc = this.data.collectionId ? '取消收藏' : '收藏会议';
       const userId = e.currentTarget.dataset.item.user_id;
-      if (sessionUtil.getUserInfoByKey('level') === 1) {
+      if ((await sessionUtil.getUserInfoByKey('level')) === 1) {
         this.setData({
           actions: [
             {
@@ -303,8 +303,8 @@ Component({
             },
           ],
         });
-      } else if (sessionUtil.getUserInfoByKey('level') === 2) {
-        if (sessionUtil.getUserInfoByKey('userId') === userId) {
+      } else if ((await sessionUtil.getUserInfoByKey('level')) === 2) {
+        if ((await sessionUtil.getUserInfoByKey('userId')) === userId) {
           this.setData({
             actions: [
               {

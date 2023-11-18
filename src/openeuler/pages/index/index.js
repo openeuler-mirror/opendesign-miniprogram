@@ -18,8 +18,8 @@ Page(
       meetingConponent: null,
       autoplay: false,
     },
-    handleContact(e) {
-      if (!sessionUtil.getUserInfoByKey('access')) {
+    async handleContact(e) {
+      if (!(await sessionUtil.getUserInfoByKey('access'))) {
         wx.navigateTo({
           url: '/pages/auth/auth',
         });
@@ -71,8 +71,8 @@ Page(
         });
       }
     },
-    checkLogin() {
-      if (!sessionUtil.getUserInfoByKey('access')) {
+    async checkLogin() {
+      if (!(await sessionUtil.getUserInfoByKey('access'))) {
         wx.navigateTo({
           url: '/pages/auth/auth',
         });
