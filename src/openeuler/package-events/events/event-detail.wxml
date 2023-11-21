@@ -21,7 +21,7 @@
             <image src="./../../static/index/date.svg"></image>
             <text>{{info.date}}</text>
         </view>
-        <view  class="address" data-item="{{info}}">
+        <view class="address" data-item="{{info}}">
             <view class="left" wx:if="{{info.activity_type==1}}">
                 <image src="./../../static/common/location.svg"></image>
                 <text>{{info.address}}</text>
@@ -94,26 +94,18 @@
             <text>分享</text>
         </button>
         <button class="btn-ghost" bindtap="toPoster">下载海报</button>
-        <block wx:if="{{info.status==5}}">
-            <button class="btn-primary" wx:if="{{info.status==5}}" bindtap="switchTab2">
+        <block wx:if="{{info.status===5}}">
+            <button class="btn-primary" wx:if="{{info.status===5}}" bindtap="switchTab2">
                 精彩回顾
             </button>
         </block>
         <block wx:else>
-            <block wx:if="{{level==1}}">
-                <button class="btn-primary {{info.register_id?'register':''}}" wx:if="{{info.register_id}}">
-                    已报名
-                </button>
-                <button class="btn-primary" wx:else bindtap="toSignUp">立即报名</button>
+            <block wx:if="{{level===1 || level===3}}">
+                <button class="btn-primary" bindtap="toSignUp">立即报名</button>
             </block>
-            <block wx:elif="{{level==2}}">
+            <block wx:elif="{{level===2}}">
                 <button class="btn-primary" wx:if="{{info.user==user}}" bindtap="editSchedule">修改日程</button>
-                <button class="btn-primary register" wx:elif="{{info.register_id}}">已报名</button>
                 <button class="btn-primary" wx:else bindtap="toSignUp">立即报名</button>
-            </block>
-            <block wx:else>
-                <button class="btn-primary" wx:if="{{(info.status==3) || (info.status==4)}}"
-                    bindtap="editSchedule">修改日程</button>
             </block>
         </block>
     </view>
@@ -127,8 +119,8 @@
             <text>分享</text>
         </button>
         <button class="btn-ghost" bindtap="redrictLogin">下载海报</button>
-        <block wx:if="{{info.status==5}}">
-            <button class="btn-primary" wx:if="{{info.status==5}}" bindtap="switchTab2">
+        <block wx:if="{{info.status===5}}">
+            <button class="btn-primary" wx:if="{{info.status===5}}" bindtap="switchTab2">
                 精彩回顾
             </button>
         </block>

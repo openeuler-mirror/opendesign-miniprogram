@@ -191,6 +191,7 @@ Page({
       etherpad: '',
       agenda: '',
       emaillist: '',
+      meetingType: 'zoom',
       privacyState: false,
       sendDev: false,
     });

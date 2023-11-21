@@ -130,7 +130,6 @@ Page({
     goingNum: 0,
     complatedNum: 0,
     curId: '',
-    registerId: '',
   },
 
   /**
@@ -264,7 +263,6 @@ Page({
       curId: e.currentTarget.dataset.item.id,
       userId: e.currentTarget.dataset.item.user,
       collectionId: e.currentTarget.dataset.item.collection_id || '',
-      registerId: e.currentTarget.dataset.item.register_id || '',
     });
     const strTemp = this.data.collectionId ? '取消收藏' : '收藏活动';
     if (this.data.level == 3) {
@@ -302,17 +300,6 @@ Page({
               operaType: 1,
             },
           ],
-        });
-      }
-
-      if (this.data.registerId) {
-        let tempArr = this.data.actions;
-        tempArr.unshift({
-          name: '查看门票',
-          operaType: 3,
-        });
-        this.setData({
-          actions: tempArr,
         });
       }
     }

@@ -22,12 +22,6 @@ let remoteMethods = {
       service = 'EVENT_COLLECT_LIST';
     } else if (that.data.type == 7) {
       return;
-    } else if (that.data.type == 3) {
-      if (that.data.level == 2) {
-        service = 'MY_EVENTS_LIST';
-      } else {
-        service = 'ALL_EVENTS_LIST';
-      }
     }
     appAjax.postJson({
       autoShowWait: true,
@@ -113,7 +107,6 @@ Page({
     showDialogDel: false,
     noAuthDialogShow: false,
     user: '',
-    registerId: '',
   },
 
   /**
@@ -123,17 +116,12 @@ Page({
     let type = Number(options.type);
     this.setData({
       type: type,
-      level: await sessionUtil.getUserInfoByKey('eventLevel'),
-      user: await sessionUtil.getUserInfoByKey('userId'),
     });
-    that = this;
     let title = '';
     if (type === 1) {
       title = '待发布';
     } else if (type === 2) {
       title = '已发布';
-    } else if (type === 3) {
-      title = '报名表单';
     } else if (type === 4) {
       title = '草稿箱';
     } else if (type === 5) {
@@ -146,6 +134,13 @@ Page({
     wx.setNavigationBarTitle({
       title,
     });
+  },
+  async onShow() {
+    this.setData({
+      level: await sessionUtil.getUserInfoByKey('eventLevel'),
+      user: await sessionUtil.getUserInfoByKey('userId'),
+    });
+    that = this;
     this.initData();
   },
 
@@ -222,8 +217,6 @@ Page({
               this.initialization();
             });
           }
-        } else if (e.detail.operaType === 3) {
-          return;
         } else {
           this.setData({
             noAuthDialogShow: true,
@@ -238,7 +231,6 @@ Page({
       curId: e.currentTarget.dataset.item.id,
       userId: e.currentTarget.dataset.item.user,
       collectionId: e.currentTarget.dataset.item.collection_id || '',
-      registerId: e.currentTarget.dataset.item.register_id || '',
     });
     const strTemp = this.data.collectionId ? '取消收藏' : '收藏活动';
     if (this.data.type == 4) {
@@ -288,17 +280,6 @@ Page({
             ],
           });
         }
-
-        if (this.data.registerId) {
-          let tempArr = this.data.actions;
-          tempArr.unshift({
-            name: '查看门票',
-            operaType: 3,
-          });
-          this.setData({
-            actions: tempArr,
-          });
-        }
       }
     }
   },
@@ -330,8 +311,6 @@ Page({
       wx.navigateTo({
         url: `/package-events/events/event-detail?id=${e.currentTarget.dataset.id}&type=5`,
       });
-    } else if (this.data.type == 3) {
-      return;
     }
   },
   copyWechat() {

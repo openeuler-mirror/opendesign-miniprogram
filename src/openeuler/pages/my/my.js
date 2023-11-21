@@ -1,6 +1,5 @@
 // pages/my/my.js
 const appAjax = require('./../../utils/app-ajax');
-const sessionUtil = require('../../utils/app-session.js');
 
 let remoteMethods = {
   getMyCount: function (_callback) {

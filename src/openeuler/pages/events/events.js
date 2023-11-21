@@ -91,7 +91,6 @@ Page({
     curId: '',
     userId: '',
     collectionId: '',
-    registerId: '',
   },
   /**
    * 生命周期函数--监听页面加载
@@ -179,8 +178,8 @@ Page({
     });
   },
   onActionSelect(e) {
-    if (this.data.level == 3) {
-      if (e.detail.operaType == 1) {
+    if (this.data.level === 3) {
+      if (e.detail.operaType === 1) {
         if (this.data.collectionId) {
           remoteMethods.unCollect(() => {
             this.setData({
@@ -202,7 +201,7 @@ Page({
         });
       }
     } else {
-      if (e.detail.operaType == 1) {
+      if (e.detail.operaType === 1) {
         if (this.data.collectionId) {
           remoteMethods.unCollect(() => {
             this.setData({
@@ -218,7 +217,7 @@ Page({
             this.initData();
           });
         }
-      } else if (e.detail.operaType == 3) {
+      } else if (e.detail.operaType === 3) {
         return;
       } else {
         this.setData({
@@ -252,10 +251,9 @@ Page({
       curId: e.currentTarget.dataset.item.id,
       userId: e.currentTarget.dataset.item.user,
       collectionId: e.currentTarget.dataset.item.collection_id || '',
-      registerId: e.currentTarget.dataset.item.register_id || '',
     });
     const strTemp = this.data.collectionId ? '取消收藏' : '收藏活动';
-    if (this.data.level == 3) {
+    if (this.data.level === 3) {
       this.setData({
         actions: [
           {
@@ -290,17 +288,6 @@ Page({
               operaType: 1,
             },
           ],
-        });
-      }
-
-      if (this.data.registerId) {
-        let tempArr = this.data.actions;
-        tempArr.unshift({
-          name: '查看门票',
-          operaType: 3,
-        });
-        this.setData({
-          actions: tempArr,
         });
       }
     }

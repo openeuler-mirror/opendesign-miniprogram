@@ -30,7 +30,7 @@
   <button class="logout" bindtap="confirmLogout">退出登陆</button>
   <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ isPrivecyDiaShown  }}" class-name="scancel-consent-dialog">
     <view class="dialog-slot-content">
-      <text>请确认是否撤销同意隐私声明</text>
+      <text>请确认是否撤销同意隐私声明，撤销后账号将匿名化处理，匿名化账号不可再登录，请谨慎操作！</text>
       <view>
         <button class="confirm" bindtap="confirmRevoke">确认</button>
         <button bindtap="cancel">我再想想</button>

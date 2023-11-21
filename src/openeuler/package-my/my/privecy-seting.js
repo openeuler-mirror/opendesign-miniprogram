@@ -57,8 +57,16 @@ Page({
     this.setData(setDataObject);
   },
   confirmRevoke: function () {
-    remoteMethods.handleRevoke(() => {
-      this.handleLogout();
+    remoteMethods.handleRevoke((res) => {
+      if (res.code === 200) {
+        this.handleLogout();
+      } else {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none',
+          duration: 2000,
+        });
+      }
     });
   },
   confirmLogoff: function () {
