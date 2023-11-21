@@ -4,12 +4,13 @@ const sessionUtil = require('../../utils/app-session.js');
 let that = null;
 
 let remoteMethods = {
-  getList: function (_callback) {
+  getList: function (params, _callback) {
     appAjax.postJson({
       autoShowWait: true,
       type: 'GET',
       service: 'ALL_EVENTS_LIST',
       data: {
+        ...params,
         activity: that.data.activity,
         activity_type: that.data.curFilterType,
         search: that.data.curKeyword,
@@ -112,6 +113,11 @@ Page({
         name: '线上',
       },
     ],
+    pageParams: {
+      page: 1,
+      size: 50,
+    },
+    total: 0,
     list: [],
     actionShow: false,
     actions: [],
@@ -124,7 +130,6 @@ Page({
     goingNum: 0,
     complatedNum: 0,
     curId: '',
-    registerId: '',
   },
 
   /**
@@ -132,15 +137,12 @@ Page({
    */
   onLoad: function () {
     that = this;
-    remoteMethods.getList((res) => {
-      that.setData({
-        list: res,
-        level: sessionUtil.getUserInfoByKey('eventLevel') || 1,
-        user: sessionUtil.getUserInfoByKey('userId'),
-      });
-    });
-    remoteMethods.getCount((res) => {
-      that.setData({
+    this.initData();
+    remoteMethods.getCount(async (res) => {
+      this.setData({
+        'pageParams.page': 1,
+        level: (await sessionUtil.getUserInfoByKey('eventLevel')) || 1,
+        user: await sessionUtil.getUserInfoByKey('userId'),
         allNum: res.all_activities_count,
         signUpNum: res.registering_activities_count,
         goingNum: res.going_activities_count,
@@ -148,11 +150,33 @@ Page({
       });
     });
   },
-
+  initData() {
+    let renderData = [];
+    remoteMethods.getList(this.data.pageParams, (data) => {
+      if (this.data.pageParams.page === 1) {
+        renderData = data.data;
+      } else {
+        renderData = this.data.list;
+        renderData.push(...data.data);
+      }
+      this.setData({
+        list: renderData,
+        total: data.total,
+      });
+    });
+  },
+  onReachBottom() {
+    if (this.data.total < this.data.pageParams.size * this.data.pageParams.page) {
+      return false;
+    }
+    this.setData({
+      'pageParams.page': this.data.pageParams.page + 1,
+    });
+    this.initData();
+  },
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
   search: function (e) {
     this.setData({
       curKeyword: e.detail.value,
@@ -239,7 +263,6 @@ Page({
       curId: e.currentTarget.dataset.item.id,
       userId: e.currentTarget.dataset.item.user,
       collectionId: e.currentTarget.dataset.item.collection_id || '',
-      registerId: e.currentTarget.dataset.item.register_id || '',
     });
     const strTemp = this.data.collectionId ? '取消收藏' : '收藏活动';
     if (this.data.level == 3) {
@@ -277,17 +300,6 @@ Page({
               operaType: 1,
             },
           ],
-        });
-      }
-
-      if (this.data.registerId) {
-        let tempArr = this.data.actions;
-        tempArr.unshift({
-          name: '查看门票',
-          operaType: 3,
-        });
-        this.setData({
-          actions: tempArr,
         });
       }
     }

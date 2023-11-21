@@ -1,6 +1,7 @@
 // package-events/publish/publish.js
 const appAjax = require('./../../utils/app-ajax');
 const utils = require('./../../utils/utils.js');
+const { BILIBILI_URL } = require('./../../utils/url-config.js');
 utils.formateDate();
 let that = null;
 let remoteMethods = {
@@ -73,7 +74,15 @@ let remoteMethods = {
     });
   },
 };
+
 let localMethods = {
+  timeValid: function (startTime, endTime) {
+    function timeToMinutes(time) {
+      const parts = time.split(':');
+      return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+    }
+    return timeToMinutes(endTime) > timeToMinutes(startTime);
+  },
   validation: function (data) {
     if (data.activity_type === 1) {
       if (!data.title) {
@@ -88,6 +97,11 @@ let localMethods = {
         this.toast('请输入报名链接');
         return;
       }
+      const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+      if (!urlRegex.test(data.register_url)) {
+        this.toast('报名链接格式错误');
+        return;
+      }
       if (!data.address) {
         this.toast('请输入活动城市');
         return;
@@ -96,23 +110,33 @@ let localMethods = {
         this.toast('请输入具体地址');
         return;
       }
+      const regexHttp = /(http:\/\/|https:\/\/|www.)/;
+      if (regexHttp.test(that.title) || regexHttp.test(that.schedule) || regexHttp.test(that.desc)) {
+        this.toast('输入内容中禁止包含链接');
+        return;
+      }
       let flag = true;
-      data.schedules.forEach((item) => {
-        if (!item.start) {
+      for (let i = 0; i < data.schedules.length; i++) {
+        if (!data.schedules[i].start) {
           flag = false;
         }
-        if (!item.end) {
+        if (!data.schedules[i].end) {
           flag = false;
         }
-        if (!item.topic) {
+        if (!localMethods.timeValid(data.schedules[i].start, data.schedules[i].end)) {
+          this.toast('议题开始时间必须小于结束时间');
+          flag = false;
+          return;
+        }
+        if (!data.schedules[i].topic) {
           flag = false;
         }
-        item.speakerList.forEach((item) => {
+        data.schedules[i].speakerList.forEach((item) => {
           if (!item.name) {
             flag = false;
           }
         });
-      });
+      }
       if (!flag) {
         this.toast('请补充日程必填信息');
         return;
@@ -134,23 +158,32 @@ let localMethods = {
         this.toast('请选择活动时间');
         return;
       }
+      if (!localMethods.timeValid(data.start, data.end)) {
+        this.toast('活动开始时间必须小于结束时间');
+        return;
+      }
       let flag = true;
-      data.schedules.forEach((item) => {
-        if (!item.start) {
+      for (let i = 0; i < data.schedules.length; i++) {
+        if (!data.schedules[i].start) {
           flag = false;
         }
-        if (!item.end) {
+        if (!data.schedules[i].end) {
           flag = false;
         }
-        if (!item.topic) {
+        if (!localMethods.timeValid(data.schedules[i].start, data.schedules[i].end)) {
+          this.toast('议题开始时间必须小于结束时间');
+          flag = false;
+          return;
+        }
+        if (!data.schedules[i].topic) {
           flag = false;
         }
-        item.speakerList.forEach((item) => {
+        data.schedules[i].speakerList.forEach((item) => {
           if (!item.name) {
             flag = false;
           }
         });
-      });
+      }
       if (!flag) {
         this.toast('请补充填写日程必填信息');
         return;
@@ -196,9 +229,9 @@ Page({
     ],
     datePopShow: false,
     timePopShow: false,
-    curDate: new Date().getTime(),
-    currentDate: new Date().getTime(),
-    minDate: new Date().getTime(),
+    curDate: new Date().getTime() + 24 * 60 * 60 * 1000,
+    currentDate: new Date().getTime() + 24 * 60 * 60 * 1000,
+    minDate: new Date().getTime() + 24 * 60 * 60 * 1000,
     startTimeIndex: 0,
     endTimeIndex: 0,
     start: '',
@@ -287,7 +320,7 @@ Page({
   radioOnChange(e) {
     let url;
     if (e.detail === 2) {
-      url = 'https://space.bilibili.com/527064077';
+      url = BILIBILI_URL;
     } else {
       url = '';
     }
@@ -307,12 +340,16 @@ Page({
               that.setData({
                 address: res.address,
                 addressName: res.name,
-                longitude: res.longitude,
-                latitude: res.latitude,
+                longitude: res.longitude.toFixed(5),
+                latitude: res.latitude.toFixed(5),
               });
             },
             fail: function (res) {
-              console.error(res);
+              wx.showToast({
+                title: res,
+                icon: 'none',
+                duration: 2000,
+              });
             },
           });
         } else if (res.cancel) {
@@ -356,6 +393,14 @@ Page({
   },
   addSchedule() {
     let arrTemp = this.data.schedule;
+    if (arrTemp.length >= 30) {
+      wx.showToast({
+        title: '议题最多不超过30个',
+        icon: 'none',
+        duration: 2000,
+      });
+      return;
+    }
     arrTemp.push({
       start: '',
       end: '',
@@ -403,18 +448,12 @@ Page({
       isOnline: 1,
     });
   },
-  timeCancel: function () {
-    this.setData({
-      timePopShow: false,
-      isOnline: 0,
-    });
-  },
   timeOnInput: function (e) {
     this.setData({
       currentTime: e.detail,
     });
   },
-  timeConfirm: function (e) {
+  timeConfirm: function () {
     if (this.data.isOnline) {
       this.setData({
         onlineStartTime: this.data.currentTime,
@@ -433,11 +472,6 @@ Page({
   timeCancel: function () {
     this.setData({
       timePopShow: false,
-    });
-  },
-  endTimeCancel: function () {
-    this.setData({
-      endTimePopShow: false,
     });
   },
   selEndTime: function (e) {
@@ -519,7 +553,7 @@ Page({
       return;
     }
     remoteMethods.addEvents(postData, (res) => {
-      if (res.code === 201) {
+      if (res.code === 200) {
         wx.redirectTo({
           url: '/package-events/publish/success?type=2',
         });

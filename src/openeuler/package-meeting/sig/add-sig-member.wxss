@@ -25,7 +25,7 @@ page {
     height: 90rpx;
     box-shadow: 0px 5px 15px 0px rgba(0, 47, 167, 0.1);
     border-radius: 8px;
-    border: 1px solid #979797;
+    
     display: flex;
     justify-content: center;
     align-items: center;

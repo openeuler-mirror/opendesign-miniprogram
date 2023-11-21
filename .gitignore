@@ -5,3 +5,4 @@ dist-ssr
 *.local
 project.config.json
 *.less
+/miniprogram_npm

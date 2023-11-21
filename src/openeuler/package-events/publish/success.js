@@ -26,12 +26,6 @@ Page({
         typeDesc:
           '审核通过后您的活动将在openEuler官网和小程序上发布，请耐心等待，您可以在“我的 > 我的活动 > 发布中”查看此活动',
       });
-    } else if (options.type == 3) {
-      this.setData({
-        type: 2,
-        typeCn: '修改',
-        typeDesc: '您可以在“我的 > 我的活动 > 已发布”查看此活动并继续修改日程',
-      });
     }
   },
   toList() {

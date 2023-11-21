@@ -5,7 +5,7 @@ const appUser = require('../../utils/app-user.js');
 let that = null;
 
 let remoteMethods = {
-  getList: function (_callback) {
+  getList: function (params, _callback) {
     appAjax.postJson({
       autoShowWait: true,
       type: 'GET',
@@ -13,6 +13,7 @@ let remoteMethods = {
       success: function (ret) {
         _callback && _callback(ret);
       },
+      data: params,
     });
   },
   delDraft: function (_callback) {
@@ -78,6 +79,11 @@ Page({
     noAuthDialogShow: false,
     user: '',
     list: [],
+    pageParams: {
+      page: 1,
+      size: 50,
+    },
+    total: 0,
     actionShow: false,
     actions: [],
     underDialogShow: false,
@@ -85,7 +91,6 @@ Page({
     curId: '',
     userId: '',
     collectionId: '',
-    registerId: '',
   },
   /**
    * 生命周期函数--监听页面加载
@@ -95,17 +100,13 @@ Page({
     this.setData({
       iphoneX: this.getTabBar().data.iPhoneX,
     });
-    appUser.updateUserInfo(function () {
+    appUser.updateUserInfo(async function () {
       that.setData({
-        level: sessionUtil.getUserInfoByKey('eventLevel') || 1,
-        user: sessionUtil.getUserInfoByKey('userId'),
-      });
-      remoteMethods.getList((res) => {
-        that.setData({
-          list: res,
-        });
+        level: (await sessionUtil.getUserInfoByKey('eventLevel')) || 1,
+        user: await sessionUtil.getUserInfoByKey('userId'),
       });
     });
+    this.initData();
   },
   /**
    * 生命周期函数--监听页面显示
@@ -115,9 +116,9 @@ Page({
       _tabbat: 2,
     });
   },
-  navigateTo(e) {
+  async navigateTo(e) {
     const url = e.currentTarget.dataset.url;
-    if (url.includes('publish') && !sessionUtil.getUserInfoByKey('access')) {
+    if (url.includes('publish') && !(await sessionUtil.getUserInfoByKey('access'))) {
       wx.navigateTo({
         url: '/pages/auth/auth',
       });
@@ -144,6 +145,30 @@ Page({
       },
     });
   },
+  onReachBottom() {
+    if (this.data.total < this.data.pageParams.size * this.data.pageParams.page) {
+      return false;
+    }
+    this.setData({
+      'pageParams.page': this.data.pageParams.page + 1,
+    });
+    this.initData();
+  },
+  initData: function () {
+    let renderData = [];
+    remoteMethods.getList(this.data.pageParams, (data) => {
+      if (this.data.pageParams.page === 1) {
+        renderData = data.data;
+      } else {
+        renderData = this.data.list;
+        renderData.push(...data.data);
+      }
+      this.setData({
+        list: renderData,
+        total: data.total,
+      });
+    });
+  },
   onActionClose() {
     this.setData({
       actionShow: false,
@@ -153,15 +178,21 @@ Page({
     });
   },
   onActionSelect(e) {
-    if (this.data.level == 3) {
-      if (e.detail.operaType == 1) {
+    if (this.data.level === 3) {
+      if (e.detail.operaType === 1) {
         if (this.data.collectionId) {
           remoteMethods.unCollect(() => {
-            this.onLoad();
+            this.setData({
+              'pageParams.page': 1,
+            });
+            this.initData();
           });
         } else {
           remoteMethods.collect(() => {
-            this.onLoad();
+            this.setData({
+              'pageParams.page': 1,
+            });
+            this.initData();
           });
         }
       } else {
@@ -170,17 +201,23 @@ Page({
         });
       }
     } else {
-      if (e.detail.operaType == 1) {
+      if (e.detail.operaType === 1) {
         if (this.data.collectionId) {
           remoteMethods.unCollect(() => {
-            this.onLoad();
+            this.setData({
+              'pageParams.page': 1,
+            });
+            this.initData();
           });
         } else {
           remoteMethods.collect(() => {
-            this.onLoad();
+            this.setData({
+              'pageParams.page': 1,
+            });
+            this.initData();
           });
         }
-      } else if (e.detail.operaType == 3) {
+      } else if (e.detail.operaType === 3) {
         return;
       } else {
         this.setData({
@@ -194,11 +231,10 @@ Page({
       showDialogDel: false,
     });
     remoteMethods.delEvent(() => {
-      remoteMethods.getList((res) => {
-        this.setData({
-          list: res,
-        });
+      this.setData({
+        'pageParams.page': 1,
       });
+      this.initData();
     });
   },
   delCancel() {
@@ -215,10 +251,9 @@ Page({
       curId: e.currentTarget.dataset.item.id,
       userId: e.currentTarget.dataset.item.user,
       collectionId: e.currentTarget.dataset.item.collection_id || '',
-      registerId: e.currentTarget.dataset.item.register_id || '',
     });
     const strTemp = this.data.collectionId ? '取消收藏' : '收藏活动';
-    if (this.data.level == 3) {
+    if (this.data.level === 3) {
       this.setData({
         actions: [
           {
@@ -255,26 +290,9 @@ Page({
           ],
         });
       }
-
-      if (this.data.registerId) {
-        let tempArr = this.data.actions;
-        tempArr.unshift({
-          name: '查看门票',
-          operaType: 3,
-        });
-        this.setData({
-          actions: tempArr,
-        });
-      }
     }
   },
   toUpdateSchedule(e) {
-    if (!sessionUtil.getUserInfoByKey('access')) {
-      wx.navigateTo({
-        url: '/pages/auth/auth',
-      });
-      return;
-    }
     wx.navigateTo({
       url: `/package-events/events/event-detail?id=${e.currentTarget.dataset.id}&type=5`,
     });

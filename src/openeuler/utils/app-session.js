@@ -1,10 +1,16 @@
 const constants = require('../config/constants.js');
+const { getStorageSync } = require('./utils');
+
 /**
  * 获取用户信息
  */
-const _getUserinfo = function () {
-  const userInfo = wx.getStorageSync(constants.APP_USERINFO_SESSION);
-
+const _getUserinfo = async function () {
+  let userInfo;
+  try {
+    userInfo = await getStorageSync(constants.APP_USERINFO_SESSION);
+  } catch (error) {
+    userInfo = null;
+  }
   return userInfo;
 };
 
@@ -12,12 +18,12 @@ const _getUserinfo = function () {
  * 通过key获取值
  * @params key
  */
-const _getValueByKey = function (key) {
+const _getValueByKey = async function (key) {
   if (!key) {
     return;
   }
 
-  const userinfo = _getUserinfo();
+  const userinfo = await _getUserinfo();
 
   if (!userinfo) {
     return;
@@ -48,7 +54,7 @@ module.exports = {
   },
 
   /**
-   * 清楚用户信息
+   * 清除用户信息
    */
   clearUserInfo: function () {
     wx.removeStorageSync(constants.APP_USERINFO_SESSION);

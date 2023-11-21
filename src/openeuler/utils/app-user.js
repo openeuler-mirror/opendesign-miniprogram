@@ -1,6 +1,7 @@
 const appAjax = require('./app-ajax.js');
 const appSession = require('./app-session.js');
 const constants = require('../config/constants');
+const { getStorageSync, setStorageSync } = require('./utils');
 const app = getApp();
 
 const privateMethods = {
@@ -14,38 +15,33 @@ const privateMethods = {
       icon: 'loading',
       mask: true,
     });
-
     wx.login({
       success: function (data) {
-        wx.getUserInfo({
-          success: function (res) {
-            // 登录
-            appAjax.postJson({
-              headers: {
-                Authorization: '',
-              },
-              service: 'LOGIN',
-              data: {
-                userInfo: res.userInfo,
-                code: data.code,
-              },
-              success: function (result) {
-                res.userInfo.agreePrivacy = result.agree_privacy_policy;
-                res.userInfo.access = result.access;
-                res.userInfo.level = result.level;
-                res.userInfo.nickName = result.nickname;
-                res.userInfo.eventLevel = result.activity_level;
-                res.userInfo.gitee = result.gitee_name;
-                res.userInfo.userId = result.user_id;
-                // // 缓存用户信息
-                appUser.saveLoginInfo(res.userInfo || {});
-
-                // 			// 回调
-                callback && callback(res.userInfo || {});
-              },
-            });
+        appAjax.postJson({
+          headers: {
+            Authorization: '',
           },
-          fail: function () {
+          service: 'LOGIN',
+          data: {
+            code: data.code,
+          },
+          success: function (result) {
+            let userInfo = {};
+            userInfo.agreePrivacy = result.agree_privacy_policy;
+            userInfo.access = result.access;
+            userInfo.level = result.level;
+            userInfo.nickName = result.nickname;
+            userInfo.avatarUrl = result.avatar;
+            userInfo.eventLevel = result.activity_level;
+            userInfo.gitee = result.gitee_name;
+            userInfo.userId = result.user_id;
+            userInfo.refresh = result.refresh;
+            // 缓存用户信息
+            appUser.saveLoginInfo(userInfo || {});
+            // 回调
+            callback && callback(userInfo || {});
+          },
+          complete() {
             wx.hideToast();
           },
         });
@@ -115,7 +111,6 @@ const appUser = {
     wx.getSetting({
       success: function (res) {
         if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
           privateMethods._login(callback);
         } else {
           app.loginCallback = function () {
@@ -144,12 +139,17 @@ const appUser = {
    * 保存用户信息
    * @param {Object} result
    */
-  saveLoginInfo: function (result) {
-    wx.setStorageSync(constants.APP_USERINFO_SESSION, result);
+  saveLoginInfo: async function (result) {
+    await setStorageSync(constants.APP_USERINFO_SESSION, result);
   },
 
-  updateUserInfo: function (callback) {
-    let userInfo = wx.getStorageSync(constants.APP_USERINFO_SESSION);
+  updateUserInfo: async function (callback) {
+    let userInfo;
+    try {
+      userInfo = await getStorageSync(constants.APP_USERINFO_SESSION);
+    } catch (error) {
+      userInfo = null;
+    }
     if (userInfo && userInfo.userId) {
       appAjax.postJson({
         type: 'GET',
@@ -157,13 +157,16 @@ const appUser = {
         otherParams: {
           id: userInfo.userId,
         },
-        success: function (ret) {
+        success: async function (ret) {
           if (ret) {
+            // 更新userInfo数据
+            userInfo = await getStorageSync(constants.APP_USERINFO_SESSION);
             userInfo.gitee = ret.gitee_name;
             userInfo.level = ret.level;
             userInfo.nickName = ret.nickname;
+            userInfo.avatarUrl = ret.avatar;
             userInfo.eventLevel = ret.activity_level;
-            wx.setStorageSync(constants.APP_USERINFO_SESSION, userInfo);
+            await setStorageSync(constants.APP_USERINFO_SESSION, userInfo);
           }
           callback && callback();
         },
@@ -183,7 +186,6 @@ const appUser = {
       icon: 'loading',
       mask: true,
     });
-
     wx.login({
       success: function (data) {
         appAjax.postJson({
@@ -192,10 +194,9 @@ const appUser = {
           },
           service: 'LOGIN',
           data: {
-            userInfo: userInfo,
             code: data.code,
           },
-          success: function (result) {
+          success: async function (result) {
             userInfo.agreePrivacy = result.agree_privacy_policy;
             userInfo.access = result.access;
             userInfo.level = result.level;
@@ -203,8 +204,10 @@ const appUser = {
             userInfo.gitee = result.gitee_name;
             userInfo.userId = result.user_id;
             userInfo.nickName = result.nickname;
+            userInfo.avatarUrl = result.avatar;
+            userInfo.refresh = result.refresh;
             // // 缓存用户信息
-            appUser.saveLoginInfo(userInfo || {});
+            await appUser.saveLoginInfo(userInfo || {});
             // 回调
             callback && callback(userInfo || {});
           },

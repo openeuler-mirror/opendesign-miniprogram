@@ -1,5 +1,5 @@
-// package-my/my/qrcode.js
-const resourceUrl = 'https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/qrcode/';
+const { OBS_URL } = require('./../../utils/url-config');
+const resourceUrl = `${OBS_URL}/qrcode/`;
 Page({
   /**
    * 页面的初始数据
@@ -54,9 +54,6 @@ Page({
                   title: '保存失败~',
                   content: '请尝试点击右上角 “...” => “设置” 同意添加到相册后再保存~',
                 });
-              },
-              complete(res) {
-                console.log(res);
               },
             });
           },

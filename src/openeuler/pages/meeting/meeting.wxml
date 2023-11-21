@@ -2,23 +2,25 @@
 <view class="container {{iphoneX?'container-x':''}}">
     <user-info></user-info>
     <view class="meeting-level-wrapper">
-        <view wx:if="{{level===3}}" bindtap="navigateTo" data-url="/package-meeting/sig/sig-list" class="sig-manage-btn">
-            <image class="icon" src="./../../static/meeting/sig-manage.svg" />
-            <text>SIG组管理</text>
-        </view>
         <view class="tab-btn-wrapper">
             <view bindtap="navigateTo" data-url="/package-meeting/meeting/meeting-list" class="btn">
                 <image class="icon" src="./../../static/meeting/look-meeting.svg" />
                 <text>查看会议</text>
             </view>
-            <view bindtap="navigateTo" data-url="/package-meeting/reserve/reserve" class="btn">
+            <view wx:if="{{level===3}}" bindtap="navigateTo" data-url="/package-meeting/sig/sig-list"
+                class="btn">
+                <image class="icon" src="./../../static/meeting/sig-manage.svg" />
+                <text>SIG组管理</text>
+            </view>
+            <view wx:else bindtap="navigateTo" data-url="/package-meeting/reserve/reserve" class="btn">
                 <image class="icon" src="./../../static/meeting/reserve-meeting.svg" />
                 <text>预定会议</text>
             </view>
         </view>
     </view>
     <meeting-list id="meeting" bind:action-status="actionStatus"></meeting-list>
-    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ noAuthDialogShow }}" class-name="sig-dialog">
+    <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}"
+        show="{{ noAuthDialogShow }}" class-name="sig-dialog">
         <view class="dialog-slot-content">
             <text>您暂时没有预定会议的权限，请联系<text class="blue">小助手 (微信号openeuler123) </text>提交预定会议权限申请</text>
             <view>

@@ -50,6 +50,7 @@ Page({
     id: '',
     info: {},
     collection_id: null,
+    isLogin: false,
   },
 
   /**
@@ -74,8 +75,11 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: async function () {
     let that = this;
+    this.setData({
+      isLogin: (await sessionUtil.getUserInfoByKey('access')) ? true : false,
+    });
     remoteMethods.getMeetingDetail(this.data.id, function (data) {
       if (data) {
         that.setData({
@@ -92,16 +96,16 @@ Page({
       path: `/package-meeting/meeting/detail?id=${this.data.id}`,
     };
   },
-  collect: function () {
+  collect: async function () {
     let that = this;
-    if (!sessionUtil.getUserInfoByKey('access')) {
+    if (!this.data.isLogin) {
       wx.navigateTo({
         url: '/pages/auth/auth',
       });
       return;
     }
     if (this.data.collection_id != null) {
-      remoteMethods.uncollect(this.data.collection_id, function (res) {
+      remoteMethods.uncollect(this.data.collection_id, function () {
         that.setData({
           collection_id: null,
         });
@@ -109,9 +113,9 @@ Page({
     } else {
       wx.requestSubscribeMessage({
         tmplIds: ['2xSske0tAcOVKNG9EpBjlb1I-cjPWSZrpwPDTgqAmWI', 'UpxRbZf8Z9QiEPlZeRCgp_MKvvqHlo6tcToY8fToK50'],
-        success(res) {
+        success() {
           remoteMethods.collect(that.data.id, function (res) {
-            if (res.code == 201) {
+            if (res.code == 200) {
               that.setData({
                 collection_id: res.collection_id || '',
               });

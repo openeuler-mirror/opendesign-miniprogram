@@ -25,9 +25,9 @@ Page(
       });
       let that = this;
 
-      appUser.updateUserInfo(function () {
+      appUser.updateUserInfo(async function () {
         that.setData({
-          level: sessionUtil.getUserInfoByKey('level'),
+          level: await sessionUtil.getUserInfoByKey('level'),
         });
       });
     },
@@ -43,12 +43,16 @@ Page(
     },
     onPullDownRefresh: function () {
       wx.stopPullDownRefresh();
-      appUser.updateUserInfo(function () {
-        that.setData({
-          level: sessionUtil.getUserInfoByKey('level'),
+      appUser.updateUserInfo(async () => {
+        this.setData({
+          level: (await sessionUtil.getUserInfoByKey('level')) || 1,
         });
-        that.data.meetingConponent.initData();
       });
+      this.data.meetingConponent?.initData();
+    },
+    onReachBottom() {
+      const customComponent = this.selectComponent('#meeting');
+      customComponent.getMoreData();
     },
     actionStatus(e) {
       if (e.detail === 1) {
@@ -61,9 +65,9 @@ Page(
         });
       }
     },
-    navigateTo(e) {
+    async navigateTo(e) {
       const url = e.currentTarget.dataset.url;
-      if (url.includes('reserve') && !sessionUtil.getUserInfoByKey('access')) {
+      if (url.includes('reserve') && !(await sessionUtil.getUserInfoByKey('access'))) {
         wx.navigateTo({
           url: '/pages/auth/auth',
         });

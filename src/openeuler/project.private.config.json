@@ -1,10 +1,32 @@
 {
     "setting": {
-        "compileHotReLoad": true
+        "compileHotReLoad": true,
+        "urlCheck": false
     },
     "condition": {
         "miniprogram": {
             "list": [
+                {
+                    "name": "",
+                    "pathName": "pages/index/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "package-events/publish/publish",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "package-meeting/reserve/reserve",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
                 {
                     "name": "",
                     "pathName": "package-my/my/privecy-seting",

@@ -1,11 +1,23 @@
-/**
- * 请求方法
- */
-
-const appSession = require('./app-session.js');
 const underscore = require('./underscore-extend.js');
 const servicesConfig = require('../config/services-config.js');
 const CONSTANTS = require('../config/constants.js');
+const sessionUtil = require('./app-session.js');
+const { getStorageSync, setStorageSync } = require('./utils');
+
+let remoteMethods = {
+  refreshToken: function (refresh, _callback) {
+    appAjax.postJson({
+      type: 'POST',
+      service: 'REFRESH',
+      data: {
+        refresh,
+      },
+      success: function (ret) {
+        _callback && _callback(ret);
+      },
+    });
+  },
+};
 
 /**
  * 获取service
@@ -22,7 +34,6 @@ const _getInterfaceUrl = function (params) {
       params.otherParams[key]
     );
   }
-
   return interfaceUrl;
 };
 
@@ -35,10 +46,32 @@ const _addUrlParam = function (data) {
       postData += '&' + key + '=' + data[key];
     }
   }
-
   return postData;
 };
 
+let messageQueue = [];
+let isRefreshing = false;
+
+const handleSuccessfulRefresh = async function (newTokens, userData) {
+  userData.access = newTokens.access;
+  userData.refresh = newTokens.refresh;
+  await setStorageSync(CONSTANTS.APP_USERINFO_SESSION, userData);
+  processMessageQueue();
+  isRefreshing = false;
+};
+
+const clearUserDataAndNavigate = function () {
+  messageQueue = [];
+  sessionUtil.clearUserInfo();
+  isRefreshing = false;
+  wx.navigateTo({ url: '/pages/auth/auth' });
+};
+
+const processMessageQueue = function () {
+  while (messageQueue.length) {
+    appAjax.postJson(messageQueue.shift());
+  }
+};
 const appAjax = {
   /**
    * 提交请求
@@ -51,27 +84,33 @@ const appAjax = {
    * error: "",			// 失败回调
    * complete: ""			// 完成回调
    */
-  postJson: function (params) {
+  postJson: async function (params) {
     // 默认参数
+    let storage;
+    try {
+      storage = await getStorageSync(CONSTANTS.APP_USERINFO_SESSION);
+    } catch (error) {
+      storage = null;
+    }
     let defaultParams = {
       service: '', // 服务的配置名称
-      success: function (d) {}, // 成功后回调
+      success: function () {}, // 成功后回调
       error: null, // 失败后回调
       autoShowWait: false, // 自动显示菊花
       loadingText: '加载中...', // 加载的提示语
       autoCloseWait: true, // 自动关闭菊花
       headers: {
-        Authorization: appSession.getToken() ? 'Bearer ' + appSession.getToken() : '',
+        Authorization: storage ? 'Bearer ' + storage.access : '',
       },
-      isAsync: true,
     };
+    let isShowToast = false;
     let ajaxParams = underscore.deepExtend(true, defaultParams, params);
     // rest请求路径
     ajaxParams['url'] = CONSTANTS['SERVICE_URL'] + _getInterfaceUrl(ajaxParams);
     if (
-      (ajaxParams.type == 'GET' || ajaxParams.type == 'DELETE') &&
+      (ajaxParams.type === 'GET' || ajaxParams.type === 'DELETE') &&
       ajaxParams.data &&
-      typeof ajaxParams.data == 'object'
+      typeof ajaxParams.data === 'object'
     ) {
       ajaxParams['url'] = ajaxParams['url'] + _addUrlParam(ajaxParams.data);
     }
@@ -88,28 +127,47 @@ const appAjax = {
       header: ajaxParams.headers,
       method: ajaxParams['type'] || 'POST',
       data: ajaxParams.data,
-      success: function (res) {
-        if (res?.data?.access && wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION)) {
-          let data = wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION);
-          data.access = res.data.access;
-          wx.setStorageSync(CONSTANTS.APP_USERINFO_SESSION, data);
+      success: async function (res) {
+        if (res?.data?.access && storage) {
+          storage.access = res.data.access;
+          await setStorageSync(CONSTANTS.APP_USERINFO_SESSION, storage);
         }
-        if (res.statusCode === 401) {
-          wx.removeStorageSync('_app_userinfo_session');
-          ajaxParams.success(0, res);
-          const pages = getCurrentPages(); // 当前页面
-          if (pages[0].route !== '/pages/auth/auth') {
-            wx.navigateTo({
-              url: '/pages/auth/auth',
-            });
-          }
-          return;
-        }
+        ajaxParams.success(res.data, res);
+
         if (res.statusCode.toString()[0] != 2) {
-          let message = (res?.data?.detail && res.statusCode.toString() === 400) || '有点忙开个小差，稍后再试~';
+          let message = '';
+          if (res?.data?.detail && res.statusCode === 400) {
+            message = res.data.detail;
+          } else if (res.statusCode === 401) {
+            message = '请重新登陆~';
+          } else if (res.statusCode === 418) {
+            message = '您的请求疑似攻击行为！';
+          } else {
+            message = '有点忙开个小差，稍后再试~';
+          }
+          // 刷新token
+          if (res.statusCode === 401 && storage && params.service !== 'REFRESH') {
+            messageQueue.push(params);
+            if (!isRefreshing) {
+              isRefreshing = true;
+              remoteMethods.refreshToken(storage?.refresh, (res) => {
+                if (!res.refresh) {
+                  clearUserDataAndNavigate();
+                } else {
+                  handleSuccessfulRefresh(res, storage);
+                }
+                isRefreshing = false;
+              });
+            }
+            return;
+          }
+          if (res.statusCode === 401 && !storage) {
+            clearUserDataAndNavigate();
+          }
           if (ajaxParams.error) {
             ajaxParams.error(message, res);
           } else {
+            isShowToast = true;
             wx.showToast({
               title: message,
               icon: 'none',
@@ -118,17 +176,9 @@ const appAjax = {
           }
           return;
         }
-        ajaxParams.success(res.data, res);
       },
       fail: function (res) {
-        if (res?.data?.access) {
-          if (res.data.access && wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION)) {
-            let data = wx.getStorageSync(CONSTANTS.APP_USERINFO_SESSION);
-            data.access = res.data.access;
-            wx.setStorageSync(CONSTANTS.APP_USERINFO_SESSION, data);
-          }
-        }
-        let message = (res?.data?.detail && res.statusCode.toString() === 400) || '有点忙开个小差，稍后再试~';
+        let message = res?.data?.detail && res.statusCode === 400 ? res.data.detail : '有点忙开个小差，稍后再试~';
         ajaxParams.error && ajaxParams.error(message, res);
       },
       complete: function (res) {
@@ -140,8 +190,15 @@ const appAjax = {
           });
         }
         // 关闭loading
-        if (ajaxParams.autoShowWait && wx.hideLoading) {
-          wx.hideLoading();
+        if (ajaxParams.autoShowWait) {
+          if (isShowToast) {
+            setTimeout(() => {
+              wx.hideLoading();
+              isShowToast = false;
+            }, 2000);
+          } else {
+            wx.hideLoading();
+          }
         }
       },
     });

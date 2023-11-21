@@ -5,8 +5,14 @@ let commonServiceConfig = {
   // 登录接口
   LOGIN: '/login/',
 
-  // 登录接口
+  // 刷新 token
+  REFRESH: '/refresh/',
+
+  // SIG列表接口
   SIG_LIST: '/groups/',
+
+  // 有会议的sig列表
+  MEETING_SIG_LIST: '/meetings_group/',
 
   // 获取sig组已添加成员列表
   SIG_MEMBER_LIST: '/users_include/{id}/',

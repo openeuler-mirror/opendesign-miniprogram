@@ -121,6 +121,11 @@ page {
     align-items: center;
 }
 
+.container .detail-wrapper .address .left  {
+    display: flex;
+    align-items: center;
+}
+
 .container .detail-wrapper .address .left image {
     width: 28rpx;
     height: 28rpx;
@@ -134,7 +139,6 @@ page {
     color: #6d7278;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
     display: inline-block;
 }
 

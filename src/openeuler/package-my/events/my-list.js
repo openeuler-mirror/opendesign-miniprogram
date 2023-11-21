@@ -4,7 +4,7 @@ const sessionUtil = require('../../utils/app-session.js');
 
 let that = null;
 let remoteMethods = {
-  getList: function (_callback) {
+  getList: function (params, _callback) {
     let service = '';
     if (that.data.type == 4) {
       service = 'GET_DRAFT_LIST';
@@ -22,12 +22,6 @@ let remoteMethods = {
       service = 'EVENT_COLLECT_LIST';
     } else if (that.data.type == 7) {
       return;
-    } else if (that.data.type == 3) {
-      if (that.data.level == 2) {
-        service = 'MY_EVENTS_LIST';
-      } else {
-        service = 'ALL_EVENTS_LIST';
-      }
     }
     appAjax.postJson({
       autoShowWait: true,
@@ -36,6 +30,7 @@ let remoteMethods = {
       success: function (ret) {
         _callback && _callback(ret);
       },
+      data: params,
     });
   },
   delDraft: function (_callback) {
@@ -98,6 +93,11 @@ Page({
   data: {
     type: 1,
     list: [],
+    pageParams: {
+      page: 1,
+      size: 50,
+    },
+    total: 0,
     level: 1,
     actionShow: false,
     actions: [],
@@ -107,54 +107,66 @@ Page({
     showDialogDel: false,
     noAuthDialogShow: false,
     user: '',
-    registerId: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: async function (options) {
+    let type = Number(options.type);
     this.setData({
-      type: options.type,
-      level: sessionUtil.getUserInfoByKey('eventLevel'),
-      user: sessionUtil.getUserInfoByKey('userId'),
+      type: type,
     });
-    that = this;
     let title = '';
-    if (options.type == 1) {
+    if (type === 1) {
       title = '待发布';
-    } else if (options.type == 2) {
+    } else if (type === 2) {
       title = '已发布';
-    } else if (options.type == 3) {
-      title = '报名表单';
-    } else if (options.type == 4) {
+    } else if (type === 4) {
       title = '草稿箱';
-    } else if (options.type == 5) {
+    } else if (type === 5) {
       title = '发布中';
-    } else if (options.type == 6) {
+    } else if (type === 6) {
       title = '我收藏的活动';
-    } else if (options.type == 7) {
+    } else if (type === 7) {
       title = '我报名的活动';
     }
     wx.setNavigationBarTitle({
       title,
     });
   },
+  async onShow() {
+    this.setData({
+      level: await sessionUtil.getUserInfoByKey('eventLevel'),
+      user: await sessionUtil.getUserInfoByKey('userId'),
+    });
+    that = this;
+    this.initData();
+  },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    remoteMethods.getList((res) => {
+  initData() {
+    let renderData = [];
+    remoteMethods.getList(this.data.pageParams, (data) => {
+      if (this.data.pageParams.page === 1) {
+        renderData = data.data;
+      } else {
+        renderData = this.data.list;
+        renderData.push(...data.data);
+      }
       this.setData({
-        list: res,
+        list: renderData,
+        total: data.total,
       });
     });
   },
-  toSign(e) {
-    wx.navigateTo({
-      url: `/package-events/events/sign?id=${e.currentTarget.dataset.id}`,
+  onReachBottom() {
+    if (this.data.total < this.data.pageParams.size * this.data.pageParams.page) {
+      return false;
+    }
+    this.setData({
+      'pageParams.page': this.data.pageParams.page + 1,
     });
+    this.initData();
   },
   editDraft(e) {
     wx.navigateTo({
@@ -166,21 +178,27 @@ Page({
       actionShow: false,
     });
   },
+  initialization() {
+    this.setData({
+      'pageParams.page': 1,
+    });
+    this.initData();
+  },
   onActionSelect(e) {
     if (this.data.type == 4) {
       remoteMethods.delDraft(() => {
-        this.onShow();
+        this.initialization();
       });
-    } else if (this.data.type == 2 || this.data.type == 6 || this.data.type == 7) {
-      if (this.data.level == 3) {
+    } else if (this.data.type === 2 || this.data.type === 6 || this.data.type === 7) {
+      if (this.data.level === 3) {
         if (e.detail.operaType == 1) {
           if (this.data.collectionId) {
             remoteMethods.unCollect(() => {
-              this.onShow();
+              this.initialization();
             });
           } else {
             remoteMethods.collect(() => {
-              this.onShow();
+              this.initialization();
             });
           }
         } else {
@@ -189,18 +207,16 @@ Page({
           });
         }
       } else {
-        if (e.detail.operaType == 1) {
+        if (e.detail.operaType === 1) {
           if (this.data.collectionId) {
             remoteMethods.unCollect(() => {
-              this.onShow();
+              this.initialization();
             });
           } else {
             remoteMethods.collect(() => {
-              this.onShow();
+              this.initialization();
             });
           }
-        } else if (e.detail.operaType == 3) {
-          return;
         } else {
           this.setData({
             noAuthDialogShow: true,
@@ -215,7 +231,6 @@ Page({
       curId: e.currentTarget.dataset.item.id,
       userId: e.currentTarget.dataset.item.user,
       collectionId: e.currentTarget.dataset.item.collection_id || '',
-      registerId: e.currentTarget.dataset.item.register_id || '',
     });
     const strTemp = this.data.collectionId ? '取消收藏' : '收藏活动';
     if (this.data.type == 4) {
@@ -265,17 +280,6 @@ Page({
             ],
           });
         }
-
-        if (this.data.registerId) {
-          let tempArr = this.data.actions;
-          tempArr.unshift({
-            name: '查看门票',
-            operaType: 3,
-          });
-          this.setData({
-            actions: tempArr,
-          });
-        }
       }
     }
   },
@@ -289,11 +293,10 @@ Page({
       showDialogDel: false,
     });
     remoteMethods.delEvent(() => {
-      remoteMethods.getList((res) => {
-        this.setData({
-          list: res,
-        });
+      this.setData({
+        'pageParams.page': 1,
       });
+      this.initialization();
     });
   },
   delCancel() {
@@ -308,8 +311,6 @@ Page({
       wx.navigateTo({
         url: `/package-events/events/event-detail?id=${e.currentTarget.dataset.id}&type=5`,
       });
-    } else if (this.data.type == 3) {
-      return;
     }
   },
   copyWechat() {

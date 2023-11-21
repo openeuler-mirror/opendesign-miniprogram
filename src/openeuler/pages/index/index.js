@@ -2,6 +2,8 @@
 const mixin = require('../../utils/page-mixin.js').$pageMixin;
 const sessionUtil = require('../../utils/app-session.js');
 const appUser = require('../../utils/app-user.js');
+const { OBS_BJ_URL } = require('./../../utils/url-config');
+
 let that = null;
 Page(
   mixin({
@@ -9,15 +11,15 @@ Page(
       imgUrls: [
         {
           type: 2,
-          url: 'https://openeuler-website-beijing.obs.cn-north-4.myhuaweicloud.com/detail-banner/mooc-banner.png',
+          url: `${OBS_BJ_URL}/detail-banner/mooc-banner.png`,
         },
       ],
       iphoneX: false,
       meetingConponent: null,
       autoplay: false,
     },
-    handleContact(e) {
-      if (!sessionUtil.getUserInfoByKey('access')) {
+    async handleContact(e) {
+      if (!(await sessionUtil.getUserInfoByKey('access'))) {
         wx.navigateTo({
           url: '/pages/auth/auth',
         });
@@ -32,24 +34,16 @@ Page(
         url: e.currentTarget.dataset.url,
       });
     },
-    previewImage(e) {
-      const current = e.target.dataset.src; //获取当前点击的 图片 url
-      wx.previewImage({
-        current,
-        urls: [current],
-      });
-    },
     onLoad: function () {
       wx.showShareMenu({
         withShareTicket: true,
         menus: ['shareAppMessage', 'shareTimeline'],
       });
       that = this;
-      appUser.updateUserInfo(function () {
-        that.setData({
-          meetingConponent: that.selectComponent('#meeting'),
-          iphoneX: that.getTabBar().data.iPhoneX,
-        });
+      appUser.updateUserInfo();
+      this.setData({
+        meetingConponent: that.selectComponent('#meeting'),
+        iphoneX: that.getTabBar().data.iPhoneX,
       });
     },
     onShow: function () {
@@ -59,9 +53,12 @@ Page(
     },
     onPullDownRefresh: function () {
       wx.stopPullDownRefresh();
-      appUser.updateUserInfo(function () {
-        that.data.meetingConponent.initData();
-      });
+      appUser.updateUserInfo();
+      this.data.meetingConponent?.initData();
+    },
+    onReachBottom() {
+      const customComponent = this.selectComponent('#meeting');
+      customComponent.getMoreData();
     },
     actionStatus(e) {
       if (e.detail === 1) {
@@ -74,8 +71,8 @@ Page(
         });
       }
     },
-    checkLogin() {
-      if (!sessionUtil.getUserInfoByKey('access')) {
+    async checkLogin() {
+      if (!(await sessionUtil.getUserInfoByKey('access'))) {
         wx.navigateTo({
           url: '/pages/auth/auth',
         });

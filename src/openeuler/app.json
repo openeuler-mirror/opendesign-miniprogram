@@ -78,8 +78,7 @@
         "van-radio-group": "@vant/weapp/radio-group/index",
         "van-datetime-picker": "@vant/weapp/datetime-picker/index",
         "van-picker": "@vant/weapp/picker/index",
-        "van-action-sheet": "@vant/weapp/action-sheet/index",
-        "wxml-to-canvas": "wxml-to-canvas"
+        "van-action-sheet": "@vant/weapp/action-sheet/index"
     },
     "sitemapLocation": "sitemap.json",
     "__usePrivacyCheck__": true,
