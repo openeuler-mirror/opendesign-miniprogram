@@ -115,7 +115,7 @@ Page({
         tmplIds: ['2xSske0tAcOVKNG9EpBjlb1I-cjPWSZrpwPDTgqAmWI', 'UpxRbZf8Z9QiEPlZeRCgp_MKvvqHlo6tcToY8fToK50'],
         success() {
           remoteMethods.collect(that.data.id, function (res) {
-            if (res.code == 200) {
+            if (res.code === 200) {
               that.setData({
                 collection_id: res.collection_id || '',
               });

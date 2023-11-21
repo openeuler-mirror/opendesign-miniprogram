@@ -6,21 +6,21 @@ let that = null;
 let remoteMethods = {
   getList: function (params, _callback) {
     let service = '';
-    if (that.data.type == 4) {
+    if (that.data.type === 4) {
       service = 'GET_DRAFT_LIST';
-    } else if (that.data.type == 1) {
+    } else if (that.data.type === 1) {
       service = 'DRAFTS';
-    } else if (that.data.type == 5) {
+    } else if (that.data.type === 5) {
       service = 'PUBLISHER_EVENTS_LIST';
-    } else if (that.data.type == 2) {
-      if (that.data.level == 2) {
+    } else if (that.data.type === 2) {
+      if (that.data.level === 2) {
         service = 'MY_EVENTS_LIST';
       } else {
         service = 'ALL_EVENTS_LIST';
       }
-    } else if (that.data.type == 6) {
+    } else if (that.data.type === 6) {
       service = 'EVENT_COLLECT_LIST';
-    } else if (that.data.type == 7) {
+    } else if (that.data.type === 7) {
       return;
     }
     appAjax.postJson({
@@ -185,13 +185,13 @@ Page({
     this.initData();
   },
   onActionSelect(e) {
-    if (this.data.type == 4) {
+    if (this.data.type === 4) {
       remoteMethods.delDraft(() => {
         this.initialization();
       });
     } else if (this.data.type === 2 || this.data.type === 6 || this.data.type === 7) {
       if (this.data.level === 3) {
-        if (e.detail.operaType == 1) {
+        if (e.detail.operaType === 1) {
           if (this.data.collectionId) {
             remoteMethods.unCollect(() => {
               this.initialization();
@@ -233,7 +233,7 @@ Page({
       collectionId: e.currentTarget.dataset.item.collection_id || '',
     });
     const strTemp = this.data.collectionId ? '取消收藏' : '收藏活动';
-    if (this.data.type == 4) {
+    if (this.data.type === 4) {
       this.setData({
         actions: [
           {
@@ -242,8 +242,8 @@ Page({
           },
         ],
       });
-    } else if (this.data.type == 2 || this.data.type == 6 || this.data.type == 7) {
-      if (this.data.level == 3) {
+    } else if (this.data.type === 2 || this.data.type === 6 || this.data.type === 7) {
+      if (this.data.level === 3) {
         this.setData({
           actions: [
             {
@@ -257,7 +257,7 @@ Page({
           ],
         });
       } else {
-        if (this.data.user == this.data.userId) {
+        if (this.data.user === this.data.userId) {
           this.setData({
             actions: [
               {
@@ -305,9 +305,9 @@ Page({
     });
   },
   toUpdateSchedule(e) {
-    if (this.data.type == 4) {
+    if (this.data.type === 4) {
       this.editDraft(e);
-    } else if (this.data.type == 2 || this.data.type == 6 || this.data.type == 7) {
+    } else if (this.data.type === 2 || this.data.type === 6 || this.data.type === 7) {
       wx.navigateTo({
         url: `/package-events/events/event-detail?id=${e.currentTarget.dataset.id}&type=5`,
       });

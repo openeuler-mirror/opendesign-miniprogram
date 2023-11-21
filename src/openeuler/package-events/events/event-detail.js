@@ -6,11 +6,11 @@ let that = null;
 let remoteMethods = {
   getDraftDetail: function (_callback) {
     let service = 'EVENT_DETAIL';
-    if (that.data.type == 5) {
+    if (that.data.type === 5) {
       service = 'EVENT_DETAIL';
-    } else if (that.data.type == 1) {
+    } else if (that.data.type === 1) {
       service = 'EXAMINE_DETAIL';
-    } else if (that.data.type == 4) {
+    } else if (that.data.type === 4) {
       service = 'DRAFT_DETAIL';
     }
     appAjax.postJson({
@@ -118,7 +118,7 @@ Page({
     this.setData({
       id: options.id || decodeURIComponent(options.scene),
       scene: decodeURIComponent(options.scene) || '',
-      type: options.type,
+      type: Number(options.type),
       level: (await sessionUtil.getUserInfoByKey('eventLevel')) || 1,
     });
     wx.getSystemInfo({
