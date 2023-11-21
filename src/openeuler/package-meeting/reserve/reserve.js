@@ -61,7 +61,7 @@ let localMethods = {
     }
     if (
       that.data.start.split(':')[0] > that.data.end.split(':')[0] ||
-      (that.data.start.split(':')[0] == that.data.end.split(':')[0] &&
+      (that.data.start.split(':')[0] === that.data.end.split(':')[0] &&
         that.data.start.split(':')[1] >= that.data.end.split(':')[1])
     ) {
       this.toast('开始时间必须小于结束时间');

@@ -267,7 +267,7 @@ Page({
         ],
       });
     } else {
-      if (this.data.user == this.data.userId) {
+      if (this.data.user === this.data.userId) {
         this.setData({
           actions: [
             {

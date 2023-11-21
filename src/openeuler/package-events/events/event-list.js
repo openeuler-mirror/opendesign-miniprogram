@@ -221,8 +221,8 @@ Page({
   },
 
   onActionSelect(e) {
-    if (this.data.level == 3) {
-      if (e.detail.operaType == 1) {
+    if (this.data.level === 3) {
+      if (e.detail.operaType === 1) {
         if (this.data.collectionId) {
           remoteMethods.unCollect(() => {
             this.onLoad();
@@ -238,7 +238,7 @@ Page({
         });
       }
     } else {
-      if (e.detail.operaType == 1) {
+      if (e.detail.operaType === 1) {
         if (this.data.collectionId) {
           remoteMethods.unCollect(() => {
             this.onLoad();
@@ -248,7 +248,7 @@ Page({
             this.onLoad();
           });
         }
-      } else if (e.detail.operaType == 3) {
+      } else if (e.detail.operaType === 3) {
         return;
       } else {
         this.setData({
@@ -265,7 +265,7 @@ Page({
       collectionId: e.currentTarget.dataset.item.collection_id || '',
     });
     const strTemp = this.data.collectionId ? '取消收藏' : '收藏活动';
-    if (this.data.level == 3) {
+    if (this.data.level === 3) {
       this.setData({
         actions: [
           {
@@ -279,7 +279,7 @@ Page({
         ],
       });
     } else {
-      if (this.data.user == this.data.userId) {
+      if (this.data.user === this.data.userId) {
         this.setData({
           actions: [
             {

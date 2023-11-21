@@ -17,7 +17,7 @@ Component({
       if (_.compareVersion(version, '2.32.3') >= 0) {
         wx.getPrivacySetting({
           success(res) {
-            if (res.errMsg == 'getPrivacySetting:ok') {
+            if (res.errMsg === 'getPrivacySetting:ok') {
               _.setData({
                 privacyContractName: res.privacyContractName,
                 showPrivacy: res.needAuthorization,
