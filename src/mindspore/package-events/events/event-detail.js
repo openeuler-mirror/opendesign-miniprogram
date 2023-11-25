@@ -1,16 +1,17 @@
 // package-events/events/event-detail.js
 const appAjax = require('./../../utils/app-ajax');
 const sessionUtil = require('../../utils/app-session.js');
+const { getBetweenDateStr } = require('./../../utils/utils.js');
 
 let that = null;
 let remoteMethods = {
   getDraftDetail: function (_callback) {
     let service = 'EVENT_DETAIL';
-    if (that.data.type == 5) {
+    if (that.data.type === 5) {
       service = 'EVENT_DETAIL';
-    } else if (that.data.type == 1) {
+    } else if (that.data.type === 1) {
       service = 'EXAMINE_DETAIL';
-    } else if (that.data.type == 4) {
+    } else if (that.data.type === 4) {
       service = 'DRAFT_DETAIL';
     }
     appAjax.postJson({
@@ -121,7 +122,7 @@ Page({
     this.setData({
       id: options.id || decodeURIComponent(options.scene),
       scene: decodeURIComponent(options.scene) || '',
-      type: options.type,
+      type: Number(options.type),
       level: sessionUtil.getUserInfoByKey('eventLevel') || 1,
     });
     wx.getSystemInfo({
@@ -140,7 +141,10 @@ Page({
       user: sessionUtil.getUserInfoByKey('userId'),
     });
     remoteMethods.getDraftDetail((res) => {
-      let betweenDay = this.getBetweenDateStr(res.start_date, res.end_date);
+      if (!res.start_date) {
+        return false;
+      }
+      let betweenDay = getBetweenDateStr(res.start_date, res.end_date);
       this.setData({
         info: res,
         startTime: res.start_date.replaceAll('-', '.'),
@@ -148,29 +152,33 @@ Page({
         betweenDay: betweenDay,
       });
       let arr = [];
-      JSON.parse(res.schedules).forEach((dayTime, index) => {
-        arr.push([]);
-        dayTime.forEach((item) => {
-          if (item.speakerList) {
-            arr[index].push({
-              duration: item.start + '-' + item.end,
-              title: item.topic,
-              speakerList: item.speakerList,
-            });
-          } else {
-            arr.push({
-              duration: item.start + '-' + item.end,
-              title: item.topic,
-              speakerList: [
-                {
-                  name: item.speaker || '',
-                  title: item.desc || '',
-                },
-              ],
-            });
-          }
+      try {
+        JSON.parse(res.schedules).forEach((dayTime, index) => {
+          arr.push([]);
+          dayTime.forEach((item) => {
+            if (item.speakerList) {
+              arr[index].push({
+                duration: item.start + '-' + item.end,
+                title: item.topic,
+                speakerList: item.speakerList,
+              });
+            } else {
+              arr.push({
+                duration: item.start + '-' + item.end,
+                title: item.topic,
+                speakerList: [
+                  {
+                    name: item.speaker || '',
+                    title: item.desc || '',
+                  },
+                ],
+              });
+            }
+          });
         });
-      });
+      } catch (error) {
+        arr = [];
+      }
       this.setData({
         steps: arr,
       });
@@ -189,7 +197,7 @@ Page({
     });
   },
   maskClick() {
-    if (this.data.info.replay_url && this.data.info.status == 5) {
+    if (this.data.info.replay_url && this.data.info.status === 5) {
       this.setData({
         showReplay: true,
       });
@@ -220,48 +228,6 @@ Page({
       },
     });
   },
-  getBetweenDateStr(starDay, endDay) {
-    let startDate = Date.parse(starDay);
-    let endDate = Date.parse(endDay);
-    if (startDate > endDate) {
-      return false;
-    } else if (startDate == endDate) {
-      starDay = starDay.split('');
-      starDay[4] = '年';
-      starDay[7] = '月';
-      starDay[10] = '日';
-      starDay = starDay.join('');
-      return [starDay];
-    }
-    let arr = [];
-    let dates = [];
-
-    // 设置两个日期UTC时间
-    let db = new Date(starDay);
-    let de = new Date(endDay);
-
-    // 获取两个日期GTM时间
-    let s = db.getTime() - 24 * 60 * 60 * 1000;
-    let d = de.getTime() - 24 * 60 * 60 * 1000;
-
-    // 获取到两个日期之间的每一天的毫秒数
-    for (let i = s; i <= d; ) {
-      i = i + 24 * 60 * 60 * 1000;
-      arr.push(parseInt(i));
-    }
-
-    // 获取每一天的时间  YY-MM-DD
-    for (let j in arr) {
-      let time = new Date(arr[j]);
-      let year = time.getFullYear(time);
-      let mouth = time.getMonth() + 1 >= 10 ? time.getMonth() + 1 : '0' + (time.getMonth() + 1);
-      let day = time.getDate() >= 10 ? time.getDate() : '0' + time.getDate();
-      let YYMMDD = year + '年-' + mouth + '月' + '-' + day + '日';
-      dates.push(YYMMDD);
-    }
-
-    return dates;
-  },
   dateChange(event) {
     this.setData({
       activeNames: event.detail,
@@ -272,27 +238,6 @@ Page({
       tabIndex: e.currentTarget.dataset.index,
     });
   },
-  openLocation(e) {
-    if (e.currentTarget.dataset.item.activity_type == 2) {
-      return;
-    }
-    wx.showModal({
-      title: '提示',
-      content: '即将唤起腾讯地图，是否同意？',
-      success(res) {
-        if (res.confirm) {
-          wx.openLocation({
-            latitude: Number(e.currentTarget.dataset.item.latitude),
-            longitude: Number(e.currentTarget.dataset.item.longitude),
-            name: e.currentTarget.dataset.item.detail_address, // 名称
-            address: e.currentTarget.dataset.item.address, // 地址
-          });
-        } else if (res.cancel) {
-          return false;
-        }
-      },
-    });
-  },
   toEditDraft() {
     wx.redirectTo({
       url: `/package-events/publish/publish?id=${this.data.id}&type=${this.data.type}`,
@@ -300,9 +245,13 @@ Page({
   },
   draftPublish() {
     let postData = this.data.info;
-    postData.schedules = JSON.parse(postData.schedules);
+    try {
+      postData.schedules = JSON.parse(postData.schedules);
+    } catch (error) {
+      return;
+    }
     remoteMethods.draftPublish(postData, (res) => {
-      if (res.code === 201) {
+      if (res.code === 200) {
         wx.redirectTo({
           url: '/package-events/publish/success?type=2',
         });

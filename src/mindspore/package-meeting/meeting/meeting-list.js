@@ -21,6 +21,10 @@ Page({
    */
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh();
-    this.data.meetingConponent.initData();
+    this.data.meetingConponent?.initData();
+  },
+  onReachBottom() {
+    const customComponent = this.selectComponent('#meeting');
+    customComponent.getMoreData();
   },
 });

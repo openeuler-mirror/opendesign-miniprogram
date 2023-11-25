@@ -63,7 +63,7 @@ Page({
     this.initData();
   },
   onReachBottom() {
-    if (this.data.total < this.data.pageParams.size * this.data.pageParams.page) {
+    if (this.data.total <= this.data.pageParams.size * this.data.pageParams.page) {
       return false;
     }
     this.setData({
@@ -131,6 +131,7 @@ Page({
   searchInput: function (e) {
     this.setData({
       keyword: e.detail.value,
+      'pageParams.page': 1,
     });
     this.initData();
   },

@@ -14,15 +14,15 @@
             <text class="num">{{allNum}}</text>
             <text class="text">全部</text>
         </view>
-        <view class="tab-filter {{activity=='registering'?'active':''}}" bindtap="switchTab" data-type="registering">
+        <view class="tab-filter {{activity==='registering'?'active':''}}" bindtap="switchTab" data-type="registering">
             <text class="num">{{signUpNum}}</text>
             <text class="text">报名中</text>
         </view>
-        <view class="tab-filter {{activity=='going'?'active':''}}" bindtap="switchTab" data-type="going">
+        <view class="tab-filter {{activity==='going'?'active':''}}" bindtap="switchTab" data-type="going">
             <text class="num">{{goingNum}}</text>
             <text class="text">进行中</text>
         </view>
-        <view class="tab-filter {{activity=='completed'?'active':''}}" bindtap="switchTab" data-type="completed">
+        <view class="tab-filter {{activity==='completed'?'active':''}}" bindtap="switchTab" data-type="completed">
             <text class="num">{{complatedNum}}</text>
             <text class="text">已结束</text>
         </view>
@@ -42,7 +42,7 @@
                         <view class="title">{{item.title}}</view>
                         <view class="date">
                             <image src="./../../static/index/date.png"></image>
-                            <text wx:if="{{item.start_date == item.end_date}}">{{item.start_date}}</text>
+                            <text wx:if="{{item.start_date === item.end_date}}">{{item.start_date}}</text>
                             <text wx:else >{{item.start_date}}-{{item.end_date}}</text>
                         </view>
                         <view class="address" wx:if="{{item.activity_type !== 2}}">
@@ -54,13 +54,13 @@
                             <text>{{item.online_url}}</text>
                         </view>
                         <view class="button">
-                            <block wx:if="{{item.status==5}}">
+                            <block wx:if="{{item.status===5}}">
                                 <button bindtap="toUpdateSchedule" data-id="{{item.id}}">
                                     精彩回顾
                                 </button>
                             </block>
                             <block wx:else>
-                                <block wx:if="{{level==1}}">
+                                <block wx:if="{{level===1}}">
                                     <button class="{{item.register_id?'register':''}}" wx:if="{{item.register_id}}" data-id="{{item.id}}" bindtap="toUpdateSchedule">
                                         已报名
                                     </button>
@@ -68,8 +68,8 @@
                                         立即报名
                                     </button>
                                 </block>
-                                <block wx:elif="{{level==2}}">
-                                    <button bindtap="toUpdateSchedule" wx:if="{{item.user==user}}" data-id="{{item.id}}">
+                                <block wx:elif="{{level===2}}">
+                                    <button bindtap="toUpdateSchedule" wx:if="{{item.user===user}}" data-id="{{item.id}}">
                                         修改日程
                                     </button>
                                     <button class="register" wx:elif="{{item.register_id}}" data-id="{{item.id}}" bindtap="toUpdateSchedule">

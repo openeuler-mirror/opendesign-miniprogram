@@ -2,9 +2,8 @@
 const appAjax = require('./../../utils/app-ajax');
 const appSession = require('./../../utils/app-session.js');
 const utils = require('./../../utils/utils.js');
-const sessionUtil = require('../../utils/app-session.js');
-const appUser = require('../../utils/app-user.js');
 utils.formateDate();
+
 let remoteMethods = {
   getUserGroup: function (id, _callback) {
     appAjax.postJson({
@@ -25,32 +24,6 @@ let remoteMethods = {
       type: 'POST',
       service: 'SAVE_MEETING',
       data: postData,
-      success: function (ret) {
-        _callback && _callback(ret);
-      },
-    });
-  },
-  getMsgList: function (keyword, _callback) {
-    appAjax.postJson({
-      autoShowWait: true,
-      type: 'GET',
-      service: 'MSG_LIST',
-      data: {
-        search: keyword,
-      },
-      success: function (ret) {
-        _callback && _callback(ret);
-      },
-    });
-  },
-  getSigList: function (keyword, _callback) {
-    appAjax.postJson({
-      autoShowWait: true,
-      type: 'GET',
-      service: 'SIG_LIST',
-      data: {
-        search: keyword,
-      },
       success: function (ret) {
         _callback && _callback(ret);
       },
@@ -84,11 +57,11 @@ let localMethods = {
       this.toast('请选择会议类型');
       return;
     }
-    if (that.data.meeting_type == 1 && !that.data.sigResult) {
+    if (that.data.meeting_type === 1 && !that.data.sigResult) {
       this.toast('请选择所在SIG');
       return;
     }
-    if (that.data.meeting_type == 2 && !that.data.msgResult) {
+    if (that.data.meeting_type === 2 && !that.data.msgResult) {
       this.toast('请选择所在城市');
       return;
     }
@@ -104,16 +77,38 @@ let localMethods = {
       this.toast('请选择结束时间');
       return;
     }
+    if (new Date() > new Date(`${that.data.date} ${that.data.start}`.replace(/-/g, '/'))) {
+      this.toast('会议时间已过，请正确选择');
+      return;
+    }
     if (
       that.data.start.split(':')[0] > that.data.end.split(':')[0] ||
-      (that.data.start.split(':')[0] == that.data.end.split(':')[0] &&
+      (that.data.start.split(':')[0] === that.data.end.split(':')[0] &&
         that.data.start.split(':')[1] >= that.data.end.split(':')[1])
     ) {
       this.toast('开始时间必须小于结束时间');
       return;
     }
+    if (that.data.emaillist?.includes('；')) {
+      this.toast('多个邮箱请使用英文分号分割');
+      return;
+    }
+    const mailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailArray = that.data.emaillist.split(';');
+    for (let i = 0; i < emailArray.length; i++) {
+      let email = emailArray[i].trim();
+      if (email && !mailRegex.test(email)) {
+        this.toast(`${email}不是一个有效的邮箱地址`);
+        return;
+      }
+    }
     if (!that.data.privacyState) {
       this.toast('请先阅读并同意隐私声明');
+      return;
+    }
+    const regexHttp = /(http:\/\/|https:\/\/|www.)/;
+    if (regexHttp.test(that.data.topic) || regexHttp.test(that.data.agenda)) {
+      this.toast('输入内容中禁止包含链接');
       return;
     }
     return true;
@@ -138,7 +133,7 @@ Page({
     date: '',
     start: '',
     end: '',
-    meetingType: '腾讯会议',
+    meetingType: 'tencent',
     typeList: ['腾讯会议', 'WeLink（蓝版）'],
     etherpad: '',
     agenda: '',
@@ -152,8 +147,8 @@ Page({
     meeting_type: 1,
     sigResult: '',
     msgResult: '',
-    sigList: ['abc', 'bbc'],
-    msgList: ['上海', '北京'],
+    sigList: [],
+    msgList: [],
     datePopShow: false,
     curDate: new Date().getTime(),
     currentDate: new Date().getTime(),
@@ -171,6 +166,7 @@ Page({
     isMSG: false,
     showMeetType: false,
     allData: [],
+    techEtherpad: '',
     typeKey: '',
     type: {
       Tech: '专家委员会',
@@ -180,7 +176,6 @@ Page({
     msgListAll: [],
     sigListAll: [],
     permission: [],
-    msgCityList: [],
     tipsType: '',
     filter(type, options) {
       if (type === 'minute') {
@@ -189,101 +184,62 @@ Page({
 
       return options;
     },
-    level: '',
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function () {
-    let that = this;
-    appUser.updateUserInfo(function () {
-      that.setData({
-        level: sessionUtil.getUserInfoByKey('level'),
-      });
-    });
-  },
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: async function () {
     this.setData({
-      sponsor: appSession.getUserInfoByKey('gitee') || '',
+      sponsor: (await appSession.getUserInfoByKey('gitee')) || '',
     });
     let that = this;
-    const level = sessionUtil.getUserInfoByKey('level');
-    if (level == 3) {
-      remoteMethods.getMsgList('', function (list) {
-        let tempList = [];
-        list.forEach((item) => {
-          tempList.push(item.name);
-        });
+    remoteMethods.getUserGroup(await appSession.getUserInfoByKey('userId'), async function (data) {
+      let permissionTemp = [];
+      if (data?.length) {
         that.setData({
-          msgListAll: list,
-          permission: ['Tech', 'MSG', 'SIG'],
-          msgList: tempList,
-          msgCityList: list,
+          allData: data,
         });
-      });
-      remoteMethods.getSigList('', function (list) {
-        let tempList = [];
-        list.forEach((item) => {
-          tempList.push(item.name);
-        });
-        that.setData({
-          sigListAll: list,
-          sigList: tempList,
-        });
-      });
-    } else {
-      remoteMethods.getUserGroup(appSession.getUserInfoByKey('userId'), function (data) {
-        let permissionTemp = [];
-
-        if (data && data.length) {
-          that.setData({
-            allData: data,
-          });
-          let sigListAll = [];
-          let sigList = [];
-          data.forEach((item) => {
-            if (item.group_type == 3) {
-              permissionTemp.push('Tech');
-            } else if (item.group_type == 2) {
-              permissionTemp.push('MSG');
-            } else if (item.group_type == 1) {
-              item.name = item.group_name;
-              permissionTemp.push('SIG');
-              sigList.push(item.group_name);
-              sigListAll.push(item);
-            }
-          });
-          permissionTemp = [...new Set(permissionTemp)];
-          that.setData({
-            permission: permissionTemp,
-            sigListAll: sigListAll,
-            sigList: sigList,
-          });
-          if (permissionTemp.includes('MSG')) {
-            remoteMethods.getUserCityList(appSession.getUserInfoByKey('userId'), function (data) {
-              let tempList = [];
-              data.forEach((item) => {
-                item.name = item.city_name;
-                tempList.push(item.city_name);
-              });
-              that.setData({
-                msgListAll: data,
-                msgList: tempList,
-              });
+        let sigListAll = [];
+        let sigList = [];
+        data.forEach((item) => {
+          if (Number(item.group_type) === 3) {
+            permissionTemp.push('Tech');
+            that.setData({
+              techEtherpad: item.etherpad,
             });
-            remoteMethods.getMsgList('', function (list) {
-              that.setData({
-                msgCityList: list,
-              });
-            });
+          } else if (Number(item.group_type) === 2) {
+            permissionTemp.push('MSG');
+          } else if (Number(item.group_type) === 1) {
+            item.name = item.group_name;
+            permissionTemp.push('SIG');
+            sigList.push(item.group_name);
+            sigListAll.push(item);
           }
-        }
-      });
-    }
+        });
+        permissionTemp = [...new Set(permissionTemp)];
+        that.setData({
+          permission: permissionTemp,
+          sigListAll: sigListAll,
+          sigList: sigList,
+        });
+        remoteMethods.getUserCityList(await appSession.getUserInfoByKey('userId'), function (data) {
+          if (data?.length) {
+            permissionTemp.push('MSG');
+          }
+          let tempList = [];
+          data.forEach((item) => {
+            item.name = item.city_name;
+            tempList.push(item.city_name);
+          });
+          that.setData({
+            msgListAll: data,
+            msgList: tempList,
+            permission: permissionTemp,
+          });
+        });
+      }
+    });
   },
   recordoOnChange: function (event) {
     this.setData({
@@ -314,6 +270,7 @@ Page({
       agenda: '',
       emaillist: '',
       record: '',
+      meetingType: 'tencent',
     });
   },
   meeting: function () {
@@ -322,17 +279,14 @@ Page({
     }
     let that = this;
     wx.requestSubscribeMessage({
+      // 消息订阅模板
       tmplIds: ['tK51rqE72oFo5e5ajCnvkPwnsCncfydgcV1jb9ed6Qc'],
       success() {},
       complete() {
-        let platform = '';
-        that.data.meetingType.includes('WeLink')
-          ? (platform = that.data.meetingType.slice(0, 6))
-          : (platform = 'tencent');
         let param = {
           topic: that.data.topic,
           sponsor: that.data.sponsor,
-          platform: platform,
+          platform: that.data.meetingType,
           group_name: that.data.group_name,
           date: that.data.date,
           start: that.data.start,
@@ -343,7 +297,7 @@ Page({
           record: that.data.record ? 'cloud' : '',
           agenda: that.data.agenda,
         };
-        if (that.data.meeting_type == 2) {
+        if (that.data.meeting_type === 2) {
           param.city = that.data.city;
         }
         remoteMethods.saveMeeting(param, function (data) {
@@ -389,7 +343,7 @@ Page({
   },
   sigConfirm: function () {
     this.data.sigListAll.forEach((item) => {
-      if (item.name == this.data.sigResult) {
+      if (item.name === this.data.sigResult) {
         this.setData({
           etherpad: item.etherpad,
           sigPopShow: false,
@@ -400,12 +354,12 @@ Page({
     });
   },
   msgConfirm: function () {
-    this.data.msgCityList.forEach((item) => {
-      if (item.name == this.data.msgResult) {
+    this.data.msgListAll.forEach((item) => {
+      if (item.name === this.data.msgResult) {
         this.setData({
           etherpad: item.etherpad,
           msgPopShow: false,
-          city: item.name,
+          city: this.data.msgResult,
           group_name: 'MSG',
         });
       }
@@ -426,7 +380,7 @@ Page({
       typeShow: false,
     });
   },
-  typeRadioOnChange1: function (e) {
+  radioOnChange(e) {
     this.setData({
       meetingType: e.detail,
     });
@@ -435,7 +389,7 @@ Page({
     this.setData({
       typeMeeting: this.data.type[this.data.typeKey],
     });
-    if (this.data.typeKey == 'Tech') {
+    if (this.data.typeKey === 'Tech') {
       if (this.data.permission.includes(this.data.typeKey)) {
         this.setData({
           showMeetType: false,
@@ -444,9 +398,10 @@ Page({
           isMSG: false,
           city: '',
           group_name: 'Tech',
-          etherpad: 'https://etherpad.mindspore.cn/p/meetings-Tech',
+          etherpad: this.data.techEtherpad,
           sigResult: '',
           msgResult: '',
+          tipsType: 'Tech',
         });
       } else {
         this.setData({
@@ -454,7 +409,7 @@ Page({
           tipsType: 'Tech',
         });
       }
-    } else if (this.data.typeKey == 'SIG') {
+    } else if (this.data.typeKey === 'SIG') {
       if (this.data.permission.includes(this.data.typeKey)) {
         this.setData({
           showMeetType: false,
@@ -464,6 +419,7 @@ Page({
           etherpad: '',
           sigResult: '',
           msgResult: '',
+          tipsType: 'SIG',
         });
       } else {
         this.setData({
@@ -471,7 +427,7 @@ Page({
           tipsType: 'SIG',
         });
       }
-    } else if (this.data.typeKey == 'MSG') {
+    } else if (this.data.typeKey === 'MSG') {
       if (this.data.permission.includes(this.data.typeKey)) {
         this.setData({
           showMeetType: false,
@@ -481,6 +437,7 @@ Page({
           etherpad: '',
           sigResult: '',
           msgResult: '',
+          tipsType: 'MSG',
         });
       } else {
         this.setData({
@@ -530,7 +487,7 @@ Page({
     });
   },
   selSig: function () {
-    if (!this.data.msgList.length) {
+    if (!this.data.sigList.length) {
       this.setData({
         showDialogWarn: true,
       });

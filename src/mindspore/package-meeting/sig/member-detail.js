@@ -49,10 +49,9 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
   confirm: function () {
     let that = this;
-    if (!that.data.gitee_name) {
+    if (!that.data.name) {
       wx.showToast({
         title: '请输入ID',
         icon: 'none',
@@ -63,7 +62,7 @@ Page({
     remoteMethods.saveMemberGiteeName(
       {
         id: that.data.id,
-        gitee_name: that.data.gitee_name,
+        gitee_name: that.data.name,
       },
       function () {
         that.setData({
@@ -75,7 +74,7 @@ Page({
   onInput: function (e) {
     if (e.target.dataset.index === 'id') {
       this.setData({
-        gitee_name: e.detail.value,
+        name: e.detail.value,
       });
     } else {
       return false;

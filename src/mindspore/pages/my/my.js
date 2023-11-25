@@ -1,6 +1,5 @@
 // pages/my/my.js
 const appAjax = require('./../../utils/app-ajax');
-const sessionUtil = require('../../utils/app-session.js');
 
 let remoteMethods = {
   getMyMeeting: function (_callback) {
@@ -55,13 +54,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    this.setData({
-      iphoneX: this.getTabBar().data.iPhoneX,
-      avatarUrl: sessionUtil.getUserInfoByKey('avatarUrl'),
-      nickName: sessionUtil.getUserInfoByKey('nickName'),
-      level: sessionUtil.getUserInfoByKey('level'),
-      avtivityLevel: sessionUtil.getUserInfoByKey('eventLevel'),
-      userId: sessionUtil.getUserInfoByKey('userId'),
+    let that = this;
+    wx.getStorage({
+      key: '_app_userinfo_session',
+      encrypt: true,
+      success(res) {
+        that.setData({
+          iphoneX: that.getTabBar().data.iPhoneX,
+          avatarUrl: res.data?.avatarUrl,
+          nickName: res.data?.nickName,
+          level: res.data?.level,
+          userId: res.data?.userId,
+          avtivityLevel: res.data?.eventLevel,
+        });
+      },
     });
     remoteMethods.getMyMeeting((res) => {
       this.setData({
@@ -100,10 +106,6 @@ Page({
   copy: function (e) {
     wx.setClipboardData({
       data: `${e.currentTarget.dataset.copy}`,
-      success: function () {},
-      fail: function (err) {
-        console.log(err);
-      },
     });
   },
   onPullDownRefresh() {

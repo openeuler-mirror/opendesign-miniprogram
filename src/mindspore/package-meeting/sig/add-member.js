@@ -7,7 +7,12 @@ let remoteMethods = {
       type: 'GET',
       service: 'GROUP_EXCLUDE_MEMBER_LIST',
       data: {
-        group: postData.id,
+        search: postData.nickname || '',
+        page: postData.page,
+        size: postData.size,
+      },
+      otherParams: {
+        id: postData.id,
       },
       success: function (ret) {
         _callback && _callback(ret);
@@ -21,6 +26,9 @@ let remoteMethods = {
       service: 'GROUP_CITY_EXCLUDE_MEMBER_LIST',
       data: {
         city: postData.id,
+        search: postData.nickname || '',
+        page: postData.page,
+        size: postData.size,
       },
       success: function (ret) {
         _callback && _callback(ret);
@@ -61,8 +69,12 @@ Page({
     keyword: '',
     isShowMes: false,
     btnText: '',
-    group_name: '',
     options: '',
+    pageParams: {
+      page: 1,
+      size: 10,
+    },
+    total: 0,
   },
 
   /**
@@ -74,46 +86,50 @@ Page({
       btnText: '返回' + options.grouptitle,
       options: options,
     });
-    if (options.grouptitle.includes('专家')) {
-      this.setData({
-        group_name: 'Tech',
-      });
-    } else {
-      this.setData({
-        group_name: options.grouptitle,
-      });
-    }
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let that = this;
-    const { type } = this.data.options;
-    if (type != 'MSG') {
-      remoteMethods.getExcludeMemberList(
-        {
-          id: that.data.group_name,
-        },
-        function (data) {
-          that.setData({
-            list: data,
-          });
-        }
-      );
+    this.getListData();
+  },
+  getListData() {
+    if (this.options.type !== 'MSG') {
+      this.initData.call(this, remoteMethods.getExcludeMemberList);
     } else {
-      remoteMethods.getCityExcludeMemberList(
-        {
-          id: that.data.group_name,
-        },
-        function (data) {
-          that.setData({
-            list: data,
-          });
-        }
-      );
+      this.initData.call(this, remoteMethods.getCityExcludeMemberList);
     }
+  },
+  initData: function (remoteMethod) {
+    remoteMethod(
+      {
+        ...this.data.pageParams,
+        id: this.data.group_id,
+        nickname: this.data.keyword,
+      },
+      (data) => {
+        let renderData;
+        if (this.data.pageParams.page === 1) {
+          renderData = data.data;
+        } else {
+          renderData = [...this.data.list, ...data.data];
+        }
+        this.setData({
+          list: renderData,
+          total: data.total,
+        });
+      }
+    );
+  },
+  onReachBottom() {
+    if (this.data.total <= this.data.pageParams.size * this.data.pageParams.page) {
+      return false;
+    }
+    this.setData({
+      'pageParams.page': this.data.pageParams.page + 1,
+    });
+    this.getListData();
   },
   onChange: function (e) {
     this.setData({
@@ -121,7 +137,6 @@ Page({
     });
   },
   comfirm: function () {
-    let that = this;
     if (!this.data.result.length) {
       wx.showToast({
         title: '请选择人员',
@@ -135,10 +150,10 @@ Page({
       group_id: this.data.group_id,
     };
     const { type } = this.data.options;
-    if (type != 'MSG') {
-      remoteMethods.addMemberList(postData, function (data) {
-        if (data.code === 201) {
-          that.setData({
+    if (type !== 'MSG') {
+      remoteMethods.addMemberList(postData, (data) => {
+        if (data.code === 200) {
+          this.setData({
             isShowMes: true,
           });
         } else {
@@ -154,9 +169,9 @@ Page({
         ids: this.data.result.join('-'),
         city_id: this.data.group_id,
       };
-      remoteMethods.addCityMemberList(postData, function (data) {
-        if (data.code === 201) {
-          that.setData({
+      remoteMethods.addCityMemberList(postData, (data) => {
+        if (data.code === 200) {
+          this.setData({
             isShowMes: true,
           });
         } else {
@@ -170,20 +185,10 @@ Page({
     }
   },
   searchInput: function (e) {
-    let that = this;
     this.setData({
       keyword: e.detail.value,
+      'pageParams.page': 1,
     });
-    remoteMethods.getExcludeMemberList(
-      {
-        id: this.data.group_name,
-        nickname: this.data.keyword,
-      },
-      function (data) {
-        that.setData({
-          list: data,
-        });
-      }
-    );
+    this.getListData();
   },
 });

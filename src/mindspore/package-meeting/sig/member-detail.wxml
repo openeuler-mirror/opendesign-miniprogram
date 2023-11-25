@@ -7,12 +7,12 @@
         <view class="user-info">
             <image src="{{avatar}}" />
             <view>
-                <text class="user-id">{{rawName ? rawName : '未输入ID'}}</text>
+                <text class="user-id">{{gitee_name ? gitee_name : '未输入ID'}}</text>
                 <text class="name">{{nickname}}</text>
             </view>
         </view>
         <view class="input-title">输入ID</view>
-        <input placeholder="请输入ID" maxlength="{{20}}" value="{{gitee_name}}" data-index="id" bindinput="onInput"></input>
+        <input placeholder="请输入ID" maxlength="{{20}}" value="{{name}}" data-index="id" bindinput="onInput"></input>
         <view class="btn-wraper">
             <button class="reset" bindtap="reset">重置</button>
             <button class="confirm" bindtap="confirm">确定</button>

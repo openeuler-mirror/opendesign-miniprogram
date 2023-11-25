@@ -30,7 +30,6 @@ input {
 .container .form .form-item {
     padding: 28rpx 30rpx;
     background-color: #fff;
-    /* height: 108rpx; */
     color: #333;
     font-size: 34rpx;
     display: flex;

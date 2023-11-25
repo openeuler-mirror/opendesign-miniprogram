@@ -3,13 +3,13 @@
     <view class="event-list-wrapper">
         <block wx:for="{{list}}" wx:key="index">
             <view class="event-item">
-                <view wx:if="{{type!=3}}" bindtap="onMore" data-item="{{item}}"
-                    class="header {{(type != 5)&&(type != 1)&&(type != 4)&&item.collection_id?'isCollection':''}}">
+                <view wx:if="{{type!==3}}" bindtap="onMore" data-item="{{item}}"
+                    class="header {{(type !== 5)&&(type !== 1)&&(type !== 4)&&item.collection_id?'isCollection':''}}">
                     <text class="enterprise">{{item.enterprise}}</text>
                     <image src="./../../static/common/more.svg" />
                 </view>
                 <view class="body" data-id="{{item.id}}" data-status="{{item.status}}">
-                    <view class="left {{type==3?'small':''}}">
+                    <view class="left {{type===3?'small':''}}">
                         <image src="./../../static/events/list-pic/{{item.poster}}.png" />
                     </view>
                     <view class="right">
@@ -27,33 +27,33 @@
                             <image src="./../../static/index/link.svg"></image>
                             <text>{{item.online_url}}</text>
                         </view>
-                        <view class="button" wx:if="{{type == 4}}">
+                        <view class="button" wx:if="{{type === 4}}">
                             <button bindtap="editDraft" data-id="{{item.id}}">编辑活动</button>
                         </view>
-                        <view class="button" wx:if="{{type == 1}}">
+                        <view class="button" wx:if="{{type === 1}}">
                             <button>立即报名</button>
                         </view>
-                        <view class="buttons" wx:if="{{type == 2}}">
-                            <view class="empty" wx:if="{{(item.status==5)}}"></view>
-                            <view class="empty" data-id="{{item.id}}" wx:if="{{(item.status==3) || (item.status==4)}}">
+                        <view class="buttons" wx:if="{{type === 2}}">
+                            <view class="empty" wx:if="{{(item.status===5)}}"></view>
+                            <view class="empty" data-id="{{item.id}}" wx:if="{{(item.status===3) || (item.status===4)}}">
 
                             </view>
                             <button bindtap="toUpdateSchedule" data-id="{{item.id}}"
-                                wx:if="{{(item.status==3) || (item.status==4)||(item.status==5)}}">
+                                wx:if="{{(item.status===3) || (item.status===4)||(item.status===5)}}">
                                 补充修改
                             </button>
                         </view>
-                        <view class="button" wx:if="{{(type == 6)||(type == 7)}}">
+                        <view class="button" wx:if="{{(type === 6)||(type === 7)}}">
                             <block wx:if="{{item.status==5}}">
                                 <button bindtap="toUpdateSchedule" data-id="{{item.id}}">精彩回顾</button>
                             </block>
                             <block wx:else>
-                                <block wx:if="{{level==1}}">
+                                <block wx:if="{{level===1}}">
                                     <button class="{{item.register_id?'register':''}}" wx:if="{{item.register_id}}"
                                         data-id="{{item.id}}" bindtap="toUpdateSchedule">已报名</button>
                                     <button wx:else data-id="{{item.id}}" bindtap="toUpdateSchedule">立即报名</button>
                                 </block>
-                                <block wx:elif="{{level==2}}">
+                                <block wx:elif="{{level===2}}">
                                     <button bindtap="toUpdateSchedule" wx:if="{{item.user==user}}"
                                         data-id="{{item.id}}">
                                         补充修改
@@ -64,7 +64,7 @@
                                 </block>
                                 <block wx:else>
                                     <button bindtap="toUpdateSchedule" data-id="{{item.id}}"
-                                        wx:if="{{(item.status==3) || (item.status==4)}}">
+                                        wx:if="{{(item.status===3) || (item.status===4)}}">
                                         补充修改
                                     </button>
                                 </block>
@@ -72,12 +72,12 @@
                         </view>
                     </view>
                 </view>
-                <image wx:if="{{(type != 3)&&(type != 5)&&(type != 1)&&(type != 4)&&item.collection_id}}"
+                <image wx:if="{{(type !== 3)&&(type !== 5)&&(type !== 1)&&(type !== 4)&&item.collection_id}}"
                     class="collection" src="./../../static/common/collection-icon.svg"></image>
                 <view class="mask" wx:if="{{type==1}}" bindtap="toExamine" data-id="{{item.id}}">
                     <image class="mask-img" src="./../../static/my/under-release.png" />
                 </view>
-                <view class="mask" wx:if="{{type==5}}" data-id="{{item.id}}">
+                <view class="mask" wx:if="{{type===5}}" data-id="{{item.id}}">
                     <image class="mask-img" src="./../../static/my/publishing.png" />
                 </view>
             </view>

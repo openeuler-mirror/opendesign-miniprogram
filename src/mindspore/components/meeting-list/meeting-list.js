@@ -1,19 +1,25 @@
-// components/meeting-list/meeting-list.js
 const appAjax = require('./../../utils/app-ajax');
 const sessionUtil = require('../../utils/app-session.js');
 let that = null;
 const remoteMethods = {
-  getMeettingData: function (_callback) {
+  getMeettingData: function (params, _callback) {
+    if (that.properties.pageType === 2) {
+      params = {
+        ...params,
+        search: that.data.curKeyword,
+        group_name: that.data.filterSigName === '全部SIG' ? '' : that.data.filterSigName,
+      };
+    }
     appAjax.postJson({
       autoShowWait: true,
       type: 'GET',
       service: that.properties.apiUrl,
       success: function (ret) {
-        ret.forEach((item) => {
-          if (item.group_name == 'MSG') {
+        ret.data?.forEach((item) => {
+          if (item.group_name === 'MSG') {
             item.named = 'MindSpore MSG 会议';
             item.group_names = item.city + 'MSG组';
-          } else if (item.group_name == 'Tech') {
+          } else if (item.group_name === 'Tech') {
             item.named = 'MindSpore 专家委员会议';
             item.group_names = '专家委员会';
           } else {
@@ -26,14 +32,8 @@ const remoteMethods = {
           }
         });
         _callback && _callback(ret);
-
-        if (that.properties.pageType === 2) {
-          that.setData({
-            list: ret,
-          });
-          localMethod.filterData();
-        }
       },
+      data: params,
     });
   },
   delMeeting: function (id, _callback) {
@@ -77,71 +77,8 @@ const remoteMethods = {
   },
 };
 const localMethod = {
-  filterData: function () {
-    let listTemp = [];
-    if (that.data.curFilterId === '' && that.data.curKeyword === '') {
-      that.setData({
-        list: that.data.filterList,
-      });
-      return;
-    }
-    if (that.data.curFilterId === '') {
-      that.data.filterList.forEach(function (item) {
-        if (
-          item.topic.toLowerCase().includes(that.data.curKeyword.toLowerCase()) ||
-          item.group_name.toLowerCase().includes(that.data.curKeyword.toLowerCase())
-        ) {
-          listTemp.push(item);
-        }
-      });
-      that.setData({
-        list: listTemp,
-      });
-      return;
-    }
-    if (that.data.curKeyword === '') {
-      if (that.data.curFilterId === 'All') {
-        listTemp = that.data.filterList;
-      } else {
-        that.data.filterList.forEach(function (item) {
-          if (item.group_name === that.data.curFilterId) {
-            listTemp.push(item);
-          } else if (item.group_name !== 'MSG' && item.group_name !== 'Tech' && that.data.curFilterId === 'SIG') {
-            listTemp.push(item);
-          }
-        });
-      }
-      that.setData({
-        list: listTemp,
-      });
-      return;
-    }
-    that.data.filterList.forEach(function (item) {
-      if (
-        item.group_name == that.data.curFilterId &&
-        item.topic.toLowerCase().includes(that.data.curKeyword.toLowerCase())
-      ) {
-        listTemp.push(item);
-      } else if (
-        item.group_name !== 'MSG' &&
-        item.group_name !== 'Tech' &&
-        that.data.curFilterId === 'SIG' &&
-        item.topic.toLowerCase().includes(that.data.curKeyword.toLowerCase())
-      ) {
-        listTemp.push(item);
-      } else if (
-        (that.data.curFilterId === 'All' && item.topic.toLowerCase().includes(that.data.curKeyword.toLowerCase())) ||
-        item.group_name.toLowerCase().includes(that.data.curKeyword.toLowerCase())
-      ) {
-        listTemp.push(item);
-      }
-    });
-    that.setData({
-      list: listTemp,
-    });
-  },
-  checkLogin() {
-    if (!sessionUtil.getUserInfoByKey('access')) {
+  async checkLogin() {
+    if (!(await sessionUtil.getUserInfoByKey('access'))) {
       wx.navigateTo({
         url: '/pages/auth/auth',
       });
@@ -208,6 +145,11 @@ Component({
     curFilterId: '',
     curFilterName: '类型',
     filterList: [],
+    pageParams: {
+      page: 1,
+      size: 50,
+    },
+    total: 0,
   },
   attached() {},
   pageLifetimes: {
@@ -223,30 +165,33 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    getMoreData() {
+      if (this.data.total <= this.data.pageParams.size * this.data.pageParams.page) {
+        return false;
+      }
+      this.setData({
+        'pageParams.page': this.data.pageParams.page + 1,
+      });
+      this.initData();
+    },
     collect: function () {
       if (this.data.collectionId) {
-        remoteMethods.uncollect(this.data.collectionId, function () {
-          remoteMethods.getMeettingData(function (data) {
-            setTimeout(() => {
-              that.setData({
-                list: data,
-              });
-            }, 0);
+        remoteMethods.uncollect(this.data.collectionId, () => {
+          this.setData({
+            'pageParams.page': 1,
           });
+          this.initData();
         });
       } else {
         wx.requestSubscribeMessage({
           tmplIds: ['tK51rqE72oFo5e5ajCnvkPwnsCncfydgcV1jb9ed6Qc', 'kKkokqmaH62qp_txDQrNnyoRbM5wCptTAymhmsfHT7c'],
           complete() {
-            remoteMethods.collect(that.data.id, function (res) {
-              if (res.code == 201) {
-                remoteMethods.getMeettingData(function (data) {
-                  setTimeout(() => {
-                    that.setData({
-                      list: data,
-                    });
-                  }, 0);
+            remoteMethods.collect(that.data.id, (res) => {
+              if (res.code === 200) {
+                that.setData({
+                  'pageParams.page': 1,
                 });
+                that.initData();
               }
             });
           },
@@ -290,13 +235,13 @@ Component({
     },
     del: function () {
       that = this;
-      remoteMethods.delMeeting(this.data.curMid, function (data) {
-        if (data.code == 200) {
-          wx.redirectTo({
-            url: that.properties.isHome
-              ? '/package-meeting/meeting/meeting-success?delete=1&ishome=true'
-              : '/package-meeting/meeting/meeting-success?delete=1',
+      remoteMethods.delMeeting(this.data.curMid, (data) => {
+        if (data.code === 200) {
+          this.setData({
+            showDialogDel: false,
+            'pageParams.page': 1,
           });
+          this.initData();
         } else {
           wx.showToast({
             title: '删除会议失败',
@@ -320,17 +265,23 @@ Component({
           e.currentTarget.dataset.collection_id,
       });
     },
-    initData() {
-      remoteMethods.getMeettingData(function (data) {
-        let listData = data;
-        that.setData({
-          list: listData,
-          filterList: listData,
+    initData: function () {
+      let renderData = [];
+      remoteMethods.getMeettingData(this.data.pageParams, (data) => {
+        if (this.data.pageParams.page === 1) {
+          renderData = data.data;
+        } else {
+          renderData = this.data.list;
+          renderData.push(...data.data);
+        }
+        this.setData({
+          list: renderData,
+          total: data.total,
         });
       });
     },
-    getMore(e) {
-      if (!localMethod.checkLogin()) {
+    async getMore(e) {
+      if (!(await localMethod.checkLogin())) {
         return;
       }
       this.setData({
@@ -447,8 +398,10 @@ Component({
     popConfirm: function () {
       this.setData({
         popShow: false,
+        curFilterSigId: this.data.filterSigId,
+        curFilterSigName: this.data.filterSigName,
       });
-      localMethod.filterData();
+      this.initData();
     },
     popCancel: function () {
       this.setData({
@@ -459,7 +412,7 @@ Component({
       this.setData({
         curKeyword: e.detail.value,
       });
-      localMethod.filterData();
+      this.initData();
     },
   },
   ready() {

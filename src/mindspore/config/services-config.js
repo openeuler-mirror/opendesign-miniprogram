@@ -5,6 +5,12 @@ let commonServiceConfig = {
   // 登录接口
   LOGIN: '/login/',
 
+  // 刷新 token
+  REFRESH: '/refresh/',
+
+  // 有会议的sig列表
+  MEETING_SIG_LIST: '/meetings_group/',
+
   // sig列表
   SIG_LIST: '/sigs/',
 
@@ -12,7 +18,7 @@ let commonServiceConfig = {
   MSG_LIST: '/cities/',
 
   // 获取当前组已添加成员列表
-  GROUP_MEMBER_LIST: '/users_include/',
+  GROUP_MEMBER_LIST: '/users_include/{id}/',
 
   // 查询某个城市的成员
   GROUP_CITY_MEMBER_LIST: '/users_include_city/',
@@ -21,7 +27,7 @@ let commonServiceConfig = {
   GROUP_USER_CITY: '/usercity/{id}/',
 
   // 获取当前组未添加成员列表
-  GROUP_EXCLUDE_MEMBER_LIST: '/users_exclude/',
+  GROUP_EXCLUDE_MEMBER_LIST: '/users_exclude/{id}/',
 
   // 查询某个城市的非成员
   GROUP_CITY_EXCLUDE_MEMBER_LIST: '/users_exclude_city/',
@@ -110,7 +116,7 @@ let commonServiceConfig = {
   // 我的待发布活动列表（发布中）
   MY_WAITING_ACTIVITIES: '/mywaitingactivities/',
 
-  // 待发布活动列表（超级管理员）
+  // 待发布活动列表
   WAITING_ACTIVITIES: '/waitingactivities/',
 
   // 活动收藏列表（已收藏）
@@ -158,14 +164,11 @@ let commonServiceConfig = {
   // 修改日程
   EDIT_SCHEDULE: '/activityupdate/{id}/',
 
-  // 修改日程
+  // 查看待审查活动
   EXAMINE_DETAIL: '/waitingactivity/{id}/',
 
   // 收藏活动
   EVENT_COLLECT: '/activity/action/collect/',
-
-  // 收藏活动：
-  EVENT_COLLECTS: '/activity/action/collect/',
 
   // 取消收藏
   EVENT_UNCOLLECT: '/activity/action/collectdel/{id}/',
@@ -175,12 +178,6 @@ let commonServiceConfig = {
 
   // 最新活动列表
   LATEST_EVENTS: '/recentactivities/',
-
-  // 我报名的活动
-  MY_SIGNUP_EVENTS: '/registeractivities/',
-
-  // 保存意见反馈
-  SAVE_FEEDBACK: '/feedback/',
 
   // 获取已发布分类数量
   GET_EVENTS_COUNT: '/countactivities/',
@@ -198,7 +195,7 @@ let commonServiceConfig = {
   ADDCITY: '/city/',
   // 退出登陆
   LOGOUT: '/logout/',
-  // 注销账号
+  // 注销帐号
   LOGOFF: '/logoff/',
   // 撤销登陆
   REVOKE: '/revoke/',

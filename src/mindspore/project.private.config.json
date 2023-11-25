@@ -5,6 +5,27 @@
             "list": [
                 {
                     "name": "",
+                    "pathName": "package-meeting/sig/member-detail",
+                    "query": "id=23&avatar=https%3A%2F%2Fopeneuler-website-beijing.obs.cn-north-4.myhuaweicloud.com%2Favatar%2Fmindspore_avatar.png&name=55555555555&nickname=USER_5c859d24&grouptitle=%E4%B8%93%E5%AE%B6%E5%A7%94%E5%91%98%E4%BC%9A",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/meeting/meeting",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "package-meeting/reserve/reserve",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
                     "pathName": "package-my/my/privecy-seting",
                     "query": "",
                     "launchMode": "default",

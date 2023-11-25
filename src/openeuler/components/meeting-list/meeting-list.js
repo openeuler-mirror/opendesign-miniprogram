@@ -141,7 +141,6 @@ Component({
     curKeyword: '',
     curFilterSigId: '',
     curFilterSigName: '全部SIG',
-    filterList: [],
   },
   attached() {
     this.properties.pageType === 2 &&
@@ -171,7 +170,7 @@ Component({
    */
   methods: {
     getMoreData() {
-      if (this.data.total < this.data.pageParams.size * this.data.pageParams.page) {
+      if (this.data.total <= this.data.pageParams.size * this.data.pageParams.page) {
         return false;
       }
       this.setData({

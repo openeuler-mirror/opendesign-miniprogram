@@ -28,7 +28,7 @@
             </view>
             <view class="left" wx:else>
                 <image src="./../../static/index/link.svg"></image>
-                <text bindtap="copyLink">{{info.register_url}}</text>
+                <text bindtap="copyLink">{{info.register_url || info.join_url || ''}}</text>
             </view>
         </view>
     </view>

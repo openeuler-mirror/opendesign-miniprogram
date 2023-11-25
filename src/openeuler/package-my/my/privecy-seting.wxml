@@ -4,7 +4,7 @@
     <view>
       <image src="{{avatarUrl}}"></image>
       <view class="name-box">
-        <text class="gitee">{{gitee || '未输入ID'}}</text>
+        <text wx:if="{{gitee}}" class="gitee">{{gitee || '未输入ID'}}</text>
         <text class="nickname">{{nickName}}</text>
       </view>
     </view>
@@ -20,7 +20,7 @@
     <view class="left">
       <image class="" src="../../static/my/common-functions/people.svg">
       </image>
-      账号注销
+      帐号注销
     </view>
     <view class="right">
       <image src="../../static/common/arrow-right.svg">
@@ -30,7 +30,7 @@
   <button class="logout" bindtap="confirmLogout">退出登陆</button>
   <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ isPrivecyDiaShown  }}" class-name="scancel-consent-dialog">
     <view class="dialog-slot-content">
-      <text>请确认是否撤销同意隐私声明，撤销后账号将匿名化处理，匿名化账号不可再登录，请谨慎操作！</text>
+      <text>请确认是否撤销同意隐私声明，撤销后帐号将匿名化处理，匿名化帐号不可再登录，请谨慎操作！</text>
       <view>
         <button class="confirm" bindtap="confirmRevoke">确认</button>
         <button bindtap="cancel">我再想想</button>
@@ -39,11 +39,11 @@
   </van-dialog>
   <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ isLogoffDiaShown  }}" class-name="scancel-consent-dialog">
     <view class="dialog-slot-content">
-      <text class="red">注销账号后，此账号所有数据都将被删除且不可逆，请谨慎操作！</text>
+      <text class="red">注销帐号后，此帐号所有数据都将被删除且不可逆，请谨慎操作！</text>
       <text class="red">请输入“delete”进行验证：</text>
       <input maxlength="{{20}}" bindinput="logoffInput" />
       <view>
-        <button class="confirm" bindtap="confirmLogoff">注销账号</button>
+        <button class="confirm" bindtap="confirmLogoff">注销帐号</button>
         <button bindtap="cancel">我再想想</button>
       </view>
     </view>

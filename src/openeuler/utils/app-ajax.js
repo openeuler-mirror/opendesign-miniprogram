@@ -96,9 +96,9 @@ const appAjax = {
       service: '', // 服务的配置名称
       success: function () {}, // 成功后回调
       error: null, // 失败后回调
-      autoShowWait: false, // 自动显示菊花
+      autoShowWait: false, // 自动显示loading
       loadingText: '加载中...', // 加载的提示语
-      autoCloseWait: true, // 自动关闭菊花
+      autoCloseWait: true, // 自动关闭loading
       headers: {
         Authorization: storage ? 'Bearer ' + storage.access : '',
       },
@@ -211,7 +211,7 @@ const appAjax = {
     return {
       lastdate: 0,
       pageSize: 20,
-      type: 'DOWN', // DOWN UP
+      type: 'DOWN',
     };
   },
 

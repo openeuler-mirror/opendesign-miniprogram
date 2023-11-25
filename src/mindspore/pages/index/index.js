@@ -21,13 +21,6 @@ Page(
         url: e.currentTarget.dataset.url,
       });
     },
-    previewImage(e) {
-      const current = e.target.dataset.src; //获取当前点击的 图片 url
-      wx.previewImage({
-        current,
-        urls: [current],
-      });
-    },
     onLoad: function () {
       wx.showShareMenu({
         withShareTicket: true,
@@ -36,7 +29,7 @@ Page(
       that = this;
       appUser.updateUserInfo(function () {
         that.setData({
-          meetingConponent: that.selectComponent('.meeting1'),
+          meetingConponent: that.selectComponent('#meeting'),
           iphoneX: that.getTabBar().data.iPhoneX,
         });
       });
@@ -48,9 +41,12 @@ Page(
     },
     onPullDownRefresh: function () {
       wx.stopPullDownRefresh();
-      appUser.updateUserInfo(function () {
-        that.data.meetingConponent.initData();
-      });
+      appUser.updateUserInfo();
+      this.data.meetingConponent?.initData();
+    },
+    onReachBottom() {
+      const customComponent = this.selectComponent('#meeting');
+      customComponent.getMoreData();
     },
     actionStatus(e) {
       if (e.detail === 1) {
@@ -63,27 +59,12 @@ Page(
         });
       }
     },
-    checkLogin() {
-      if (!sessionUtil.getUserInfoByKey('access')) {
+    async checkLogin() {
+      if (!(await sessionUtil.getUserInfoByKey('access'))) {
         wx.navigateTo({
           url: '/pages/auth/auth',
         });
       }
-    },
-    play() {
-      this.setData({
-        autoplay: false,
-      });
-    },
-    pause() {
-      this.setData({
-        autoplay: true,
-      });
-    },
-    ended() {
-      this.setData({
-        autoplay: true,
-      });
     },
   })
 );

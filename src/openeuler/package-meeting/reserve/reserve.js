@@ -83,7 +83,7 @@ let localMethods = {
     const mailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const emailArray = that.data.emaillist.split(';');
     for (let i = 0; i < emailArray.length; i++) {
-      let email = emailArray[i].trim(); // 去除空格
+      let email = emailArray[i].trim(); 
       if (email && !mailRegex.test(email)) {
         this.toast(`${email}不是一个有效的邮箱地址`);
         return;
