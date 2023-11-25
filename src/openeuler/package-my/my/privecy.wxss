@@ -1,19 +1,20 @@
 /* pages/my/privecy.wxss */
 .content {
-    color: #6C7279FF;
+  color: #6c7279ff;
 }
 
 .container {
-    padding-bottom: 0;
+  padding-bottom: 0;
 }
 
 .historical {
-    display: flex;
-    padding: 0 30rpx;
-    padding-bottom: 129rpx;
-    font-size: 36rpx;
+  display: flex;
+  padding: 0 30rpx;
+  padding-bottom: 129rpx;
+  font-size: 36rpx;
 }
 
 navigator {
-    color: #002fa7;
+  color: #002fa7;
+  text-decoration: underline;
 }

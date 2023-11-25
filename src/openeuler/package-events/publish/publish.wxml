@@ -7,7 +7,8 @@
                     <text>活动标题</text>
                     <text class="require">*</text>
                 </text>
-                <input value="{{title}}" maxlength="{{50}}" bindinput="titleInput" placeholder-class="placeholder" placeholder="请输入您的活动标题"></input>
+                <input value="{{title}}" maxlength="{{50}}" bindinput="titleInput" placeholder-class="placeholder"
+                    placeholder="请输入您的活动标题"></input>
             </view>
             <view class="form-item" bindtap="selDate">
                 <text class="label">
@@ -35,7 +36,8 @@
             <view class="form-item">
                 <text class="label">报名链接</text>
                 <text class="require">*</text>
-                <input value="{{registerUrl}}" bindinput="registerUrlInput" placeholder-class="placeholder" placeholder="请输入活动报名链接"></input>
+                <input value="{{registerUrl}}" maxlength="{{255}}" bindinput="registerUrlInput" placeholder-class="placeholder"
+                    placeholder="请输入活动报名链接"></input>
             </view>
             <view class="form-item" wx:if="{{type===2}}">
                 <text class="label">
@@ -61,7 +63,8 @@
             <view wx:if="{{type===1}}" class="form-item">
                 <text class="label">具体地址</text>
                 <text class="require">*</text>
-                <input value="{{addressName}}" bindinput="addressNameInput" placeholder-class="placeholder" placeholder="请输入详细活动地址"></input>
+                <input value="{{addressName}}" maxlength="{{100}}" bindinput="addressNameInput" placeholder-class="placeholder"
+                    placeholder="请输入详细活动地址"></input>
             </view>
             <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType==5)}}"></cover-view>
         </view>
@@ -83,11 +86,13 @@
         </view>
         <view class="form-item meeting-desc relative">
             <text class="label">活动简介</text>
-            <textarea value="{{desc}}" hidden="{{datePopShow||timePopShow||endTimePopShow}}" maxlength="{{-1}}" placeholder-class="placeholder" bindinput="descInput" placeholder="请输入活动简介">
+            <textarea value="{{desc}}" hidden="{{datePopShow||timePopShow||endTimePopShow}}" maxlength="{{4096}}"
+                placeholder-class="placeholder" bindinput="descInput" placeholder="请输入活动简介">
             </textarea>
             <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType==5)}}"></cover-view>
         </view>
-        <view class="form-wrapper schedule" wx:for="{{schedule}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+        <view class="form-wrapper schedule" wx:for="{{schedule}}" wx:for-item="item" wx:for-index="index"
+            wx:key="index">
             <view class="header">
                 <view class="left">
                     <text class="icon">议题 {{index+1}}</text>
@@ -113,9 +118,11 @@
                     <text>议题</text>
                     <text class="require">*</text>
                 </text>
-                <input value="{{item.topic}}" maxlength="{{50}}" data-index="{{index}}" bindinput="scheduleTitleInput" placeholder-class="placeholder" placeholder="请输入您的活动议题"></input>
+                <input value="{{item.topic}}" maxlength="{{100}}" data-index="{{index}}" bindinput="scheduleTitleInput"
+                    placeholder-class="placeholder" placeholder="请输入您的活动议题"></input>
             </view>
-            <view class="speaker-wrapper" wx:for="{{item.speakerList}}" wx:for-item="item1" wx:for-index="index1" wx:key="index1">
+            <view class="speaker-wrapper" wx:for="{{item.speakerList}}" wx:for-item="item1" wx:for-index="index1"
+                wx:key="index1">
                 <view class="form-item speaker-del-wrapper">
                     <text class="label speaker-header">Speaker {{index1+1}}</text>
                     <view class="del-btn" bindtap="delSpeaker" data-outindex="{{index}}" data-innerindex="{{index1}}">
@@ -127,11 +134,15 @@
                         <text>Name</text>
                         <text class="require">*</text>
                     </text>
-                    <input value="{{item1.name}}" maxlength="{{20}}" data-outindex="{{index}}" data-innerindex="{{index1}}" bindinput="nameInput" placeholder-class="placeholder" placeholder="请填写嘉宾名称"></input>
+                    <input value="{{item1.name}}" maxlength="{{20}}" data-outindex="{{index}}"
+                        data-innerindex="{{index1}}" bindinput="nameInput" placeholder-class="placeholder"
+                        placeholder="请填写嘉宾名称"></input>
                 </view>
                 <view class="form-item">
                     <text class="label">Title</text>
-                    <input value="{{item1.title}}" maxlength="{{50}}" data-outindex="{{index}}" data-innerindex="{{index1}}" bindinput="speakerTitleInput" placeholder-class="placeholder" placeholder="请填写嘉宾的职位"></input>
+                    <input value="{{item1.title}}" maxlength="{{50}}" data-outindex="{{index}}"
+                        data-innerindex="{{index1}}" bindinput="speakerTitleInput" placeholder-class="placeholder"
+                        placeholder="请填写嘉宾的职位"></input>
                 </view>
             </view>
             <view class="add-speaker" data-index="{{index}}" bindtap="addSpeaker">
@@ -183,6 +194,12 @@
             <text>点击 <text class="blue">【申请发布】</text> 后，你的活动将进入发布阶段，正式发布后，您仅能修改活动日程</text>
         </view>
     </view>
+    <view class="privacy" wx:if="{{!detailType}}">
+        <van-checkbox value="{{ privacyState }}" shape="square" icon-size="30rpx" bind:change="privacyStateOnChange"
+            checked-color="#002fa7">
+            已阅读并同意<text catchtap="toPrivacy">《隐私声明》</text>
+        </van-checkbox>
+    </view>
     <view class="commit type5" wx:if="{{detailType==5}}">
         <button class="meeting-reset" bindtap="cancelEditSchedule">取消</button>
         <button class="meeting-btn" bindtap="editScheduleConfirm">确定</button>
@@ -213,7 +230,8 @@
     <van-popup show="{{ datePopShow }}" round position="bottom" bind:click-overlay="dateCancel">
         <view class="sig-pop-wrapper">
             <view class="title">选择活动日期</view>
-            <van-datetime-picker show-toolbar="{{false}}" type="date" value="{{ curDate }}" bind:input="dateOnInput" min-date="{{ minDate }}" />
+            <van-datetime-picker show-toolbar="{{false}}" type="date" value="{{ curDate }}" bind:input="dateOnInput"
+                min-date="{{ minDate }}" />
             <view class="btn-wrapper">
                 <button class="confirm" bindtap="dateConfirm">确定</button>
                 <button class="cancel" bindtap="dateCancel">取消</button>
@@ -223,7 +241,8 @@
     <van-popup show="{{ timePopShow }}" round position="bottom" bind:click-overlay="timeCancel">
         <view class="sig-pop-wrapper">
             <view class="title">选择日程开始时间</view>
-            <van-datetime-picker show-toolbar="{{false}}" type="time" value="{{ start }}" bind:input="timeOnInput" min-hour="{{ minTime }}" max-hour="{{maxTime}}" filter="{{ filter }}" />
+            <van-datetime-picker show-toolbar="{{false}}" type="time" value="{{ start }}" bind:input="timeOnInput"
+                min-hour="{{ minTime }}" max-hour="{{maxTime}}" filter="{{ filter }}" />
             <view class="btn-wrapper">
                 <button class="confirm" bindtap="timeConfirm">确定</button>
                 <button class="cancel" bindtap="timeCancel">取消</button>
@@ -233,7 +252,8 @@
     <van-popup show="{{ endTimePopShow }}" round position="bottom" bind:click-overlay="endTimeCancel">
         <view class="sig-pop-wrapper">
             <view class="title">选择日程结束时间</view>
-            <van-datetime-picker show-toolbar="{{false}}" type="time" value="{{ end }}" bind:input="endTimeOnInput" min-hour="{{ minEndTime }}" max-hour="{{maxEndTime}}" filter="{{ filter }}" />
+            <van-datetime-picker show-toolbar="{{false}}" type="time" value="{{ end }}" bind:input="endTimeOnInput"
+                min-hour="{{ minEndTime }}" max-hour="{{maxEndTime}}" filter="{{ filter }}" />
             <view class="btn-wrapper">
                 <button class="confirm" bindtap="endTimeConfirm">确定</button>
                 <button class="cancel" bindtap="endTimeCancel">取消</button>

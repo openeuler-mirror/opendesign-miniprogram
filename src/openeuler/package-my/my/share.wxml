@@ -1,0 +1,14 @@
+<view class="table container">
+    <view class="row header">
+        <text class="cell" user-select="{true}">第三方主体</text>
+        <text class="cell" user-select="{true}">使用目的</text>
+        <text class="cell" user-select="{true}">涉及个人信息</text>
+        <text class="cell" user-select="{true}">第三方官网链接</text>
+    </view>
+    <view class="row" >
+        <text class="cell" user-select="{true}">openEuler社区</text>
+        <text class="cell" user-select="{true}">分享会议和活动的详细信息</text>
+        <text class="cell" user-select="{true}">会议发起人、会议日期、会议开始时间、会议结束时间、会议ID、会议链接、会议平台、会议名称、会议所属SIG、Etherpad链接、会议内容/活动ID、活动类型、活动地址及其经纬度、活动详细地址、活动开始日期、活动结束日期、报名链接、活动主题、活动日程</text>
+        <text class="cell" user-select="{true}">https://www.openeuler.org</text>
+    </view>
+</view>

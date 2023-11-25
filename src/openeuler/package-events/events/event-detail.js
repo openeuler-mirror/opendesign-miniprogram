@@ -197,6 +197,7 @@ Page({
     } catch (error) {
       return;
     }
+    postData.agree = true;
     remoteMethods.draftPublish(postData, (res) => {
       if (res.code === 200) {
         wx.redirectTo({

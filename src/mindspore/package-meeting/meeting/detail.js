@@ -1,6 +1,8 @@
 // pages/meeting/detail.js
 const appAjax = require('./../../utils/app-ajax');
 const sessionUtil = require('../../utils/app-session.js');
+const { MEETING_START_TEMPLATE, MEETING_CANCELLATION_TEMPLATE } = require('../../utils/config');
+
 let remoteMethods = {
   getMeetingDetail: function (id, _callback) {
     appAjax.postJson({
@@ -112,7 +114,7 @@ Page({
       });
     } else {
       wx.requestSubscribeMessage({
-        tmplIds: ['tK51rqE72oFo5e5ajCnvkPwnsCncfydgcV1jb9ed6Qc', 'kKkokqmaH62qp_txDQrNnyoRbM5wCptTAymhmsfHT7c'],
+        tmplIds: [MEETING_START_TEMPLATE, MEETING_CANCELLATION_TEMPLATE],
         success() {
           remoteMethods.collect(that.data.id, function (res) {
             if (res.code === 200) {

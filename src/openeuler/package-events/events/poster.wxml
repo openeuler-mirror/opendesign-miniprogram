@@ -5,7 +5,7 @@
         <image class="logo" src="https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/poster/logo.png" />
         <view class="line"></view>
         <view class="date">时间：{{info.date}}</view>
-        <view class="address" wx:if="{{info.activity_type==1}}">地点：{{info.detail_address}}</view>
+        <view class="address" wx:if="{{info.activity_type===1}}">地点：{{info.detail_address}}</view>
         <view class="address" wx:else>直播地址：{{info.join_url}}</view>
         <image class="qrcode" wx:if="{{isDraft}}" src="https://openeuler-website.obs.ap-southeast-1.myhuaweicloud.com/poster/qrcode{{info.poster}}.png" />
         <image class="qrcode" wx:else src="{{info.wx_code}}" />

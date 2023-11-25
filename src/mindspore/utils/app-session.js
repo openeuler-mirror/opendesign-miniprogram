@@ -33,13 +33,6 @@ const _getValueByKey = async function (key) {
 
 module.exports = {
   /**
-   * 从缓存获取token
-   */
-  getToken: function () {
-    return _getValueByKey('access');
-  },
-
-  /**
    * 通过key获取对应信息
    */
   getUserInfoByKey: function (key) {
@@ -58,15 +51,5 @@ module.exports = {
    */
   clearUserInfo: function () {
     wx.removeStorageSync(constants.APP_USERINFO_SESSION);
-  },
-
-  /**
-   * 判断是否登录
-   */
-  loginCheck: function () {
-    if (_getUserinfo() && _getValueByKey('access')) {
-      return true;
-    }
-    return false;
   },
 };

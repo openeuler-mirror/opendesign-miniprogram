@@ -188,7 +188,7 @@ let commonServiceConfig = {
   // 获取我已收藏的会议
   GET_MY_COLLECT: '/collections/',
 
-  // 同意隐私政策
+  // 同意更新的隐私政策
   AGREE: '/agree/',
 
   //添加城市

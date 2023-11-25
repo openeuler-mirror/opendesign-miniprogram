@@ -1,7 +1,6 @@
 {
     "usingComponents": {
-        "user-info": "/components/user-info/user-info",
-        "privacy": "/components/privacy/privacy"
+        "user-info": "/components/user-info/user-info"
     },
     "navigationBarTitleText": "MindSpore活动管理",
     "enablePullDownRefresh": true,

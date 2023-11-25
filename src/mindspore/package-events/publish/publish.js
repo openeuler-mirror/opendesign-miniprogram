@@ -95,6 +95,18 @@ let localMethods = {
       this.toast('请选择活动结束日期');
       return;
     }
+    if (data.register_url?.trim() === '') {
+      this.toast('请输入报名链接');
+      return;
+    }
+    if (data.replay_url?.trim() && !urlRegex.test(data.replay_url.trim())) {
+      this.toast('回放链接格式错误');
+      return;
+    }
+    if (!urlRegex.test(data.register_url.trim())) {
+      this.toast('报名链接格式错误');
+      return;
+    }
     if (data.activity_type === 1) {
       if (!data.address) {
         this.toast('请输入活动城市');
@@ -102,14 +114,6 @@ let localMethods = {
       }
       if (!data.detail_address) {
         this.toast('请输入具体地址');
-        return;
-      }
-      if (data.register_method === 2 && data.register_url === '') {
-        this.toast('请输入报名链接');
-        return;
-      }
-      if (data.register_method === 2 && !urlRegex.test(data.register_url)) {
-        this.toast('报名链接格式错误');
         return;
       }
       let flag = true;
@@ -136,23 +140,14 @@ let localMethods = {
         return;
       }
     } else if (data.activity_type === 2) {
-      if (data.register_method === 2 && data.register_url === '') {
-        this.toast('请输入报名链接');
-        return;
-      }
-      if (data.register_method === 2 && !urlRegex.test(data.register_url)) {
-        this.toast('报名链接格式错误');
-        return;
-      }
       if (!data.online_url) {
         this.toast('请输入线上链接地址');
         return;
       }
-      if (!urlRegex.test(data.online_url)) {
+      if (!urlRegex.test(data.online_url.replace(/\s+/g, ''))) {
         this.toast('线上链接格式错误');
         return;
       }
-
       let flag = true;
       data.schedules.forEach((dayItem) => {
         dayItem.forEach((item) => {
@@ -185,23 +180,14 @@ let localMethods = {
         this.toast('请输入具体地址');
         return;
       }
-      if (data.register_method === 2 && data.register_url === '') {
-        this.toast('请输入报名链接');
-        return;
-      }
       if (!data.online_url) {
         this.toast('请输入线上链接地址');
         return;
       }
-      if (data.register_method === 2 && !urlRegex.test(data.register_url)) {
-        this.toast('报名链接格式错误');
-        return;
-      }
-      if (!urlRegex.test(data.online_url)) {
+      if (!urlRegex.test(data.online_url.replace(/\s+/g, ''))) {
         this.toast('线上链接格式错误');
         return;
       }
-
       let flag = true;
       data.schedules.forEach((dayItem) => {
         dayItem.forEach((item) => {
@@ -221,7 +207,10 @@ let localMethods = {
         return;
       }
     }
-
+    if (!that.data.privacyState) {
+      this.toast('请先阅读并同意隐私声明');
+      return;
+    }
     return true;
   },
   toast: function (msg) {
@@ -246,12 +235,12 @@ Page({
     date: '',
     type: '课程',
     form: ['1'],
-    mode: '小程序报名',
     address: '',
     addressName: '',
     registerUrl: '',
     desc: '',
     betweenDay: [],
+    privacyState: false,
     schedule: [
       {
         start: '',
@@ -267,7 +256,6 @@ Page({
     ],
     allSchedule: [],
     typeList: ['课程', 'MSG', '赛事', '其他'],
-    modeList: ['小程序报名', '跳转其他链接报名'],
     datePopShow: false,
     timePopShow: false,
     formShow: false,
@@ -322,7 +310,6 @@ Page({
             playback: res.replay_url || '',
             method: res.register_method,
             type: this.data.typeList[res.activity_category - 1],
-            mode: this.data.modeList[res.register_method - 1],
             registerUrl: res.register_url || '',
             liveAddress: res.online_url || '',
             longitude: res.longitude || '',
@@ -333,10 +320,11 @@ Page({
             betweenDay: utils.getBetweenDateStr(res.start_date, res.end_date),
             topicSelIndex: res.poster,
             allSchedule: JSON.parse(res.schedules),
+            privacyState: true,
           });
         } catch {
           wx.showToast({
-            title: 'error',
+            title: '操作错误',
             icon: 'none',
             duration: 2000,
           });
@@ -347,7 +335,16 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  privacyStateOnChange: function (event) {
+    this.setData({
+      privacyState: event.detail,
+    });
+  },
+  toPrivacy() {
+    wx.navigateTo({
+      url: '/package-my/my/privecy',
+    });
+  },
   titleInput(e) {
     this.setData({
       title: e.detail.value,
@@ -494,11 +491,6 @@ Page({
         name: '',
         title: '',
       },
-    });
-  },
-  modeRadioOnChange: function (e) {
-    this.setData({
-      mode: e.detail,
     });
   },
   radioClick(e) {
@@ -736,6 +728,7 @@ Page({
     if (!localMethods.validation(postData)) {
       return;
     }
+    postData.agree = true;
     remoteMethods.addEvents(postData, (res) => {
       if (res.code === 200) {
         wx.redirectTo({
@@ -746,7 +739,7 @@ Page({
   },
   saveDraft() {
     let postData = {};
-    if (this.data.form[0] === 1 && this.data.form.length !== 2) {
+    if (this.data.form[0] - 0 === 1 && this.data.form.length !== 2) {
       postData = {
         title: this.data.title,
         activity_category: this.data.actegory,
@@ -763,7 +756,7 @@ Page({
         poster: this.data.topicSelIndex,
         schedules: this.data.allSchedule,
       };
-    } else if (this.data.form[0] === 2 && this.data.form.length !== 2) {
+    } else if (this.data.form[0] - 0 === 2 && this.data.form.length !== 2) {
       postData = {
         title: this.data.title,
         activity_category: this.data.actegory,
@@ -799,6 +792,7 @@ Page({
     if (!localMethods.validation(postData)) {
       return;
     }
+    postData.agree = true;
     remoteMethods.saveDraft(postData, (res) => {
       if (res.code === 200) {
         wx.redirectTo({
@@ -812,7 +806,7 @@ Page({
   },
   editScheduleConfirm() {
     let postData = {};
-    if (this.data.form[0] === 1 && this.data.form.length !== 2) {
+    if (this.data.form[0] - 0 === 1 && this.data.form.length !== 2) {
       postData = {
         title: this.data.title,
         activity_category: this.actegory,
@@ -830,7 +824,7 @@ Page({
         poster: this.data.topicSelIndex,
         schedules: this.data.allSchedule,
       };
-    } else if (this.data.form[0] === 2 && this.data.form.length !== 2) {
+    } else if (this.data.form[0] - 0 === 2 && this.data.form.length !== 2) {
       postData = {
         title: this.data.title,
         activity_category: this.data.actegory,
@@ -869,17 +863,19 @@ Page({
       return;
     }
     postData.schedules = JSON.stringify(this.data.allSchedule);
-    remoteMethods.saveDraft(postData, () => {
-      wx.redirectTo({
-        url: '/package-events/publish/success?type=3',
-      });
+    remoteMethods.saveDraft(postData, (res) => {
+      if (res.code === 200) {
+        wx.redirectTo({
+          url: '/package-events/publish/success?type=3',
+        });
+      }
     });
   },
   toPoster() {
     let activityType = 0;
-    if (this.data.form[0] === 1 && this.data.form.length !== 2) {
+    if (this.data.form[0] - 0 === 1 && this.data.form.length !== 2) {
       activityType = 1;
-    } else if (this.data.form[0] === 2) {
+    } else if (this.data.form[0] - 0 === 2) {
       activityType = 2;
     } else {
       activityType = 3;

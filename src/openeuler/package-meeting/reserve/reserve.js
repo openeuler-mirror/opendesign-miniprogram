@@ -2,6 +2,8 @@
 const appAjax = require('./../../utils/app-ajax');
 const appSession = require('./../../utils/app-session.js');
 const utils = require('./../../utils/utils.js');
+const { MEETING_START_TEMPLATE } = require('../../utils/config');
+
 utils.formateDate();
 let remoteMethods = {
   getUserGroup: function (id, _callback) {
@@ -83,7 +85,7 @@ let localMethods = {
     const mailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const emailArray = that.data.emaillist.split(';');
     for (let i = 0; i < emailArray.length; i++) {
-      let email = emailArray[i].trim(); 
+      let email = emailArray[i].trim();
       if (email && !mailRegex.test(email)) {
         this.toast(`${email}不是一个有效的邮箱地址`);
         return;
@@ -202,7 +204,7 @@ Page({
     }
     let that = this;
     wx.requestSubscribeMessage({
-      tmplIds: ['2xSske0tAcOVKNG9EpBjlb1I-cjPWSZrpwPDTgqAmWI'],
+      tmplIds: [MEETING_START_TEMPLATE],
       success() {
         that.data.emaillist.replace(/；/g, ';');
         let email = null;
@@ -226,6 +228,7 @@ Page({
             agenda: that.data.agenda,
             emaillist: email,
             record: that.data.record ? 'cloud' : '',
+            agree: that.data.privacyState,
           },
           function (data) {
             if (data.id) {

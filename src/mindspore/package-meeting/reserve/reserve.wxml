@@ -83,7 +83,7 @@
             </view>
             <view class="form-item">
                 <text class="label">Etherpad链接</text>
-                <input value="{{etherpad}}" maxlength="{{100}}" placeholder-class="placeholder" bindinput="etherInput"
+                <input value="{{etherpad}}" maxlength="{{64}}" placeholder-class="placeholder" bindinput="etherInput"
                     placeholder="请输入Etherpad链接"></input>
             </view>
             <view class="form-item">
@@ -109,7 +109,7 @@
         </view>
         <view class="form-item">
             <text class="label">邮件地址</text>
-            <input value="{{emaillist}}" maxlength="{{100}}" placeholder-class="placeholder" bindinput="emailInput"
+            <input value="{{emaillist}}" maxlength="{{1020}}" placeholder-class="placeholder" bindinput="emailInput"
                 placeholder="请输入电子邮件地址"></input>
         </view>
     </view>
@@ -129,7 +129,7 @@
     <view class="privacy">
         <van-checkbox value="{{ privacyState }}" shape="square" icon-size="30rpx" bind:change="privacyStateOnChange"
             checked-color="#40ADFF">
-            已阅读并同意<text catchtap="toPrivacy">隐私声明</text>
+            已阅读并同意<text catchtap="toPrivacy">《隐私声明》</text>
         </van-checkbox>
     </view>
     <view class="commit">

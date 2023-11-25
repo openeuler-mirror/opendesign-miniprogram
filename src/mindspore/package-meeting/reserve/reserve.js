@@ -2,6 +2,8 @@
 const appAjax = require('./../../utils/app-ajax');
 const appSession = require('./../../utils/app-session.js');
 const utils = require('./../../utils/utils.js');
+const { MEETING_START_TEMPLATE } = require('../../utils/config');
+
 utils.formateDate();
 
 let remoteMethods = {
@@ -270,6 +272,11 @@ Page({
       agenda: '',
       emaillist: '',
       record: '',
+      typeKey: '',
+      tipsType: '',
+      isSig: false,
+      isMSG: false,
+      typeMeeting: '',
       meetingType: 'tencent',
     });
   },
@@ -280,8 +287,7 @@ Page({
     let that = this;
     wx.requestSubscribeMessage({
       // 消息订阅模板
-      tmplIds: ['tK51rqE72oFo5e5ajCnvkPwnsCncfydgcV1jb9ed6Qc'],
-      success() {},
+      tmplIds: [MEETING_START_TEMPLATE],
       complete() {
         let param = {
           topic: that.data.topic,
@@ -296,6 +302,7 @@ Page({
           emaillist: that.data.emaillist,
           record: that.data.record ? 'cloud' : '',
           agenda: that.data.agenda,
+          agree: that.data.privacyState,
         };
         if (that.data.meeting_type === 2) {
           param.city = that.data.city;

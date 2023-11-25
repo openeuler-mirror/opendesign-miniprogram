@@ -1,0 +1,40 @@
+<view class="table container">
+    <view class="row header" user-select="{true}">
+        <text class="cell">三方SDK名称</text>
+        <text class="cell">使用目的</text>
+        <text class="cell">使用场景</text>
+        <text class="cell">涉及个人信息</text>
+        <text class="cell">SDK隐私声明或开发指南</text>
+    </view>
+    <view class="row">
+        <text class="cell" user-select="{true}">腾讯会议</text>
+        <text class="cell" user-select="{true}">预订会议</text>
+        <text class="cell" user-select="{true}">预订/取消会议/获取录像列表/获取录像下载地址</text>
+        <text class="cell" user-select="{true}">会议日期、开始时间、结束时间、会议名称、host_id，是否自动录制/会议ID/会议开始时间、会议结束时间/会议ID、User ID</text>
+        <text class="cell" user-select="{true}">https://privacy.qq.com/document/preview/4467add90f9d4baaabd790cb1cb08b26</text>
+    </view>
+    <view class="row">
+        <text class="cell" user-select="{true}">WeLink会议</text>
+        <text class="cell" user-select="{true}">预订会议</text>
+        <text class="cell" user-select="{true}">预订/取消会议/获取录像列表/获取录像下载地址</text>
+        <text class="cell" user-select="{true}">会议日期、开始时间、结束时间、会议名称、host_id，是否自动录制/会议ID、host_id/会议开始时间、会议结束时间、host_id/confuuid,
+            host_id</text>
+        <text
+            class="cell">https://api.welink.huaweicloud.com/mcloud/mag/FreeProxyForText/ppolicy/v2/privacy/latestContent/cn
+        </text>
+    </view>
+    <view class="row">
+        <text class="cell" user-select="{true}">MTA(MindSpore邮件列表服务)</text>
+        <text class="cell" user-select="{true}">发送通知邮件</text>
+        <text class="cell" user-select="{true}">预订/取消会议</text>
+        <text class="cell" user-select="{true}">邮箱地址、会议名称、会议日期、开始时间、结束时间、会议平台、会议ID、会议所属SIG、会议内容， Etherpad链接, 会议链接/邮箱地址、会议名称、开始时间、所属SIG、会议平台</text>
+        <text class="cell" user-select="{true}">https://www.mindspore.cn/privacy</text>
+    </view>
+    <view class="row">
+        <text class="cell" user-select="{true}">微信开放平台</text>
+        <text class="cell" user-select="{true}">获取小程序用户openid，发送订阅消息，生成二维码</text>
+        <text class="cell" user-select="{true}">获取小程序用户openid/发送订阅消息/生成二维码</text>
+        <text class="cell" user-select="{true}">登录授权code/openid、会议名称、会议ID、会议日期、会议开始时间/活动ID</text>
+        <text class="cell" user-select="{true}">https://www.mindspore.cn/privacy</text>
+    </view>
+</view>
