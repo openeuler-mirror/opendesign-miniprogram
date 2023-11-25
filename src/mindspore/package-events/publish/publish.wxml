@@ -227,7 +227,13 @@
             <text>点击 <text class="blue">【申请发布】</text> 后，你的活动将进入发布阶段，正式发布后，您仅能修改活动日程</text>
         </view>
     </view>
-    <view class="commit type5" wx:if="{{detailType==5}}">
+    <view class="privacy" wx:if="{{detailType!==5}}">
+        <van-checkbox value="{{ privacyState }}" shape="square" icon-size="30rpx" bind:change="privacyStateOnChange"
+            checked-color="#40ADFF">
+            已阅读并同意<text catchtap="toPrivacy">隐私声明</text>
+        </van-checkbox>
+    </view>
+    <view class="commit type5" wx:if="{{detailType===5}}">
         <button class="meeting-reset" bindtap="cancelEditSchedule">取消</button>
         <button class="meeting-btn" bindtap="editScheduleConfirm">确定</button>
     </view>
@@ -282,25 +288,6 @@
             <view class="btn-wrapper">
                 <button class="confirm" bindtap="typeConfirm">确定</button>
                 <button class="cancel" bindtap="typeCancel">取消</button>
-            </view>
-        </view>
-    </van-popup>
-    <van-popup show="{{ modeShow }}" round position="bottom" bind:click-overlay="modeCancel">
-        <view class="sig-pop-wrapper">
-            <view class="title">选择报名方式</view>
-            <van-radio-group value="{{ mode }}" bind:change="modeRadioOnChange">
-                <block wx:for="{{modeList}}" wx:key="index">
-                    <view class="item">
-                        <van-radio icon-size="46rpx" bindtap="radioClick" data-index="{{index + 1}}"
-                            custom-class="radio" checked-color="#40ADFF" name="{{item}}">
-                            <view class="name">{{item}}</view>
-                        </van-radio>
-                    </view>
-                </block>
-            </van-radio-group>
-            <view class="btn-wrapper">
-                <button class="confirm" bindtap="modeConfirm">确定</button>
-                <button class="cancel" bindtap="modeCancel">取消</button>
             </view>
         </view>
     </van-popup>

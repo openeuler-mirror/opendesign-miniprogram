@@ -79,20 +79,5 @@ Page(
         return;
       }
     },
-    play() {
-      this.setData({
-        autoplay: false,
-      });
-    },
-    pause() {
-      this.setData({
-        autoplay: true,
-      });
-    },
-    ended() {
-      this.setData({
-        autoplay: true,
-      });
-    },
   })
 );

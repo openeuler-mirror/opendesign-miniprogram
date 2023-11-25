@@ -32,6 +32,7 @@ Page({
     avatar: '',
     nickname: '',
     gitee_name: '',
+    rawName: '',
   },
 
   /**
@@ -43,13 +44,9 @@ Page({
       avatar: options.avatar,
       nickname: options.nickname,
       gitee_name: options.name,
+      rawName: options.name,
     });
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {},
   confirm: function () {
     let that = this;
     if (!that.data.gitee_name) {
@@ -65,10 +62,17 @@ Page({
         id: that.data.id,
         gitee_name: that.data.gitee_name,
       },
-      function () {
-        that.setData({
-          isShowMes: true,
-        });
+      function (data) {
+        if (data.code === 200) {
+          wx.showToast({
+            title: '操作成功',
+            icon: 'success',
+            duration: 2000,
+          });
+          that.setData({
+            rawName: that.data.gitee_name,
+          });
+        }
       }
     );
   },

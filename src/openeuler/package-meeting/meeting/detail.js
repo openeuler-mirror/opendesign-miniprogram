@@ -104,7 +104,7 @@ Page({
       });
       return;
     }
-    if (this.data.collection_id != null) {
+    if (this.data.collection_id !== null) {
       remoteMethods.uncollect(this.data.collection_id, function () {
         that.setData({
           collection_id: null,

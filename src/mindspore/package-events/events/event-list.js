@@ -4,12 +4,13 @@ const sessionUtil = require('../../utils/app-session.js');
 let that = null;
 
 let remoteMethods = {
-  getList: function (_callback) {
+  getList: function (params, _callback) {
     appAjax.postJson({
       autoShowWait: true,
       type: 'GET',
       service: 'ALL_EVENTS_LIST',
       data: {
+        ...params,
         activity_status: that.data.activity,
         activity_category: that.data.curFilterType,
         search: that.data.curKeyword,
@@ -19,13 +20,14 @@ let remoteMethods = {
       },
     });
   },
-  getCount: function (_callback) {
+  getCount: function (params, _callback) {
     appAjax.postJson({
       type: 'GET',
       service: 'GET_EVENTS_COUNT',
       success: function (ret) {
         _callback && _callback(ret);
       },
+      data: params,
     });
   },
   delDraft: function (_callback) {
@@ -128,23 +130,20 @@ Page({
     goingNum: 0,
     complatedNum: 0,
     curId: '',
-    registerId: '',
+    pageParams: {
+      page: 1,
+      size: 50,
+    },
+    total: 0,
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function () {
     that = this;
-    remoteMethods.getList((res) => {
-      that.setData({
-        list: res,
-        level: sessionUtil.getUserInfoByKey('eventLevel') || 1,
-        user: sessionUtil.getUserInfoByKey('userId'),
-      });
-    });
-    remoteMethods.getCount((res) => {
-      that.setData({
+    this.initData();
+    remoteMethods.getCount({ activity_category: this.data.filterType }, async (res) => {
+      this.setData({
+        'pageParams.page': 1,
+        level: (await sessionUtil.getUserInfoByKey('eventLevel')) || 1,
+        user: await sessionUtil.getUserInfoByKey('userId'),
         allNum: res.all_activities_count,
         signUpNum: res.registering_activities_count,
         goingNum: res.going_activities_count,
@@ -152,11 +151,30 @@ Page({
       });
     });
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {},
+  initData() {
+    let renderData = [];
+    remoteMethods.getList(this.data.pageParams, (data) => {
+      if (this.data.pageParams.page === 1) {
+        renderData = data.data;
+      } else {
+        renderData = this.data.list;
+        renderData.push(...data.data);
+      }
+      this.setData({
+        list: renderData,
+        total: data.total,
+      });
+    });
+  },
+  onReachBottom() {
+    if (this.data.total <= this.data.pageParams.size * this.data.pageParams.page) {
+      return false;
+    }
+    this.setData({
+      'pageParams.page': this.data.pageParams.page + 1,
+    });
+    this.initData();
+  },
   search: function (e) {
     this.setData({
       curKeyword: e.detail.value,
@@ -201,8 +219,8 @@ Page({
   },
 
   onActionSelect(e) {
-    if (this.data.level == 3) {
-      if (e.detail.operaType == 1) {
+    if (this.data.level === 3) {
+      if (e.detail.operaType === 1) {
         if (this.data.collectionId) {
           remoteMethods.unCollect(() => {
             this.onLoad();
@@ -212,12 +230,12 @@ Page({
             this.onLoad();
           });
         }
-      } else if (e.detail.operaType == 2) {
+      } else if (e.detail.operaType === 2) {
         this.setData({
           showDialogDel: true,
         });
       }
-    } else if (e.detail.operaType == 1) {
+    } else if (e.detail.operaType === 1) {
       if (this.data.collectionId) {
         remoteMethods.unCollect(() => {
           this.onLoad();
@@ -227,7 +245,7 @@ Page({
           this.onLoad();
         });
       }
-    } else if (e.detail.operaType == 3) {
+    } else if (e.detail.operaType === 3) {
       return;
     } else {
       this.setData({
@@ -241,10 +259,9 @@ Page({
       curId: e.currentTarget.dataset.item.id,
       userId: e.currentTarget.dataset.item.user,
       collectionId: e.currentTarget.dataset.item.collection_id || '',
-      registerId: e.currentTarget.dataset.item.register_id || '',
     });
     const strTemp = this.data.collectionId ? '取消收藏' : '收藏活动';
-    if (this.data.level == 3) {
+    if (this.data.level === 3) {
       this.setData({
         actions: [
           {
@@ -258,7 +275,7 @@ Page({
         ],
       });
     } else {
-      if (this.data.user == this.data.userId) {
+      if (this.data.user === this.data.userId) {
         this.setData({
           actions: [
             {
@@ -279,17 +296,6 @@ Page({
               operaType: 1,
             },
           ],
-        });
-      }
-
-      if (this.data.registerId) {
-        let tempArr = this.data.actions;
-        tempArr.unshift({
-          name: '查看门票',
-          operaType: 3,
-        });
-        this.setData({
-          actions: tempArr,
         });
       }
     }

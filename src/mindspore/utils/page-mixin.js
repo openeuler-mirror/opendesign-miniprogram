@@ -1,10 +1,4 @@
-/**
- * 页面通用方法
- * since 2020-8-20
- */
-
 const _ = require('./underscore-extend');
-const constants = require('../config/constants');
 const { deepExtend: $extend } = _;
 const app = getApp();
 
@@ -63,24 +57,7 @@ const lifeCycle = {
   onLoad: {
     before() {
       this.$setWatcher(this.data, this.watch); // 设置监听器
-
-      let pages = getCurrentPages(); //获取加载的页面
-      let currentPage = pages[pages.length - 1]; //获取当前页面的对象
-      let url = currentPage.route; //当前页面url
-
-      // 判断是否登录
-      let userInfo = wx.getStorageSync(constants.APP_USERINFO_SESSION);
-
-      if (url != 'pages/auth/auth') {
-        // wx.navigateTo({
-        // 	url: `/package-events/events/event-detail?id=20`
-        // })
-        if (!userInfo && !userInfo.access) {
-          // app.globalData.tourist = true;
-        }
-      }
     },
-    after() {},
   },
 
   onShow: {
@@ -93,7 +70,6 @@ const lifeCycle = {
 let local = {
   getLifeCycle(rewriteList, lifeCycle, pageConfig) {
     let config = {};
-
     rewriteList.forEach((i) => {
       if (i in pageConfig) {
         config[i] = function () {
@@ -111,13 +87,6 @@ let local = {
 let $pageMixin = function (pageConfig) {
   let rewriteList = [
     'onLoad', // 生命周期函数--监听页面加载
-    //		'onReady',				// 生命周期函数--监听页面初次渲染完成
-    // 'onShow',				// 生命周期函数--监听页面显示
-    //		'onHide',				// 生命周期函数--监听页面隐藏
-    //		'onUnload',				// 生命周期函数--监听页面卸载
-    //		'onPullDownRefresh',	// 页面相关事件处理函数--监听用户下拉动作
-    //		'onReachBottom',		// 页面上拉触底事件的处理函数
-    //		'onShareAppMessage'		// 用户点击右上角分享
   ];
 
   let lifeConfig = local.getLifeCycle(rewriteList, lifeCycle, pageConfig);

@@ -31,28 +31,7 @@ Page({
    */
   data: {
     keyword: '',
-    list: [
-      {
-        id: 24,
-        name: '上海',
-        group_type: 2,
-      },
-      {
-        id: 25,
-        name: '北京',
-        group_type: 2,
-      },
-      {
-        id: 26,
-        name: '深圳',
-        group_type: 2,
-      },
-      {
-        id: 27,
-        name: '成都',
-        group_type: 2,
-      },
-    ],
+    list: [],
     addCityPopShow: false,
     cityName: '',
   },
@@ -96,7 +75,7 @@ Page({
     let postData = {
       name: this.data.cityName,
     };
-    if (this.data.cityName == '') {
+    if (this.data.cityName === '') {
       wx.showToast({
         title: '请输入城市名',
         duration: 2000,
@@ -105,7 +84,7 @@ Page({
       return;
     }
     remoteMethods.addCity(postData, function (data) {
-      if (data && data.code && data.code == 201) {
+      if (data && data.code && data.code === 200) {
         that.setData({
           isShowMes: true,
           cityName: '',
@@ -119,7 +98,7 @@ Page({
           title: '添加成功',
           duration: 2000,
         });
-      } else if (data && data.code && data.code == 400 && data.msg && data.msg == '城市名重复') {
+      } else if (data?.code === 400 && data?.msg === '城市名重复') {
         wx.showToast({
           title: '城市名重复',
           icon: 'none',

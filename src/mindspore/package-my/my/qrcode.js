@@ -1,5 +1,5 @@
-// package-my/my/qrcode.js
-const resourceUrl = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/mindsporeMini/';
+const { OBS_URL } = require('./../../utils/url-config');
+const resourceUrl = `${OBS_URL}/mindsporeMini/`;
 Page({
   /**
    * 页面的初始数据
@@ -43,16 +43,13 @@ Page({
                   duration: 2000,
                 });
               },
-              fail: function (err) {
-                console.log(err);
-              },
-              complete(res) {
-                console.log(res);
+              fail: function () {
+                wx.showModal({
+                  title: '保存失败~',
+                  content: '请尝试点击右上角 “...” => “设置” 同意添加到相册后再保存~',
+                });
               },
             });
-          },
-          failL: function (err) {
-            console.log(err);
           },
         });
       },

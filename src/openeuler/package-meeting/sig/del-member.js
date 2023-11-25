@@ -5,7 +5,7 @@ let remoteMethods = {
     appAjax.postJson({
       autoShowWait: true,
       type: 'GET',
-      service: 'SIG_CLUDE_MEMBER_LIST',
+      service: 'SIG_MEMBER_LIST',
       otherParams: {
         id: postData.id,
       },
@@ -61,7 +61,7 @@ Page({
     this.initData();
   },
   onReachBottom() {
-    if (this.data.total < this.data.pageParams.size * this.data.pageParams.page) {
+    if (this.data.total <= this.data.pageParams.size * this.data.pageParams.page) {
       return false;
     }
     this.setData({

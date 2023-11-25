@@ -128,8 +128,6 @@ Page({
       title = '发布中';
     } else if (type === 6) {
       title = '我收藏的活动';
-    } else if (type === 7) {
-      title = '我报名的活动';
     }
     wx.setNavigationBarTitle({
       title,
@@ -160,7 +158,7 @@ Page({
     });
   },
   onReachBottom() {
-    if (this.data.total < this.data.pageParams.size * this.data.pageParams.page) {
+    if (this.data.total <= this.data.pageParams.size * this.data.pageParams.page) {
       return false;
     }
     this.setData({
@@ -293,9 +291,6 @@ Page({
       showDialogDel: false,
     });
     remoteMethods.delEvent(() => {
-      this.setData({
-        'pageParams.page': 1,
-      });
       this.initialization();
     });
   },

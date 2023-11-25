@@ -1,7 +1,6 @@
 {
     "usingComponents": {
-        "privacy-text": "/components/privacy-text/privacy-text",
-        "privacy-update": "/components/privacy-text/privacy-update"
+        "privacy-text": "/components/privacy-text/privacy-text"
     },
     "navigationBarTitleText": "社区隐私声明"
 }

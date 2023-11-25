@@ -1,10 +1,11 @@
 <!-- index.wxml -->
 <view class="container {{iphoneX?'container-x':''}}">
     <user-info></user-info>
-    <swiper indicator-dots="{{false}}" autoplay="{{autoplay}}" interval="{{5000}}" indicator-color="#e1e6ee" indicator-active-color="#003fa7">
+    <swiper indicator-dots="{{false}}" autoplay="{{autoplay}}" interval="{{5000}}" indicator-color="#e1e6ee"
+        indicator-active-color="#003fa7">
         <block wx:for="{{imgUrls}}" wx:key="index">
             <swiper-item>
-                <image wx:if="{{item.type===2 || item.type===3}}"  data-src="{{item.src}}" src="{{item.url}}" class="slide-image" />
+                <image wx:if="{{item.type===2 || item.type===3}}" src="{{item.url}}" class="slide-image" />
             </swiper-item>
         </block>
     </swiper>
@@ -20,5 +21,6 @@
             <image class="arrow" src="./../../static/common/arrow-right.svg"></image>
         </view>
     </view>
-    <meeting-list id="meeting" is-home="true" bind:action-status="actionStatus" api-url="RECENTLY_MEETINGS"></meeting-list>
+    <meeting-list id="meeting" is-home="true" bind:action-status="actionStatus" api-url="RECENTLY_MEETINGS">
+    </meeting-list>
 </view>

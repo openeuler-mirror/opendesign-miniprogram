@@ -20,16 +20,13 @@ let commonServiceConfig = {
   // 获取sig组未添加成员列表
   SIG_EXCLUDE_MEMBER_LIST: '/users_exclude/{id}/',
 
-  // 获取sig组未添加成员列表
+  // sig组新增成员
   ADD_MEMBER_LIST: '/groupuser/action/new/',
 
-  // 获取sig组已添加成员列表
-  SIG_CLUDE_MEMBER_LIST: '/users_include/{id}/',
-
-  // 获取sig组未添加成员列表
+  // sig组删除成员
   DEL_MEMBER_LIST: '/groupuser/action/del/',
 
-  // 获取sig组未添加成员列表
+  // 查看用户所在组的信息
   GET_USER_GROUP: '/usergroup/{id}/',
 
   // 创建会议
@@ -50,7 +47,7 @@ let commonServiceConfig = {
   // 获取用户状态
   GET_USER_STATUS: '/userinfo/{id}/',
 
-  // 保存用户giteename
+  // 保存用户GiteeID
   SAVE_MEMBER_DETAIL: '/user/{id}/',
 
   // 我创建的会议列表
@@ -120,19 +117,19 @@ let commonServiceConfig = {
   // 所有活动
   ALL_EVENTS_LIST: '/activities/',
 
-  // 所有活动
+  // 活动详情
   EVENT_DETAIL: '/activity/{id}/',
 
   // 修改日程
   EDIT_SCHEDULE: '/activityupdate/{id}/',
 
-  // 修改日程
+  // 查询活动草稿
   EXAMINE_DETAIL: '/draft/{id}/',
 
-  // 修改日程
+  // 收藏活动
   EVENT_COLLECT: '/collectactivity/',
 
-  // 修改日程
+  // 取消收藏
   EVENT_UNCOLLECT: '/collectactivitydel/{id}/',
 
   // 活动收藏列表
@@ -140,9 +137,6 @@ let commonServiceConfig = {
 
   // 最新活动列表
   LATEST_EVENTS: '/recentactivities/',
-
-  // 保存意见反馈
-  SAVE_FEEDBACK: '/feedback/',
 
   // 获取已发布分类数量
   GET_EVENTS_COUNT: '/countactivities/',
@@ -157,7 +151,7 @@ let commonServiceConfig = {
   AGREE: '/agree/',
   // 退出登陆
   LOGOUT: '/logout/',
-  // 注销账号
+  // 注销帐号
   LOGOFF: '/logoff/',
   // 撤销登陆
   REVOKE: '/revoke/',

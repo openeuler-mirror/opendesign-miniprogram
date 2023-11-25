@@ -2,7 +2,6 @@
 const mixin = require('../../utils/page-mixin.js').$pageMixin;
 const sessionUtil = require('../../utils/app-session.js');
 const appUser = require('../../utils/app-user.js');
-let that = null;
 
 Page(
   mixin({
@@ -22,11 +21,9 @@ Page(
         iphoneX: this.getTabBar().data.iPhoneX,
         meetingConponent: this.selectComponent('#meeting'),
       });
-      let that = this;
-
-      appUser.updateUserInfo(function () {
-        that.setData({
-          level: sessionUtil.getUserInfoByKey('level'),
+      appUser.updateUserInfo(async () => {
+        this.setData({
+          level: await sessionUtil.getUserInfoByKey('level'),
         });
       });
     },
@@ -35,19 +32,18 @@ Page(
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-      that = this;
       this.getTabBar().setData({
         _tabbat: 1,
       });
     },
     onPullDownRefresh: function () {
       wx.stopPullDownRefresh();
-      appUser.updateUserInfo(function () {
-        that.setData({
-          level: sessionUtil.getUserInfoByKey('level'),
+      appUser.updateUserInfo(async () => {
+        this.setData({
+          level: await sessionUtil.getUserInfoByKey('level'),
         });
-        that.data.meetingConponent.initData();
       });
+      this.data.meetingConponent.initData();
     },
     actionStatus(e) {
       if (e.detail === 1) {
@@ -60,9 +56,9 @@ Page(
         });
       }
     },
-    navigateTo(e) {
+    async navigateTo(e) {
       const url = e.currentTarget.dataset.url;
-      if (url.includes('reserve') && !sessionUtil.getUserInfoByKey('access')) {
+      if (url.includes('reserve') && !(await sessionUtil.getUserInfoByKey('access'))) {
         wx.navigateTo({
           url: '/pages/auth/auth',
         });

@@ -6,7 +6,7 @@
                 <view class="left">
                     <image src="{{avatarUrl}}"></image>
                     <text>{{nickName}}</text>
-                    <image bindtap="copy" data-copy="{{userId}}" class="copy" src="../../static/common/copy.svg"></image>
+                    <image bindtap="copy" data-copy="{{nickName}}" class="copy" src="../../static/common/copy.svg"></image>
                 </view>
                 <view class="right">
                     <navigator url='/package-my/my/privecy-seting'>
@@ -37,7 +37,7 @@
                 <text class="counts">{{publishedActivitiesCount||0}}</text>
                 <text class="text">已发布</text>
             </view>
-            <view wx:if="{{avtivityLevel!==1}}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=4">
+            <view wx:if="{{avtivityLevel!==1 &&avtivityLevel!==3 }}" class="item" bindtap="go" data-url="/package-my/events/my-list?type=4">
                 <text class="counts">{{draftsCount||0}}</text>
                 <text class="text">草稿箱</text>
             </view>

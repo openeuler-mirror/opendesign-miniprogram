@@ -1,26 +1,32 @@
 // pages/sig/add-sig-member.js
 const appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
-  getSigMemberList: function (id, _callback) {
+  getSigMemberList: function (params, _callback) {
     appAjax.postJson({
       autoShowWait: true,
       type: 'GET',
       service: 'GROUP_MEMBER_LIST',
+      otherParams: {
+        id: params.id,
+      },
       data: {
-        group: id,
+        page: params.page,
+        size: params.size,
       },
       success: function (ret) {
         _callback && _callback(ret);
       },
     });
   },
-  getMsgMemberList: function (id, _callback) {
+  getMsgMemberList: function (params, _callback) {
     appAjax.postJson({
       autoShowWait: true,
       type: 'GET',
       service: 'GROUP_CITY_MEMBER_LIST',
       data: {
-        city: id,
+        city: params.id,
+        page: params.page,
+        size: params.size,
       },
       success: function (ret) {
         _callback && _callback(ret);
@@ -33,11 +39,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    memberList: [],
+    list: [],
     id: '',
     groupTitle: '',
-    urlGroup: '',
     options: '',
+    pageParams: {
+      page: 1,
+      size: 10,
+    },
+    total: 0,
   },
 
   /**
@@ -52,36 +62,40 @@ Page({
       groupTitle: options.name,
       options: options,
     });
-    if (options.name.includes('专家')) {
-      this.setData({
-        urlGroup: 'Tech',
-      });
-    } else {
-      this.setData({
-        urlGroup: options.name,
-      });
-    }
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let that = this;
-    const { type } = that.data.options;
-    if (type != 'MSG') {
-      remoteMethods.getSigMemberList(this.data.urlGroup, function (list) {
-        that.setData({
-          memberList: list,
-        });
-      });
+    this.getListData();
+  },
+  getListData() {
+    if (this.options.type !== 'MSG') {
+      this.initData.call(this, remoteMethods.getSigMemberList);
     } else {
-      remoteMethods.getMsgMemberList(this.data.urlGroup, function (list) {
-        that.setData({
-          memberList: list,
-        });
-      });
+      this.initData.call(this, remoteMethods.getMsgMemberList);
     }
+  },
+  initData: function (remoteMethod) {
+    remoteMethod(
+      {
+        ...this.data.pageParams,
+        id: this.data.id,
+      },
+      (data) => {
+        let renderData;
+        if (this.data.pageParams.page === 1) {
+          renderData = data.data;
+        } else {
+          renderData = [...this.data.list, ...data.data];
+        }
+        this.setData({
+          list: renderData,
+          total: data.total,
+        });
+      }
+    );
   },
   toDetail: function (e) {
     wx.navigateTo({
@@ -97,6 +111,15 @@ Page({
         '&grouptitle=' +
         this.data.groupTitle,
     });
+  },
+  onReachBottom() {
+    if (this.data.total <= this.data.pageParams.size * this.data.pageParams.page) {
+      return false;
+    }
+    this.setData({
+      'pageParams.page': this.data.pageParams.page + 1,
+    });
+    this.getListData();
   },
   addMember: function () {
     const { type } = this.data.options;

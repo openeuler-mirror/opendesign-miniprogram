@@ -8,7 +8,7 @@
                     <text>会议名称</text>
                     <text class="require">*</text>
                 </text>
-                <input value="{{topic}}" maxlength="{{50}}" bindinput="sigNameInput" placeholder-class="placeholder"
+                <input value="{{topic}}" maxlength="{{128}}" bindinput="sigNameInput" placeholder-class="placeholder"
                     placeholder="请输入会议名称"></input>
             </view>
             <view class="form-item">
@@ -16,15 +16,19 @@
                 <input value="{{sponsor}}" disabled="{{true}}" placeholder-class="placeholder"
                     placeholder="gitee ID"></input>
             </view>
-            <view class="form-item" bindtap="onTypeShow">
+            <view class="form-item">
                 <text class="label">
                     <text>会议平台</text>
                     <text class="require">*</text>
                 </text>
-                <view class="arrow">
-                    <text class="sel-data">{{meetingType}}</text>
-                    <image src="./../../static/common/arrow-right.svg" />
-                </view>
+                <van-radio-group value="{{meetingType}}" bind:change="radioOnChange" direction="horizontal">
+                    <van-radio label-class="radio-class" name="tencent" icon-size="40rpx" checked-color="#40ADFF">
+                        腾讯会议
+                    </van-radio>
+                    <van-radio label-class="radio-class" name="welink" icon-size="40rpx" checked-color="#40ADFF">
+                        WeLink（蓝版）
+                    </van-radio>
+                </van-radio-group>
             </view>
             <view class="form-item" bindtap="selType">
                 <text class="label">
@@ -79,7 +83,6 @@
             </view>
             <view class="form-item">
                 <text class="label">Etherpad链接</text>
-                <!-- <text class="etherpad">{{etherpad}}</text> -->
                 <input value="{{etherpad}}" maxlength="{{100}}" placeholder-class="placeholder" bindinput="etherInput"
                     placeholder="请输入Etherpad链接"></input>
             </view>
@@ -94,7 +97,7 @@
         <view class="info">
             <view>
                 <image src="./../../static/reserve/info.svg" />
-                <text>勾选此项进入会议自动开启录屏，录制服务由{{meetingType}}提供，会后自动上传至B站mindspore的账号下</text>
+                <text>勾选此项进入会议自动开启录屏，录制服务由{{meetingType}}提供，会后自动上传至B站mindspore的帐号下</text>
             </view>
         </view>
         <view class="form-item meeting-desc">
@@ -113,7 +116,7 @@
     <view class="info">
         <view>
             <image src="./../../static/reserve/info.svg" />
-            <text>多个邮箱地址用分号；隔开</text>
+            <text>多个邮箱地址用分号;隔开。长度最长为1000，每个邮箱长度最长为50，限制20个邮箱</text>
         </view>
         <view>
             <image src="./../../static/reserve/info.svg" />
@@ -223,13 +226,13 @@
     <van-dialog use-slot title="提示" show-confirm-button="{{false}}" show-cancel-button="{{false}}"
         show="{{ showDialogWarn }}" closeOnClickOverlay='true' class-name="sig-dialog">
         <view class="dialog-slot-content">
-            <text wx:if="{{tipsType=='SIG'}}">当前您不属于任何SIG组，请联系
+            <text wx:if="{{tipsType==='SIG'}}">当前您不属于任何SIG组，请联系
                 <text class="blue">小助手(微信号mindspore0328) </text>为您关联SIG组
             </text>
-            <text wx:if="{{tipsType=='Tech'}}">当前您不属于专家委员会，请联系
+            <text wx:if="{{tipsType==='Tech'}}">当前您不属于专家委员会，请联系
                 <text class="blue">小助手(微信号mindspore0328) </text>为您关联专家委员会
             </text>
-            <text wx:if="{{tipsType=='MSG'}}">当前您不属于任何MSG，请联系
+            <text wx:if="{{tipsType==='MSG'}}">当前您不属于任何MSG，请联系
                 <text class="blue">小助手(微信号mindspore0328) </text>为您关联MSG城市
             </text>
             <view>

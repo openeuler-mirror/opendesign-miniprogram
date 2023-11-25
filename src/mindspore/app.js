@@ -1,4 +1,3 @@
-//app.js
 App({
   onLaunch: function () {
     let self = this;
@@ -10,7 +9,6 @@ App({
       },
     });
   },
-  onShow() {},
   loginCallback: null,
   globalData: {
     iphoneX: false,

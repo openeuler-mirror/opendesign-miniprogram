@@ -67,7 +67,7 @@ Page({
     });
   },
   onReachBottom() {
-    if (this.data.total < this.data.pageParams.size * this.data.pageParams.page) {
+    if (this.data.total <= this.data.pageParams.size * this.data.pageParams.page) {
       return false;
     }
     this.setData({

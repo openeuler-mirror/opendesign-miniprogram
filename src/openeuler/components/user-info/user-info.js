@@ -1,4 +1,3 @@
-// components/user-info/user-info.js
 const sessionUtil = require('../../utils/app-session.js');
 const localMethods = {
   getCurText() {

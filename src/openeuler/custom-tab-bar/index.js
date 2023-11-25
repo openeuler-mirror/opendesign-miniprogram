@@ -1,4 +1,3 @@
-// custom-tab-bar/index.js
 const sessionUtil = require('./../utils/app-session.js');
 Component({
   /**

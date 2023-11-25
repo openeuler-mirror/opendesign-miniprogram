@@ -1,6 +1,6 @@
 <!--package-events/manage/enterprise-list.wxml-->
-<view class="container {{memberList.length?'':'bg'}}">
-    <view class="sig-members" wx:if="{{memberList.length}}">
+<view class="container {{list.length?'':'bg'}}">
+    <view class="sig-members" wx:if="{{list.length}}">
         <block>
             <view class="box">
                 <view class="opera-item del" bindtap="delMember">
@@ -13,9 +13,9 @@
                 </view>
             </view>
         </block>
-        <block wx:for="{{memberList}}" wx:key="index">
+        <block wx:for="{{list}}" wx:key="index">
             <view class="box member-item" bindtap="toDetail" data-id="{{item.id}}" data-avatar="{{item.avatar}}"
-                data-email="{{item.email}}" data-telephone="{{item.telephone}}" data-name="{{item.gitee_name||''}}"
+                 data-name="{{item.gitee_name||''}}"
                 data-nickname="{{item.nickname}}">
                 <view class="left">
                     <image src="{{item.avatar}}" />

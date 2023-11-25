@@ -1,4 +1,3 @@
-// package-events/events/test.js
 const appAjax = require('./../../utils/app-ajax');
 const sessionUtil = require('../../utils/app-session.js');
 let that = null;
@@ -166,7 +165,7 @@ Page({
     });
   },
   onReachBottom() {
-    if (this.data.total < this.data.pageParams.size * this.data.pageParams.page) {
+    if (this.data.total <= this.data.pageParams.size * this.data.pageParams.page) {
       return false;
     }
     this.setData({

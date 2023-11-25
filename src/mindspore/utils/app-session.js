@@ -1,10 +1,16 @@
-let constants = require('../config/constants.js');
+const constants = require('../config/constants.js');
+const { getStorageSync } = require('./utils');
+
 /**
  * 获取用户信息
  */
-let _getUserinfo = function () {
-  let userInfo = wx.getStorageSync(constants.APP_USERINFO_SESSION);
-
+const _getUserinfo = async function () {
+  let userInfo;
+  try {
+    userInfo = await getStorageSync(constants.APP_USERINFO_SESSION);
+  } catch (error) {
+    userInfo = null;
+  }
   return userInfo;
 };
 
@@ -12,12 +18,12 @@ let _getUserinfo = function () {
  * 通过key获取值
  * @params key
  */
-let _getValueByKey = function (key) {
+const _getValueByKey = async function (key) {
   if (!key) {
     return;
   }
 
-  let userinfo = _getUserinfo();
+  const userinfo = await _getUserinfo();
 
   if (!userinfo) {
     return;

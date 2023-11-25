@@ -1,5 +1,5 @@
 <!-- components/meeting-list/meeting-list.wxml -->
-<view wx:if="{{pageType===1}}" class="today-meeting">{{isHome?'最近':'今天'}}的会议({{list.length}})</view>
+<view wx:if="{{pageType===1}}" class="today-meeting">{{isHome?'最近':'今天'}}的会议({{total}})</view>
 <view wx:if="{{pageType===2}}" class="input-wraper">
     <input placeholder="搜索会议" class="keyword" bindinput="search">
     <image src="./../../static/common/search-icon.svg" class="search-icon" />

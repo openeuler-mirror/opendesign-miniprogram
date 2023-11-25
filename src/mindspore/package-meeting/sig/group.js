@@ -52,13 +52,12 @@ Page({
       });
     }
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
     let that = this;
     remoteMethods.getALLGroupList('', function (list) {
+      if (!list?.length) {
+        return false;
+      }
       let techID = '';
       list.forEach((item) => {
         if (item.name !== 'MSG') {

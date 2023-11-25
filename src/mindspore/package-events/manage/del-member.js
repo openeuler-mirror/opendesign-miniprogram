@@ -1,11 +1,15 @@
 // pages/sig/del-member.js
 const appAjax = require('./../../utils/app-ajax');
 let remoteMethods = {
-  getCludeMemberList: function (_callback) {
+  getCludeMemberList: function (postData, _callback) {
     appAjax.postJson({
       autoShowWait: true,
       type: 'GET',
       service: 'ENTERPRISE_MEMBER_LIST',
+      data: {
+        page: postData.page,
+        size: postData.size,
+      },
       success: function (ret) {
         _callback && _callback(ret);
       },
@@ -30,23 +34,38 @@ Page({
   data: {
     list: [],
     result: [],
+    pageParams: {
+      page: 1,
+      size: 50,
+    },
+    total: 0,
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function () {},
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
-    let that = this;
-    remoteMethods.getCludeMemberList(function (data) {
-      that.setData({
-        list: data,
+    this.initData();
+  },
+  initData: function () {
+    let renderData = [];
+    remoteMethods.getCludeMemberList(this.data.pageParams, (data) => {
+      if (this.data.pageParams.page === 1) {
+        renderData = data.data;
+      } else {
+        renderData = this.data.list;
+        renderData.push(...data.data);
+      }
+      this.setData({
+        list: renderData,
+        total: data.total,
       });
     });
+  },
+  onReachBottom() {
+    if (this.data.total <= this.data.pageParams.size * this.data.pageParams.page) {
+      return false;
+    }
+    this.setData({
+      'pageParams.page': this.data.pageParams.page + 1,
+    });
+    this.initData();
   },
   onChange: function (e) {
     this.setData({
@@ -66,7 +85,7 @@ Page({
       ids: this.data.result.join('-'),
     };
     remoteMethods.delMemberList(postData, function (data) {
-      if (data.code === 204) {
+      if (data.code === 200) {
         wx.showToast({
           title: '操作成功',
           icon: 'success',

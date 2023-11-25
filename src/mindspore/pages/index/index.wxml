@@ -5,7 +5,7 @@
         indicator-active-color="#40ADFF">
         <block wx:for="{{imgUrls}}" wx:key="index">
             <swiper-item>
-                <image bindtap='previewImage' src="{{item.url}}" class="slide-image" />
+                <image src="{{item.url}}" class="slide-image" />
             </swiper-item>
         </block>
     </swiper>
@@ -21,6 +21,6 @@
             <image class="arrow" src="./../../static/common/arrow-right.svg"></image>
         </view>
     </view>
-    <meeting-list class="meeting1" is-home="true" bind:action-status="actionStatus" apiUrl="RECENTLY_MEETINGS">
+    <meeting-list id="meeting" is-home="true" bind:action-status="actionStatus" apiUrl="RECENTLY_MEETINGS">
     </meeting-list>
 </view>

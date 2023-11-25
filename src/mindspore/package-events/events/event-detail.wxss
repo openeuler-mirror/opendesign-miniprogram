@@ -139,7 +139,6 @@ page {
     color: #6d7278;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
     display: inline-block;
 }
 

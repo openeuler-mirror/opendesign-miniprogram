@@ -249,7 +249,7 @@ Page({
   },
   copyLink: function () {
     wx.setClipboardData({
-      data: this.data.info.register_url,
+      data: that.data.info.join_url || that.data.info.register_url || '',
       success: () => {
         that.setData({
           showRegister: false,

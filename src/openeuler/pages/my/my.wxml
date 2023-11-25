@@ -34,7 +34,7 @@
                 <text class="count">{{myCount.published_activities_count||0}}</text>
                 <text class="text">已发布</text>
             </view>
-            <view class="item" wx:if="{{avtivityLevel!=1 &&avtivityLevel!=3 }}" bindtap="go"
+            <view class="item" wx:if="{{avtivityLevel!==1 &&avtivityLevel!==3 }}" bindtap="go"
                 data-url="/package-my/events/my-list?type=4">
                 <text class="count">{{myCount.drafts_count||0}}</text>
                 <text class="text">草稿箱</text>

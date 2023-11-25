@@ -9,7 +9,7 @@
         <text class="content">2. “我们将保留多久您的个人信息” 章节中，对时间进行了更新。</text>
         <text class="content">3. “如何访问或控制您的个人信息” 章节中，该等权利刷新为上述权利。</text>
         <text class="title">1.我们如何收集和处理您的个人信息</text>
-        <text class="content">a ) 当您登录时，我们会收集您的OpenID用于，用于记录您微信与本服务的绑定关系，以确保您账号的唯一性。当您收藏会议并同意接收微信通知的消息推送，在会议即将开始前，我们会使用您的微信OpenID通过微信通知为您发送会议开始提醒。</text>
+        <text class="content">a ) 当您登录时，我们会收集您的OpenID用于，用于记录您微信与本服务的绑定关系，以确保您帐号的唯一性。当您收藏会议并同意接收微信通知的消息推送，在会议即将开始前，我们会使用您的微信OpenID通过微信通知为您发送会议开始提醒。</text>
         <text class="content">b ) 当您预定会议之前，我们会收集您的Gitee ID和所属SIG组名称，用于配置预定会议权限，并作为会议信息的部分展示在小程序。</text>
         <text class="content">c ) 当您预定会议时，如您填写邮箱地址我们会收集填您填写的邮箱并向其发送会议通知。</text>
         <text class="content">d ) 当您创建会议后，我们会将您的Gitee ID及会议相关信息同步至本服务页面及openEuler社区网站（https://www.openeuler.org）以便对您的会议感兴趣的个人或组织及时获取相关信息。</text>

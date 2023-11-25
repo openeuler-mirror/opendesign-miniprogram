@@ -7,7 +7,11 @@ let remoteMethods = {
       type: 'GET',
       service: 'GROUP_MEMBER_LIST',
       data: {
-        group: postData.id,
+        page: postData.page,
+        size: postData.size,
+      },
+      otherParams: {
+        id: postData.id,
       },
       success: function (ret) {
         _callback && _callback(ret);
@@ -21,6 +25,8 @@ let remoteMethods = {
       service: 'GROUP_CITY_MEMBER_LIST',
       data: {
         city: postData.id,
+        page: postData.page,
+        size: postData.size,
       },
       success: function (ret) {
         _callback && _callback(ret);
@@ -60,8 +66,12 @@ Page({
     isShowMes: false,
     group_id: '',
     btnText: '',
-    group_name: '',
     options: '',
+    pageParams: {
+      page: 1,
+      size: 50,
+    },
+    total: 0,
   },
 
   /**
@@ -73,55 +83,54 @@ Page({
       btnText: '返回' + options.grouptitle,
       options: options,
     });
-    if (options.grouptitle.includes('MSG')) {
-      this.setData({
-        group_name: 'MSG',
-      });
-    } else if (options.grouptitle.includes('专家')) {
-      this.setData({
-        group_name: 'Tech',
-      });
-    } else {
-      this.setData({
-        group_name: options.grouptitle,
-      });
-    }
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let that = this;
-    const { type } = this.data.options;
-    if (type != 'MSG') {
-      remoteMethods.getCludeMemberList(
-        {
-          id: this.data.group_name,
-        },
-        function (data) {
-          that.setData({
-            list: data,
-          });
-        }
-      );
+    this.getListData();
+  },
+  getListData() {
+    if (this.options.type !== 'MSG') {
+      this.initData.call(this, remoteMethods.getCludeMemberList);
     } else {
-      remoteMethods.getCityCludeMemberList(
-        {
-          id: this.data.group_name,
-        },
-        function (data) {
-          that.setData({
-            list: data,
-          });
-        }
-      );
+      this.initData.call(this, remoteMethods.getCityCludeMemberList);
     }
+  },
+  initData: function (remoteMethod) {
+    remoteMethod(
+      {
+        ...this.data.pageParams,
+        id: this.data.group_id,
+      },
+      (data) => {
+        let renderData;
+        if (this.data.pageParams.page === 1) {
+          renderData = data.data;
+        } else {
+          renderData = [...this.data.list, ...data.data];
+        }
+        this.setData({
+          list: renderData,
+          total: data.total,
+        });
+      }
+    );
   },
   onChange: function (e) {
     this.setData({
       result: e.detail,
     });
+  },
+  onReachBottom() {
+    if (this.data.total <= this.data.pageParams.size * this.data.pageParams.page) {
+      return false;
+    }
+    this.setData({
+      'pageParams.page': this.data.pageParams.page + 1,
+    });
+    this.getListData();
   },
   del: function () {
     let that = this;
@@ -140,7 +149,7 @@ Page({
     const { type } = this.data.options;
     if (type != 'MSG') {
       remoteMethods.delMemberList(postData, function (data) {
-        if (data.code === 204) {
+        if (data.code === 200) {
           that.setData({
             isShowMes: true,
           });
@@ -158,7 +167,7 @@ Page({
         city_id: this.data.group_id,
       };
       remoteMethods.delCityMemberList(postData, function (data) {
-        if (data.code === 204) {
+        if (data.code === 200) {
           that.setData({
             isShowMes: true,
           });
