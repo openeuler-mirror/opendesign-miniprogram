@@ -59,7 +59,7 @@
                     </van-checkbox-group>
                 </view>
             </view>
-            <view wx:if="{{form[0]==1||form.length===2}}" class="form-item" bindtap="selAddress">
+            <view wx:if="{{form[0] - 0 ===1||form.length===2}}" class="form-item" bindtap="selAddress">
                 <text class="label">
                     <text>活动城市</text>
                     <text class="require">*</text>
@@ -69,12 +69,12 @@
                     <image src="./../../static/common/arrow-right.svg" />
                 </view>
             </view>
-            <view wx:if="{{form[0]==1||form.length===2}}" class="form-item">
+            <view wx:if="{{form[0] - 0 === 1||form.length===2}}" class="form-item">
                 <text class="label">
                     <text>具体地址</text>
                     <text class="require">*</text>
                 </text>
-                <input value="{{addressName}}" bindinput="addressNameInput" placeholder-class="placeholder"
+                <input value="{{addressName}}" maxlength="{{100}}"  bindinput="addressNameInput" placeholder-class="placeholder"
                     placeholder="请输入详细活动地址"></input>
             </view>
             <view class="form-item">
@@ -82,24 +82,24 @@
                     <text>报名链接</text>
                     <text class="require">*</text>
                 </text>
-                <input value="{{registerUrl}}" bindinput="registerUrlInput" placeholder-class="placeholder"
+                <input value="{{registerUrl}}" maxlength="{{255}}" bindinput="registerUrlInput" placeholder-class="placeholder"
                     placeholder="请输入您的报名链接"></input>
             </view>
-            <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType==5)}}"></cover-view>
+            <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType===5)}}"></cover-view>
         </view>
-        <view wx:if="{{form[0]==2||form.length===2}}" class="form-item">
+        <view wx:if="{{form[0] - 0 === 2||form.length===2}}" class="form-item">
             <text class="label">
                 <text>线上链接</text>
                 <text class="require">*</text>
             </text>
-            <input value="{{liveAddress}}" bindinput="liveAddressInput" placeholder-class="placeholder"
+            <input value="{{liveAddress}}" maxlength="{{255}}" bindinput="liveAddressInput" placeholder-class="placeholder"
                 placeholder="请输入您的线上链接"></input>
         </view>
         <view class="form-item">
             <text class="label">
                 <text>活动回放链接</text>
             </text>
-            <input value="{{playback}}" maxlength="{{100}}" bindinput="playbackInput" placeholder-class="placeholder"
+            <input value="{{playback}}" maxlength="{{255}}" bindinput="playbackInput" placeholder-class="placeholder"
                 placeholder="请输入您的活动回放链接"></input>
         </view>
         <view class="playback">
@@ -107,10 +107,10 @@
         </view>
         <view class="form-item meeting-desc relative">
             <text class="label">活动简介</text>
-            <textarea value="{{desc}}" maxlength="{{-1}}" hidden="{{datePopShow||timePopShow||endTimePopShow}}"
+            <textarea value="{{desc}}" maxlength="{{4096}}" hidden="{{datePopShow||timePopShow||endTimePopShow}}"
                 placeholder-class="placeholder" bindinput="descInput" placeholder="请输入活动简介">
             </textarea>
-            <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType==5)}}"></cover-view>
+            <cover-view class="mask" wx:if="{{!endTimePopShow&&!timePopShow&&(detailType===5)}}"></cover-view>
         </view>
         <van-collapse value="{{ activeNames }}" bind:change="dateChange">
             <van-collapse-item wx:for="{{allSchedule}}" data-index="{{myindex}}" wx:for-item="date"
@@ -146,7 +146,7 @@
                             <text>议题</text>
                             <text class="require">*</text>
                         </text>
-                        <input value="{{item.topic}}" maxlength="{{50}}" data-index="{{index}}"
+                        <input value="{{item.topic}}" maxlength="{{100}}" data-index="{{index}}"
                             data-dayindex="{{dayIndex}}" bindinput="scheduleTitleInput" placeholder-class="placeholder"
                             placeholder="请输入您的活动议题"></input>
                     </view>
@@ -164,13 +164,13 @@
                                 <text>Name</text>
                                 <text class="require">*</text>
                             </text>
-                            <input value="{{item1.name}}" data-outindex="{{index}}" data-innerindex="{{index1}}"
+                            <input value="{{item1.name}}" maxlength="{{20}}" data-outindex="{{index}}" data-innerindex="{{index1}}"
                                 data-dayindex="{{dayIndex}}" bindinput="nameInput" placeholder-class="placeholder"
                                 placeholder="请填写嘉宾名称"></input>
                         </view>
                         <view class="form-item">
                             <text class="label">Title</text>
-                            <input value="{{item1.title}}" data-outindex="{{index}}" data-innerindex="{{index1}}"
+                            <input value="{{item1.title}}" maxlength="{{50}}" data-outindex="{{index}}" data-innerindex="{{index1}}"
                                 data-dayindex="{{dayIndex}}" bindinput="speakerTitleInput"
                                 placeholder-class="placeholder" placeholder="请填写嘉宾的职位"></input>
                         </view>
@@ -227,10 +227,10 @@
             <text>点击 <text class="blue">【申请发布】</text> 后，你的活动将进入发布阶段，正式发布后，您仅能修改活动日程</text>
         </view>
     </view>
-    <view class="privacy" wx:if="{{detailType!==5}}">
+    <view class="privacy" wx:if="{{!detailType}}">
         <van-checkbox value="{{ privacyState }}" shape="square" icon-size="30rpx" bind:change="privacyStateOnChange"
             checked-color="#40ADFF">
-            已阅读并同意<text catchtap="toPrivacy">隐私声明</text>
+            已阅读并同意<text catchtap="toPrivacy">《隐私声明》</text>
         </van-checkbox>
     </view>
     <view class="commit type5" wx:if="{{detailType===5}}">

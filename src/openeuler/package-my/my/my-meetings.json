@@ -2,5 +2,5 @@
     "usingComponents": {
         "meeting-list": "/components/meeting-list/meeting-list"
     },
-  "navigationBarTitleText": "我创建的会议"
+  "navigationBarTitleText": "创建的会议"
 }

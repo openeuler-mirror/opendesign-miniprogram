@@ -1,7 +1,7 @@
 <!-- pages/my/privecy.wxml -->
 <view class="container">
     <text class="privecy-text" user-select="{true}">
-        <text class="center font-h1 title">openEuler小程序隐私政策</text>
+        <text class="center font-h1 title">openEuler小程序隐私声明</text>
         <text class="content">我们深知您的隐私对您的重要性，并充分尊重您的隐私。在向我们提交您的个人信息之前，请您仔细阅读本《隐私政策声明》（以下简称“本声明”）。如果您对于我们处理您的个人信息的方式有任何疑问，欢迎与我们联系。本声明中的“我们”是指openEuler社区，“服务”是指openEuler小程序。</text>
         <text class="title">1.我们如何收集和处理您的个人信息</text>
         <text class="content">a) 当您登录时，我们会收集您的微信昵称、头像和性别，用于确认您是否具有创建会议的权限，向您发送会议通知及向第三方告知会议的组织人（maintainer）等。无论您是否拥有相关权限，您均可以收藏、订阅会议信息。</text>
@@ -40,6 +40,6 @@
         <text class="content">联系邮箱：contact@openeuler.io</text>
         <text class="content">联系热线：+86 18683791700</text>
         <text class="content">最近更新时间：2023年9月11日</text>
-        <text class="content">隐私政策版本：v2023091101</text>
+        <text class="content">隐私声明版本：v2023091101</text>
     </text>
 </view>

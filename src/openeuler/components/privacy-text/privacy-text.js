@@ -1,4 +1,9 @@
 Page({
   data: {},
-  onLoad: function () {},
+  navigateTo(e) {
+    wx.navigateTo({
+      url: e.currentTarget.dataset.url,
+    });
+    return;
+  },
 });

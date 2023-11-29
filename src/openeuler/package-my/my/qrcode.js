@@ -1,4 +1,4 @@
-const { OBS_URL } = require('./../../utils/url-config');
+const { OBS_URL } = require('../../utils/config');
 const resourceUrl = `${OBS_URL}/qrcode/`;
 Page({
   /**

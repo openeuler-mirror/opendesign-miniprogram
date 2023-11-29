@@ -1,6 +1,3 @@
 {
-    "navigationBarTitleText": "活动详情",
-    "usingComponents": {
-        "privacy": "/components/privacy/privacy"
-    }
+    "navigationBarTitleText": "活动详情"
 }

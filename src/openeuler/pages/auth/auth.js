@@ -37,7 +37,10 @@ Page(
         );
         return false;
       }
-      appUser.wxGetUserProfileLogin(async function () {
+      appUser.wxGetUserProfileLogin(this.data.record, async function (res) {
+        if (!res.access) {
+          return false;
+        }
         const pages = getCurrentPages(); // 当前页面
         const beforePage =
           pages[pages.length - 2]?.route === 'pages/auth/auth' ? pages[pages.length - 3] : pages[pages.length - 2]; // 前一个页面
@@ -53,7 +56,7 @@ Page(
             url: url,
           });
         }
-      }, {});
+      });
     },
     recordoOnChange: function (event) {
       this.setData({
@@ -66,12 +69,20 @@ Page(
       });
     },
     handleDotAgree: function () {
-      sessionUtil.clearUserInfo();
-      this.setData({
-        isPrivecyShown: false,
-      });
-      wx.switchTab({
-        url: '/pages/index/index',
+      appAjax.postJson({
+        type: 'POST',
+        service: 'LOGOUT',
+        success: (res) => {
+          if (res.code === 200) {
+            sessionUtil.clearUserInfo();
+            this.setData({
+              isPrivecyShown: false,
+            });
+            wx.switchTab({
+              url: '/pages/index/index',
+            });
+          }
+        },
       });
     },
     setAgreeState: function (_callback) {

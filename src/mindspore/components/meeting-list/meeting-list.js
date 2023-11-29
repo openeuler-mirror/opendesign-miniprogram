@@ -1,11 +1,14 @@
 const appAjax = require('./../../utils/app-ajax');
 const sessionUtil = require('../../utils/app-session.js');
+const { MEETING_START_TEMPLATE, MEETING_CANCELLATION_TEMPLATE } = require('../../utils/config');
+
 let that = null;
 const remoteMethods = {
   getMeettingData: function (params, _callback) {
     if (that.properties.pageType === 2) {
       params = {
         ...params,
+        type: that.data.curFilterId,
         search: that.data.curKeyword,
         group_name: that.data.filterSigName === '全部SIG' ? '' : that.data.filterSigName,
       };
@@ -126,19 +129,19 @@ Component({
     columns: [
       {
         group_name: '全部',
-        id: 'All',
+        id: '',
       },
       {
         group_name: 'SIG Leader',
-        id: 'SIG',
+        id: 'sig',
       },
       {
         group_name: 'MSG组织者',
-        id: 'MSG',
+        id: 'msg',
       },
       {
         group_name: '专家委员会',
-        id: 'Tech',
+        id: 'tech',
       },
     ],
     curKeyword: '',
@@ -184,7 +187,7 @@ Component({
         });
       } else {
         wx.requestSubscribeMessage({
-          tmplIds: ['tK51rqE72oFo5e5ajCnvkPwnsCncfydgcV1jb9ed6Qc', 'kKkokqmaH62qp_txDQrNnyoRbM5wCptTAymhmsfHT7c'],
+          tmplIds: [MEETING_START_TEMPLATE, MEETING_CANCELLATION_TEMPLATE],
           complete() {
             remoteMethods.collect(that.data.id, (res) => {
               if (res.code === 200) {
@@ -293,7 +296,8 @@ Component({
       });
       const collectDesc = this.data.collectionId ? '取消收藏' : '收藏会议';
       const userId = e.currentTarget.dataset.item.user_id;
-      if (sessionUtil.getUserInfoByKey('level') === 1) {
+      const level = await sessionUtil.getUserInfoByKey('level');
+      if (level === 1) {
         this.setData({
           actions: [
             {
@@ -306,8 +310,8 @@ Component({
             },
           ],
         });
-      } else if (sessionUtil.getUserInfoByKey('level') === 2) {
-        if (sessionUtil.getUserInfoByKey('userId') === userId) {
+      } else if (level === 2) {
+        if ((await sessionUtil.getUserInfoByKey('userId')) === userId) {
           this.setData({
             actions: [
               {
@@ -381,7 +385,7 @@ Component({
         this.setData({
           popShow: true,
           curFilterName: '全部',
-          curFilterId: 'All',
+          curFilterId: '',
         });
       } else {
         this.setData({

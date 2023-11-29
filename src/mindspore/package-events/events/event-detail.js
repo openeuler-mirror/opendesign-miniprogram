@@ -117,13 +117,13 @@ Page({
     isIphoneX: false,
   },
 
-  onLoad: function (options) {
+  onLoad: async function (options) {
     that = this;
     this.setData({
       id: options.id || decodeURIComponent(options.scene),
       scene: decodeURIComponent(options.scene) || '',
       type: Number(options.type),
-      level: sessionUtil.getUserInfoByKey('eventLevel') || 1,
+      level: (await sessionUtil.getUserInfoByKey('eventLevel')) || 1,
     });
     wx.getSystemInfo({
       success(res) {
@@ -136,9 +136,9 @@ Page({
     });
   },
 
-  onShow: function () {
+  onShow: async function () {
     this.setData({
-      user: sessionUtil.getUserInfoByKey('userId'),
+      user: await sessionUtil.getUserInfoByKey('userId'),
     });
     remoteMethods.getDraftDetail((res) => {
       if (!res.start_date) {
@@ -250,6 +250,7 @@ Page({
     } catch (error) {
       return;
     }
+    postData.agree = true;
     remoteMethods.draftPublish(postData, (res) => {
       if (res.code === 200) {
         wx.redirectTo({

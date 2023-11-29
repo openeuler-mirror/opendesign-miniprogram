@@ -21,13 +21,15 @@ const _ = {
       let isPlainObject = function (obj) {
         return isObject(obj) && !isWindow(obj) && obj.__proto__ === Object.prototype;
       };
-      for (let key in source) {
+      Object.keys(source).forEach((key) => {
         if (deep && (isPlainObject(source[key]) || isArray(source[key]))) {
           if (isPlainObject(source[key]) && !isPlainObject(target[key])) target[key] = {};
           if (isArray(source[key]) && !isArray(target[key])) target[key] = [];
           extend(target[key], source[key], deep);
-        } else if (source[key] !== undefined) target[key] = source[key];
-      }
+        } else if (source[key] !== undefined) {
+          target[key] = source[key];
+        }
+      });
     };
 
     if (typeof target === 'boolean') {

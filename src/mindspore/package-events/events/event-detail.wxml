@@ -1,10 +1,9 @@
 <!-- package-events/events/event-detail.wxml -->
 <view class="container">
-    <privacy />
     <view class="banner-title banner-type{{info.poster}}">
         <text class="{{info.poster === 3 ? 'black':''}}">{{info.title}}</text>
         <view class="video-mask" bindtap="maskClick"
-            wx:if="{{info.status === 4 || info.status === 5 && info.online_url !== ''}}">
+            wx:if="{{info.status === 4 || info.status === 5 && info.online_url }}">
             <image src="../../static/events/video.png"></image>
         </view>
     </view>
@@ -21,8 +20,7 @@
             <text wx:if="{{startTime !== endTime}}">{{startTime}} - {{endTime}}</text>
             <text wx:else>{{startTime}}</text>
         </view>
-        <view class="address date" wx:if="{{info.activity_type===1 || info.activity_type===3}}"
-            data-item="{{info}}">
+        <view class="address date" wx:if="{{info.activity_type===1 || info.activity_type===3}}" data-item="{{info}}">
             <view class="left">
                 <image src="./../../static/common/location.svg"></image>
                 <text>{{info.address}}</text>
@@ -34,7 +32,8 @@
                 <image src="./../../static/index/link.svg"></image>
                 <text>{{info.online_url}} </text>
             </view>
-            <image hidden="{{info.activity_type===2}}" class="arrow-right" src="./../../static/common/arrow-right.svg" />
+            <image hidden="{{info.activity_type===2}}" class="arrow-right"
+                src="./../../static/common/arrow-right.svg" />
         </view>
     </view>
     <view class="detail-tab-wrapper">
@@ -65,9 +64,11 @@
                                         <view class="detail">
                                             <view class="duration">{{item.duration}}</view>
                                             <view class="title">{{item.title}}</view>
-                                            <view wx:if="{{item.speaker}}" class="speaker">
-                                                {{item.speaker}}
-                                            </view>
+                                            <block wx:for="{{item.speakerList}}" wx:key="index">
+                                                <view class="speaker">
+                                                    {{item.name}}{{item.title ? '-':''}}{{item.title||''}}
+                                                </view>
+                                            </block>
                                         </view>
                                         <view class="circle"></view>
                                         <view class="line"></view>
@@ -111,20 +112,12 @@
             </button>
         </block>
         <block wx:else>
-            <block wx:if="{{level===1}}">
-                <button class="btn-primary {{info.register_id?'register':''}}" wx:if="{{info.register_id}}">
-                    已报名
-                </button>
-                <button class="btn-primary" wx:else bindtap="toSignUp">立即报名</button>
+            <block wx:if="{{level===1||level===3}}">
+                <button class="btn-primary" bindtap="toSignUp">立即报名</button>
             </block>
             <block wx:elif="{{level===2}}">
                 <button class="btn-primary" wx:if="{{info.user===user}}" bindtap="editSchedule">修改日程</button>
-                <button class="btn-primary register" wx:elif="{{info.register_id}}">已报名</button>
                 <button class="btn-primary" wx:else bindtap="toSignUp">立即报名</button>
-            </block>
-            <block wx:else>
-                <button class="btn-primary" wx:if="{{(info.status===3) || (info.status===4)}}"
-                    bindtap="editSchedule">修改日程</button>
             </block>
         </block>
     </view>
