@@ -1,7 +1,7 @@
 // package-events/publish/publish.js
 const appAjax = require('./../../utils/app-ajax');
-const utils = require('./../../utils/utils.js');
-utils.formateDate();
+const { formateDate, getBetweenDateStr } = require('./../../utils/utils.js');
+
 let that = null;
 let remoteMethods = {
   addEvents: function (postData, _callback) {
@@ -82,7 +82,7 @@ let localMethods = {
     return timeToMinutes(endTime) > timeToMinutes(startTime);
   },
   validation: function (data) {
-    const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+    const urlRegex = /^https:\/\//;
     if (!data.title) {
       this.toast('请输入活动标题');
       return;
@@ -97,10 +97,6 @@ let localMethods = {
     }
     if (data.register_url?.trim() === '') {
       this.toast('请输入报名链接');
-      return;
-    }
-    if (data.replay_url?.trim() && !urlRegex.test(data.replay_url.trim())) {
-      this.toast('回放链接格式错误');
       return;
     }
     if (!urlRegex.test(data.register_url.trim())) {
@@ -228,7 +224,6 @@ Page({
     starTime: '',
     endTime: '',
     id: '',
-    playback: '',
     activeNames: [0],
     detailType: 0,
     title: '',
@@ -307,7 +302,6 @@ Page({
             endTime: res.end_date,
             actegory: res.activity_category,
             form: res.activity_type,
-            playback: res.replay_url || '',
             method: res.register_method,
             type: this.data.typeList[res.activity_category - 1],
             registerUrl: res.register_url || '',
@@ -317,7 +311,7 @@ Page({
             address: res.address || '',
             addressName: res.detail_address || '',
             desc: res.synopsis || '',
-            betweenDay: utils.getBetweenDateStr(res.start_date, res.end_date),
+            betweenDay: getBetweenDateStr(res.start_date, res.end_date),
             topicSelIndex: res.poster,
             allSchedule: JSON.parse(res.schedules),
             privacyState: true,
@@ -348,11 +342,6 @@ Page({
   titleInput(e) {
     this.setData({
       title: e.detail.value,
-    });
-  },
-  playbackInput(e) {
-    this.setData({
-      playback: e.detail.value,
     });
   },
   setStar: function () {
@@ -390,11 +379,11 @@ Page({
     });
   },
   dateConfirm: function () {
-    let time = new Date(this.data.currentDate).Format('yyyy-MM-dd');
+    let time = formateDate(new Date(this.data.currentDate), 'yyyy-MM-dd');
     let between = [];
     if (this.data.isStar) {
       if (this.data.endTime) {
-        between = utils.getBetweenDateStr(time, this.data.endTime);
+        between = getBetweenDateStr(time, this.data.endTime);
         if (between) {
           let allSchedule = [];
           for (let i = 0; i < between.length; i++) {
@@ -428,7 +417,7 @@ Page({
         });
       }
     } else if (this.data.starTime) {
-      between = utils.getBetweenDateStr(this.data.starTime, time);
+      between = getBetweenDateStr(this.data.starTime, time);
       if (between) {
         let allSchedule = [];
         for (let i = 0; i < between.length; i++) {
@@ -811,7 +800,6 @@ Page({
         title: this.data.title,
         activity_category: this.actegory,
         activity_type: 1,
-        replay_url: this.data.playback,
         register_method: this.data.method,
         register_url: this.data.registerUrl,
         start_date: this.data.starTime,
@@ -829,7 +817,6 @@ Page({
         title: this.data.title,
         activity_category: this.data.actegory,
         activity_type: 2,
-        replay_url: this.data.playback,
         register_url: this.data.registerUrl,
         register_method: this.data.method,
         start_date: this.data.starTime,
@@ -844,7 +831,6 @@ Page({
         title: this.data.title,
         activity_category: this.data.actegory,
         activity_type: 3,
-        replay_url: this.data.playback,
         register_method: this.data.method,
         register_url: this.data.registerUrl,
         online_url: this.data.liveAddress,

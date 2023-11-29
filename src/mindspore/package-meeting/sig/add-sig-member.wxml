@@ -19,7 +19,7 @@
                     <image src="{{item.avatar}}" />
                     <view class="member-info">
                         <text>{{item.nickname}}</text>
-                        <text>{{item.gitee_name}}</text>
+                        <text>{{item.gitee_name || ''}}</text>
                     </view>
                 </view>
                 <image src="./../../static/common/arrow-right.svg"></image>

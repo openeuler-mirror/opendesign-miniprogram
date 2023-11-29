@@ -55,4 +55,7 @@ Page({
       },
     });
   },
+  backTo() {
+    wx.navigateBack();
+  },
 });

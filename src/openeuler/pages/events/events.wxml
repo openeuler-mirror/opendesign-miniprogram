@@ -38,7 +38,7 @@
                         </view>
                         <view class="address">
                             <image src="./../../static/common/location.svg"></image>
-                            <text>{{item.address||item.join_url || ''}}</text>
+                            <text>{{item.address||item.join_url || item.register_url || ''}}</text>
                         </view>
                         <view class="button">
                             <block wx:if="{{item.status==5}}">

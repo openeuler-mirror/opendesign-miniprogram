@@ -95,16 +95,6 @@
             <input value="{{liveAddress}}" maxlength="{{255}}" bindinput="liveAddressInput" placeholder-class="placeholder"
                 placeholder="请输入您的线上链接"></input>
         </view>
-        <view class="form-item">
-            <text class="label">
-                <text>活动回放链接</text>
-            </text>
-            <input value="{{playback}}" maxlength="{{255}}" bindinput="playbackInput" placeholder-class="placeholder"
-                placeholder="请输入您的活动回放链接"></input>
-        </view>
-        <view class="playback">
-            <image src="./../../static/reserve/info.svg" role="img"></image> <text>活动回放链接请在活动结束后补充</text>
-        </view>
         <view class="form-item meeting-desc relative">
             <text class="label">活动简介</text>
             <textarea value="{{desc}}" maxlength="{{4096}}" hidden="{{datePopShow||timePopShow||endTimePopShow}}"

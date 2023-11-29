@@ -63,6 +63,15 @@ Page({
       });
     }
   },
+  onShow() {
+    setTimeout(() => {
+      wx.showToast({
+        title: '如有需要请截图保存海报~',
+        icon: 'none',
+        duration: 2000,
+      });
+    }, 1000);
+  },
   back() {
     wx.navigateBack();
   },

@@ -19,7 +19,7 @@
     <van-popup show="{{ addCityPopShow }}" round position="bottom" bind:click-overlay="addCityCancel">
         <view class="city-pop-wrapper">
             <view class="title">添加城市</view>
-            <input placeholder="请输入城市名称" value="{{cityName}}" bindinput="onInput" class="input-city"></input>
+            <input maxlength="{{20}}" placeholder="请输入城市名称" value="{{cityName}}" bindinput="onInput" class="input-city"></input>
             <view class="btn-wrapper">
                 <button class="cancel" bindtap="addCityCancel">取消</button>
                 <button class="confirm" bindtap="addCityConfirm">确定</button>

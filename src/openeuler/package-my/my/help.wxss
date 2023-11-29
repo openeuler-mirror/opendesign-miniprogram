@@ -39,3 +39,34 @@ page {
     height: 1100rpx;
     margin-bottom: 40rpx;
 }
+
+.container .msg-box {
+    height: calc(100vh - 134rpx);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+}
+
+.container .msg-box .content image{
+    width: 315rpx;
+    height: 266rpx;
+    display: block;
+    margin: 0 auto;
+}
+
+.container .msg-box .content .title {
+    font-size: 34rpx;
+    color: #333333;
+    line-height: 48rpx;
+    margin: 42px 0 20px 0;
+}
+  
+.container .msg-box .content text {
+    font-size: 28rpx;
+    font-weight: 400;
+    color: #6D7278;
+    line-height: 38rpx;
+    text-align: center;
+    display: block;
+}

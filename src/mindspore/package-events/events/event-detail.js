@@ -100,7 +100,6 @@ Page({
 
   data: {
     info: {},
-    showReplay: false,
     id: '',
     startTime: '',
     endTime: '',
@@ -191,21 +190,14 @@ Page({
   },
   colseDiglog() {
     this.setData({
-      showReplay: false,
       showDialog: false,
       showRegister: false,
     });
   },
   maskClick() {
-    if (this.data.info.replay_url && this.data.info.status === 5) {
-      this.setData({
-        showReplay: true,
-      });
-    } else {
-      this.setData({
-        showDialog: true,
-      });
-    }
+    this.setData({
+      showDialog: true,
+    });
   },
   copyLink(e) {
     let link = e.currentTarget.dataset.link;
@@ -215,14 +207,12 @@ Page({
       success: function () {
         that.setData({
           showDialog: false,
-          showReplay: false,
           showRegister: false,
         });
       },
       fail: function () {
         that.setData({
           showDialog: false,
-          showReplay: false,
           showRegister: false,
         });
       },

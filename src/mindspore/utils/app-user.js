@@ -78,13 +78,9 @@ const appUser = {
             userInfo.refresh = result.refresh;
             // // 缓存用户信息
             await appUser.saveLoginInfo(userInfo || {});
-            // 回调
             callback && callback(userInfo || {});
           },
         });
-      },
-      complete() {
-        wx.hideToast();
       },
     });
   },

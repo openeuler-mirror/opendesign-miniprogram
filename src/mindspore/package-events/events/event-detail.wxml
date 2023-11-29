@@ -102,7 +102,7 @@
             <image src="./../../static/events/share.svg" />
             <text>分享</text>
         </button>
-        <button class="btn-ghost" bindtap="toPoster">下载海报</button>
+        <button class="btn-ghost" bindtap="toPoster">查看海报</button>
         <block wx:if="{{info.status===5}}">
             <button class="btn-primary" wx:if="{{info.status===5 && info.user === user}}" bindtap="editSchedule">
                 添加回放
@@ -130,7 +130,7 @@
             <image src="./../../static/events/share.svg" />
             <text>分享</text>
         </button>
-        <button class="btn-ghost" bindtap="redrictLogin">下载海报</button>
+        <button class="btn-ghost" bindtap="redrictLogin">查看海报</button>
         <block wx:if="{{info.status===5}}">
             <button class="btn-primary" wx:if="{{info.status===5 && info.user === user}}" bindtap="switchTab2">
                 添加回放
@@ -159,17 +159,6 @@
                 {{info.online_url}}
             </text>
             <view data-link="{{info.online_url}}" bindtap="copyLink">
-                <button>复制</button>
-            </view>
-        </view>
-    </van-dialog>
-    <van-dialog use-slot title="活动回放链接" show-confirm-button="{{false}}" bind:click-overlay="colseDiglog"
-        closeOnClickOverlay='true' show-cancel-button="{{false}}" show="{{ showReplay }}" class-name="sig-dialog">
-        <view class="dialog-slot-content">
-            <text>
-                {{info.replay_url}}
-            </text>
-            <view data-link="{{info.replay_url}}" bindtap="copyLink">
                 <button>复制</button>
             </view>
         </view>

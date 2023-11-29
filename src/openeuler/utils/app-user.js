@@ -83,9 +83,6 @@ const appUser = {
           },
         });
       },
-      complete() {
-        wx.hideToast();
-      },
     });
   },
 };

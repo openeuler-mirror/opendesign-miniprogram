@@ -1,6 +1,4 @@
 // pages/my/help.js
-const { OBS_URL } = require('../../utils/config');
-const resourceUrl = `${OBS_URL}/help`;
 
 Page({
   /**
@@ -10,11 +8,11 @@ Page({
     list: [
       {
         name: '会议攻略',
-        contentImg: [resourceUrl + '/11.png', resourceUrl + '/12.png', resourceUrl + '/13.png'],
+        contentImg: [],
       },
       {
         name: '活动攻略',
-        contentImg: [resourceUrl + '/21.png', resourceUrl + '/22.png', resourceUrl + '/23.png'],
+        contentImg: [],
       },
     ],
     curIndex: 0,

@@ -1,8 +1,7 @@
 // package-events/publish/publish.js
 const appAjax = require('./../../utils/app-ajax');
-const utils = require('./../../utils/utils.js');
+const { formateDate } = require('./../../utils/utils.js');
 const { BILIBILI_URL } = require('../../utils/config.js');
-utils.formateDate();
 let that = null;
 let remoteMethods = {
   addEvents: function (postData, _callback) {
@@ -97,7 +96,7 @@ let localMethods = {
         this.toast('请输入报名链接');
         return;
       }
-      const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+      const urlRegex = /^https:\/\//;
       if (!urlRegex.test(data.register_url)) {
         this.toast('报名链接格式错误');
         return;
@@ -336,7 +335,7 @@ Page({
   },
   dateConfirm: function () {
     this.setData({
-      date: new Date(this.data.currentDate).Format('yyyy-MM-dd'),
+      date: formateDate(new Date(this.data.currentDate), 'yyyy-MM-dd'),
       datePopShow: false,
     });
   },

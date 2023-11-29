@@ -6,15 +6,9 @@
 .container {
   padding-bottom: 0;
 }
-
 .historical {
   display: flex;
-  padding: 0 30rpx;
-  padding-bottom: 129rpx;
   font-size: 36rpx;
-}
-
-navigator {
-  color: #002fa7;
-  text-decoration: underline;
+  color: #333;
+  padding-bottom: 129rpx;
 }

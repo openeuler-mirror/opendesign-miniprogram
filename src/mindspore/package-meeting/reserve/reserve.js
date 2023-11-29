@@ -1,10 +1,8 @@
 // pages/reserve/reserve.js
 const appAjax = require('./../../utils/app-ajax');
 const appSession = require('./../../utils/app-session.js');
-const utils = require('./../../utils/utils.js');
+const { formateDate } = require('./../../utils/utils.js');
 const { MEETING_START_TEMPLATE } = require('../../utils/config');
-
-utils.formateDate();
 
 let remoteMethods = {
   getUserGroup: function (id, _callback) {
@@ -286,7 +284,6 @@ Page({
     }
     let that = this;
     wx.requestSubscribeMessage({
-      // 消息订阅模板
       tmplIds: [MEETING_START_TEMPLATE],
       complete() {
         let param = {
@@ -456,7 +453,7 @@ Page({
   },
   dateConfirm: function () {
     this.setData({
-      date: new Date(this.data.currentDate).Format('yyyy-MM-dd'),
+      date: formateDate(new Date(this.data.currentDate), 'yyyy-MM-dd'),
       datePopShow: false,
     });
   },

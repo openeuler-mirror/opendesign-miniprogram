@@ -7,8 +7,8 @@
     </view>
     <view class="row" >
         <text class="cell" user-select="{true}">MindSpore官网</text>
-        <text class="cell" user-select="{true}">分享会议和活动的详细信息</text>
-        <text class="cell" user-select="{true}">会议发起人、会议日期、会议开始时间、会议结束时间、会议ID、会议链接、会议平台、会议名称、会议所属SIG、Etherpad链接、会议内容/活动ID、活动类型、活动地址及其经纬度、活动详细地址、活动开始日期、活动结束日期、报名链接、活动主题、活动日程</text>
-        <text class="cell" user-select="{true}">https://www.mindspore.cn</text>
+        <text class="cell" user-select="{true}">展示从MindSpore小程序预定的会议，以便参会人快速入会</text>
+        <text class="cell" user-select="{true}">会议发起人的Gitee ID、所属城市组名</text>
+        <text class="cell" user-select="{true}">https://www.mindspore.cn/privacy</text>
     </view>
 </view>

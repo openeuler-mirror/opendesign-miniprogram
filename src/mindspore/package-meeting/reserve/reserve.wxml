@@ -82,7 +82,7 @@
                 </view>
             </view>
             <view class="form-item">
-                <text class="label">Etherpad链接</text>
+                <text class="label">Etherpad链接 <text class="require">*</text></text>
                 <input value="{{etherpad}}" maxlength="{{64}}" placeholder-class="placeholder" bindinput="etherInput"
                     placeholder="请输入Etherpad链接"></input>
             </view>

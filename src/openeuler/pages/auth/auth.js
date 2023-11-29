@@ -37,7 +37,7 @@ Page(
         );
         return false;
       }
-      appUser.wxGetUserProfileLogin(this.data.record, async function (res) {
+      appUser.wxGetUserProfileLogin(this.data.record,function (res) {
         if (!res.access) {
           return false;
         }
@@ -46,7 +46,7 @@ Page(
           pages[pages.length - 2]?.route === 'pages/auth/auth' ? pages[pages.length - 3] : pages[pages.length - 2]; // 前一个页面
         const id = beforePage?.options.id || that.data.id;
         const url = id ? '/' + beforePage?.route + '?id=' + id : '/' + beforePage?.route;
-        if (!(await sessionUtil.getUserInfoByKey('agreePrivacy'))) {
+        if (!res.agreePrivacy) {
           that.setData({
             isPrivecyShown: true,
             url: url,
