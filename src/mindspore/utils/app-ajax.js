@@ -139,7 +139,7 @@ const appAjax = {
           if (res?.data?.detail && res.statusCode === 400) {
             message = res.data.detail;
           } else if (res.statusCode === 401) {
-            message = '请重新登陆~';
+            message = '请重新登录~';
           } else if (res.statusCode === 418) {
             message = '您的请求疑似攻击行为！';
           } else {
