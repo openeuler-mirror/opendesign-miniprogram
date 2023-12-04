@@ -11,6 +11,7 @@ page {
   margin: 24rpx 0;
   line-height: 56rpx;
   font-size: 36rpx;
+  word-break: break-word;
 }
 
 .font-h1 {
@@ -30,4 +31,12 @@ page {
 }
 .content {
   color: #6c7279ff;
+}
+.container .historical {
+  margin-top: 0;
+}
+
+navigator {
+  color: #002fa7;
+  text-decoration: underline;
 }

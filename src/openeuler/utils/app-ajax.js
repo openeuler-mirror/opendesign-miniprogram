@@ -135,7 +135,7 @@ const appAjax = {
         }
         ajaxParams.success(res.data, res);
 
-        if (res.statusCode.toString()[0] != 2) {
+        if (res.statusCode.toString()[0] !== '2') {
           let message = '';
           if (res?.data?.detail && res.statusCode === 400) {
             message = res.data.detail;

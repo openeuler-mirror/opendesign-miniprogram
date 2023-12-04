@@ -147,7 +147,7 @@ Page({
       group_id: this.data.group_id,
     };
     const { type } = this.data.options;
-    if (type != 'MSG') {
+    if (type !== 'MSG') {
       remoteMethods.delMemberList(postData, function (data) {
         if (data.code === 200) {
           that.setData({

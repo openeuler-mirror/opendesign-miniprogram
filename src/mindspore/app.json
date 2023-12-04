@@ -29,7 +29,6 @@
             "pages": [
                 "events/event-list",
                 "manage/enterprise-list",
-                "manage/member-detail",
                 "manage/add-member",
                 "manage/del-member",
                 "publish/publish",

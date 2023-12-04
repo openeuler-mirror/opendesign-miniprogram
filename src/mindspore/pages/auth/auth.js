@@ -37,7 +37,7 @@ Page(
         );
         return false;
       }
-      appUser.wxGetUserProfileLogin(this.data.record, async function (res) {
+      appUser.wxGetUserProfileLogin(this.data.record,function (res) {
         if (!res.access) {
           return false;
         }

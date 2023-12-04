@@ -2,7 +2,7 @@ let _ = require('../utils/underscore-extend.js');
 
 // 服务连接配置
 let serviceConfig = {
-  SERVICE_URL: 'https://meetingserver-mindspore-icsl.test.osinfra.cn', // 灰度环境、
+  SERVICE_URL: 'https://meetingserver-mindspore-icsl.test.osinfra.cn',
 };
 
 // 存储配置

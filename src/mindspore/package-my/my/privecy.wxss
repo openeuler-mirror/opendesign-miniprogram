@@ -8,10 +8,10 @@
     display: flex;
     font-size: 36rpx;
     color: #333;
-    padding: 0 30rpx;
     padding-bottom: 129rpx;
 }
 
 navigator {
     color: #389EEB;
+    text-decoration: underline;
 }

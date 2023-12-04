@@ -92,7 +92,7 @@
             <image src="./../../static/events/share.svg" />
             <text>分享</text>
         </button>
-        <button class="btn-ghost" bindtap="toPoster">下载海报</button>
+        <button class="btn-ghost" bindtap="toPoster">查看海报</button>
         <block wx:if="{{info.status===5}}">
             <button class="btn-primary" wx:if="{{info.status===5}}" bindtap="switchTab2">
                 精彩回顾
@@ -117,7 +117,7 @@
             <image src="./../../static/events/share.svg" />
             <text>分享</text>
         </button>
-        <button class="btn-ghost" bindtap="redrictLogin">下载海报</button>
+        <button class="btn-ghost" bindtap="redrictLogin">查看海报</button>
         <block wx:if="{{info.status===5}}">
             <button class="btn-primary" wx:if="{{info.status===5}}" bindtap="switchTab2">
                 精彩回顾
