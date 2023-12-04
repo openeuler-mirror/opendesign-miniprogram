@@ -82,7 +82,7 @@
         <view class="info">
             <view>
                 <image src="./../../static/reserve/info.svg" />
-                <text>勾选此项进入会议自动开启录屏，录制服务由{{meetingType}}提供，会后自动上传至B站openEuler的帐号下</text>
+                <text>勾选此项进入会议自动开启录屏，录制服务由{{meetingType}}提供</text>
             </view>
         </view>
         <view class="form-item meeting-desc">
