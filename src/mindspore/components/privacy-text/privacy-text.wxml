@@ -23,7 +23,7 @@
         <text class="content">c ) 授权预订会议或发布活动权限</text>
         <text class="content">如果您需要预订会议或发布活动，我们需要收集您的nickname用于设置您发布会议或发布活动的权限，收集您的Gitee ID、所属城市和所属SIG用于设置您的预定会议的权限。</text>
         <text class="content">d ) 预定会议</text>
-        <text class="content">如果您有预定会议权限，在预定会议时，我们会收集您的Gitee ID作为会议发起人，收集您的所属城市用于确定MSG城市，收集您的所属SIG用于选择会议所属SIG。同时我们会收集您编辑的邮箱地址，用于发送会议邀请通知邮件。如果您在预定会议时选择自动录制会议，当有参会者进入后，会议会自动录屏。在会议预订后，我们会将包含会议发起人Gitee ID的会议相关信息公开至openEuler社区官网（https://www.openeuler.org）和本服务会议列表中，以便于更多感兴趣的个人、组织查看我们的会议。</text>
+        <text class="content">如果您有预定会议权限，在预定会议时，我们会收集您的Gitee ID作为会议发起人，收集您的所属城市用于确定MSG城市，收集您的所属SIG用于选择会议所属SIG。同时我们会收集您编辑的邮箱地址，用于发送会议邀请通知邮件。如果您在预定会议时选择自动录制会议，当有参会者进入后，会议会自动录屏。在会议预订后，我们会将包含会议发起人Gitee ID的会议相关信息公开至MindSpore社区官网（https://www.mindspore.cn）和本服务会议列表中，以便于更多感兴趣的个人、组织查看我们的会议。</text>
         <text class="content">e ) 收藏会议</text>
         <text class="content">1. 在会议即将开始前，我们会使用您的微信openid通过微信通知为您发送会议开始提醒。</text>
         <text class="content">2. 当您收藏的会议被提前取消时，我们会使用您的微信openid通过微信通知为您发送会议取消提醒。</text>

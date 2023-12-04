@@ -64,10 +64,12 @@ Page({
         id: that.data.id,
         gitee_name: that.data.name,
       },
-      function () {
-        that.setData({
-          isShowMes: true,
-        });
+      function (res) {
+        if (res.code === 200) {
+          that.setData({
+            isShowMes: true,
+          });
+        }
       }
     );
   },

@@ -3,7 +3,7 @@
         <text class="cell" user-select="{true}">第三方主体</text>
         <text class="cell" user-select="{true}">使用目的</text>
         <text class="cell" user-select="{true}">涉及个人信息</text>
-        <text class="cell" user-select="{true}">第三方官网链接</text>
+        <text class="cell" user-select="{true}">第三方隐私链接</text>
     </view>
     <view class="row" >
         <text class="cell" user-select="{true}">openEuler官方网站</text>

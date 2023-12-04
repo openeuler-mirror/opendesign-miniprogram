@@ -7,17 +7,17 @@
         <text class="cell">SDK隐私声明或开发指南</text>
     </view>
     <view class="row">
-        <text class="cell" user-select="{true}">openEuler邮件列表服务</text>
+        <text class="cell" user-select="{true}">MindSpore邮件列表服务</text>
         <text class="cell" user-select="{true}">发送会议通知邮件</text>
         <text class="cell" user-select="{true}">预订/取消会议</text>
         <text class="cell" user-select="{true}">会议发起人填写的邮箱地址</text>
-        <text class="cell" user-select="{true}">https://www.openeuler.org/zh/other/privacy/</text>
+        <text class="cell" user-select="{true}">https://www.mindspore.cn/privacy</text>
     </view>
     <view class="row">
         <text class="cell" user-select="{true}">微信开放平台</text>
         <text class="cell" user-select="{true}">获取小程序用户openid，发送订阅消息，生成二维码</text>
         <text class="cell" user-select="{true}">登录、预定会议、取消会议</text>
-        <text class="cell" user-select="{true}">微信OAuth2 code、openid</text>
+        <text class="cell" user-select="{true}">微信openid</text>
         <text class="cell" user-select="{true}">https://open.weixin.qq.com/cgi-bin/frame?t=news/protocol_developer_tmpl</text>
     </view>
 </view>
