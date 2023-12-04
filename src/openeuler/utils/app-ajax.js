@@ -28,26 +28,27 @@ const _getInterfaceUrl = function (params) {
   if (!params.otherParams) {
     return servicesConfig[params['service']];
   }
-  for (let key in params.otherParams) {
+  Object.keys(params.otherParams).forEach((key) => {
     interfaceUrl = (interfaceUrl || servicesConfig[params['service']]).replace(
       '{' + key + '}',
       params.otherParams[key]
     );
-  }
+  });
   return interfaceUrl;
 };
 
 const _addUrlParam = function (data) {
   let postData = '';
-  for (let key in data) {
-    if (!postData) {
+  Object.keys(data).forEach((key, index) => {
+    if (index === 0) {
       postData = '?' + key + '=' + data[key];
     } else {
       postData += '&' + key + '=' + data[key];
     }
-  }
+  });
   return postData;
 };
+
 
 let messageQueue = [];
 let isRefreshing = false;
@@ -100,7 +101,7 @@ const appAjax = {
       loadingText: '加载中...', // 加载的提示语
       autoCloseWait: true, // 自动关闭loading
       headers: {
-        Authorization: storage ? 'Bearer ' + storage.access : '',
+        Authorization: storage?.access ? 'Bearer ' + storage.access : '',
       },
     };
     let isShowToast = false;
@@ -128,13 +129,13 @@ const appAjax = {
       method: ajaxParams['type'] || 'POST',
       data: ajaxParams.data,
       success: async function (res) {
-        if (res?.data?.access && storage) {
+        if (res?.data?.access && storage?.access) {
           storage.access = res.data.access;
           await setStorageSync(CONSTANTS.APP_USERINFO_SESSION, storage);
         }
         ajaxParams.success(res.data, res);
 
-        if (res.statusCode.toString()[0] != 2) {
+        if (res.statusCode.toString()[0] !== '2') {
           let message = '';
           if (res?.data?.detail && res.statusCode === 400) {
             message = res.data.detail;
@@ -146,7 +147,7 @@ const appAjax = {
             message = '有点忙开个小差，稍后再试~';
           }
           // 刷新token
-          if (res.statusCode === 401 && storage && params.service !== 'REFRESH') {
+          if (res.statusCode === 401 && storage?.access && params.service !== 'REFRESH') {
             messageQueue.push(params);
             if (!isRefreshing) {
               isRefreshing = true;
@@ -161,7 +162,7 @@ const appAjax = {
             }
             return;
           }
-          if (res.statusCode === 401 && !storage) {
+          if (res.statusCode === 401 && !storage?.access) {
             clearUserDataAndNavigate();
           }
           if (ajaxParams.error) {

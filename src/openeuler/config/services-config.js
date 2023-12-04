@@ -147,7 +147,7 @@ let commonServiceConfig = {
   // 最近的会议列表
   RECENTLY_MEETINGS: '/meetings_recently/',
 
-  // 同意隐私政策
+  // 同意更新的隐私声明
   AGREE: '/agree/',
   // 退出登陆
   LOGOUT: '/logout/',

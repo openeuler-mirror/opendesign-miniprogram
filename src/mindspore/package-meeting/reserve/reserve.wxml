@@ -82,8 +82,8 @@
                 </view>
             </view>
             <view class="form-item">
-                <text class="label">Etherpad链接</text>
-                <input value="{{etherpad}}" maxlength="{{100}}" placeholder-class="placeholder" bindinput="etherInput"
+                <text class="label">Etherpad链接 <text class="require">*</text></text>
+                <input value="{{etherpad}}" maxlength="{{64}}" placeholder-class="placeholder" bindinput="etherInput"
                     placeholder="请输入Etherpad链接"></input>
             </view>
             <view class="form-item">
@@ -97,7 +97,7 @@
         <view class="info">
             <view>
                 <image src="./../../static/reserve/info.svg" />
-                <text>勾选此项进入会议自动开启录屏，录制服务由{{meetingType}}提供，会后自动上传至B站mindspore的帐号下</text>
+                <text>勾选此项进入会议自动开启录屏，录制服务由{{meetingType}}提供</text>
             </view>
         </view>
         <view class="form-item meeting-desc">
@@ -109,7 +109,7 @@
         </view>
         <view class="form-item">
             <text class="label">邮件地址</text>
-            <input value="{{emaillist}}" maxlength="{{100}}" placeholder-class="placeholder" bindinput="emailInput"
+            <input value="{{emaillist}}" maxlength="{{1020}}" placeholder-class="placeholder" bindinput="emailInput"
                 placeholder="请输入电子邮件地址"></input>
         </view>
     </view>
@@ -129,7 +129,7 @@
     <view class="privacy">
         <van-checkbox value="{{ privacyState }}" shape="square" icon-size="30rpx" bind:change="privacyStateOnChange"
             checked-color="#40ADFF">
-            已阅读并同意<text catchtap="toPrivacy">隐私声明</text>
+            已阅读并同意<text catchtap="toPrivacy">《隐私声明》</text>
         </van-checkbox>
     </view>
     <view class="commit">

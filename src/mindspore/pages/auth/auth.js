@@ -37,7 +37,7 @@ Page(
         );
         return false;
       }
-      appUser.wxGetUserProfileLogin(async function (res) {
+      appUser.wxGetUserProfileLogin(this.data.record,function (res) {
         if (!res.access) {
           return false;
         }
@@ -56,7 +56,7 @@ Page(
             url: url,
           });
         }
-      }, {});
+      });
     },
     recordoOnChange: function (event) {
       this.setData({
@@ -69,12 +69,20 @@ Page(
       });
     },
     handleDotAgree: function () {
-      sessionUtil.clearUserInfo();
-      this.setData({
-        isPrivecyShown: false,
-      });
-      wx.switchTab({
-        url: '/pages/index/index',
+      appAjax.postJson({
+        type: 'POST',
+        service: 'LOGOUT',
+        success: (res) => {
+          if (res.code === 200) {
+            sessionUtil.clearUserInfo();
+            this.setData({
+              isPrivecyShown: false,
+            });
+            wx.switchTab({
+              url: '/pages/index/index',
+            });
+          }
+        },
       });
     },
     setAgreeState: function (_callback) {

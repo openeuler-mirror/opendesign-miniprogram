@@ -1,0 +1,14 @@
+<view class="table container">
+    <view class="row header">
+        <text class="cell" user-select="{true}">第三方主体</text>
+        <text class="cell" user-select="{true}">使用目的</text>
+        <text class="cell" user-select="{true}">涉及个人信息</text>
+        <text class="cell" user-select="{true}">第三方隐私链接</text>
+    </view>
+    <view class="row" >
+        <text class="cell" user-select="{true}">MindSpore官网</text>
+        <text class="cell" user-select="{true}">展示从MindSpore小程序预定的会议，以便参会人快速入会</text>
+        <text class="cell" user-select="{true}">会议发起人的Gitee ID、所属城市组名</text>
+        <text class="cell" user-select="{true}">https://www.mindspore.cn/privacy</text>
+    </view>
+</view>

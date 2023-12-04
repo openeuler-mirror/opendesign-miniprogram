@@ -2,7 +2,7 @@
 const mixin = require('../../utils/page-mixin.js').$pageMixin;
 const sessionUtil = require('../../utils/app-session.js');
 const appUser = require('../../utils/app-user.js');
-const { OBS_BJ_URL } = require('./../../utils/url-config');
+const { OBS_BJ_URL } = require('../../utils/config');
 
 let that = null;
 Page(

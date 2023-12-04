@@ -29,7 +29,6 @@
             "pages": [
                 "events/event-list",
                 "manage/enterprise-list",
-                "manage/member-detail",
                 "manage/add-member",
                 "manage/del-member",
                 "publish/publish",
@@ -49,7 +48,9 @@
                 "my/help",
                 "my/qrcode",
                 "events/my-list",
-                "my/feedback"
+                "my/feedback",
+                "my/sdk",
+                "my/share"
             ]
         }
     ],

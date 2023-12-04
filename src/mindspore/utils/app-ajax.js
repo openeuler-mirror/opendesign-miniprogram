@@ -28,24 +28,24 @@ const _getInterfaceUrl = function (params) {
   if (!params.otherParams) {
     return servicesConfig[params['service']];
   }
-  for (let key in params.otherParams) {
+  Object.keys(params.otherParams).forEach((key) => {
     interfaceUrl = (interfaceUrl || servicesConfig[params['service']]).replace(
       '{' + key + '}',
       params.otherParams[key]
     );
-  }
+  });
   return interfaceUrl;
 };
 
 const _addUrlParam = function (data) {
   let postData = '';
-  for (let key in data) {
-    if (!postData) {
+  Object.keys(data).forEach((key, index) => {
+    if (index === 0) {
       postData = '?' + key + '=' + data[key];
     } else {
       postData += '&' + key + '=' + data[key];
     }
-  }
+  });
   return postData;
 };
 

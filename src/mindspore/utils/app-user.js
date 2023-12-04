@@ -48,7 +48,7 @@ const appUser = {
    * @param {Object} callback
    * @param {Object} userInfo
    */
-  wxGetUserProfileLogin(callback, userInfo) {
+  wxGetUserProfileLogin(isAgree, callback) {
     wx.showToast({
       title: '登录中',
       icon: 'loading',
@@ -62,9 +62,11 @@ const appUser = {
           },
           service: 'LOGIN',
           data: {
+            agree: isAgree,
             code: data.code,
           },
           success: async function (result) {
+            let userInfo = {};
             userInfo.agreePrivacy = result.agree_privacy_policy;
             userInfo.access = result.access;
             userInfo.level = result.level;
@@ -76,13 +78,9 @@ const appUser = {
             userInfo.refresh = result.refresh;
             // // 缓存用户信息
             await appUser.saveLoginInfo(userInfo || {});
-            // 回调
             callback && callback(userInfo || {});
           },
         });
-      },
-      complete() {
-        wx.hideToast();
       },
     });
   },

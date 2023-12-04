@@ -20,7 +20,7 @@
                         </view>
                         <view class="address">
                             <image src="./../../static/common/location.svg"></image>
-                            <text>{{item.address||item.join_url || ''}}</text>
+                            <text>{{item.address||item.join_url || item.register_url || ''}}</text>
                         </view>
                         <view class="button" wx:if="{{type === 4}}">
                             <button bindtap="editDraft" data-id="{{item.id}}">编辑活动</button>

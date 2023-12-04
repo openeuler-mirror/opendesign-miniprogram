@@ -1,4 +1,4 @@
-const { OBS_URL } = require('./../../utils/url-config');
+const { OBS_URL } = require('../../utils/config');
 const resourceUrl = `${OBS_URL}/mindsporeMini/`;
 Page({
   /**
@@ -54,5 +54,8 @@ Page({
         });
       },
     });
+  },
+  backTo() {
+    wx.navigateBack();
   },
 });

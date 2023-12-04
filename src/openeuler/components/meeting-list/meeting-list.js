@@ -1,6 +1,7 @@
 // components/meeting-list/meeting-list.js
 const appAjax = require('./../../utils/app-ajax');
 const sessionUtil = require('../../utils/app-session.js');
+const { MEETING_START_TEMPLATE, MEETING_CANCELLATION_TEMPLATE } = require('../../utils/config');
 let that = null;
 const remoteMethods = {
   getSigList: function (_callback) {
@@ -204,7 +205,7 @@ Component({
       } else {
         wx.requestSubscribeMessage({
           // tmplIds 对应消息模板
-          tmplIds: ['2xSske0tAcOVKNG9EpBjlb1I-cjPWSZrpwPDTgqAmWI', 'UpxRbZf8Z9QiEPlZeRCgp_MKvvqHlo6tcToY8fToK50'],
+          tmplIds: [MEETING_START_TEMPLATE, MEETING_CANCELLATION_TEMPLATE],
           success() {
             remoteMethods.collect(that.data.id, (res) => {
               if (res.code === 200) {

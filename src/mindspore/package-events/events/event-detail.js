@@ -100,7 +100,6 @@ Page({
 
   data: {
     info: {},
-    showReplay: false,
     id: '',
     startTime: '',
     endTime: '',
@@ -117,13 +116,13 @@ Page({
     isIphoneX: false,
   },
 
-  onLoad: function (options) {
+  onLoad: async function (options) {
     that = this;
     this.setData({
       id: options.id || decodeURIComponent(options.scene),
       scene: decodeURIComponent(options.scene) || '',
       type: Number(options.type),
-      level: sessionUtil.getUserInfoByKey('eventLevel') || 1,
+      level: (await sessionUtil.getUserInfoByKey('eventLevel')) || 1,
     });
     wx.getSystemInfo({
       success(res) {
@@ -136,9 +135,9 @@ Page({
     });
   },
 
-  onShow: function () {
+  onShow: async function () {
     this.setData({
-      user: sessionUtil.getUserInfoByKey('userId'),
+      user: await sessionUtil.getUserInfoByKey('userId'),
     });
     remoteMethods.getDraftDetail((res) => {
       if (!res.start_date) {
@@ -191,21 +190,14 @@ Page({
   },
   colseDiglog() {
     this.setData({
-      showReplay: false,
       showDialog: false,
       showRegister: false,
     });
   },
   maskClick() {
-    if (this.data.info.replay_url && this.data.info.status === 5) {
-      this.setData({
-        showReplay: true,
-      });
-    } else {
-      this.setData({
-        showDialog: true,
-      });
-    }
+    this.setData({
+      showDialog: true,
+    });
   },
   copyLink(e) {
     let link = e.currentTarget.dataset.link;
@@ -215,14 +207,12 @@ Page({
       success: function () {
         that.setData({
           showDialog: false,
-          showReplay: false,
           showRegister: false,
         });
       },
       fail: function () {
         that.setData({
           showDialog: false,
-          showReplay: false,
           showRegister: false,
         });
       },
@@ -250,6 +240,7 @@ Page({
     } catch (error) {
       return;
     }
+    postData.agree = true;
     remoteMethods.draftPublish(postData, (res) => {
       if (res.code === 200) {
         wx.redirectTo({

@@ -127,7 +127,7 @@ van-dialog button {
     background-color: #fff;
 }
 .btn-box button {
-    font-size: 30rpx;
+    font-size: 28rpx;
     flex:1;
 }
 .btn-box button:last-child {

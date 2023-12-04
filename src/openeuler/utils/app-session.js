@@ -52,14 +52,4 @@ module.exports = {
   clearUserInfo: function () {
     wx.removeStorageSync(constants.APP_USERINFO_SESSION);
   },
-
-  /**
-   * 判断是否登录
-   */
-  loginCheck: function () {
-    if (_getUserinfo() && _getValueByKey('access')) {
-      return true;
-    }
-    return false;
-  },
 };

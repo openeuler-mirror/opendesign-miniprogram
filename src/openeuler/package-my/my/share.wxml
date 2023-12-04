@@ -1,0 +1,14 @@
+<view class="table container">
+    <view class="row header">
+        <text class="cell" user-select="{true}">第三方主体</text>
+        <text class="cell" user-select="{true}">使用目的</text>
+        <text class="cell" user-select="{true}">涉及个人信息</text>
+        <text class="cell" user-select="{true}">第三方隐私链接</text>
+    </view>
+    <view class="row" >
+        <text class="cell" user-select="{true}">openEuler官方网站</text>
+        <text class="cell" user-select="{true}">展示从openEuler小程序预定的会议，以便参会人快速入会</text>
+        <text class="cell" user-select="{true}">会议发起人的Gitee ID</text>
+        <text class="cell" user-select="{true}">https://www.openeuler.org/zh/other/privacy/</text>
+    </view>
+</view>

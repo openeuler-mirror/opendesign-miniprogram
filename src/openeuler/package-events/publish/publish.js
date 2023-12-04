@@ -1,8 +1,7 @@
 // package-events/publish/publish.js
 const appAjax = require('./../../utils/app-ajax');
-const utils = require('./../../utils/utils.js');
-const { BILIBILI_URL } = require('./../../utils/url-config.js');
-utils.formateDate();
+const { formateDate } = require('./../../utils/utils.js');
+const { BILIBILI_URL } = require('../../utils/config.js');
 let that = null;
 let remoteMethods = {
   addEvents: function (postData, _callback) {
@@ -97,7 +96,7 @@ let localMethods = {
         this.toast('请输入报名链接');
         return;
       }
-      const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+      const urlRegex = /^https:\/\//;
       if (!urlRegex.test(data.register_url)) {
         this.toast('报名链接格式错误');
         return;
@@ -189,7 +188,10 @@ let localMethods = {
         return;
       }
     }
-
+    if (!that.data.privacyState) {
+      this.toast('请先阅读并同意隐私声明');
+      return;
+    }
     return true;
   },
   toast: function (msg) {
@@ -214,6 +216,7 @@ Page({
     addressName: '',
     registerUrl: '',
     desc: '',
+    privacyState: false,
     schedule: [
       {
         start: '',
@@ -268,28 +271,47 @@ Page({
       detailType: Number(options.type) || 0,
     });
     if ((this.data.id && this.data.detailType === 5) || (this.data.id && this.data.detailType === 4)) {
-      remoteMethods.getDraftDetail((res) => {
-        this.setData({
-          title: res.title,
-          date: res.date,
-          type: res.activity_type,
-          registerUrl: res.register_url || '',
-          longitude: res.longitude || '',
-          latitude: res.latitude || '',
-          address: res.address || '',
-          addressName: res.detail_address || '',
-          desc: res.synopsis || '',
-          topicSelIndex: res.poster,
-          schedule: JSON.parse(res.schedules),
-          onlineStartTime: res.start || '',
-          onlineEndTime: res.end || '',
+      try {
+        remoteMethods.getDraftDetail((res) => {
+          this.setData({
+            title: res.title,
+            date: res.date,
+            type: res.activity_type,
+            registerUrl: res.register_url || '',
+            longitude: res.longitude || '',
+            latitude: res.latitude || '',
+            address: res.address || '',
+            addressName: res.detail_address || '',
+            desc: res.synopsis || '',
+            topicSelIndex: res.poster,
+            schedule: JSON.parse(res.schedules),
+            onlineStartTime: res.start || '',
+            onlineEndTime: res.end || '',
+            privacyState: true,
+          });
         });
-      });
+      } catch {
+        wx.showToast({
+          title: '操作错误',
+          icon: 'none',
+          duration: 2000,
+        });
+      }
     }
   },
   /**
    * 生命周期函数--监听页面显示
    */
+  privacyStateOnChange: function (event) {
+    this.setData({
+      privacyState: event.detail,
+    });
+  },
+  toPrivacy() {
+    wx.navigateTo({
+      url: '/package-my/my/privecy',
+    });
+  },
   onShow: function () {},
   titleInput(e) {
     this.setData({
@@ -313,7 +335,7 @@ Page({
   },
   dateConfirm: function () {
     this.setData({
-      date: new Date(this.data.currentDate).Format('yyyy-MM-dd'),
+      date: formateDate(new Date(this.data.currentDate), 'yyyy-MM-dd'),
       datePopShow: false,
     });
   },
@@ -552,6 +574,7 @@ Page({
     if (!localMethods.validation(postData)) {
       return;
     }
+    postData.agree = true;
     remoteMethods.addEvents(postData, (res) => {
       if (res.code === 200) {
         wx.redirectTo({
@@ -594,10 +617,13 @@ Page({
     if (!localMethods.validation(postData)) {
       return;
     }
-    remoteMethods.saveDraft(postData, () => {
-      wx.redirectTo({
-        url: '/package-events/publish/success?type=1',
-      });
+    postData.agree = true;
+    remoteMethods.saveDraft(postData, (res) => {
+      if (res.code === 200) {
+        wx.redirectTo({
+          url: '/package-events/publish/success?type=1',
+        });
+      }
     });
   },
   cancelEditSchedule() {
@@ -638,10 +664,12 @@ Page({
       return;
     }
     postData.schedules = JSON.stringify(this.data.schedule);
-    remoteMethods.saveDraft(postData, () => {
-      wx.redirectTo({
-        url: '/package-events/publish/success?type=3',
-      });
+    remoteMethods.saveDraft(postData, (res) => {
+      if (res.code === 200) {
+        wx.redirectTo({
+          url: '/package-events/publish/success?type=3',
+        });
+      }
     });
   },
   toPoster() {
