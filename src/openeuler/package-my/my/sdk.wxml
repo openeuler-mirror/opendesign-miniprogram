@@ -15,7 +15,7 @@
     </view>
     <view class="row">
         <text class="cell" user-select="{true}">微信开放平台</text>
-        <text class="cell" user-select="{true}">获取小程序用户openid，发送订阅消息，生成二维码</text>
+        <text class="cell" user-select="{true}">获取小程序用户openid，发送订阅消息</text>
         <text class="cell" user-select="{true}">登录、预定会议、取消会议</text>
         <text class="cell" user-select="{true}">微信openid</text>
         <text class="cell" user-select="{true}">https://open.weixin.qq.com/cgi-bin/frame?t=news/protocol_developer_tmpl</text>
