@@ -145,7 +145,7 @@ Page({
     endTimePopShow: false,
     currentEndTime: '08:00',
     minEndTime: 8,
-    maxEndTime: 22,
+    maxEndTime: 8,
     showDialogWarn: false,
     filter(type, options) {
       if (type === 'minute') {

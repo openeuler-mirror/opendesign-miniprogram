@@ -367,6 +367,7 @@ Page({
               });
             },
             fail: function (res) {
+              console.log(res);
               wx.showToast({
                 title: res,
                 icon: 'none',

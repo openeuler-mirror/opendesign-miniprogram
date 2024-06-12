@@ -1,0 +1,44 @@
+<view class="table container">
+  <view class="row header" user-select="{true}">
+      <text class="cell">业务场景</text>
+      <text class="cell">收集目的</text>
+      <text class="cell">个人信息类型</text>
+      <text class="cell">收集方式</text>
+      <text class="cell">个人信息字段</text>
+  </view>
+  <view class="row">
+      <text class="cell" user-select="{true}">服务优化</text>
+      <text class="cell" user-select="{true}">适配用户界面</text>
+      <text class="cell" user-select="{true}">设备信息</text>
+      <text class="cell" user-select="{true}">系统收集</text>
+      <text class="cell" user-select="{true}">设备型号</text>
+  </view>
+  <view class="row">
+      <text class="cell" user-select="{true}">登录服务</text>
+      <text class="cell" user-select="{true}">身份验证及权鉴</text>
+      <text class="cell" user-select="{true}">帐号信息</text>
+      <text class="cell" user-select="{true}">系统收集</text>
+      <text class="cell" user-select="{true}">微信openid</text>
+  </view>
+  <view class="row">
+      <text class="cell" user-select="{true}">授权预订会议或发布活动权限</text>
+      <text class="cell" user-select="{true}">身份验证及权鉴</text>
+      <text class="cell" user-select="{true}">帐号信息、您主动提交数据</text>
+      <text class="cell" user-select="{true}">线下提供</text>
+      <text class="cell" user-select="{true}">Gitee ID、nickname、所属SIG</text>
+  </view>
+  <view class="row">
+      <text class="cell" user-select="{true}">预定会议</text>
+      <text class="cell" user-select="{true}">确定会议发起者、所属SIG、及通知参会者</text>
+      <text class="cell" user-select="{true}">帐号信息、您主动提交数据</text>
+      <text class="cell" user-select="{true}">线下提供、用户输入</text>
+      <text class="cell" user-select="{true}">Gitee ID、所属SIG、邮件列表</text>
+  </view>
+  <view class="row">
+      <text class="cell" user-select="{true}">收藏会议</text>
+      <text class="cell" user-select="{true}">通过微信发送会议提醒</text>
+      <text class="cell" user-select="{true}">帐号信息</text>
+      <text class="cell" user-select="{true}">系统收集</text>
+      <text class="cell" user-select="{true}">微信openid</text>
+  </view>
+</view>
