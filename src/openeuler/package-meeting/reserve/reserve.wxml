@@ -161,7 +161,7 @@
   <van-popup show="{{ timePopShow }}" round position="bottom" bind:click-overlay="timeCancel">
     <view class="sig-pop-wrapper">
       <view class="title">选择会议开始时间</view>
-      <van-datetime-picker show-toolbar="{{false}}" type="time" value="{{ start }}" bind:input="timeOnInput"
+      <van-datetime-picker show-toolbar="{{false}}" type="time" value="{{ start }}"  min-hour="{{ minTime }}" max-hour="{{maxTime}}"  bind:input="timeOnInput"
         filter="{{ filter }}" />
       <view class="btn-wrapper">
         <button class="confirm" bindtap="timeConfirm">确定</button>
@@ -172,7 +172,7 @@
   <van-popup show="{{ endTimePopShow }}" round position="bottom" bind:click-overlay="endTimeCancel">
     <view class="sig-pop-wrapper">
       <view class="title">选择会议结束时间</view>
-      <van-datetime-picker show-toolbar="{{false}}" type="time" value="{{ end }}" bind:input="endTimeOnInput"
+      <van-datetime-picker show-toolbar="{{false}}" type="time" value="{{ end }}"  min-hour="{{ minEndTime }}" max-hour="{{maxEndTime}}" bind:input="endTimeOnInput"
         filter="{{ filter }}" />
       <view class="btn-wrapper">
         <button class="confirm" bindtap="endTimeConfirm">确定</button>

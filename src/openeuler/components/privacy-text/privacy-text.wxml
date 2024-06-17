@@ -95,9 +95,7 @@
         <text class="content">如果您对本协议有任何疑问或主张任何与个人信息有关的权利，您可以通过以下方式与我们联系</text>
         <text class="content">联系邮箱：contact@openeuler.io</text>
         <text class="content">联系热线：+86 18683791700</text>
-        <text class="content">最近更新时间：2024年01月23日</text>
-        <text class="content">隐私声明版本：v20240123</text>
+        <text class="content">最近更新时间：2024年06月12日</text>
+        <text class="content">隐私声明版本：v20240612</text>
     </text>
-    <view class="historical content">查看历史版本隐私声明请点击 <navigator url='/package-my/my/privecy-historical'>此处</navigator>。
-    </view>
 </view>
