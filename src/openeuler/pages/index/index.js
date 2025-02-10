@@ -11,7 +11,7 @@ Page(
       imgUrls: [
         {
           type: 2,
-          url: `${OBS_BJ_URL}/detail-banner/mooc-banner.png`,
+          url: `${OBS_BJ_URL}/detail-banner/software-banner.png`,
         },
       ],
       iphoneX: false,

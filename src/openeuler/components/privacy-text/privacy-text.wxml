@@ -10,8 +10,11 @@
         <text class="content">3. 增加第三方SDK列表、设备权限调用章节。</text>
         <text class="content">4. 细化我们将保留多久您的个人信息。</text>
         <text class="content">5. 细化个人信息存储地点。</text>
-        <text class="content">6. 细化对儿童个人信息的保护。</text>
+        <text class="content">6. 细化对未成年个人信息的保护。</text>
         <text class="content">7. 新增隐私声明摘要。</text>
+        <text class="title">摘要：</text>
+        <text class="content">为快速了解本服务收集、使用个人信息的目的、方式、范围您可以查看：</text>
+        <text class="link content" bindtap="navigateTo" data-url='/package-my/my/personal-list'>个人信息收集清单</text>
         <text class="title">我们制定本声明以帮助您理解：</text>
         <text class="content">1. 我们如何收集和处理您的个人信息</text>
         <text class="content">2. 我们在何种情况披露或共享您的个人信息</text>
@@ -22,7 +25,7 @@
         <text class="content">7. 如何访问或控制您的个人信息</text>
         <text class="content">8. 个人信息存储地点</text>
         <text class="content">9. 如何更新本声明</text>
-        <text class="content">10. 对儿童个人信息的保护</text>
+        <text class="content">10. 对未成年个人信息的保护</text>
         <text class="content">11. 如何联系我们</text>
         <text class="title">1.我们如何收集和处理您的个人信息</text>
         <text class="content">a ) 服务优化</text>
@@ -60,7 +63,7 @@
         <text class="content">我们将会在达成本声明所述目的所需的期限内保留您的个人信息，除非按照法律要求或您的要求需要延长保留期。</text>
         <text class="content">a ) 当您注销账户后，根据《个人信息法》的相关规定，我们会在保留期限内存储或保留您的个人信息。在您的个人信息超出保留期限，且没有法律要求我们继续处理您的特定个人信息的情况下，我们将会根据可适用法律的要求删除您的个人信息。例如，我们将会按照《网络安全法》《个人信息法》等相关法律法规规定的期限保存您的用户信息，保留期为您注销帐号后六（6）个月（按照30天为一个月计算）。当超过保留期，您预订的会议、收藏的会议、发布的活动、收藏的活动以及您的账户信息将被删除。</text>
         <text class="content">b ) 当您撤销同意隐私声明后，我们将立即对您的个人数据进行匿名化处理，包括您的 Gitee ID、创建会议所填写的邮箱、收藏的活动、收藏的会议。</text>
-        <text class="content">c ) 当您的最后登录时间距今超过2年（按照365天为一年计算），我们会对您的账户进行注销处理，用户预订的会议、用户收藏的会议、用户发布的活动、用户收藏的活动以及用户信息将被删除。</text>
+        <text class="content">c ) 当您的最后登录时间距今超过2年（按照365天为一年计算），我们会对您的账户进行注销处理，您预订的会议、收藏的会议、发布的活动、收藏的活动以及您的账户信息将被删除。</text>
         <text class="content">d ) 对于您预定的会议，如果会议的创建时间距今超过2年（按照365天为一年计算），我们会对会议进行删除处理，同时清除所有用户对该会议的收藏。</text>
         <text class="content">e ) 对于您发布的活动，如果活动的创建时间距今超过2年（按照365天为一年计算），我们会对活动进行删除处理，同时清除所有用户对该活动的收藏。</text>
         <text class="title">6. 我们将如何保护您的个人信息</text>
@@ -68,11 +71,11 @@
             class="content">我们重视您的个人信息安全。我们采用适当的物理、管理和技术保障措施来保护您的个人信息。例如，我们会使用加密技术确保信息的机密性；我们会使用保护机制防止信息遭到恶意攻击；我们会部署访问控制机制，确保只有授权人员才可访问个人信息；以及我们会举办安全和隐私保护培训等。总之，我们会尽力保护您的个人信息。尽管如此，任何措施都无法做到无懈可击，也没有任何产品与服务、网站、信息传输、计算机系统、网络连接是绝对安全的。</text>
         <text class="title">7. 如何访问或控制您的个人信息</text>
         <text class="content">根据适用的法律法规，就您的个人信息，您可能享有如下权利：</text>
-        <text class="content">a ) 访问我们持有的您的个人信息并获得副本的权利; </text>
-        <text class="content">b ) 要求我们更新或更正您的个人信息的权利; </text>
-        <text class="content">c ) 要求我们删除您的个人信息的权利; </text>
-        <text class="content">d ) 反对我们对您的个人信息进行处理的权利; </text>
-        <text class="content">e ) 限制我们对您的个人信息进行处理的权利; </text>
+        <text class="content">a ) 访问我们持有的您的个人信息并获得副本的权利，您可以通过邮件联系我们获取。 </text>
+        <text class="content">b ) 要求我们更新或更正您的个人信息的权利，您可以通过邮件联系我们更新或更正。 </text>
+        <text class="content">c ) 要求我们删除您的个人信息的权利，您可以通过邮件联系我们删除。 </text>
+        <text class="content">d ) 反对我们对您的个人信息进行处理的权利，您可以通过邮件联系我们处理。 </text>
+        <text class="content">e ) 限制我们对您的个人信息进行处理的权利，您可以通过邮件联系我们处理。 </text>
         <text class="content">f ) 向有权的个人信息保护部门提起投诉、举报的权利; </text>
         <text class="content">g ) 撤销同意隐私声明的权利，您可以通过以下途径撤销同意隐私声明：“我的”—右上角“设置”图标—“取消同意隐私声明”; </text>
         <text class="content">h ) 注销帐号的权利，您可以通过以下途径注销帐号：“我的”—右上角“设置”图标—“注销帐号”; </text>
@@ -84,17 +87,15 @@
         <text class="content">本平台仅服务于中华人民共和国境内用户，您的个人信息将被存储于中华人民共和国境内。</text>
         <text class="title">9.如何更新本声明</text>
         <text
-            class="content">我们会根据我们的服务或个人信息变化不时更新或修改本声明。如果我们更新本声明，我们会将最新版隐私声明发布在本服务上，并自发布时立即生效。建议您定期查看本声明以了解任何更改。如果我们对本声明做出任何重大更改（收集的个人信息范围和使用目的变更），我们将通过弹窗的形式通知您，并获取您的同意。</text>
-        <text class="title">10.对儿童个人信息的保护</text>
-        <text class="content">本服务及其内容、服务主要面向成人。如果没有父母或监护人的同意，儿童（未满 14
-            周岁的未成年人）不得使用我们提供的服务。对于经父母同意而收集儿童个人信息的情况，我们只会在受到法律允许、父母或监护人明确同意或者保护儿童所必要的情况下使用或披露此数据。如果我们发现自己在未事先获得可证实的父母同意的情况下收集了儿童的个人信息，则会设法尽快删除相关数据。</text>
+            class="content">我们会根据我们的服务或个人信息变化不时更新或修改本声明。如果我们更新本声明，我们会以公告、弹窗等形式向您展示变更后的声明，并重新获取您的同意。</text>
+        <text class="title">10.对未成年个人信息的保护</text>
+        <text class="content">本服务及其内容、服务主要面向成人。如果没有父母或监护人的同意，未成年（未满 14
+            周岁的未成年人）不得使用我们提供的服务。对于经父母同意而收集未成年个人信息的情况，我们只会在受到法律允许、父母或监护人明确同意或者保护未成年所必要的情况下使用或披露此数据。如果我们发现自己在未事先获得可证实的父母同意的情况下收集了未成年的个人信息，则会设法尽快删除相关数据。</text>
         <text class="title">11.如何联系我们</text>
         <text class="content">如果您对本协议有任何疑问或主张任何与个人信息有关的权利，您可以通过以下方式与我们联系</text>
         <text class="content">联系邮箱：contact@openeuler.io</text>
         <text class="content">联系热线：+86 18683791700</text>
-        <text class="content">最近更新时间：2023年12月01日</text>
-        <text class="content">隐私声明版本：v20231201</text>
+        <text class="content">最近更新时间：2024年06月12日</text>
+        <text class="content">隐私声明版本：v20240612</text>
     </text>
-    <view class="historical content">查看历史版本隐私声明请点击 <navigator url='/package-my/my/privecy-historical'>此处</navigator>。
-    </view>
 </view>

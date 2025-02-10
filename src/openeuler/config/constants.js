@@ -5,7 +5,7 @@ let _ = require('../utils/underscore-extend.js');
 
 // 服务连接配置
 let serviceConfig = {
-  SERVICE_URL: 'https://meetings.openeuler.openatom.cn',
+  SERVICE_URL: 'https://openatom-meetingserver.osinfra.cn',
 };
 
 // 存储配置

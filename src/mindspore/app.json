@@ -50,7 +50,8 @@
                 "events/my-list",
                 "my/feedback",
                 "my/sdk",
-                "my/share"
+                "my/share",
+                "my/personal-list"
             ]
         }
     ],
