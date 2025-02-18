@@ -1,8 +1,0 @@
-<!-- package-my/my/feedback.wxml -->
-<view class="container">
-    <view>如果您对本服务有任何意见或建议，请联系 <view class="link">contact@mindspore.cn</view>
-    </view>
-    <view class="commit">
-        <button class="meeting-btn" bindtap="copyEmail">复制邮箱</button>
-    </view>
-</view>

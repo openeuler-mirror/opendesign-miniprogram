@@ -1,7 +1,0 @@
-/* pages/my/my-collection.wxss */
-page {
-    background-color: #f5f7fa !important;
-}
-.container {
-    padding-top: 30rpx;
-}

@@ -1,9 +1,0 @@
-{
-    "usingComponents": {
-        "meeting-list": "/components/meeting-list/meeting-list"
-    },
-    "navigationBarTitleText": "会议列表",
-    "enablePullDownRefresh": true,
-    "backgroundTextStyle": "dark",
-    "backgroundColor": "#fff"
-}

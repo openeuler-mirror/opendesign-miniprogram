@@ -1,4 +1,0 @@
-<!-- pages/my/my-meetings.wxml -->
-<view class="container">
-    <meeting-list id="meeting" page-type="{{3}}" api-url="MY_MEETINGS_LIST"></meeting-list>
-</view>
