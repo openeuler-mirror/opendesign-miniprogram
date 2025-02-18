@@ -1,6 +1,0 @@
-{
-    "usingComponents": {
-        "meeting-list": "/components/meeting-list/meeting-list"
-    },
-  "navigationBarTitleText": "预定的会议"
-}

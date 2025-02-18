@@ -1,9 +1,0 @@
-{
-    "usingComponents": {
-        "user-info": "/components/user-info/user-info"
-    },
-    "navigationBarTitleText": "MindSpore活动管理",
-    "enablePullDownRefresh": true,
-    "backgroundTextStyle": "dark",
-    "backgroundColor": "#fff"
-}

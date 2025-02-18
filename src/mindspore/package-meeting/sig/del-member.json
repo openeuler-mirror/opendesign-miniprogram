@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "message": "/components/message/message"
-  },
-  "navigationBarTitleText": "选择成员"
-}
