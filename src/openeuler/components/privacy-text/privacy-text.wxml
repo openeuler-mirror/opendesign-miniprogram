@@ -5,13 +5,7 @@
         <text
             class="content">我们深知您的隐私对您的重要性，并充分尊重您的隐私。在向我们提交您的个人信息之前，请您仔细阅读本《隐私政策声明》（以下简称“本声明”）。如果您对于我们处理您的个人信息的方式有任何疑问，欢迎与我们联系。本声明中的“我们”是指openEuler社区，“服务”是指openEuler小程序。</text>
         <text class="title">请您仔细阅读此次隐私声明的更新内容：</text>
-        <text class="content">1. 细化我们如何收集和处理您的个人数据。</text>
-        <text class="content">2. 细化我们在何种情况披露或共享您的个人信息。</text>
-        <text class="content">3. 增加第三方SDK列表、设备权限调用章节。</text>
-        <text class="content">4. 细化我们将保留多久您的个人信息。</text>
-        <text class="content">5. 细化个人信息存储地点。</text>
-        <text class="content">6. 细化对未成年个人信息的保护。</text>
-        <text class="content">7. 新增隐私声明摘要。</text>
+        <text class="content">1. 更新三方SDK列表</text>
         <text class="title">摘要：</text>
         <text class="content">为快速了解本服务收集、使用个人信息的目的、方式、范围您可以查看：</text>
         <text class="link content" bindtap="navigateTo" data-url='/package-my/my/personal-list'>个人信息收集清单</text>
@@ -48,7 +42,6 @@
         <text class="content">b ) 为了保护国家安全、公共安全以及您和其他个人的重大合法权益而需要共享您的个人信息。</text>
         <text class="content">c ) 共享给业务合作伙伴。我们可能会向合作伙伴等第三方共享您的信息。但我们仅会出于合法、正当、必要、特定、明确的目的共享您的个人信息，并且只会共享提供服务所必需的个人信息。
         </text>
-        <text class="content link" bindtap="navigateTo" data-url='/package-my/my/share'>详见第三方共享信息清单</text>
         <text class="title">3. 第三方SDK列表</text>
         <text class="content">在您使用我们的服务过程中，部分服务需要由我们与第三方合作伙伴共同为您提供，例如会议预定等，为此我们集成了第三方合作伙伴的软件工具开发包（简称“SDK”）或其他类似的应用程序。</text>
         <text class="link content" bindtap="navigateTo" data-url='/package-my/my/sdk'>详见第三方SDK列表</text>
@@ -94,8 +87,8 @@
         <text class="title">11.如何联系我们</text>
         <text class="content">如果您对本协议有任何疑问或主张任何与个人信息有关的权利，您可以通过以下方式与我们联系</text>
         <text class="content">联系邮箱：contact@openeuler.io</text>
-        <text class="content">联系热线：+86 18683791700</text>
-        <text class="content">最近更新时间：2024年06月12日</text>
-        <text class="content">隐私声明版本：v20240612</text>
+        <text class="content">联系热线：+86 15311871505</text>
+        <text class="content">最近更新时间：2025年02月22日</text>
+        <text class="content">隐私声明版本：v20250222</text>
     </text>
 </view>

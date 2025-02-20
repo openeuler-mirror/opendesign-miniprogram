@@ -1,29 +1,34 @@
 <!-- pages/auth/auth.wxml -->
 <view class="container">
-    <image class="img" src="./../../static/auth/auth.png"></image>
-    <view class="p">为便于您在使用 openEuler 会议预定小程序的过程中能够获得所有操作权限， 需要您允许授权使用微信用户信息。</view>
-    <button class="button" bindtap="bindGetUserProfile">
-        <view class="auth-btn">
-            <image class="wechat-icon" src="./../../static/auth/wechat-icon.svg"></image>
-            <text>微信授权登录</text>
-            <view wx:if="{{ !record }}" class="mask"></view>
-        </view>
-    </button>
-    <view class="privacy">
-        <van-checkbox value="{{ record }}" shape="square" icon-size="30rpx" bind:change="recordoOnChange"
-            checked-color="#002fa7">
-            已阅读并同意<text catchtap="toPrivacy">《隐私声明》</text>
-        </van-checkbox>
+  <image class="img" src="./../../static/auth/auth.png"></image>
+  <view class="p">为便于您在使用 openEuler 会议预定小程序的过程中能够获得所有操作权限， 需要您允许授权使用微信用户信息。</view>
+  <button class="button" bindtap="bindGetUserProfile">
+    <view class="auth-btn">
+      <image class="wechat-icon" src="./../../static/auth/wechat-icon.svg"></image>
+      <text>微信授权登录</text>
+      <view wx:if="{{ !record }}" class="mask"></view>
     </view>
-    <van-dialog use-slot show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ isPrivecyShown }}"
-        class-name="sig-dialog">
-        <view class="dialog-slot-content">
-            <view class="title">隐私声明更新通知</view>
-            <privacy-text />
-        </view>
-        <view class="btn-box">
-            <button bindtap="handleClick">我已阅读并同意</button>
-            <button bindtap="handleDotAgree">不同意</button>
-        </view>
-    </van-dialog>
+  </button>
+  <button class="button not-login" bindtap="bindNotLogin">
+    <view class="auth-btn">
+      <text>暂不登录</text>
+    </view>
+  </button>
+  <view class="privacy">
+    <van-checkbox value="{{ record }}" shape="square" icon-size="30rpx" bind:change="recordoOnChange"
+      checked-color="#002fa7">
+      已阅读并同意<text catchtap="toPrivacy">《隐私声明》</text>
+    </van-checkbox>
+  </view>
+  <van-dialog use-slot show-confirm-button="{{false}}" show-cancel-button="{{false}}" show="{{ isPrivecyShown }}"
+    class-name="sig-dialog">
+    <view class="dialog-slot-content">
+      <view class="title">隐私声明更新通知</view>
+      <privacy-text />
+    </view>
+    <view class="btn-box">
+      <button bindtap="handleClick">我已阅读并同意</button>
+      <button bindtap="handleDotAgree">不同意</button>
+    </view>
+  </van-dialog>
 </view>
