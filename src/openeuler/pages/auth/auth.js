@@ -58,6 +58,9 @@ Page(
         }
       });
     },
+    bindNotLogin() {
+      wx.navigateBack();
+    },
     recordoOnChange: function (event) {
       this.setData({
         record: event.detail,
